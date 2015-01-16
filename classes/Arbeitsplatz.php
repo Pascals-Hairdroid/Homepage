@@ -1,4 +1,5 @@
-<?php 
+<?php
+include_once 'Arbeitsplatzausstattung.php';
 class Arbeitsplatz{
 	private $nummer;
 	private $name;

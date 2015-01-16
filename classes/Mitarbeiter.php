@@ -1,4 +1,5 @@
 <?php 
+include_once 'Skill.php';
 class Mitarbeiter {
 	private $svnr;
 	private $vorname;
