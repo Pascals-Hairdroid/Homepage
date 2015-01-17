@@ -45,9 +45,9 @@ class DB_Con {
 	
 	function connect($admin){
 		try{
-			$this->con = mysqli_connect($this->db_address,
-				$admin?$this->db_admin_name:$this->db_user_name,
-				$admin?$this->db_admin_password:$this->db_user_password,
+			$this->con = mysqli_connect($this->db_ADDRESS,
+				$admin?$this->db_ADMIN_NAME:$this->db_USER_NAME,
+				$admin?$this->db_ADMIN_PASSWORD:$this->db_USER_PASSWORD,
 				$this->db_SCHEMA_NAME);
 			$this->authKunde_Id = null;
 		}
@@ -88,11 +88,11 @@ class DB_Con {
 		return $this->query("SELECT * FROM ".$name." WHERE ".$where_clause.";");
 	}
 	
-	function selectQuery($name, $fields){
+	function selectQueryField($name, $fields){
 		return $this->query("SELECT ".$fields." FROM ".$name);
 	}
 	
-	function selectQuery($name){
+	function selectQueryTable($name){
 		return $this->selectQuery($name, "*");
 	}
 	
@@ -104,7 +104,8 @@ class DB_Con {
 	}
 	
 	function __destruct(){
-		mysqli_close($this->con);
+		if($this->con instanceof mysqli)
+			mysqli_close($this->con);
 	}
 	
 	
