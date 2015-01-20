@@ -1,18 +1,21 @@
 <?php 
 include_once 'Skill.php';
+include_once 'Urlaub.php';
 class Mitarbeiter {
 	private $svnr;
 	private $vorname;
 	private $nachname;
 	private $skills = array();
 	private $admin;
+	private $urlaube = array();
 	
-	function __construct($svnr, $vorname, $nachname, array $skills, $admin){
+	function __construct($svnr, $vorname, $nachname, array $skills, $admin, array $urlaube){
 		$this->setSvnr($svnr);
 		$this->setVorname($vorname);
 		$this->setNachname($nachname);
 		$this->setSkills($skills);
 		$this->setAdmin($admin);
+		
 	}
 	
 	function setSvnr($svnr){
@@ -39,7 +42,7 @@ class Mitarbeiter {
 	function setSkills(array $skills){
 		foreach ($skills as $skill){
 			if(!($skill instanceof Skill))
-				throw new Exception("Skills ungültig!");
+				throw new Exception("Skill ungültig!");
 		}
 		$this->skills = $skills;
 	}
@@ -49,6 +52,14 @@ class Mitarbeiter {
 			$this->admin = $admin;
 		else
 			throw new Exception("Admin ungültig!");
+	}
+	
+	function setUrlaube(array $urlaube){
+		foreach ($urlaube as $urlaub){
+			if(!($urlaub instanceof Urlaub))
+				throw new Exception("Urlaub ungültig!");
+		}
+		$this->urlaube = $urlaube;
 	}
 }
 ?>
