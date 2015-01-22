@@ -67,6 +67,22 @@ class DB_Con {
 			throw new Exception("Von-Wert darf nicht größer sein als Bis-Wert!");
 	}
 	
+	function kundeEintragen($email, $vorname, $nachname, $telNr, $freischaltung, $foto){
+		return $this->query("INSERT INTO ".DB_TB_KUNDEN." (".DB_F_KUNDEN_EMAIL.", ".DB_F_KUNDEN_VORNAME.", ".DB_F_KUNDEN_NACHNAME.", ".DB_F_KUNDEN_TELNR.", ".DB_F_KUNDEN_FREISCHALTUNG.", ".DB_F_KUNDEN_FOTO.") VALUES (\"".$email."\", \"".$vorname."\", \"".$nachname."\", \"".$telNr."\", \"".$freischaltung."\", \"".$foto."\")");
+	}
+	
+	function mitarbeiterEintragen($svnr, $vorname, $nachname, $admin){
+		return $this->query("INSERT INTO ".DB_TB_MITARBEITER." (".DB_F_MITARBEITER_SVNR.", ".DB_F_MITARBEITER_VORNAME.", ".DB_F_MITARBEITER_NACHNAME.", ".DB_F_MITARBEITER_ADMIN.") VALUES (\"".$svnr."\", \"".$vorname."\", \"".$nachname."\", \"".$admin."\")");
+	}
+	
+	function skillEintragen($id, $beschreibung){
+		return $this->query("INSERT INTO ".DB_TB_SKILLS." (".DB_F_SKILLS_ID.", ".DB_F_SKILLS_BESCHREIBUNG.") VALUES (\"".$id."\", \"".$beschreibung."\")");
+	}
+	
+	function skillZuweisen($skillId, $mitarbeiterSvnr){
+		return $this->query("INSERT INTO ".DB_TB_MITARBEITER_SKILLS." (".DB_F_SKILLS_ID.", ".DB_F_SKILLS_BESCHREIBUNG.") VALUES (\"".$skillId."\", \"".$mitarbeiterSvnr."\")");
+	}
+	
 	function authentifiziereKunde($kundeId){
 		$row = mysqli_fetch_row($this->selectQuery(DB_TB_KUNDEN, DB_F_KUNDEN_FREISCHALTUNG, DB_F_KUNDEN_ID." = ".$kundeId));
 		if(isset($row[0]))
