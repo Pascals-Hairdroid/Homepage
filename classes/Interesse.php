@@ -1,8 +1,7 @@
 <?php 
-class Produkt{
+class Interesse{
 	private $id;
 	private $bezeichnung;
-	
 	
 	function __construct($id, $bezeichnung){
 		$this->setId($id);
