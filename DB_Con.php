@@ -124,6 +124,5 @@ class DB_Con {
 			mysqli_close($this->con);
 	}
 	
-	
 }
 ?>
