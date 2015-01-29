@@ -1,21 +1,26 @@
 <?php
 include_once 'Skill.php';
 include_once 'Arbeitsplatzausstattung.php';
+include_once 'Haartyp.php';
 class Dienstleistung{
 	private $kuerzel;
+	private $haartyp;
 	private $name;
 	private $benoetigteEinheiten;
 	private $pausenEinheiten;
 	private $skills = array();
 	private $arbeitsplatzausstattungen = array();
+	private $gruppierung;
 	
-	function __construct($kuerzel, $name, $benoetigteEinheiten, $pausenEinheiten, array $skills, array $arbeitsplatzausstattungen){
+	function __construct($kuerzel, Haartyp $haartyp, $name, $benoetigteEinheiten, $pausenEinheiten, array $skills, array $arbeitsplatzausstattungen, $gruppierung){
 		$this->setKuerzel($kuerzel);
 		$this->setName($name);
 		$this->setBenoetigteEinheiten($benoetigteEinheiten);
 		$this->setPausenEinheiten($pausenEinheiten);
 		$this->setSkills($skills);
 		$this->setArbeitsplatzausstattungen($arbeitsplatzausstattungen);
+		$this->setGruppierung($gruppierung);
+		$this->setHaartyp($haartyp);
 	}
 	
 	function setKuerzel($kuerzel){
@@ -23,6 +28,10 @@ class Dienstleistung{
 			$this->kuerzel = $kuerzel;
 		else
 			throw new Exception("Kuerzel ungültig!");
+	}
+	
+	function setHaartyp(Haartyp $haartyp){
+		$this->haartyp = $haartyp;
 	}
 	
 	function setName($name){
@@ -58,5 +67,11 @@ class Dienstleistung{
 			throw new Exception("Arbeitsplatzausstattung ungültig!");
 	}
 	
+	function setGruppierung($gruppierung){
+		if(is_int($gruppierung))
+			$this->gruppierung = $gruppierung;
+		else
+			throw new Exception("Gruppierung ungültig!");
+	}
 }
 ?>

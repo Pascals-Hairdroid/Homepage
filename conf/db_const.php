@@ -21,12 +21,6 @@ const DB_TB_ARBEITSPLATZAUSSTATTUNGEN = "Arbeitsplatzausstattungen";
 const DB_F_ARBEITSPLATZAUSSTATTUNGEN_PK_ID = "ID";
 const DB_F_ARBEITSPLATZAUSSTATTUNGEN_NAME = "Ausstattung";
 
-const DB_TB_DIENSTLEISTUNGEN = "Dienstleistungen";
-const DB_F_DIENSTLEISTUNGEN_PK_KUERZEL = "Kuerzel"; 
-const DB_F_DIENSTLEISTUNGEN_NAME = "Dienstleistung";
-const DB_F_DIENSTLEISTUNGEN_BENOETIGTEEINHEITEN = "BenoetigteEinheiten";
-const DB_F_DIENSTLEISTUNGEN_PAUSENEINHEITEN = "PausenEinheiten";
-
 const DB_TB_WERBUNG = "Werbung";
 const DB_F_WERBUNG_PK_NUMMER = "WerbungsNr";
 
@@ -54,7 +48,18 @@ const DB_TB_WOCHENTAGE = "Wochentage";
 const DB_F_WOCHENTAGE_PK_KUERZEL = "Kuerzel";
 const DB_F_WOCHENTAGE_BEZEICHNUNG = "Bezeichnung";
 
+const DB_TB_HAARTYPEN = "Haartypen";
+const DB_F_HAARTYPEN_PK_KUERZEL = "Kuerzel";
+const DB_F_HAARTYPEN_BEZEICHNUNG = "Bezeichnung";
+
 // MULTI PK
+const DB_TB_DIENSTLEISTUNGEN = "Dienstleistungen";
+const DB_F_DIENSTLEISTUNGEN_PK_KUERZEL = "Kuerzel";
+const DB_F_DIENSTLEISTUNGEN_PK_HAARTYP = "Haartypen_Kuerzel";
+const DB_F_DIENSTLEISTUNGEN_NAME = "Dienstleistung";
+const DB_F_DIENSTLEISTUNGEN_BENOETIGTEEINHEITEN = "BenoetigteEinheiten";
+const DB_F_DIENSTLEISTUNGEN_PAUSENEINHEITEN = "PausenEinheiten";
+
 const DB_TB_URLAUB = "Urlaub";
 const DB_F_URLAUB_PK_MITARBEITER = "Mitarbeiter_SVNr";
 const DB_F_URLAUB_PK_BEGINN = "Beginn";
@@ -75,6 +80,7 @@ const DB_F_ZEITTABELLE_ARBEITSPLATZ = "ArbeitsplatzNr";
 const DB_F_ZEITTABELLE_KUNDE = "Kunden_EMail";
 const DB_F_ZEITTABELLE_FRISURWUNSCH = "FrisurwunschFoto";
 const DB_F_ZEITTABELLE_DIENSTLEISTUNG = "Dienstleistung";
+const DB_F_ZEITTABELLE_DIENSTLEISTUNG_HAARTYP = "Dienstleistungen_Haartypen_Kuerzel";
 
 // M:N Zwischentabellen
 const DB_TB_MITARBEITER_SKILLS = "Mitarbeiter_has_Skills";
