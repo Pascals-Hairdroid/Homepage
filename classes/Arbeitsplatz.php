@@ -31,6 +31,20 @@ class Arbeitsplatz{
 		foreach($ausstattung as $arbeitsplatzausstattung)
 			if(!($arbeitsplatzausstattung instanceof Arbeitsplatzausstattung))
 				throw new Exception("Ausstattung ungültig!");
+		$this->ausstattung = $ausstattung;
+	}
+	
+	
+	function getNummer(){
+			return $this->nummer;
+	}
+	
+	function getName(){
+			return $this->name;
+	}
+	
+	function getAusstattung(){
+		return $this->ausstattung;
 	}
 }
 ?>

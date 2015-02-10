@@ -48,5 +48,30 @@ class Termin {
 	function setDienstleistung(Dienstleistung $dienstleistung){
 		$this->dienstleistung = $dienstleistung;
 	}
+	
+
+	function getZeitstempel(){
+		return $this->zeitstempel;
+	}
+
+	function getMitarbeiter(){
+		return $this->mitarbeiter;
+	}
+
+	function getArbeitsplatz(){
+		return $this->arbeitsplatz;
+	}
+
+	function getKunde(){
+		return $this->kunde;
+	}
+	
+	function getFrisurwunsch(){
+		return $this->frisurwunsch;
+	}
+	
+	function getDienstleistung(){
+		return $this->dienstleistung;
+	}
 }
 ?>

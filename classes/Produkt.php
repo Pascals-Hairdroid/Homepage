@@ -61,5 +61,31 @@ class Produkt{
 			throw new Exception("Bestand ungültig!");
 	}
 	
+	
+	function getId(){
+		$this->id;
+	}
+	
+	function getName(){
+		$this->name;
+	}
+	
+	function getHersteller(){
+		$this->hersteller;
+	}
+	
+	function getBeschreibung(){
+		$this->beschreibung;
+	}
+	
+	function getPreis(){
+		$this->preis;
+	}
+	
+	
+	function getBestand(){
+		$this->bestand;
+	}
+	
 }
 ?>

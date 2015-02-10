@@ -70,5 +70,35 @@ class Kunde {
 		}
 		$this->interessen = $interessen;
 	}
+	
+	
+	function getEmail(){
+		return $this->email;
+	}
+	
+	function getVorname(){
+		return $this->vorname;
+	}
+	
+	function getNachname(){
+		return $this->nachname;
+	}
+	
+
+	function getTelNr(){
+		return $this->telNr;
+	}
+	
+	function getFreischaltung(){
+		return $this->freischaltung;
+	}
+	
+	function getFoto($foto){
+		return $this->foto;
+	}
+	
+	function getInteressen(){
+		return $this->interessen;
+	}
 }
 ?>

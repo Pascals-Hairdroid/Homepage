@@ -22,5 +22,14 @@ class Haartyp{
 		else
 			throw new Exception("Bezeichnung ungültig!");
 	}
+
+
+	function getKuerzel(){
+			return $this->kuerzel;
+	}
+	
+	function getBezeichnung(){
+			return $this->bezeichnung;
+	}
 }
 ?>

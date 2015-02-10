@@ -59,12 +59,14 @@ class Dienstleistung{
 		foreach($skills as $skill)
 		if(!($skill instanceof Skill))
 			throw new Exception("Skill ungültig!");
+		$this->skills = $skills;
 	}
 	
 	function setArbeitsplatzausstattungen(array $arbeitsplatzausstattungen){
 		foreach($arbeitsplatzausstattungen as $arbeitsplatzausstattung)
 		if(!($arbeitsplatzausstattung instanceof Arbeitsplatzausstattung))
 			throw new Exception("Arbeitsplatzausstattung ungültig!");
+		$this->arbeitsplatzausstattungen = $arbeitsplatzausstattungen;
 	}
 	
 	function setGruppierung($gruppierung){
@@ -72,6 +74,39 @@ class Dienstleistung{
 			$this->gruppierung = $gruppierung;
 		else
 			throw new Exception("Gruppierung ungültig!");
+	}
+	
+
+	function getKuerzel($kuerzel){
+			return $this->kuerzel;
+	}
+	
+	function getHaartyp(Haartyp $haartyp){
+		return $this->haartyp;
+	}
+	
+	function getName($name){
+		return $this->name;
+	}
+	
+	function getBenoetigteEinheiten(){
+		return $this->benoetigteEinheiten;
+	}
+	
+	function getPausenEinheiten(){
+		return $this->pausenEinheiten;
+	}
+	
+	function getSkills(){
+		return $this->skills;
+	}
+	
+	function getArbeitsplatzausstattungen(){
+		return $this->arbeitsplatzausstattungen;
+	}
+	
+	function getGruppierung(){
+		return $this->gruppierung;
 	}
 }
 ?>

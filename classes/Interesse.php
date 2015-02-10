@@ -22,5 +22,14 @@ class Interesse{
 		else
 			throw new Exception("Bezeichnung ungültig!");
 	}
+	
+	
+	function getId(){
+			return $this->id;
+	}
+	
+	function getBezeichnung(){
+			return $this->bezeichnung;
+	}
 }
 ?>

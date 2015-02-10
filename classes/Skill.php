@@ -8,6 +8,7 @@ class Skill {
 		$this->setBeschreibung($beschreibung);
 	}
 	
+	
 	function setId($id){
 		if(is_int($id))
 			$this->id = $id;
@@ -20,6 +21,15 @@ class Skill {
 			$this->beschreibung = $beschreibung;
 		else
 			throw new Exception("Beschriebung ungültig!");
+	}
+
+
+	function getId(){
+			return $this->id;
+	}
+	
+	function getBeschreibung(){
+			return $this->beschreibung;
 	}
 }
 ?>

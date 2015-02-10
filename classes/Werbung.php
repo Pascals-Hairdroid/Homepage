@@ -8,6 +8,7 @@ class Werbung {
 		$this->setNummer($nummer);
 		$this->setInteressen($interessen);
 	}
+	
 
 	function setNummer($nummer){
 		if(is_int($nummer))
@@ -22,6 +23,15 @@ class Werbung {
 				throw new Exception("Interesse ungültig!");
 		}
 		$this->interessen = $interessen;
+	}
+
+
+	function getNummer(){
+		return $this->nummer;
+	}
+	
+	function getInteressen(){
+		return $this->interessen;
 	}
 }
 ?>

@@ -22,5 +22,15 @@ class Arbeitsplatzausstattung{
 		else
 			throw new Exception("Name ungültig!");
 	}
+
+	
+	function getId(){
+			return $this->id;
+	}
+	
+	function getName($name){
+			return $this->name;
+	}
+	
 }
 ?>

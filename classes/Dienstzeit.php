@@ -10,7 +10,7 @@ class Dienstzeit{
 		$this->setEnde($ende);
 		$this->setWochentag($wochentag);
 	}
-	
+
 	function setWochentag(Wochentag $wochentag){
 		$this->wochentag = $wochentag;
 	}
@@ -18,10 +18,23 @@ class Dienstzeit{
 	function setBeginn(DateTime $beginn){
 		$this->beginn = $beginn;
 	}
-
+	
 	function setEnde(DateTime $ende){
 		$this->ende = $ende;
 	}
+	
 
+	function getWochentag(){
+		return $this->wochentag;
+	}
+	
+	function getBeginn(){
+		return $this->beginn;
+	}
+	
+	function getEnde(){
+		return $this->ende;
+	}
+	
 }
 ?>

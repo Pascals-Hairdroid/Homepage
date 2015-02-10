@@ -8,6 +8,7 @@ class Wochentag{
 		$this->setBezeichnung($bezeichnung);
 	}
 	
+	
 	function setKuerzel($kuerzel){
 		if(is_string($kuerzel))
 			$this->kuerzel = $kuerzel;
@@ -20,6 +21,15 @@ class Wochentag{
 			$this->bezeichnung = $bezeichnung;
 		else
 			throw new Exception("Bezeichnung ungültig!");
+	}
+	
+	
+	function getKuerzel(){
+		$this->kuerzel;
+	}
+	
+	function getBezeichnung($bezeichnung){
+		$this->bezeichnung;
 	}
 		
 }

@@ -8,12 +8,22 @@ class Urlaub{
 		$this->setEnde($ende);
 	}
 	
+	
 	function setBeginn(DateTime $beginn){
 		$this->beginn = $beginn;
 	}
 	
 	function setEnde(DateTime $ende){
 		$this->ende = $ende;
+	}
+	
+	
+	function getBeginn(){
+		return $this->beginn;
+	}
+	
+	function getEnde(){
+		return $this->ende;
 	}
 	
 }

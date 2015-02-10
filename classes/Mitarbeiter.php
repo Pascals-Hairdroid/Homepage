@@ -15,7 +15,6 @@ class Mitarbeiter {
 		$this->setNachname($nachname);
 		$this->setSkills($skills);
 		$this->setAdmin($admin);
-		
 	}
 	
 	function setSvnr($svnr){
@@ -60,6 +59,31 @@ class Mitarbeiter {
 				throw new Exception("Urlaub ungültig!");
 		}
 		$this->urlaube = $urlaube;
+	}
+
+
+	function getSvnr(){
+		return $this->svnr;
+	}
+	
+	function getVorname(){
+		return $this->vorname;
+	}
+	
+	function getNachname(){
+		return $this->nachname;
+	}
+	
+	function getSkills(){
+		return $this->skills;
+	}
+	
+	function getAdmin(){
+		return $this->admin;
+	}
+	
+	function getUrlaube(){
+		return $this->urlaube;
 	}
 }
 ?>
