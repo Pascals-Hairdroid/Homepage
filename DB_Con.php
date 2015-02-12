@@ -96,6 +96,75 @@ class DB_Con {
 			throw new Exception("User ".$kundenId." nicht gefunden!");
 	}
 	
+	
+	
+	
+	function getWochentag($kuerzel){
+		$row = mysqli_fetch_row($this->selectQuery(DB_TB_WOCHENTAGE, "*", DB_F_WOCHENTAGE_PK_KUERZEL." = \"".$kuerzel."\""));
+		return new Wochentag($row->{DB_F_WOCHENTAGE_PK_KUERZEL},$row->{DB_F_WOCHENTAGE_BEZEICHNUNG});
+	}
+	
+	function getInteresse($id){
+		$row = mysqli_fetch_row($this->selectQuery(DB_TB_INTERESSEN, "*", DB_F_INTERESSEN_PK_ID." = \"".$id."\""));
+		return new Interesse($row->{DB_F_INTERESSEN_PK_ID}, $row->{DB_F_INTERESSEN_BEZEICHNUNG});
+	}
+	
+	function getProdukt($id){
+		$row = mysqli_fetch_row($this->selectQuery(DB_TB_PRODUKTE, "*", DB_F_PRODUKTE_PK_ID." = \"".$id."\""));
+		return new Produkt($row->{DB_F_PRODUKTE_PK_ID}, $row->{DB_F_PRODUKTE_NAME}, $row->{DB_F_PRODUKTE_HERSTELLER}, $row->{DB_F_PRODUKTE_BESCHREIBUNG}, $row->{DB_F_PRODUKTE_PREIS}, $row->{DB_F_PRODUKTE_BESTAND});
+	}
+	
+	function getHaartyp($kuerzel){
+		$row = mysqli_fetch_row($this->selectQuery(DB_TB_HAARTYPEN, "*", DB_F_HAARTYPEN_PK_KUERZEL." = \"".$kuerzel."\""));
+		return new Haartyp($row->{DB_F_HAARTYPEN_PK_KUERZEL}, $row->{DB_F_HAARTYPEN_BEZEICHNUNG});
+	}
+	
+	function getArbeitsplatzausstattung($id){
+		$row = mysqli_fetch_row($this->selectQuery(DB_TB_ARBEITSPLATZAUSSTATTUNGEN, "*", DB_F_ARBEITSPLATZAUSSTATTUNGEN_PK_ID." = \"".$id."\""));
+		return new Arbeitsplatzausstattung($row->{DB_F_ARBEITSPLATZAUSSTATTUNGEN_PK_ID}, $row->{DB_F_ARBEITSPLATZAUSSTATTUNGEN_NAME});
+	}
+
+	function getSkill($id){
+		$row = mysqli_fetch_row($this->selectQuery(DB_TB_SKILLS, "*", DB_F_SKILLS_PK_ID." = \"".$id."\""));
+		return new Skill($row->{DB_F_SKILLS_PK_ID}, $row->{DB_F_SKILLS_BESCHREIBUNG});
+	}
+	
+	
+	function getArbeitsplatz($nummer){
+		$main = mysqli_fetch_row($this->selectQuery(DB_TB_ARBEITSPLATZRESSOURCEN, "*", DB_F_ARBEITSPLATZRESSOURCEN_PK_NUMMER." = \"".$nummer."\""));
+		$abf = $this->selectQuery(DB_VIEW_ARBEITSPLATZRESSOURCEN_ARBEITSPLATZAUSSTATTUNGEN, "*", DB_TB_ARBEITSPLATZRESSOURCEN_ARBEITSPLATZAUSSTATTUNGEN.".".DB_F_ARBEITSPLATZRESSOURCEN_ARBEITSPLATZAUSSTATTUNGEN_PK_ARBEITSPLATZRESSOURCEN." = \"".$nummer."\"");
+		$ausstattungen = array();
+		while ($row = mysqli_fetch_row($abf)){
+			array_push($ausstattungen, new Arbeitsplatzausstattung($row->{DB_TB_ARBEITSPLATZAUSSTATTUNGEN.".".DB_F_ARBEITSPLATZAUSSTATTUNGEN_PK_ID}, $ausstattung->{DB_TB_ARBEITSPLATZAUSSTATTUNGEN.".".DB_F_ARBEITSPLATZAUSSTATTUNGEN_NAME}));
+		}
+		return new Arbeitsplatz($nummer, $main->{DB_F_ARBEITSPLATZRESSOURCEN_NAME}, $ausstattung);
+	}
+	
+	function getDienstleistung($kuerzel,Haartyp $haartyp){
+		$main = mysqli_fetch_row($this->selectQuery(DB_TB_DIENSTLEISTUNGEN, "*", DB_F_DIENSTLEISTUNGEN_PK_KUERZEL." = \"".$kuerzel."\" AND ".DB_F_DIENSTLEISTUNGEN_PK_HAARTYP." = \"".$haartyp->getKuerzel()."\""));
+		$abf = $this->selectQuery(DB_VIEW_DIENSTLEISTUNGEN_ARBEITSPLATZAUSSTATTUNGEN, "*", DB_TB_DIENSTLEISTUNGEN_ARBEITSPLATZAUSSTATTUNGEN.".".DB_F_DIENSTLEISTUNGEN_ARBEITSPLATZAUSSTATTUNGEN_PK_DIENSTLEISTUNGEN." = \"".$kuerzel."\"");
+		$ausstattungen = array();
+		while ($row = mysqli_fetch_row($abf)){
+			array_push($ausstattungen, new Arbeitsplatzausstattung($row->{DB_TB_ARBEITSPLATZAUSSTATTUNGEN.".".DB_F_ARBEITSPLATZAUSSTATTUNGEN_PK_ID}, $ausstattung->{DB_TB_ARBEITSPLATZAUSSTATTUNGEN.".".DB_F_ARBEITSPLATZAUSSTATTUNGEN_NAME}));
+		}
+		$abf = $this->selectQuery(DB_VIEW_DIENSTLEISTUNGEN_SKILLS, "*", DB_TB_DIENSTLEISTUNGEN_SKILLS.".".DB_F_DIENSTLEISTUNGEN_SKILLS_PK_DIENSTLEISTUNGEN." = \"".$kuerzel."\"");
+		$skills = array();
+		while ($row = mysqli_fetch_row($abf)){
+			array_push($skills, new Skill($row->{DB_TB_SKILLS.".".DB_F_SKILLS_PK_ID}, $row->{DB_TB_SKILLS.".".DB_F_SKILLS_BESCHREIBUNG}));
+		}
+		
+		return new Dienstleistung($kuerzel, $haartyp, $main->{DB_F_DIENSTLEISTUNGEN_NAME}, $main->{DB_F_DIENSTLEISTUNGEN_BENOETIGTEEINHEITEN}, $main->{DB_F_DIENSTLEISTUNGEN_PAUSENEINHEITEN}, $skills, $ausstattungen, $main->{DB_F_DIENSTLEISTUNGEN_GRUPPIERUNG});
+	}
+	
+	function getDienstzeit(Mitarbeiter $mitarbeiter, Wochentag $wochentag){
+		$main = mysqli_fetch_row($this->selectQuery(DB_TB_DIENSTZEITEN, "*", DB_F_DIENSTZEITEN_PK_MITARBEITER." = \"".$mitarbeiter->getSvnr()."\" AND ".DB_F_DIENSTZEITEN_PK_WOCHENTAGE." = \"".$wochentag->getKuerzel()."\""));
+		return new Dienstzeit($wochentag, new DateTime($main->{DB_F_DIENSTZEITEN_BEGINN}), new DateTime($main->{DB_F_DIENSTZEITEN_ENDE}));
+	}
+	
+	
+	
+	
+	
 	function call($name, $params){
 		return $this->query("CALL ".$name."(".$params.");");
 	}
