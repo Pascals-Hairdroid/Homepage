@@ -56,32 +56,37 @@ class DB_Con {
 		}
 	}
 	
-	function terminEintragen($beginn, $dienstleistung, $mitarbeiterId, $kundeId, $arbeitsplatzId, $foto){
-		return $this->call(DB_PC_TERMIN_EINTRAGEN, $beginn.",".$dienstleistung.",".$mitarbeiterId.",".$kundeId.",".$arbeitsplatzId.",".$foto);
+	function terminEintragen($beginn, $dienstleistungId, $mitarbeiterId, $kundeId, $arbeitsplatzId, $foto){
+		return $this->call(DB_PC_TERMIN_EINTRAGEN, $beginn.",".$dienstleistungId.",".$mitarbeiterId.",".$kundeId.",".$arbeitsplatzId.",".$foto);
 	}
 	
-	function getFreieTermine($von, $bis){
-		if($von <= $bis)
-			return $this->call(DB_PC_FREIE_TERMINE, $von." , ".$bis);
+	function getFreieTermine(DateTime $von, DateTime $bis){
+		if($von->format("U") <= $bis->format("U"))
+			return  $this->call(DB_PC_FREIE_TERMINE, $von." , ".$bis);
 		else
 			throw new Exception("Von-Wert darf nicht größer sein als Bis-Wert!");
 	}
 	
-	function kundeEintragen($email, $vorname, $nachname, $telNr, $freischaltung, $foto){
-		return $this->query("INSERT INTO ".DB_TB_KUNDEN." (".DB_F_KUNDEN_EMAIL.", ".DB_F_KUNDEN_VORNAME.", ".DB_F_KUNDEN_NACHNAME.", ".DB_F_KUNDEN_TELNR.", ".DB_F_KUNDEN_FREISCHALTUNG.", ".DB_F_KUNDEN_FOTO.") VALUES (\"".$email."\", \"".$vorname."\", \"".$nachname."\", \"".$telNr."\", \"".$freischaltung."\", \"".$foto."\")");
+	function kundeEintragen(Kunde $kunde){
+		return $this->query("INSERT INTO ".DB_TB_KUNDEN." (".DB_F_KUNDEN_EMAIL.", ".DB_F_KUNDEN_VORNAME.", ".DB_F_KUNDEN_NACHNAME.", ".DB_F_KUNDEN_TELNR.", ".DB_F_KUNDEN_FREISCHALTUNG.", ".DB_F_KUNDEN_FOTO.") VALUES (\"".$kunde->getEmail()."\", \"".$kunde->getVorname()."\", \"".$kunde->getNachname()."\", \"".$kunde->getTelNr()."\", \"".$kunde->getFreischaltung()."\", \"".$kunde->getFoto()."\")");
+	}
+
+	function skillZuweisen(Skill $skill, Mitarbeiter $mitarbeiter){
+		return $this->query("INSERT INTO ".DB_TB_MITARBEITER_SKILLS." (".DB_F_MITARBEITER_SKILLS_PK_SKILLS.", ".DB_F_MITARBEITER_SKILLS_PK_MITARBEITER.") VALUES (\"".$skill->getId()."\", \"".$mitarbeiter->getSvnr()."\")");
 	}
 	
-	function mitarbeiterEintragen($svnr, $vorname, $nachname, $admin){
-		return $this->query("INSERT INTO ".DB_TB_MITARBEITER." (".DB_F_MITARBEITER_SVNR.", ".DB_F_MITARBEITER_VORNAME.", ".DB_F_MITARBEITER_NACHNAME.", ".DB_F_MITARBEITER_ADMIN.") VALUES (\"".$svnr."\", \"".$vorname."\", \"".$nachname."\", \"".$admin."\")");
+	function skillEintragen(Skill $skill){
+		return $this->query("INSERT INTO ".DB_TB_SKILLS." (".DB_F_SKILLS_ID.", ".DB_F_SKILLS_BESCHREIBUNG.") VALUES (\"".$skill->getId()."\", \"".$skill->getBeschreibung()."\")");
 	}
 	
-	function skillEintragen($id, $beschreibung){
-		return $this->query("INSERT INTO ".DB_TB_SKILLS." (".DB_F_SKILLS_ID.", ".DB_F_SKILLS_BESCHREIBUNG.") VALUES (\"".$id."\", \"".$beschreibung."\")");
+	function mitarbeiterEintragen(Mitarbeiter $mitarbeiter){
+		$main = $this->query("INSERT INTO ".DB_TB_MITARBEITER." (".DB_F_MITARBEITER_SVNR.", ".DB_F_MITARBEITER_VORNAME.", ".DB_F_MITARBEITER_NACHNAME.", ".DB_F_MITARBEITER_ADMIN.") VALUES (\"".$mitarbeiter->getSvnr()."\", \"".$mitarbeiter->getVorname()."\", \"".$mitarbeiter->getNachname()."\", \"".$mitarbeiter->getAdmin()."\")");
+		foreach ($mitarbeiter->getSkills() as $skill){
+			if($skill instanceof Skill)
+				$this->skillZuweisen($skill, $mitarbeiter);
+		} 
 	}
 	
-	function skillZuweisen($skillId, $mitarbeiterSvnr){
-		return $this->query("INSERT INTO ".DB_TB_MITARBEITER_SKILLS." (".DB_F_SKILLS_ID.", ".DB_F_SKILLS_BESCHREIBUNG.") VALUES (\"".$skillId."\", \"".$mitarbeiterSvnr."\")");
-	}
 	
 	function authentifiziereKunde($kundeId){
 		$row = mysqli_fetch_row($this->selectQuery(DB_TB_KUNDEN, DB_F_KUNDEN_FREISCHALTUNG, DB_F_KUNDEN_ID." = ".$kundeId));
@@ -132,25 +137,25 @@ class DB_Con {
 	
 	function getArbeitsplatz($nummer){
 		$main = mysqli_fetch_row($this->selectQuery(DB_TB_ARBEITSPLATZRESSOURCEN, "*", DB_F_ARBEITSPLATZRESSOURCEN_PK_NUMMER." = \"".$nummer."\""));
-		$abf = $this->selectQuery(DB_VIEW_ARBEITSPLATZRESSOURCEN_ARBEITSPLATZAUSSTATTUNGEN, "*", DB_TB_ARBEITSPLATZRESSOURCEN_ARBEITSPLATZAUSSTATTUNGEN.".".DB_F_ARBEITSPLATZRESSOURCEN_ARBEITSPLATZAUSSTATTUNGEN_PK_ARBEITSPLATZRESSOURCEN." = \"".$nummer."\"");
+		$abf = $this->selectQuery(DB_VIEW_ARBEITSPLATZRESSOURCEN_ARBEITSPLATZAUSSTATTUNGEN, "*", DB_F_ARBEITSPLATZRESSOURCEN_ARBEITSPLATZAUSSTATTUNGEN_PK_ARBEITSPLATZRESSOURCEN." = \"".$nummer."\"");
 		$ausstattungen = array();
 		while ($row = mysqli_fetch_row($abf)){
-			array_push($ausstattungen, new Arbeitsplatzausstattung($row->{DB_TB_ARBEITSPLATZAUSSTATTUNGEN.".".DB_F_ARBEITSPLATZAUSSTATTUNGEN_PK_ID}, $ausstattung->{DB_TB_ARBEITSPLATZAUSSTATTUNGEN.".".DB_F_ARBEITSPLATZAUSSTATTUNGEN_NAME}));
+			array_push($ausstattungen, new Arbeitsplatzausstattung($row->{DB_F_ARBEITSPLATZAUSSTATTUNGEN_PK_ID}, $ausstattung->{DB_F_ARBEITSPLATZAUSSTATTUNGEN_NAME}));
 		}
 		return new Arbeitsplatz($nummer, $main->{DB_F_ARBEITSPLATZRESSOURCEN_NAME}, $ausstattung);
 	}
 	
 	function getDienstleistung($kuerzel,Haartyp $haartyp){
 		$main = mysqli_fetch_row($this->selectQuery(DB_TB_DIENSTLEISTUNGEN, "*", DB_F_DIENSTLEISTUNGEN_PK_KUERZEL." = \"".$kuerzel."\" AND ".DB_F_DIENSTLEISTUNGEN_PK_HAARTYP." = \"".$haartyp->getKuerzel()."\""));
-		$abf = $this->selectQuery(DB_VIEW_DIENSTLEISTUNGEN_ARBEITSPLATZAUSSTATTUNGEN, "*", DB_TB_DIENSTLEISTUNGEN_ARBEITSPLATZAUSSTATTUNGEN.".".DB_F_DIENSTLEISTUNGEN_ARBEITSPLATZAUSSTATTUNGEN_PK_DIENSTLEISTUNGEN." = \"".$kuerzel."\"");
+		$abf = $this->selectQuery(DB_VIEW_DIENSTLEISTUNGEN_ARBEITSPLATZAUSSTATTUNGEN, "*", DB_F_DIENSTLEISTUNGEN_ARBEITSPLATZAUSSTATTUNGEN_PK_DIENSTLEISTUNGEN." = \"".$kuerzel."\"");
 		$ausstattungen = array();
 		while ($row = mysqli_fetch_row($abf)){
-			array_push($ausstattungen, new Arbeitsplatzausstattung($row->{DB_TB_ARBEITSPLATZAUSSTATTUNGEN.".".DB_F_ARBEITSPLATZAUSSTATTUNGEN_PK_ID}, $ausstattung->{DB_TB_ARBEITSPLATZAUSSTATTUNGEN.".".DB_F_ARBEITSPLATZAUSSTATTUNGEN_NAME}));
+			array_push($ausstattungen, new Arbeitsplatzausstattung($row->{DB_F_ARBEITSPLATZAUSSTATTUNGEN_PK_ID}, $ausstattung->{DB_F_ARBEITSPLATZAUSSTATTUNGEN_NAME}));
 		}
-		$abf = $this->selectQuery(DB_VIEW_DIENSTLEISTUNGEN_SKILLS, "*", DB_TB_DIENSTLEISTUNGEN_SKILLS.".".DB_F_DIENSTLEISTUNGEN_SKILLS_PK_DIENSTLEISTUNGEN." = \"".$kuerzel."\"");
+		$abf = $this->selectQuery(DB_VIEW_DIENSTLEISTUNGEN_SKILLS, "*", DB_F_DIENSTLEISTUNGEN_SKILLS_PK_DIENSTLEISTUNGEN." = \"".$kuerzel."\"");
 		$skills = array();
 		while ($row = mysqli_fetch_row($abf)){
-			array_push($skills, new Skill($row->{DB_TB_SKILLS.".".DB_F_SKILLS_PK_ID}, $row->{DB_TB_SKILLS.".".DB_F_SKILLS_BESCHREIBUNG}));
+			array_push($skills, new Skill($row->{DB_F_SKILLS_PK_ID}, $row->{DB_F_SKILLS_BESCHREIBUNG}));
 		}
 		
 		return new Dienstleistung($kuerzel, $haartyp, $main->{DB_F_DIENSTLEISTUNGEN_NAME}, $main->{DB_F_DIENSTLEISTUNGEN_BENOETIGTEEINHEITEN}, $main->{DB_F_DIENSTLEISTUNGEN_PAUSENEINHEITEN}, $skills, $ausstattungen, $main->{DB_F_DIENSTLEISTUNGEN_GRUPPIERUNG});
@@ -192,6 +197,5 @@ class DB_Con {
 		if($this->con instanceof mysqli)
 			mysqli_close($this->con);
 	}
-	
 }
 ?>

@@ -93,7 +93,7 @@ class Kunde {
 		return $this->freischaltung;
 	}
 	
-	function getFoto($foto){
+	function getFoto(){
 		return $this->foto;
 	}
 	
