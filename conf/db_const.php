@@ -61,10 +61,10 @@ const DB_F_DIENSTLEISTUNGEN_BENOETIGTEEINHEITEN = "BenoetigteEinheiten";
 const DB_F_DIENSTLEISTUNGEN_PAUSENEINHEITEN = "PausenEinheiten";
 const DB_F_DIENSTLEISTUNGEN_GRUPPIERUNG = "Gruppierung";
 
-const DB_TB_URLAUB = "Urlaub";
-const DB_F_URLAUB_PK_MITARBEITER = "Mitarbeiter_SVNr";
-const DB_F_URLAUB_PK_BEGINN = "Beginn";
-const DB_F_URLAUB_ENDE = "Ende";
+const DB_TB_URLAUBE = "Urlaub";
+const DB_F_URLAUBE_PK_MITARBEITER = "Mitarbeiter_SVNr";
+const DB_F_URLAUBE_PK_BEGINN = "Beginn";
+const DB_F_URLAUBE_ENDE = "Ende";
 
 // Zwischentabellen (MULTI PK)
 // Informationenbeinhaltende Zwischentabellen
@@ -111,14 +111,38 @@ const DB_F_KUNDEN_INTERESSEN_PK_INTERESSEN = "Interessen_ID";
 
 // Views
 
-const DB_VIEW_ZEITTABELLE = "View_Zeittabelle"; 
-const DB_VIEW_DIENSTLEISTUNGEN_SKILLS = "";
-const DB_VIEW_DIENSTLEISTUNGEN_ARBEITSPLATZAUSSTATTUNGEN= "";
+const DB_VIEW_ZEITTABELLE = "View_Zeittabelle";
+const DB_F_VIEW_ZEITTABELE_MITARBEITER_VORNAME = "Mitarbeiitervorname";
+const DB_F_VIEW_ZEITTABELE_MITARBEITER_NACHNAME = "Mitarbeiiternachname";
+const DB_F_VIEW_ZEITTABELE_DIENSTLEISTUNG = "Dienstleistung";
+const DB_F_VIEW_ZEITTABELE_KUNDEN_VORNAME = "Kundenvorname";
+const DB_F_VIEW_ZEITTABELE_KUNDEN_NACHNAME = "Kundennachname";
+const DB_F_VIEW_ZEITTABELE_KUNDEN_TELNR = "Kundennummer";
+const DB_F_VIEW_ZEITTABELE_ARBEITSPLATZRESSOURCEN_NAME = "Arbeitsplatz";
 
-const DB_VIEW_ARBEITSPLATZRESSOURCEN_ARBEITSPLATZAUSSTATTUNGEN = "";
+const DB_VIEW_DIENSTLEISTUNGEN_SKILLS = "View_Dienstleistungen_Skills";
 
+const DB_VIEW_DIENSTLEISTUNGEN_ARBEITSPLATZAUSSTATTUNGEN= "View_Dienstleistungen_Arbeitsplatzausstattung";
+
+const DB_VIEW_ARBEITSPLATZRESSOURCEN_ARBEITSPLATZAUSSTATTUNGEN = "View_Arbeitsplatzressourcen_Arbeitsplatzausstattung";
+
+const DB_VIEW_ARBEITSPLATZAUSSTATTUNGEN_ARBEITSPLATZRESSOURCEN = "View_Arbeitplatzausstattung_Arbeitsplatzressourcen";
 
 const DB_VIEW_MITARBEITER_SKILLS = "View_MitarbeiterSkills";
+
+const DB_VIEW_KUNDEN_INTERESSEN = "View_Kunden_Interessen";
+
+const DB_VIEW_ARBEITSPLATZAUSSTATTUNGEN_DIENSTLEISTUNGEN = "View_Arbeitsplatzausstattung_Dienstleistungen";
+
+const DB_VIEW_INTERESSEN_WERBUNG = "View_Interessen_Werbung";
+
+const DB_VIEW_MITARBEITERSKILLS = "View_MitarbeiterSkills";
+
+const DB_VIEW_SKILLS_DIENSTLEISTUNGEN = "View_Skills_Dienstleistungen";
+
+const DB_VIEW_SKILLS_MITARBEITER = "View_Skills_Mitarbeiter";
+
+const DB_VIEW_WERBUNG_INTERESSEN = "View_Werbung_Interessen";
 
 
 
