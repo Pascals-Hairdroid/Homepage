@@ -166,6 +166,31 @@ class DB_Con {
 		return new Dienstzeit($wochentag, new DateTime($main->{DB_F_DIENSTZEITEN_BEGINN}), new DateTime($main->{DB_F_DIENSTZEITEN_ENDE}));
 	}
 	
+	function getKunde($email){
+		$main = mysqli_fetch_row($this->selectQuery(DB_TB_KUNDEN, "*", DB_F_KUNDEN_PK_EMAIL." = \"".$email."\""));
+		
+		
+		
+		
+		$abf = $this->selectQuery(, "*", DB_F_DIENSTLEISTUNGEN_ARBEITSPLATZAUSSTATTUNGEN_PK_DIENSTLEISTUNGEN." = \"".$kuerzel."\"");
+		$ausstattungen = array();
+		while ($row = mysqli_fetch_row($abf)){
+			array_push($ausstattungen, new Arbeitsplatzausstattung($row->{DB_F_ARBEITSPLATZAUSSTATTUNGEN_PK_ID}, $ausstattung->{DB_F_ARBEITSPLATZAUSSTATTUNGEN_NAME}));
+		}
+		$abf = $this->selectQuery(DB_VIEW_DIENSTLEISTUNGEN_SKILLS, "*", DB_F_DIENSTLEISTUNGEN_SKILLS_PK_DIENSTLEISTUNGEN." = \"".$kuerzel."\"");
+		$skills = array();
+		while ($row = mysqli_fetch_row($abf)){
+			array_push($skills, new Skill($row->{DB_F_SKILLS_PK_ID}, $row->{DB_F_SKILLS_BESCHREIBUNG}));
+		}
+		
+		return new Dienstleistung($kuerzel, $haartyp, $main->{DB_F_DIENSTLEISTUNGEN_NAME}, $main->{DB_F_DIENSTLEISTUNGEN_BENOETIGTEEINHEITEN}, $main->{DB_F_DIENSTLEISTUNGEN_PAUSENEINHEITEN}, $skills, $ausstattungen, $main->{DB_F_DIENSTLEISTUNGEN_GRUPPIERUNG});
+	
+	
+	
+	
+	
+	}
+	
 	
 	
 	
