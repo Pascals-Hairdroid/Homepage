@@ -1,7 +1,5 @@
 <?php 
-// FORMATE
-const DB_FORMAT_DATETIME = "Y-m-d H:i:s";
-const DB_FORMAT_TIME = "H:i:s";
+
 
 // TABELLEN
 
