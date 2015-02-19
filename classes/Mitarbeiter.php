@@ -1,6 +1,8 @@
 <?php 
 include_once 'Skill.php';
 include_once 'Urlaub.php';
+include_once 'Dienstzeit.php';
+
 class Mitarbeiter {
 	private $svnr;
 	private $vorname;
@@ -8,13 +10,15 @@ class Mitarbeiter {
 	private $skills = array();
 	private $admin;
 	private $urlaube = array();
+	private $dienstzeiten = array();
 	
-	function __construct($svnr, $vorname, $nachname, array $skills, $admin, array $urlaube){
+	function __construct($svnr, $vorname, $nachname, array $skills, $admin, array $urlaube, array $dienstzeiten){
 		$this->setSvnr($svnr);
 		$this->setVorname($vorname);
 		$this->setNachname($nachname);
 		$this->setSkills($skills);
 		$this->setAdmin($admin);
+		$this->setDienstzeiten($dienstzeiten);
 	}
 	
 	function setSvnr($svnr){
@@ -60,7 +64,15 @@ class Mitarbeiter {
 		}
 		$this->urlaube = $urlaube;
 	}
-
+	
+	function setDienstzeiten(array $dienstzeiten){
+		foreach ($dienstzeiten as $dienstzeit){
+			if(!($dienstzeit instanceof Dienstzeit))
+				throw new Exception("Dienstzeit ungültig!");
+		}
+		$this->dienstzeiten = $dienstzeiten;
+	}
+	
 
 	function getSvnr(){
 		return $this->svnr;
@@ -84,6 +96,10 @@ class Mitarbeiter {
 	
 	function getUrlaube(){
 		return $this->urlaube;
+	}
+	
+	function getDienstzeiten(){
+		return $this->dienstzeiten;
 	}
 }
 ?>

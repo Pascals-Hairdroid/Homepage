@@ -28,7 +28,7 @@ class Arbeitsplatzausstattung{
 			return $this->id;
 	}
 	
-	function getName($name){
+	function getName(){
 			return $this->name;
 	}
 	
