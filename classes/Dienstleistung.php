@@ -77,15 +77,15 @@ class Dienstleistung{
 	}
 	
 
-	function getKuerzel($kuerzel){
+	function getKuerzel(){
 			return $this->kuerzel;
 	}
 	
-	function getHaartyp(Haartyp $haartyp){
+	function getHaartyp(){
 		return $this->haartyp;
 	}
 	
-	function getName($name){
+	function getName(){
 		return $this->name;
 	}
 	
