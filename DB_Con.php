@@ -92,6 +92,127 @@ class DB_Con {
 	}
 	
 	
+	
+	function skillEntfernen(Skill $skill){
+		return $this->query("DELETE FROM ".DB_TB_SKILLS." WHERE ".DB_F_SKILLS_PK_ID."=\"".$skill->getId()."\"")===TRUE;
+	}
+	
+	function skillMitarbeiterZuweisungEntfernen(Skill $skill, Mitarbeiter $mitarbeiter){
+		return $this->query("DELETE FROM ".DB_TB_MITARBEITER_SKILLS." WHERE ".DB_F_MITARBEITER_SKILLS_PK_SKILLS."=\"".$skill->getId()."\" AND ".DB_F_MITARBEITER_SKILLS_PK_MITARBEITER."=\"".$mitarbeiter->getSvnr()."\"")===TRUE;
+	}
+	
+	function skillDienstleistungZuweisungEntfernen(Skill $skill, Dienstleistung $dienstleistung){
+		return $this->query("DELETE FROM ".DB_TB_DIENSTLEISTUNGEN_SKILLS." WHERE ".DB_F_DIENSTLEISTUNGEN_SKILLS_PK_SKILLS."=\"".$skill->getId()."\" AND ".DB_F_DIENSTLEISTUNGEN_SKILLS_PK_DIENSTLEISTUNGEN."=\"".mysqli_escape_string($this->con,$dienstleistung->getKuerzel())."\"")===TRUE;
+	}
+	
+	function haartypEntfernen(Haartyp $haartyp){
+		return $this->query("DELETE FROM ".DB_TB_HAARTYPEN." WHERE ".DB_F_HAARTYPEN_PK_KUERZEL."=\"".mysqli_escape_string($this->con,$haartyp->getKuerzel())."\"")===TRUE;
+	}
+	
+	function interesseEntfernen(Interesse $interesse){
+		return $this->query("DELETE FROM ".DB_TB_INTERESSEN." WHERE ".DB_F_INTERESSEN_PK_ID."=\"".$interesse->getId()."\"")===TRUE;
+	}
+	
+	function interesseKundeZuweisungEntfernen(Interesse $interesse, Kunde $kunde){
+		return $this->query("DELETE FROM ".DB_TB_KUNDEN_INTERESSEN." WHERE ".DB_F_KUNDEN_INTERESSEN_PK_INTERESSEN."=\"".$interesse->getId()."\" AND ".DB_F_KUNDEN_INTERESSEN_PK_KUNDEN."=\"".mysqli_escape_string($this->con,$kunde->getEmail())."\"")===TRUE;
+	}
+	
+	function interesseWerbungZuweisungEntfernen(Interesse $interesse, Werbung $werbung){
+		return $this->query("DELETE FROM ".DB_TB_WERBUNG_INTERESSEN." WHERE ".DB_F_WERBUNG_INTERESSEN_PK_INTERESSEN."=\"".$interesse->getId()."\" AND ".DB_F_WERBUNG_INTERESSEN_PK_WERBUNG."=\"".$werbung->getNummer()."\"")===TRUE;
+	}
+	
+	function arbeitsplatzausstattungEntfernen(Arbeitsplatzausstattung $ausstattung){
+		return $this->query("DELETE FROM ".DB_TB_ARBEITSPLATZAUSSTATTUNGEN." WHERE ".DB_F_ARBEITSPLATZAUSSTATTUNGEN_PK_ID."=\"".$ausstattung->getId()."\"")===TRUE;
+	}
+	
+	function arbeitsplatzausstattungArbeitsplatzZuweisungEntfernen(Arbeitsplatzausstattung $ausstattung, Arbeitsplatz $arbeitsplatz){
+		return $this->query("DELETE FROM ".DB_TB_ARBEITSPLATZRESSOURCEN_ARBEITSPLATZAUSSTATTUNGEN." WHERE ".DB_F_ARBEITSPLATZRESSOURCEN_ARBEITSPLATZAUSSTATTUNGEN_PK_ARBEITSPLATZAUSSTATTUNGEN."=\"".$ausstattung->getId()."\" AND ".DB_F_ARBEITSPLATZRESSOURCEN_ARBEITSPLATZAUSSTATTUNGEN_PK_ARBEITSPLATZRESSOURCEN."=\"".$arbeitsplatz->getNummer()."\"")===TRUE;
+	}
+	
+	function arbeitsplatzausstattungDienstleistungZuweisungEntfernen(Arbeitsplatzausstattung $ausstattung, Dienstleistung $dienstleistung){
+		return $this->query("DELETE FROM ".DB_TB_DIENSTLEISTUNGEN_ARBEITSPLATZAUSSTATTUNGEN." WHERE ".DB_F_DIENSTLEISTUNGEN_ARBEITSPLATZAUSSTATTUNGEN_PK_ARBEITSPLATZAUSSTATTUNGEN."=\"".$ausstattung->getId()."\" AND ".DB_F_DIENSTLEISTUNGEN_ARBEITSPLATZAUSSTATTUNGEN_PK_DIENSTLEISTUNGEN."=\"".mysqli_escape_string($this->con,$dienstleistung->getKuerzel())."\"")===TRUE;
+	}
+	
+	function produktEntfernen(Produkt $produkt){
+		return $this->query("DELETE FROM ".DB_TB_PRODUKTE." WHERE ".DB_F_PRODUKTE_PK_ID."=\"".$produkt->getId()."\"")===TRUE;
+	}
+	
+	function wochentagEntfernen(Wochentag $wochentag){
+		return $this->query("DELETE FROM ".DB_TB_WOCHENTAGE." WHERE ".DB_F_WOCHENTAGE_PK_KUERZEL."=\"".mysqli_escape_string($this->con,$wochentag->getKuerzel())."\"")===TRUE;
+	}
+	
+	function urlaubEntfernen(Urlaub $urlaub, Mitarbeiter $mitarbeiter){
+		return $this->query("DELETE FROM ".DB_TB_URLAUBE." WHERE ".DB_F_URLAUBE_PK_BEGINN."=\"".$urlaub->getBeginn()->format(DB_FORMAT_DATETIME)."\" AND ".DB_F_URLAUBE_PK_MITARBEITER."=\"".$mitarbeiter->getSvnr()."\"")===TRUE;
+	}
+	
+	function dienstzeitEntfernen(Dienstzeit $dienstzeit, Mitarbeiter $mitarbeiter){
+		return $this->query("DELETE FROM ".DB_TB_DIENSTZEITEN." WHERE ".DB_F_DIENSTZEITEN_PK_WOCHENTAGE."=\"".mysqli_escape_string($this->con,$dienstzeit->getWochentag()->getKuerzel())."\" AND ".DB_F_DIENSTZEITEN_PK_MITARBEITER."=\"".$mitarbeiter->getSvnr()."\"")===TRUE;
+	}	
+	
+	function werbungEntfernen(Werbung $werbung){
+		$success = true;
+		foreach ($werbung->getInteressen() as $interesse){
+			if($interesse instanceof Interesse)
+				$success=$success?$this->interesseWerbungZuweisungEntfernen($interesse, $werbung):$success;
+		}
+		$success=$success?$this->query("DELETE FROM ".DB_TB_WERBUNG." WHERE ".DB_F_WERBUNG_PK_NUMMER."=\"".$werbung->getNummer()."\"")===TRUE:$success;
+		return $success;
+	}
+	
+	function arbeitsplatzEntfernen(Arbeitsplatz $arbeitsplatz){
+		$success = true;
+		foreach ($arbeitsplatz->getAusstattung() as $ausstattung){
+			if($ausstattung instanceof Arbeitsplatzausstattung)
+				$success=$success?$this->arbeitsplatzausstattungArbeitsplatzZuweisungEntfernen($ausstattung, $arbeitsplatz):$success;
+		}
+		$success=$success?$this->query("DELETE FROM ".DB_TB_ARBEITSPLATZRESSOURCEN." WHERE ".DB_F_ARBEITSPLATZRESSOURCEN_PK_NUMMER."=\"".$arbeitsplatz->getNummer()."\"")===TRUE:$success;
+		return $success;
+	}
+	
+	function mitarbeiterEntfernen(Mitarbeiter $mitarbeiter){
+		$success = true;
+		foreach ($mitarbeiter->getSkills() as $skill){
+			if($skill instanceof Skill)
+				$success=$success?$this->skillMitarbeiterZuweisungEntfernen($skill, $mitarbeiter):$success;
+		}
+		foreach ($mitarbeiter->getUrlaube() as $urlaub){
+			if($urlaub instanceof Urlaub)
+				$success=$success?$this->urlaubEntfernen($urlaub, $mitarbeiter):$success;
+		}
+		foreach ($mitarbeiter->getDienstzeiten() as $dienstzeit){
+			if($dienstzeit instanceof Dienstzeit)
+				$success=$success?$this->dienstzeitEntfernen($dienstzeit, $mitarbeiter):$success;
+		}
+		$success=$success?$this->query("DELETE FROM ".DB_TB_MITARBEITER." WHERE ".DB_F_MITARBEITER_PK_SVNR."=\"".$mitarbeiter->getSvnr()."\"")===TRUE:$success;
+		return $success;
+	}
+	
+	function kundeEntfernen(Kunde $kunde){
+		$success = true;
+		foreach ($kunde->getInteressen() as $interesse){
+			if($interesse instanceof Interesse)
+				$success=$success?$this->interesseKundeZuweisungEntfernen($interesse, $kunde):$success;
+		}
+		$success=$success?$this->query("DELETE FROM ".DB_TB_KUNDEN." WHERE ".DB_F_KUNDEN_PK_EMAIL."=\"".mysqli_escape_string($this->con,$kunde->getEmail())."\"")===TRUE:$success;
+		return $success;
+	}
+	
+	function dienstleistungEntfernen(Dienstleistung $dienstleistung){
+		$success = true;
+		foreach ($dienstleistung->getSkills() as $skill){
+			if($skill instanceof Skill)
+				$success=$success?$this->skillDienstleistungZuweisungEntfernen($skill, $dienstleistung):$success;
+		}
+		foreach ($dienstleistung->getArbeitsplatzausstattungen() as $ausstattung){
+			if($ausstattung instanceof Arbeitsplatzausstattung)
+				$success=$success?$this->arbeitsplatzausstattungDienstleistungZuweisungEntfernen($ausstattung, $dienstleistung):$success;
+		}
+		$success=$success?$this->query("DELETE FROM ".DB_TB_DIENSTLEISTUNGEN." WHERE ".DB_F_DIENSTLEISTUNGEN_PK_KUERZEL."=\"".mysqli_escape_string($this->con,$dienstleistung->getKuerzel())."\" AND ".DB_F_DIENSTLEISTUNGEN_PK_HAARTYP."=\"".mysqli_escape_string($this->con,$dienstleistung->getHaartyp()->getKuerzel())."\"")===TRUE:$success;
+		return $success;
+	}
+	
+	
+	
 	function skillEintragen(Skill $skill){
 		return $this->query("INSERT INTO ".DB_TB_SKILLS." (".DB_F_SKILLS_PK_ID.", ".DB_F_SKILLS_BESCHREIBUNG.") VALUES (\"".$skill->getId()."\", \"".mysqli_escape_string($this->con,$skill->getBeschreibung())."\")")===TRUE;
 	}
@@ -136,6 +257,10 @@ class DB_Con {
 		return $this->query("INSERT INTO ".DB_TB_PRODUKTE." (".DB_F_PRODUKTE_PK_ID.", ".DB_F_PRODUKTE_NAME.", ".DB_F_PRODUKTE_HERSTELLER.", ".DB_F_PRODUKTE_BESCHREIBUNG.", ".DB_F_PRODUKTE_PREIS.", ".DB_F_PRODUKTE_BESTAND.") VALUES (\"".$produkt->getId()."\", \"".mysqli_escape_string($this->con,$produkt->getName())."\", \"".mysqli_escape_string($this->con,$produkt->getHersteller())."\", \"".mysqli_escape_string($this->con,$produkt->getBeschreibung())."\", \"".$produkt->getPreis()."\", \"".$produkt->getBestand()."\")")===TRUE;
 	}
 	
+	function wochentagEintragen(Wochentag $wochentag){
+		return $this->query("INSERT INTO ".DB_TB_WOCHENTAGE." (".DB_F_WOCHENTAGE_PK_KUERZEL.", ".DB_F_WOCHENTAGE_BEZEICHNUNG.") VALUES (\"".mysqli_escape_string($this->con,$wochentag->getKuerzel())."\", \"".mysqli_escape_string($this->con,$wochentag->getBezeichnung())."\")")===TRUE;
+	}
+	
 	function urlaubEintragen(Urlaub $urlaub, Mitarbeiter $mitarbeiter){
 		return $this->query("INSERT INTO ".DB_TB_URLAUBE." (".DB_F_URLAUBE_PK_MITARBEITER.", ".DB_F_URLAUBE_PK_BEGINN.", ".DB_F_URLAUBE_ENDE.") VALUES (\"".$mitarbeiter->getSvnr()."\", \"".$urlaub->getBeginn()->format(DB_FORMAT_DATETIME)."\", \"".$urlaub->getEnde()->format(DB_FORMAT_DATETIME)."\")")===TRUE;
 	}
@@ -144,6 +269,15 @@ class DB_Con {
 		return $this->query("INSERT INTO ".DB_TB_DIENSTZEITEN." (".DB_F_DIENSTZEITEN_PK_MITARBEITER.", ".DB_F_DIENSTZEITEN_PK_WOCHENTAGE.", ".DB_F_DIENSTZEITEN_BEGINN.", ".DB_F_DIENSTZEITEN_ENDE.") VALUES (\"".$mitarbeiter->getSvnr()."\", \"".mysqli_escape_string($this->con,$dienstzeit->getWochentag()->getKuerzel())."\", \"".$dienstzeit->getBeginn()->format(DB_FORMAT_TIME)."\", \"".$dienstzeit->getEnde()->format(DB_FORMAT_TIME)."\")")===TRUE;
 	}
 	
+
+	function werbungEintragen(Werbung $werbung){
+		$success = $this->query("INSERT INTO ".DB_TB_WERBUNG." (".DB_F_WERBUNG_PK_NUMMER.") VALUES (\"".$werbung->getNummer()."\")")===TRUE;
+		foreach ($werbung->getInteressen() as $interesse){
+			if($interesse instanceof Interesse)
+				$success=$success?$this->interesseWerbungZuweisen($interesse, $werbung):$success;
+		}
+		return $success;
+	}
 	
 	function arbeitsplatzEintragen(Arbeitsplatz $arbeitsplatz){
 		$success = $this->query("INSERT INTO ".DB_TB_ARBEITSPLATZRESSOURCEN." (".DB_F_ARBEITSPLATZRESSOURCEN_PK_NUMMER.", ".DB_F_ARBEITSPLATZRESSOURCEN_NAME.") VALUES (\"".$arbeitsplatz->getNummer()."\", \"".mysqli_escape_string($this->con,$arbeitsplatz->getName())."\")")===TRUE;
@@ -180,7 +314,7 @@ class DB_Con {
 		return $success;
 	}
 	
-	function DienstleistungEintragen(Dienstleistung $dienstleistung){
+	function dienstleistungEintragen(Dienstleistung $dienstleistung){
 		$success = $this->query("INSERT INTO ".DB_TB_DIENSTLEISTUNGEN." (".DB_F_DIENSTLEISTUNGEN_PK_KUERZEL.", ".DB_F_DIENSTLEISTUNGEN_PK_HAARTYP.", ".DB_F_DIENSTLEISTUNGEN_NAME.", ".DB_F_DIENSTLEISTUNGEN_BENOETIGTEEINHEITEN.", ".DB_F_DIENSTLEISTUNGEN_PAUSENEINHEITEN.", ".DB_F_DIENSTLEISTUNGEN_GRUPPIERUNG.") VALUES (\"".mysqli_escape_string($this->con,$dienstleistung->getKuerzel())."\", \"".mysqli_escape_string($this->con,$dienstleistung->getHaartyp()->getKuerzel())."\", \"".mysqli_escape_string($this->con,$dienstleistung->getName())."\", \"".$dienstleistung->getBenoetigteEinheiten()."\", \"".$dienstleistung->getPausenEinheiten()."\", \"".$dienstleistung->getGruppierung()."\")")===TRUE;
 		foreach ($dienstleistung->getSkills() as $skill){
 			if($skill instanceof Skill)
@@ -194,17 +328,117 @@ class DB_Con {
 	}
 	
 	
-	function authentifiziereKunde($kundeId){
-		$row = mysqli_fetch_row($this->selectQuery(DB_TB_KUNDEN, DB_F_KUNDEN_FREISCHALTUNG, DB_F_KUNDEN_ID." = ".$kundeId));
+	
+	
+	
+	
+	
+	function skillUpdaten(Skill $skill){
+		return $this->query("UPDATE ".DB_TB_SKILLS." SET ".DB_F_SKILLS_BESCHREIBUNG." = \"" .mysqli_escape_string($this->con, $skill->getBeschreibung())."\" WHERE ".DB_F_SKILLS_PK_ID." = \"".$skill->getId()."\"")===TRUE;
+	}
+	
+	function haartypUpdaten(Haartyp $haartyp){
+		return $this->query("UPDATE ".DB_TB_HAARTYPEN." SET ".DB_F_HAARTYPEN_BEZEICHNUNG." = \"" .mysqli_escape_string($this->con, $haartyp->getBezeichnung())."\" WHERE ".DB_F_HAARTYPEN_PK_KUERZEL." = \"".mysqli_escape_string($this->con, $haartyp->getKuerzel())."\"")===TRUE;
+	}
+	
+	function interesseUpdaten(Interesse $interesse){
+		return $this->query("UPDATE ".DB_TB_INTERESSEN." SET ".DB_F_INTERESSEN_BEZEICHNUNG." = \"" .mysqli_escape_string($this->con, $interesse->getBezeichnung())."\" WHERE ".DB_F_INTERESSEN_PK_ID." = \"".$interesse->getId()."\"")===TRUE;
+	}
+	
+	function arbeitsplatzausstattungUpdaten(Arbeitsplatzausstattung $ausstattung){
+		return $this->query("UPDATE ".DB_TB_ARBEITSPLATZAUSSTATTUNGEN." SET ".DB_F_ARBEITSPLATZAUSSTATTUNGEN_NAME." = \"" .mysqli_escape_string($this->con, $ausstattung->getName())."\" WHERE ".DB_F_ARBEITSPLATZAUSSTATTUNGEN_PK_ID." = \"".$ausstattung->getId()."\"")===TRUE;
+	}
+	
+	function produktUpdaten(Produkt $produkt){
+		return $this->query("UPDATE ".DB_TB_PRODUKTE." SET ".DB_F_PRODUKTE_NAME." = \"" .mysqli_escape_string($this->con, $produkt->getName())."\", ".DB_F_PRODUKTE_HERSTELLER." = \"".mysqli_escape_string($this->con, $produkt->getHersteller())."\", ".DB_F_PRODUKTE_BESCHREIBUNG." = \"".mysqli_escape_string($this->con, $produkt->getBeschreibung())."\", ".DB_F_PRODUKTE_PREIS." = \"".$produkt->getPreis()."\", ".DB_F_PRODUKTE_BESTAND." = \"".$produkt->getBestand()."\" WHERE ".DB_F_PRODUKTE_PK_ID." = \"".$produkt->getId()."\"")===TRUE;
+	}
+	
+	function wochentagUpdaten(Wochentag $wochentag){
+		return $this->query("UPDATE ".DB_TB_WOCHENTAGE." SET ".DB_F_WOCHENTAGE_BEZEICHNUNG." = \"" .mysqli_escape_string($this->con, $wochentag->getBezeichnung())."\" WHERE ".DB_F_WOCHENTAGE_PK_KUERZEL." = \"".mysqli_escape_string($this->con, $wochentag->getKuerzel())."\"")===TRUE;
+	}
+	
+	function dienstzeitUpdaten(Dienstzeit $dienstzeit, Mitarbeiter $mitarbeiter){
+		return $this->query("UPDATE ".DB_TB_DIENSTZEITEN." SET ".DB_F_DIENSTZEITEN_BEGINN." = \"" .$dienstzeit->getBeginn()->format(DB_FORMAT_TIME)."\", ".DB_F_DIENSTZEITEN_ENDE." = \"".$dienstzeit->getEnde()->format(DB_FORMAT_TIME)."\" WHERE ".DB_F_DIENSTZEITEN_PK_WOCHENTAGE." = \"".mysqli_escape_string($this->con, $dienstzeit->getWochentag()->getKuerzel())."\" AND ".DB_F_DIENSTZEITEN_PK_MITARBEITER." = \"".$mitarbeiter->getSvnr()."\"")===TRUE;
+	}
+	
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	
+	function werbungUpdaten(Werbung $werbung){
+		$success = $this->query("INSERT INTO ".DB_TB_WERBUNG." (".DB_F_WERBUNG_PK_NUMMER.") VALUES (\"".$werbung->getNummer()."\")")===TRUE;
+		foreach ($werbung->getInteressen() as $interesse){
+			if($interesse instanceof Interesse)
+				$success=$success?$this->interesseWerbungZuweisen($interesse, $werbung):$success;
+		}
+		return $success;
+	}
+	
+	function arbeitsplatzUpdaten(Arbeitsplatz $arbeitsplatz){
+		$success = $this->query("INSERT INTO ".DB_TB_ARBEITSPLATZRESSOURCEN." (".DB_F_ARBEITSPLATZRESSOURCEN_PK_NUMMER.", ".DB_F_ARBEITSPLATZRESSOURCEN_NAME.") VALUES (\"".$arbeitsplatz->getNummer()."\", \"".mysqli_escape_string($this->con,$arbeitsplatz->getName())."\")")===TRUE;
+		foreach ($arbeitsplatz->getAusstattung() as $ausstattung){
+			if($ausstattung instanceof Arbeitsplatzausstattung)
+				$success=$success?$this->arbeitsplatzausstattungArbeitsplatzZuweisen($ausstattung, $arbeitsplatz):$success;
+		}
+		return $success;
+	}
+	
+	function mitarbeiterUpdaten(Mitarbeiter $mitarbeiter){
+		$success = $this->query("INSERT INTO ".DB_TB_MITARBEITER." (".DB_F_MITARBEITER_SVNR.", ".DB_F_MITARBEITER_VORNAME.", ".DB_F_MITARBEITER_NACHNAME.", ".DB_F_MITARBEITER_ADMIN.") VALUES (\"".$mitarbeiter->getSvnr()."\", \"".mysqli_escape_string($this->con,$mitarbeiter->getVorname())."\", \"".mysqli_escape_string($this->con,$mitarbeiter->getNachname())."\", \"".$mitarbeiter->getAdmin()."\")")===TRUE;
+		foreach ($mitarbeiter->getSkills() as $skill){
+			if($skill instanceof Skill)
+				$success=$success?$this->skillMitarbeiterZuweisen($skill, $mitarbeiter):$success;
+		}
+		foreach ($mitarbeiter->getUrlaube() as $urlaub){
+			if($urlaub instanceof Urlaub)
+				$success=$success?$this->urlaubUpdaten($urlaub, $mitarbeiter):$success;
+		}
+		foreach ($mitarbeiter->getDienstzeiten() as $dienstzeit){
+			if($dienstzeit instanceof Dienstzeit)
+				$success=$success?$this->dienstzeitUpdaten($dienstzeit, $mitarbeiter):$success;
+		}
+		return $success;
+	}
+	
+	function kundeUpdaten(Kunde $kunde){
+		$success = $this->query("INSERT INTO ".DB_TB_KUNDEN." (".DB_F_KUNDEN_EMAIL.", ".DB_F_KUNDEN_VORNAME.", ".DB_F_KUNDEN_NACHNAME.", ".DB_F_KUNDEN_TELNR.", ".DB_F_KUNDEN_FREISCHALTUNG.", ".DB_F_KUNDEN_FOTO.") VALUES (\"".mysqli_escape_string($this->con,$kunde->getEmail())."\", \"".mysqli_escape_string($this->con,$kunde->getVorname())."\", \"".mysqli_escape_string($this->con,$kunde->getNachname())."\", \"".mysqli_escape_string($this->con,$kunde->getTelNr())."\", \"".$kunde->getFreischaltung()."\", \"".mysqli_escape_string($this->con,$kunde->getFoto())."\")")===TRUE;
+		foreach ($kunde->getInteressen() as $interesse){
+			if($interesse instanceof Interesse)
+				$success=$success?$this->interesseKundeZuweisen($interesse, $kunde):$success;
+		}
+		return $success;
+	}
+	
+	function dienstleistungUpdaten(Dienstleistung $dienstleistung){
+		$success = $this->query("INSERT INTO ".DB_TB_DIENSTLEISTUNGEN." (".DB_F_DIENSTLEISTUNGEN_PK_KUERZEL.", ".DB_F_DIENSTLEISTUNGEN_PK_HAARTYP.", ".DB_F_DIENSTLEISTUNGEN_NAME.", ".DB_F_DIENSTLEISTUNGEN_BENOETIGTEEINHEITEN.", ".DB_F_DIENSTLEISTUNGEN_PAUSENEINHEITEN.", ".DB_F_DIENSTLEISTUNGEN_GRUPPIERUNG.") VALUES (\"".mysqli_escape_string($this->con,$dienstleistung->getKuerzel())."\", \"".mysqli_escape_string($this->con,$dienstleistung->getHaartyp()->getKuerzel())."\", \"".mysqli_escape_string($this->con,$dienstleistung->getName())."\", \"".$dienstleistung->getBenoetigteEinheiten()."\", \"".$dienstleistung->getPausenEinheiten()."\", \"".$dienstleistung->getGruppierung()."\")")===TRUE;
+		foreach ($dienstleistung->getSkills() as $skill){
+			if($skill instanceof Skill)
+				$success=$success?$this->skillDienstleistungZuweisen($skill, $dienstleistung):$success;
+		}
+		foreach ($dienstleistung->getArbeitsplatzausstattungen() as $ausstattung){
+			if($ausstattung instanceof Arbeitsplatzausstattung)
+				$success=$success?$this->arbeitsplatzausstattungDienstleistungZuweisen($ausstattung, $dienstleistung):$success;
+		}
+		return $success;
+	}
+	
+	
+	
+	
+	//-------------------------------------
+	
+	
+	
+	
+	function authentifiziereKunde($kundeEmail){
+		$row = mysqli_fetch_row($this->selectQuery(DB_TB_KUNDEN, DB_F_KUNDEN_FREISCHALTUNG, DB_F_KUNDEN_PK_EMAIL." = ".mysqli_escape_string($this->con,$kundeEmail)));
 		if(isset($row[0]))
 			if($row[0]){
-				$this->authKunde_Id = $kundeId;
 				return true;
 			}
 			else
-				throw new Exception("User ".$kundeId." nicht freigeschalten!");
+				throw new Exception("User ".$kundeEmail." nicht freigeschalten!");
 		else
-			throw new Exception("User ".$kundenId." nicht gefunden!");
+			throw new Exception("User ".$kundeEmail." nicht gefunden!");
+		return false;
 	}
 	
 	

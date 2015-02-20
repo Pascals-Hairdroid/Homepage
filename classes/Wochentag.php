@@ -28,7 +28,7 @@ class Wochentag{
 		$this->kuerzel;
 	}
 	
-	function getBezeichnung($bezeichnung){
+	function getBezeichnung(){
 		$this->bezeichnung;
 	}
 		
