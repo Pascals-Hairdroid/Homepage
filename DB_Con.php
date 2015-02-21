@@ -361,16 +361,29 @@ class DB_Con {
 		return $this->query("UPDATE ".DB_TB_DIENSTZEITEN." SET ".DB_F_DIENSTZEITEN_BEGINN." = \"" .$dienstzeit->getBeginn()->format(DB_FORMAT_TIME)."\", ".DB_F_DIENSTZEITEN_ENDE." = \"".$dienstzeit->getEnde()->format(DB_FORMAT_TIME)."\" WHERE ".DB_F_DIENSTZEITEN_PK_WOCHENTAGE." = \"".mysqli_escape_string($this->con, $dienstzeit->getWochentag()->getKuerzel())."\" AND ".DB_F_DIENSTZEITEN_PK_MITARBEITER." = \"".$mitarbeiter->getSvnr()."\"")===TRUE;
 	}
 	
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	
-	function werbungUpdaten(Werbung $werbung){
-		$success = $this->query("INSERT INTO ".DB_TB_WERBUNG." (".DB_F_WERBUNG_PK_NUMMER.") VALUES (\"".$werbung->getNummer()."\")")===TRUE;
-		foreach ($werbung->getInteressen() as $interesse){
-			if($interesse instanceof Interesse)
-				$success=$success?$this->interesseWerbungZuweisen($interesse, $werbung):$success;
+	function interesseWerbungZuweisungUpdaten(Werbung $werbung){
+		$success=true;
+		$interessenIds="";		
+		$abf=$this->selectQuery(DB_TB_WERBUNG_INTERESSEN, DB_F_WERBUNG_INTERESSEN_PK_INTERESSEN, DB_F_WERBUNG_INTERESSEN_PK_WERBUNG." = \"".$werbung->getNummer()."\"");
+		$interessenIdsAltArr=array();
+		while($row = mysqli_fetch_row($abf)){
+			array_push($interessenIdsAltArr,$row->{DB_F_WERBUNG_INTERESSEN_PK_INTERESSEN});
 		}
+		foreach ($werbung->getInteressen() as $interesse){
+			if($interesse instanceof Interesse){
+				$interessenIds = $interessenIds.", ".$interesse->getId();
+				if(!in_array($interesse->getId(),$interessenIdsAltArr)){
+					$success=$success?$this->interesseWerbungZuweisen($interesse, $werbung):$success;
+				}
+			}
+		}
+		$interessenIds=substr($interessenIds,2);
+		$success=$success?$this->query("DELETE FROM ".DB_TB_WERBUNG_INTERESSEN." WHERE ".DB_F_WERBUNG_INTERESSEN_PK_WERBUNG." = \"".$werbung->getNummer()."\" AND ".DB_F_WERBUNG_INTERESSEN_PK_INTERESSEN." NOT IN( ".$interessenIds." )")===TRUE:$success;
 		return $success;
 	}
+	
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	
 	function arbeitsplatzUpdaten(Arbeitsplatz $arbeitsplatz){
 		$success = $this->query("INSERT INTO ".DB_TB_ARBEITSPLATZRESSOURCEN." (".DB_F_ARBEITSPLATZRESSOURCEN_PK_NUMMER.", ".DB_F_ARBEITSPLATZRESSOURCEN_NAME.") VALUES (\"".$arbeitsplatz->getNummer()."\", \"".mysqli_escape_string($this->con,$arbeitsplatz->getName())."\")")===TRUE;
