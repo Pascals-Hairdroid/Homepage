@@ -1,4 +1,4 @@
-DBA
+Homepage
 ===
 
-PHP interface for database access
+Homepage für Friseur mit Oberfläche für Terminreservierung und Verwaltungsplattform
