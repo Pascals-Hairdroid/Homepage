@@ -1,6 +1,6 @@
 <html>
 <body>
-<form action="Tag.php" method="get">
+<form action="zeittabelle.php" method="get" target="z_iframe">
  <?php
 	
 	$verbindung = mysql_connect ("localhost","root", "")

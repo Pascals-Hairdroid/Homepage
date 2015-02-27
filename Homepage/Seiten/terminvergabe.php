@@ -29,6 +29,7 @@
 					<?php
 					include("dienstleistung.php")
 					?>
+					<iframe name="z_iframe" src="zeittabelle.php"> </iframe>
 				</div>
 				<div id="werbungsbanner">
 				
