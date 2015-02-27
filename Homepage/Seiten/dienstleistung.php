@@ -1,15 +1,18 @@
 <html>
 <body>
-<form action="zeittabelle.php" method="get" target="z_iframe">
+<form action="Tag.php" method="get">
  <?php
-	
-	$verbindung = mysql_connect ("localhost","root", "")
-	or die ("keine Verbindung möglich. Benutzername oder Passwort sind falsch");
-
-	mysql_select_db("phd")
-	or die ("Die Datenbank existiert nicht.");
-
 	include("../DBA/DB_Con.php");
+	
+	$db = new DB_Con("conf/db.php", true);
+
+	
+	
+
+	
+	echo "first try".$db->getWochentag('Mo');
+	
+	
 	
 	echo"<select name='mitarbeiter' size='1'>";
 $abfrage = "SELECT * FROM mitarbeiter";

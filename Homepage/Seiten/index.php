@@ -1,6 +1,8 @@
+<?php session_start();?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<head>
       <title>PASCALS HAIRSTYLE</title>
 	<link rel="stylesheet" type="text/css" href="../css/css.css">
@@ -9,9 +11,14 @@
 	
 <div id="main">
 			<div id="head">
-				<?php
+			<?php
 					include ("header.html");
+					if(!isset($_SESSION['username']))				
 					include ("anmeldung.html");
+					else{
+					include ("angemeldet.php");
+					
+					}
 				?>
 			</div>
 			<div id="menuMain" align="center">
@@ -22,7 +29,7 @@
 			<li><a href="terminvergabe.php">Termine</a></li>			
 			<li><a href="Angebote.php">Angebote</a></li>
 			<li><a href="Galerie.php">Galerie</a></li>
-	
+				
 			</ul>
 			</div>
 			<div id="wrapper">
@@ -58,6 +65,7 @@ Samstag :	09:00 -15:00 Uhr</p><br>
 			<div id="footer" align="center">
 				<?php
 					include("footer.html");
+					
 				?>
 			</div>
 </div>
