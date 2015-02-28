@@ -1,6 +1,3 @@
-<?php
-include ("Anmeldung/auth.php")
-?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -9,14 +6,15 @@ include ("Anmeldung/auth.php")
 	<link rel="stylesheet" type="text/css" href="../css/css.css">
 	</head>
 	<body>
-		<div id="main">
+	
+<div id="main">
 			<div id="head">
 				<?php
 					include ("html/header.html");
 				?>
 			</div>
 			<div id="menu">
-    <ul>
+   <ul>
       <li class="topmenu">
         <a href="../index.php">Friseurstudio</a>
         <ul>
@@ -28,7 +26,7 @@ include ("Anmeldung/auth.php")
         </ul>
       </li>
       <li class="topmenu">
-        <a href="terminvergabe.php" class="selected">Termine</a>        
+        <a href="terminvergabe.php">Termine</a>        
       </li>
       <li class="topmenu">
         <a href="angebote.php">Angebote</a>
@@ -43,20 +41,19 @@ include ("Anmeldung/auth.php")
   </div>
 			<div id="wrapper">
 				<div id="textArea">
-				<br>
-					<?php
-					include("Methoden/dienstleistung.php")
-					?>
-				</div>
-				<div id="werbungsbanner">
+				
+				<?php
+				include ("Formulare/anmeldung.html");
+				?>
 				
 				</div>
+				
 			</div>
-			<div id="footer" align = "center">
+			<div id="footer" align="center">
 				<?php
 					include("html/footer.html");
 				?>
 			</div>
-		</div>
+</div>
 	</body>
 </html>

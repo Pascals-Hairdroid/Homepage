@@ -1,10 +1,9 @@
-<?php
-include ("Anmeldung/auth.php")
-?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-       "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
+	
 <html>
 	<head>
+	<meta charset="UTF-8">
       <title>PASCALS HAIRSTYLE</title>
 	<link rel="stylesheet" type="text/css" href="../css/css.css">
 	</head>
@@ -21,14 +20,14 @@ include ("Anmeldung/auth.php")
         <a href="../index.php">Friseurstudio</a>
         <ul>
           <li class="submenu"><a href="studio.php">Das Studio</a></li>
-          <li class="submenu"><a href="team.php">Unser Team</a></li>
+          <li class="submenu"><a href="team.php" class="selected">Unser Team</a></li>
           <li class="submenu"><a href="dienstleistung.php">Dienstleistungen</a></li>
           <li class="submenu"><a href="offnungszeiten.php">&Ouml;ffnungszeiten</a></li>
           <li class="submenu"><a href="kontakt.php">Kontakt</a></li>
         </ul>
       </li>
       <li class="topmenu">
-        <a href="terminvergabe.php" class="selected">Termine</a>        
+        <a href="terminvergabe.php">Termine</a>        
       </li>
       <li class="topmenu">
         <a href="angebote.php">Angebote</a>
@@ -43,10 +42,13 @@ include ("Anmeldung/auth.php")
   </div>
 			<div id="wrapper">
 				<div id="textArea">
-				<br>
+					
 					<?php
-					include("Methoden/dienstleistung.php")
+					include("mitarbeiter/1000000000.php");
+					
 					?>
+					
+					
 				</div>
 				<div id="werbungsbanner">
 				

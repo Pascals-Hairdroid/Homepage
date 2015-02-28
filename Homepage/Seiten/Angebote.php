@@ -35,7 +35,7 @@
         <a href="Produkte.php">Produkte</a>
       </li>
 	  <li class="topmenu">
-        <a href="Galerie">Galerie</a>
+        <a href="Galerie.php">Galerie</a>
       </li>
     </ul>
   </div>
