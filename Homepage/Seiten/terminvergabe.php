@@ -12,25 +12,40 @@ include ("Anmeldung/auth.php")
 		<div id="main">
 			<div id="head">
 				<?php
-					include ("header.html");
+					include ("html/header.html");
 				?>
 			</div>
-			<div id="menuMain" align="center">
-				<ul>
-			<li><a href="index.php">Fris&ouml;rstudio</a></li>	
-			<li><a href="unserTeam.php">Unser Team</a></li>	
-			<li><a href="Produkte.php">Produkte</a></li>			
-			<li><a href="terminvergabe.php" class="selected">Termine</a></li>			
-			<li><a href="Angebote.php">Angebote</a></li>
-			<li><a href="Galerie.php">Galerie</a></li>
-			
-			</ul>
-			</div>
+			<div id="menu">
+    <ul>
+      <li class="topmenu">
+        <a href="../index.php">Friseurstudio</a>
+        <ul>
+          <li class="submenu"><a href="studio.php">Das Studio</a></li>
+          <li class="submenu"><a href="team.php">Unser Team</a></li>
+          <li class="submenu"><a href="dienstleistung.php">Dienstleistungen</a></li>
+          <li class="submenu"><a href="offnungszeiten.php">&Ouml;ffnungszeiten</a></li>
+          <li class="submenu"><a href="kontakt.php">Kontakt</a></li>
+        </ul>
+      </li>
+      <li class="topmenu">
+        <a href="terminvergabe.php" class="selected">Termine</a>        
+      </li>
+      <li class="topmenu">
+        <a href="angebote.php">Angebote</a>
+      </li>
+	  <li class="topmenu">
+        <a href="Produkte.php">Produkte</a>
+      </li>
+	  <li class="topmenu">
+        <a href="Galerie">Galerie</a>
+      </li>
+    </ul>
+  </div>
 			<div id="wrapper">
 				<div id="textArea">
 				<br>
 					<?php
-					include("dienstleistung.php")
+					include("Methoden/dienstleistung.php")
 					?>
 				</div>
 				<div id="werbungsbanner">
@@ -39,7 +54,7 @@ include ("Anmeldung/auth.php")
 			</div>
 			<div id="footer" align = "center">
 				<?php
-					include("footer.html");
+					include("html/footer.html");
 				?>
 			</div>
 		</div>

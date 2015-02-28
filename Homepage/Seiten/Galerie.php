@@ -9,27 +9,42 @@
 		<div id="main">
 			<div id="head">
 				<?php
-					include ("header.html");
+					include ("html/header.html");
 				?>
 			</div>
-			<div id="menuMain" align="center">
-				<ul>
-			<li><a href="index.php">Fris&ouml;rstudio</a></li>	
-			<li><a href="unserTeam.php">Unser Team</a></li>	
-			<li><a href="Produkte.php">Produkte</a></li>			
-			<li><a href="terminvergabe.php">Termine</a></li>			
-			<li><a href="Angebote.php">Angebote</a></li>
-			<li><a href="Galerie.php" class="selected">Galerie</a></li>
-			
-			</ul>
-			</div>
+			<div id="menu">
+    <ul>
+      <li class="topmenu">
+        <a href="../index.php">Friseurstudio</a>
+        <ul>
+          <li class="submenu"><a href="studio.php">Das Studio</a></li>
+          <li class="submenu"><a href="team.php">Unser Team</a></li>
+          <li class="submenu"><a href="dienstleistung.php">Dienstleistungen</a></li>
+          <li class="submenu"><a href="offnungszeiten.php">&Ouml;ffnungszeiten</a></li>
+          <li class="submenu"><a href="kontakt.php">Kontakt</a></li>
+        </ul>
+      </li>
+      <li class="topmenu">
+        <a href="terminvergabe.php">Termine</a>        
+      </li>
+      <li class="topmenu">
+        <a href="angebote.php">Angebote</a>
+      </li>
+	  <li class="topmenu">
+        <a href="Produkte.php">Produkte</a>
+      </li>
+	  <li class="topmenu">
+        <a href="Galerie.php" class="selected">Galerie</a>
+      </li>
+    </ul>
+  </div>
 			<div id="wrapper">
 				<div id="textArea">
-					<p>Überall kommt es vor: Grad sind zu viele Kundinnen da, du musst warten oder es dauert zu lang. Das kann immer passieren. </p>
+					<p>Ãœberall kommt es vor: Grad sind zu viele Kundinnen da, du musst warten oder es dauert zu lang. Das kann immer passieren. </p>
 
-<p>Aktionen und Sorry-Gutscheine sind ein nettes Benefit für Dich und mein Zeichen, wie viel mir an Dir und Deiner Zufriedenheit liegt.</p>
+<p>Aktionen und Sorry-Gutscheine sind ein nettes Benefit fÃ¼r Dich und mein Zeichen, wie viel mir an Dir und Deiner Zufriedenheit liegt.</p>
 
-<p>Blätter Dich durch die Augenblicklichen Aktionen. Durch einen Klick aufs Bild kommst Du zu einem PDF, das Du ausdrucken und mit zu mir nehmen kannst.Gilt für alles ausser für den Sorry4waiting-Gutschein. Den bekommst Du nämlich von mir persönlich!</p>
+<p>BlÃ¤tter Dich durch die Augenblicklichen Aktionen. Durch einen Klick aufs Bild kommst Du zu einem PDF, das Du ausdrucken und mit zu mir nehmen kannst.Gilt fÃ¼r alles ausser fÃ¼r den Sorry4waiting-Gutschein. Den bekommst Du nÃ¤mlich von mir persÃ¶nlich!</p>
 
 <p>Ich freu mich Dich bald zu sehen.</p>
 				</div>
@@ -39,7 +54,7 @@
 			</div>
 			<div id="footer" align = "center">
 				<?php
-					include("footer.html");
+					include("html/footer.html");
 				?>
 			</div>
 		</div>
