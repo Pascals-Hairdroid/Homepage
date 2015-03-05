@@ -10,7 +10,8 @@
 <?php
 include("/Anmeldung/registration.php");
 if(isset($_POST["submit"])){
-	$ausgabe=reg($_POST['username'],$_POST['vn'],$_POST['nn'],$_POST['pw'],$_POST['pw2'],$_POST['telnr']);
+	
+	$ausgabe=reg(trim($_POST['username']),trim($_POST['vn']),trim($_POST['nn']),$_POST['pw'],$_POST['pw2'],$_POST['telnr']);
 }
 ?>
 <div id="main">
