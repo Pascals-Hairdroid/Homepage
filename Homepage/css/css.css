@@ -72,6 +72,8 @@ margin-top:5px;
 #textArea{
 margin-top:50px;
 width:1024px;
+padding-left:20px;
+padding-right:500px;
 }
 #textArea p.Name{
 padding-left:250px;
@@ -123,13 +125,15 @@ padding-right:50px;
 
 
 #menu {
-font-family:Arial;
+font-family:Helvetica;
   font-size:18px;
   position:absolute;
   width:1024px;
   background-color:#3D3D3D;
   height:32px;
   padding-left:100px;
+  overflow:hidden;
+  
 	
 }
 
@@ -150,6 +154,7 @@ font-family:Arial;
   width:150px;
   text-align:center;
    padding:5px 5px;
+   
 }
 .topmenu a.selected {
   float:left;
@@ -167,7 +172,6 @@ font-family:Arial;
  
   border-collapse:collapse;
   color:white;
-  font-weight:bold;
   text-decoration:none;
   background-color:#3D3D3D;
   margin:0;  

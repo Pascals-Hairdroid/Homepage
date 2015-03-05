@@ -4,34 +4,34 @@
 </head>
 <body>
 <?php
-	$verbindung = mysql_connect ("localhost","root", "")
-	or die ("keine Verbindung möglich. Benutzername oder Passwort sind falsch");
-
-	mysql_select_db("phd")
-	or die ("Die Datenbank existiert nicht.");
+	include_once("../../include_DBA.php");
+	
+	$db=new DB_CON("conf/db.php",true);
 
      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       session_start();
 
       $username = $_POST['username'];
       $passwort = md5($_POST['passwort']);
-
-	//Abfrage ob Mitarbeiter oder Kunde
-	IF(preg_match('~[0-9]+~',$username) && $passwort !=null && $username !=null )
+$passwort !=null && $username !=null 
+	//Mitarbeiterlogin
+	IF(is_numeric($username))
 	{
-	if (mysql_result(mysql_query("SELECT COUNT(*) FROM `mitarbeiter` WHERE SVNr='".$username."'&& Passwort='".$passwort."'"),0)==0)
+	try{
+	$Mitarbeiter=$db->getMitarbeiter($username);
+	if (is_null($Mitarbeiter))
 	{
-	header('Location:../anmelden.php');
+	header('Location:../anmelden.php');		
 	}
-	$ausgabe=mysql_query("SELECT * FROM mitarbeiter WHERE SVNr='".$username."' && Passwort='".$passwort."'");
-	$row=mysql_fetch_object($ausgabe);	  
-	$userdb= $row->SVNr;
-	$name= $row->Vorname;
-	$passdb= $row->Passwort;
-		
+	$abf=$db->authentifiziereMitarbeiter($Mitarbeiter,$passwort);
+	$name= $Mitarbeiter->getVorname();
+	}
+	catch(Exception $e){
+		$abf=false;
+	}
 
       // Benutzername und Passwort werden überprüft
-      if ($username == $userdb && $passwort == $passdb) {
+      if ($abf) {
        $_SESSION['angemeldet'] = true;
        $_SESSION['admin'] = true;
        $_SESSION['username'] = $name;
@@ -51,22 +51,24 @@
        }
 	   
 	   }
+	   
+	   //Kundenlogin
 	elseif($username != null && $passwort != null){
-	if (mysql_result(mysql_query("SELECT COUNT(*) FROM `kunden` WHERE EMail='".$username."' && Passwort='".$passwort."'"),0)==0)
+	try{
+	$kunde=$db->getKunde($username);
+	if (is_null($kunde))
 	{
-	header('Location:../anmelden.php');
+	 header('Location:../anmelden.php');
 	}
-	
-
-	$ausgabe=mysql_query("SELECT * FROM kunden WHERE EMail='".$username."'");
-	$row=mysql_fetch_object($ausgabe);	  
-	$userdb= $row->EMail;
-	$name= $row->Vorname;
-	$passdb= $row->Passwort;
-	
-	
+	$abf=$db->authentifiziereKunde($kunde,$passwort);
+	$name= $kunde->getVorname();
+	}
+	catch(Exception $e){
+		$abf=false;
+	}
+		
 	  // Benutzername und Passwort werden überprüft
-      if ($username == $userdb && $passwort == $passdb) {
+      if ($abf) {
        $_SESSION['angemeldet'] = true;
        $_SESSION['admin'] = false;
 	   
@@ -90,6 +92,7 @@
 	}
 	else{
 		echo"<meta http-equiv='refresh' content='0; url=../anmelden.php' />";
+
 	}
 	   
       }
