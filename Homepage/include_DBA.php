@@ -1,9 +1,9 @@
 <?php
 // Konfiguration:
-$dba_dir = "../DBA/";	// Pfad zum Verzeichnis von DBA
+$dba_dir = "../../DBA/";	// Pfad zum Verzeichnis von DBA
 
 
 
 // Code
-include_once ($dba_dir.'DB_Con.php');
+include_once (dirname(__FILE__)."/".$dba_dir.'DB_Con.php');
 ?>
