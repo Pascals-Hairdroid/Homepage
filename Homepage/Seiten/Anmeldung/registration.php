@@ -17,8 +17,10 @@ include("../include_DBA.php");
 					return "Passwort stimmen nicht &Uuml;berein";
 				}
 				else {
-					$passwort = md5($passwort);		
-					$db->kundeEintragen(new Kunde($email,$vn,$nn,$telnr,false,NULL,array()));
+					$passwort = md5($passwort);	
+					$kunde=new Kunde($email,$vn,$nn,$telnr,false,NULL,array());
+					$db->kundeEintragen($kunde);
+					$db->kundePwUpdaten($kunde,$passwort);					
 					
 					return 'Erfolgreich registriert!<a href="../index.php">Zum Login</a>';
 				}
