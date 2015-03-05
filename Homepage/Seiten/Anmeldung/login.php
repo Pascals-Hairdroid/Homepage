@@ -13,7 +13,8 @@
 
       $username = $_POST['username'];
       $passwort = md5($_POST['passwort']);
-$passwort !=null && $username !=null 
+	IF($passwort !=null && $username !=null)
+	{		
 	//Mitarbeiterlogin
 	IF(is_numeric($username))
 	{
@@ -96,6 +97,7 @@ $passwort !=null && $username !=null
 	}
 	   
       }
+	 }
 ?>
 </body>
 </html>
