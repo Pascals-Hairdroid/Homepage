@@ -10,7 +10,6 @@
 	
 		//Mitarbeiterlogin
 			IF(is_numeric($username)){
-				echo "testMA";
 			$passwort = md5($_POST['passwort']);				
 				try{
 					$Mitarbeiter=$db->getMitarbeiter($username);
@@ -62,7 +61,6 @@
 				}
 			}	
 			else{
-				echo "testFALSE";
 				return false;
 			}
 	   
