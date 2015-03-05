@@ -6,7 +6,15 @@
 	<link rel="stylesheet" type="text/css" href="../css/css.css">
 	</head>
 	<body>
+	<?php
+include("/Anmeldung/login.php");
+if(isset($_POST['submit'])){
+	$weiterleitung=login($_POST['username'],$_POST['passwort']);
+	if($weiterleitung==1)
+		header("Location:../index.php");
 	
+}
+?>
 <div id="main">
 			<div id="head">
 				<?php
@@ -43,7 +51,7 @@
 				<div id="textArea">
 				
 				<?php
-				include ("Formulare/anmeldung.html");
+				include ("Formulare/anmeldung.php");
 				?>
 				
 				</div>

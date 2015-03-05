@@ -8,6 +8,12 @@
 	<link rel="stylesheet" type="text/css" href="css/css.css">
 	</head>
 	<body>
+	<?php
+include("Seiten/Anmeldung/login.php");
+if(isset($_POST['submit'])){
+	$weiterleitung=login($_POST['username'],$_POST['passwort']);
+}
+?>
 	
 <div id="main">
 			<div id="head">
@@ -18,7 +24,7 @@
 			<?php
 					
 					if(!isset($_SESSION['username']))				
-					echo"<table border='0'><form  accept-charset='UTF-8' action='Seiten/Anmeldung/login.php' method='post'><tr><td><input name='username' type='text'placeholder='username' class='loginField'></p></td></tr><tr><td><input name='passwort' type='password' placeholder='passwort' class='loginField'></p></td></tr><tr><td><input type='submit' value=' Login '  class='loginButtons'></td></form><form action='Seiten/registration.php'><td><input type='submit' value=' Registrieren '  class='regButton'></td></tr></form></table>";
+					echo"<table border='0'><form  accept-charset='UTF-8' action='' method='post'><tr><td><input name='username' type='text'placeholder='username' class='loginField'></p></td></tr><tr><td><input name='passwort' type='password' placeholder='passwort' class='loginField'></p></td></tr><tr><td><input type='submit' name='submit' value=' Login '  class='loginButtons'></td></form><form action='Seiten/registration.php'><td><input type='submit' value=' Registrieren '  class='regButton'></td></tr></form></table>";
 					else{
 					echo"<br><table border='0' class='gruss'>";
 					echo "<tr><td>hallo ".$_SESSION['username']."</tr></td>";
