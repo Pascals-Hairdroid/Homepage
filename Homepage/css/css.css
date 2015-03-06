@@ -2,12 +2,9 @@
 *{margin:0;padding:0;}
 
 body{
-background-image:url("../Bilder/Homepage/bg.jpg");
-background-repeat:repeat-x;
-background-position:0px 150px;
 }
 .selected{
-color:#83F52C;
+color:green;
 }
 .loginField{
 width:145px;
@@ -67,10 +64,9 @@ left:445px
 }
 
 #wrapper{
-margin-top:5px;
 }
 #textArea{
-margin-top:50px;
+margin-top:40px;
 width:1024px;
 padding-left:20px;
 padding-right:500px;
@@ -122,19 +118,18 @@ padding-right:50px;
 
 
 /*aufklappbares Menu*/
-
+#menuwrapper{
+width:1024px;
+}
 
 #menu {
-font-family:Helvetica;
+font-family:Arial;
   font-size:18px;
   position:absolute;
   width:1024px;
   background-color:#3D3D3D;
   height:32px;
-  padding-left:100px;
-  overflow:hidden;
-  
-	
+  margin:0px auto;
 }
 
 #menu ul {
@@ -154,14 +149,13 @@ font-family:Helvetica;
   width:150px;
   text-align:center;
    padding:5px 5px;
-   
 }
 .topmenu a.selected {
   float:left;
   width:150px;
   text-align:center;
    padding:5px 5px;
-   color:#83F52C
+   color:DarkGreen;
 }
 
 .topmenu ul{
@@ -172,6 +166,7 @@ font-family:Helvetica;
  
   border-collapse:collapse;
   color:white;
+  font-weight:bold;
   text-decoration:none;
   background-color:#3D3D3D;
   margin:0;  
@@ -188,7 +183,7 @@ font-family:Helvetica;
 }
 
 #menu a:hover, .topmenu.on a {
-  color:#83F52C;
+  color:DarkGreen;
   background-color:#3D3D3D !important;
 }
 
@@ -196,3 +191,79 @@ font-family:Helvetica;
   display:block;  
   z-index:500;
 }
+
+/*aufklappbares MenuVerwaltung*/
+
+
+#menuVerwaltung {
+
+font-family:Helvetica;
+  font-size:18px;
+  position:absolute;
+  width:1024px;
+  background-color:#3D3D3D;
+  height:40px;
+	
+}
+
+#menuVerwaltung ul {
+  list-style-type:none;
+  list-style-image:none;
+  padding:0px;
+}
+
+#menuVerwaltung li.topmenu1 {
+  float:left;
+}
+
+.topmenu1 a {
+  float:left;
+  width:250px;
+  text-align:center;
+   padding:9px 5px;
+   
+}
+.topmenu1 a.selected {
+  float:left;
+  width:250px;
+  text-align:center;
+   padding:9px 5px;
+   color:green;
+}
+
+.topmenu1 ul{
+  display:none;
+}
+
+.topmenu1 a, .submenu1 a{
+ 
+  border-collapse:collapse;
+  color:white;
+  font-weight:bold;
+  text-decoration:none;
+  background-color:#3D3D3D;
+  margin:0;  
+}
+
+.submenu1 a{
+	margin-top:2px;
+	padding:4px 4px;
+	border:1px solid white;
+  font-size:16px;
+  width:250px;
+  position:relative;
+  clear:both; /* special IE6 */
+}
+
+#menuVerwaltung a:hover, .topmenu1.on a {
+  color:green;
+  background-color:#3D3D3D !important;
+}
+
+.topmenu1:hover ul {
+  display:block;  
+  z-index:500;
+}
+
+
+

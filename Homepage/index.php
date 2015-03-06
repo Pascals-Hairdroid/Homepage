@@ -30,9 +30,18 @@ if(isset($_POST['submit'])){
 					echo "<tr><td>hallo ".$_SESSION['username']."</tr></td>";
 					echo"<form action='Seiten/Anmeldung/endSession.php'><tr><td><input type='submit' value='Log-Out' class='logout'></td></tr></form></table>";
 					}
+					if(isset($_SESSION['admin'])){
+					if($_SESSION['admin']==true)
+						echo"<a href='Seiten/Verwaltung/Verwaltungsmain.php'>zur Verwaltungsplattform</a>";
+					
+					
+					}
+					
 				?>
 			</div>
-			  <div id="menu">
+			
+			  <div id="menu" align="center">
+			  
     <ul>
       <li class="topmenu">
         <a href="index.php" class="selected">Friseurstudio</a>
@@ -57,11 +66,12 @@ if(isset($_POST['submit'])){
         <a href="Seiten/Galerie">Galerie</a>
       </li>
     </ul>
-  </div>
+	</div>
+  
 			<div id="wrapper">
 				<div id="textArea">
 				
-				<img src="Bilder/Galerie/titelbild.jpg">
+				<img src="Bilder/Galerie/homepage74.jpg">
 					<h1>Willkommen bei Pascals Hairstyle!</h1><br>
 
 <p>Schneiden, föhnen frisieren, kurz gesagt "Stylen" im positivsten Sinne. Wenn es um Haare geht, dann ist Vertrauen gefragt. </p>

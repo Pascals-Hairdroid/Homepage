@@ -55,7 +55,7 @@
 	  // Benutzername und Passwort werden überprüft
 				if ($abf) {
 					$_SESSION['angemeldet'] = true;
-					$_SESSION['admin'] = false;
+					$_SESSION['admin'] = true;
 					$_SESSION['username'] = $name;
 					return true;
 				}

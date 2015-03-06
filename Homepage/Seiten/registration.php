@@ -51,7 +51,7 @@ if(isset($_POST["submit"])){
 				<div id="textArea">
 				
 					<table border="0">
-						<form  name="registration" method="post" action="">
+						<form method="post" action="">
 							<tr><td>E-Mail Adresse:</td><td><input name="username" type="input" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" class=loginField"required = "required"
 							<?php if(isset($ausgabe))echo "value='".$_POST['username']."'"; ?>></p></td></tr>
 							
