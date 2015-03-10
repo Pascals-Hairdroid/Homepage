@@ -9,8 +9,7 @@
       session_start();
 	
 		//Mitarbeiterlogin
-			IF(is_numeric($username)){
-			$passwort = md5($_POST['passwort']);				
+			IF(is_numeric($username)){				
 				try{
 					$Mitarbeiter=$db->getMitarbeiter($username);
 						if (is_null($Mitarbeiter)){
@@ -36,11 +35,7 @@
 	   
 	   //Kundenlogin
 			elseif($username != null and $passwort != null){
-								
-				
-			$passwort = md5($_POST['passwort']);
-			
-				
+
 					$kunde=$db->getKunde($username);
 					if (is_null($kunde)){						
 						return false;

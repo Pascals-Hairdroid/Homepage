@@ -11,7 +11,8 @@
 	<?php
 include("Seiten/Anmeldung/login.php");
 if(isset($_POST['submit'])){
-	$weiterleitung=login($_POST['username'],$_POST['passwort']);
+	$passwort = md5($_POST['passwort']);
+	$weiterleitung=login($_POST['username'],$passwort);
 }
 ?>
 	
