@@ -1,6 +1,6 @@
 <?php
 include("../../include_DBA.php");
-  
+
 	function maAnlegen($svnr,$vn,$nn,$passwort,$pw2)
 	{
 		$db=new db_con("conf/db.php",true);
