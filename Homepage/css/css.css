@@ -3,9 +3,6 @@
 
 body{
 }
-.selected{
-color:green;
-}
 .loginField{
 width:145px;
 
@@ -155,7 +152,7 @@ font-family:Arial;
   width:150px;
   text-align:center;
    padding:5px 5px;
-   color:DarkGreen;
+   color:#00cc66;
 }
 
 .topmenu ul{
@@ -183,7 +180,7 @@ font-family:Arial;
 }
 
 #menu a:hover, .topmenu.on a {
-  color:DarkGreen;
+  color:#00cc66;
   background-color:#3D3D3D !important;
 }
 
@@ -228,7 +225,7 @@ font-family:Helvetica;
   width:250px;
   text-align:center;
    padding:9px 5px;
-   color:green;
+   color:#00cc66;
 }
 
 .topmenu1 ul{
@@ -256,7 +253,7 @@ font-family:Helvetica;
 }
 
 #menuVerwaltung a:hover, .topmenu1.on a {
-  color:green;
+  color:00cc66;
   background-color:#3D3D3D !important;
 }
 
