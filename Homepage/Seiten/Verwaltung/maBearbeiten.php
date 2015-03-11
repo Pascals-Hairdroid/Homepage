@@ -40,6 +40,10 @@
 				include("../../include_DBA.php");
 				$db=new db_con("conf/db.php",true);
 				
+				$kundenarray = array($db->getAllKunde());
+				echo count($kundenarray);
+				
+				
 					?>
 			</div>
 			<div id="footer">
