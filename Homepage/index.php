@@ -65,7 +65,7 @@ if(isset($_POST['submit'])){
         <a href="Seiten/Produkte.php">Produkte</a>
       </li>
 	  <li class="topmenu">
-        <a href="Seiten/Galerie">Galerie</a>
+        <a href="Seiten/Galerie.php">Galerie</a>
       </li>
     </ul>
 	</div>

@@ -7,7 +7,7 @@
 	</head>
 	<body>
 	<?php
-include("/Anmeldung/login.php");
+include("Anmeldung/login.php");
 if(isset($_POST['submit'])){
 	$weiterleitung=login($_POST['username'],$_POST['passwort']);
 	if($weiterleitung==1)
@@ -59,7 +59,7 @@ if(isset($_POST['submit'])){
 			</div>
 			<div id="footer" align="center">
 				<?php
-					include("html/footer.html");
+					include("HTML/footer.html");
 				?>
 			</div>
 </div>

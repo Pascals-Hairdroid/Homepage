@@ -54,7 +54,7 @@
 			</div>
 			<div id="footer" align = "center">
 				<?php
-					include("html/footer.html");
+					include("HTML/footer.html");
 				?>
 			</div>
 		</div>
