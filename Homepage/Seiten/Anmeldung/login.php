@@ -7,25 +7,25 @@
      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if(!isset($_SESSION)) 
       session_start();
-	
+	$abf = false;
 		//Mitarbeiterlogin
-			IF(is_numeric($username)){				
-				try{
+			IF(is_numeric($username)){	
+							
 					$Mitarbeiter=$db->getMitarbeiter($username);
 						if (is_null($Mitarbeiter)){
 							return false;	
 						}
 					$abf=$db->authentifiziereMitarbeiter($Mitarbeiter,$passwort);
 					$name= $Mitarbeiter->getVorname();
-					}
-				catch(Exception $e){
-					$abf=false;
-				}
+					
+				
 
 		// Benutzername und Passwort werden überprüft
 				if ($abf) {
+					echo $username;
 					$_SESSION['angemeldet'] = true;
 					$_SESSION['admin'] = true;
+					$_SESSION['mAdmin']= $Mitarbeiter->getAdmin();
 					$_SESSION['username'] = $name;
 
 					return true;
@@ -50,7 +50,8 @@
 	  // Benutzername und Passwort werden überprüft
 				if ($abf) {
 					$_SESSION['angemeldet'] = true;
-					$_SESSION['admin'] = true;
+					$_SESSION['admin'] = false;
+					$_SESSION['freigeschaltet']= $kunde->getFreischaltung();
 					$_SESSION['username'] = $name;
 					return true;
 				}
