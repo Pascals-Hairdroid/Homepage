@@ -59,7 +59,7 @@ if(isset($_POST['submit'])){
         <a href="Seiten/terminvergabe.php">Termine</a>        
       </li>
       <li class="topmenu">
-        <a href="Seiten/angebote.php">Angebote</a>
+        <a href="/Seiten/Angebote.php">Angebote</a>
       </li>
 	  <li class="topmenu">
         <a href="Seiten/Produkte.php">Produkte</a>

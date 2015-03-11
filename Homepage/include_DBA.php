@@ -1,6 +1,6 @@
 <?php
 // Konfiguration:
-$dba_dir = "../../DBA/";	// Pfad zum Verzeichnis von DBA
+$dba_dir = "/PHD_DBA/";	// Pfad zum Verzeichnis von DBA
 
 
 

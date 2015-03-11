@@ -8,7 +8,7 @@
 	</head>
 	<body>
 <?php
-include("/Anmeldung/registration.php");
+include("Anmeldung/registration.php");
 if(isset($_POST["submit"])){
 	
 	$ausgabe=reg(trim($_POST['username']),trim($_POST['vn']),trim($_POST['nn']),$_POST['pw'],$_POST['pw2'],$_POST['telnr']);
@@ -17,7 +17,7 @@ if(isset($_POST["submit"])){
 <div id="main">
 			<div id="head">
 			<?php
-					include ("html/header.html");
+					include ("HTML/header.html");
 					
 				?>
 			</div>
@@ -37,7 +37,7 @@ if(isset($_POST["submit"])){
         <a href="terminvergabe.php">Termine</a>        
       </li>
       <li class="topmenu">
-        <a href="angebote.php">Angebote</a>
+        <a href="Angebote.php">Angebote</a>
       </li>
 	  <li class="topmenu">
         <a href="Produkte.php">Produkte</a>
@@ -78,7 +78,7 @@ if(isset($_POST["submit"])){
 			</div>
 			<div id="footer" align="center">
 				<?php
-					include("html/footer.html");
+					include("HTML/footer.html");
 					
 				?>
 			</div>

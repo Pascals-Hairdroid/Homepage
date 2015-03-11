@@ -29,7 +29,7 @@
         <a href="terminvergabe.php">Termine</a>        
       </li>
       <li class="topmenu">
-        <a href="angebote.php"class="selected">Angebote</a>
+        <a href="Angebote.php"class="selected">Angebote</a>
       </li>
 	  <li class="topmenu">
         <a href="Produkte.php">Produkte</a>

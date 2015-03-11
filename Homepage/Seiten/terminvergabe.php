@@ -12,7 +12,7 @@ include ("Anmeldung/auth.php")
 		<div id="main">
 			<div id="head">
 				<?php
-					include ("html/header.html");
+					include ("HTML/header.html");
 				?>
 			</div>
 			<div id="menu">
@@ -31,7 +31,7 @@ include ("Anmeldung/auth.php")
         <a href="terminvergabe.php" class="selected">Termine</a>        
       </li>
       <li class="topmenu">
-        <a href="angebote.php">Angebote</a>
+        <a href="Angebote.php">Angebote</a>
       </li>
 	  <li class="topmenu">
         <a href="Produkte.php">Produkte</a>

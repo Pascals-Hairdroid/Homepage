@@ -11,7 +11,7 @@
 		<div id="main">
 			<div id="head">
 				<?php
-					include ("html/header.html");
+					include ("HTML/header.html");
 				?>
 			</div>
 			<div id="menu">
@@ -30,7 +30,7 @@
         <a href="terminvergabe.php">Termine</a>        
       </li>
       <li class="topmenu">
-        <a href="angebote.php">Angebote</a>
+        <a href="Angebote.php">Angebote</a>
       </li>
 	  <li class="topmenu">
         <a href="Produkte.php">Produkte</a>

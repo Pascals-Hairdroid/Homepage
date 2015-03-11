@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
 <div id="main">
 			<div id="head">
 				<?php
-					include ("html/header.html");
+					include ("HTML/header.html");
 				?>
 			</div>
 			<div id="menu">
