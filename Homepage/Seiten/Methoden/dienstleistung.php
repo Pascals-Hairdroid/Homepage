@@ -2,38 +2,41 @@
 <body>
 <form action="zeittabelle.php" method="get" target="iframe">
  <?php
-  $db=mysql_connect("localhost", "root", "");
-  mysql_select_db("phd");
-  mysql_set_charset("utf8",$db);
-  include_once("../../../PHD_DBA/DB_CON.php");
+  include_once("../include_DBA.php");
   $db=new db_con("conf/db.php",true);
-	$db->connect("root");
 
+  
+  echo"<select name='mitarbeiter' size='1'>";
+  foreach ($db->getAllMitarbeiter() as $mitarbeiter)
+  	echo "<option style='width:17ex;'value='".$mitarbeiter->getNachname()."'>".$mitarbeiter->getNachname().",".$mitarbeiter->getVorname()." </option>";
+  echo "</select>"; 
 
-	echo"<select name='mitarbeiter' size='1'>";
-$abfrage = "SELECT * FROM mitarbeiter";
-$ergebnis = mysql_query($abfrage);
-while($row = mysql_fetch_object($ergebnis))
-   {
-   echo "<option style='width:17ex;'value='$row->Nachname'>$row->Vorname, $row->Nachname </option>";
-   }
-	echo"</select><p><br>";
-	echo"<select name='haarlaenge' size='1'>";
-$abfrage = "SELECT * FROM haartypen";
-$ergebnis = mysql_query($abfrage);
-while($row = mysql_fetch_object($ergebnis))
-   {
-   echo "<option style='width:17ex;' value='$row->Bezeichnung'>$row->Bezeichnung </option>";
-   }	
-	echo"</select> &nbsp;&nbsp;&nbsp;&nbsp;";
- 
-$abfrage = "SELECT * FROM dienstleistungen GROUP BY Dienstleistung";
-$ergebnis = mysql_query($abfrage);
-while($row = mysql_fetch_object($ergebnis))
-   {
-   echo "<input type='checkbox' name='$row->Dienstleistung'> $row->Dienstleistung </input>&nbsp;&nbsp;&nbsp;";
-   }
-	echo "<input type='week' name='woche'>";
+	
+
+  echo"<select name='haarlaenge' size='1'>";
+  foreach ($db->getAllHaartyp() as $haartyp)
+  	echo "<option style='width:17ex;'value='".$haartyp->getBezeichnung()."'>".$haartyp->getBezeichnung()." </option>";
+  echo "</select>";
+  
+  
+  //Damen/Herrenservice auswahl
+  echo"<select name='dienstleistung' size='2'>";
+  foreach ($db->getAllDienstleistung() as $dienstleistung)
+  {
+  	if ($dienstleistung->getGruppierung() == Null)
+  	echo "<option style='width:17ex;'value='".$dienstleistung->getKuerzel()."'>".$dienstleistung->getKuerzel()." </option>";
+  }
+  echo  "</select>";
+  
+  //Färben/Strähnen/Tönung
+  echo"<select name='dienstleistung2' size='3'>";
+  foreach ($db->getAllDienstleistung() as $dienstleistung)
+  {
+  	if ($dienstleistung->getGruppierung() == 1)
+  	echo "<option style='width:17ex;'value='".$dienstleistung->getKuerzel()."'>".$dienstleistung->getKuerzel()." </option>";
+  }
+  echo  "</select>";
+  
 ?>
 <br><br>
 <input type="submit" value="Update" class="loginbuttons">
