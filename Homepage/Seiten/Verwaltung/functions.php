@@ -25,4 +25,31 @@ include("../../include_DBA.php");
 			}
 		}	
 	}
+	
+	function maUpdate($svnr, $vn, $nn, $skills, $admin, $urlaube, $dienstzeiten)
+	{
+		if($svnr != null){
+	
+	
+			$mitarbeiter=new Mitarbeiter($svnr, $vn, $nn, $skills, $admin, $urlaube, $dienstzeiten);
+			$db->mitarbeiterUpdaten($mitarbeiter);
+	
+			return true;
+		}
+		else
+			return false;
+	}
+	function kuUpdate($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen)
+	{
+		if($email != null){
+	
+	
+			$kunde=new Mitarbeiter($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen);
+			$db->kundeUpdaten($kunde);
+	
+			return true;
+		}
+		else
+			return false;
+	}
 ?>
