@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -6,6 +5,24 @@
 <link rel="stylesheet" type="text/css" href="../../css/css.css">
 </head>
 <body>
+<?php
+include ("functions.php");
+$db=new db_con("conf/db.php",true);
+$svnr=$_GET['SVNr'];
+$tempMa=$db->getMitarbeiter($svnr);
+$vnDB=$tempMa->getVorname();
+$nnDB=$tempMa->getNachname();
+$adminDB=$tempMa->getAdmin();
+		$skills=$tempMa->getSkills();
+		$urlaube=$tempMa->getUrlaube();
+		$dienstzeiten=$tempMa->getDienstzeiten();
+		
+		
+if(isset($_POST['submit'])){
+
+}
+	
+?>
 <div id="main">
 			<div id="head">
 				<h1>PASCALS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HAIRSTYLE</h1>
@@ -36,19 +53,26 @@
 		</ul>
 			</div>
 			<div id="textArea">
-				<table border="0">
-					<?php
-						include("../../include_DBA.php");
-						$db=new db_con("conf/db.php",true);
-						
-						echo "<tr><td>Sozialversicherungsnr.:</td><td>Vorname</td><td>Nachname</td><td>Admin</td><td>";
-						
-						foreach($db->getAllMitarbeiter() as $mitarbeiter){
-							echo "<tr><td>".$mitarbeiter->getSVNr()."</td><td>".$mitarbeiter->getVorname()."</td><td>".$mitarbeiter->getNachname()."</td><td>".$mitarbeiter->getAdmin()."</td><td><a href='maUpdate.php?SVNr=".$mitarbeiter->getSVNr()."'>Bearbeiten</a>";
-				
-						}	
-					?>
+			<table border="0">
+						<form method="post" action="">
+							<tr><td>Sozialversicherungsnummer:</td><td><input name="svnr" type="input" class=loginField"required = "required"
+							<?php echo "value='".$svnr."'"; ?>></p></td></tr>
+							
+							<tr><td>Vorname:</td><td><input name="vn" type="text" class="loginField"required = "required"
+							<?php echo "value='".$vnDB."'"; ?>></p></td></tr>
+							
+							<tr><td>Nachname:</td><td><input name="nn" type="text" class="loginField"required = "required"
+							<?php echo "value='".$nnDB."'"; ?>></p></td></tr>
+							
+										
+							<tr><td><input type="submit" value ="absenden" name="submit"></td>
+							
+						</form>
 					</table>
+					<?php
+					if (isset($erg))
+						echo $erg;
+					?>
 			</div>
 			<div id="footer">
 </div>
