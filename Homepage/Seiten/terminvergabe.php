@@ -47,6 +47,8 @@ include ("Anmeldung/auth.php")
 					<?php
 					include("Methoden/dienstleistung.php")
 					?>
+					<iframe name="iframe" src="zeittabelle.php">
+					</iframe>
 				</div>
 				<div id="werbungsbanner">
 				
@@ -54,7 +56,7 @@ include ("Anmeldung/auth.php")
 			</div>
 			<div id="footer" align = "center">
 				<?php
-					include("html/footer.html");
+					include("HTML/footer.html");
 				?>
 			</div>
 		</div>

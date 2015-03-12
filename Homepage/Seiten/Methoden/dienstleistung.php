@@ -1,11 +1,11 @@
 <html>
 <body>
-<form action="Tag.php" method="get">
+<form action="zeittabelle.php" method="get" target="iframe">
  <?php
   $db=mysql_connect("localhost", "root", "");
   mysql_select_db("phd");
   mysql_set_charset("utf8",$db);
-  include_once("../../PHD_DBA/DB_CON.php");
+  include_once("../../../PHD_DBA/DB_CON.php");
   $db=new db_con("conf/db.php",true);
 	$db->connect("root");
 
@@ -33,7 +33,7 @@ while($row = mysql_fetch_object($ergebnis))
    {
    echo "<input type='checkbox' name='$row->Dienstleistung'> $row->Dienstleistung </input>&nbsp;&nbsp;&nbsp;";
    }
-		
+	echo "<input type='week' name='woche'>";
 ?>
 <br><br>
 <input type="submit" value="Update" class="loginbuttons">
