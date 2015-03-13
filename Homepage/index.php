@@ -48,11 +48,11 @@ if(isset($_POST['submit'])){
       <li class="topmenu">
         <a href="index.php" class="selected">Friseurstudio</a>
         <ul>
-          <li class="submenu"><a href="studio.php">Das Studio</a></li>
+          <li class="submenu"><a href="Seiten/studio.php">Das Studio</a></li>
           <li class="submenu"><a href="Seiten/team.php">Unser Team</a></li>
-          <li class="submenu"><a href="dienstleistung.php">Dienstleistungen</a></li>
-          <li class="submenu"><a href="offnungszeiten.php">&Ouml;ffnungszeiten</a></li>
-          <li class="submenu"><a href="kontakt.php">Kontakt</a></li>
+          <li class="submenu"><a href="Seiten/dienstleistung.php">Dienstleistungen</a></li>
+          <li class="submenu"><a href="Seiten/offnungszeiten.php">&Ouml;ffnungszeiten</a></li>
+          <li class="submenu"><a href="Seiten/kontakt.php">Kontakt</a></li>
         </ul>
       </li>
       <li class="topmenu">
