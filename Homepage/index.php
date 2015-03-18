@@ -59,7 +59,7 @@ if(isset($_POST['submit'])){
         <a href="Seiten/terminvergabe.php">Termine</a>        
       </li>
       <li class="topmenu">
-        <a href="/Seiten/Angebote.php">Angebote</a>
+        <a href="Seiten/Angebote.php">Angebote</a>
       </li>
 	  <li class="topmenu">
         <a href="Seiten/Produkte.php">Produkte</a>
@@ -86,13 +86,13 @@ if(isset($_POST['submit'])){
 Mobil: 0676 92 38 217<br>
 Montag - Freitag :	11:00 -19:00 Uhr<br>
 Samstag :	09:00 -15:00 Uhr</p><br>
-<p>In meinem "Ein-Mann"-Studio gilt die Devise "Können, Service & Friesierbarkeit". Meine Kundinnen wissen meine intensive Beratung zu schätzen und vertrauen meiner Erfahrung. </p>
+<p>In meinem "Ein-Mann"-Studio gilt die Devise "K�nnen, Service & Friesierbarkeit". Meine Kundinnen wissen meine intensive Beratung zu sch�tzen und vertrauen meiner Erfahrung. </p>
 <br>
 <p>Selbst die tollste Frisur passt nicht auf jeden Kopf. Darum ist Beratung so wichtig und macht Dich auf lange Zeit glücklich mit Deinen Haaren.</p>
 <br>
 <p>Ich sehe mich nicht nur als reinen "Dienst"-leister meiner Kundinnen. Vielmehr als sowas wie ein Partner. Es ist eine Vertrauensbasis auf die sich die Zusammenarbeit stützt. Nur so kann etwas Besonderes entstehen, das über lange Zeit Freude bereitet. Das wissen auch einige Prominente, wie Mausi Lugner oder Manuel Ortega. </p>
 <br>
-<p>Service ist bei mir groß geschrieben . Ich will, dass Du zufrieden bist, wiederkommst, mich vielleicht auch empfielst.</p>
+<p>Service ist bei mir gro� geschrieben . Ich will, dass Du zufrieden bist, wiederkommst, mich vielleicht auch empfielst.</p>
 <br>
 <p>Ich freu mich auf deinen Besuch!</p>
 <br>

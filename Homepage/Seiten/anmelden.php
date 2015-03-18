@@ -9,9 +9,9 @@
 	<?php
 include("Anmeldung/login.php");
 if(isset($_POST['submit'])){
-	$weiterleitung=login($_POST['username'],$_POST['passwort']);
-	if($weiterleitung==1)
-		header("Location:../index.php");
+	$passwort = md5($_POST['passwort']);
+	$username=$_POST['username'];
+	$weiterleitung=login($username,$passwort);
 	
 }
 ?>
