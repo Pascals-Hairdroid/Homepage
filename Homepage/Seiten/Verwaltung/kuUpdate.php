@@ -9,49 +9,41 @@
 include("../../include_DBA.php");
 $db=new db_con("conf/db.php",true);
 
-function maUpdate($svnr, $vn, $nn, $skills, $admin, $urlaube, $dienstzeiten)
-{
-	if($svnr != null){
-				
+function kuUpdate($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen)
+	{
 		$db=new db_con("conf/db.php",true);
-		$mitarbeiter=new Mitarbeiter($svnr, $vn, $nn, $skills, $admin, $urlaube, $dienstzeiten);
-		$db->mitarbeiterUpdaten($mitarbeiter);
-
-		return true;
-	}
-	else
-		return false;
-}
-
-$tempMa=$db->getMitarbeiter($_GET['SVNr']);
-	$vn=$tempMa->getVorname();
-	$nn=$tempMa->getNachname();
-	$admin=$tempMa->getAdmin();
+		if($email != null){
+			$kunde=new Kunde($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen);
+			$db->kundeUpdaten($kunde);
 	
+			return true;
+		}
+		else
+			return false;
+	}
+$tempKu=$db->getKunde($_GET['Email']);
+	$vn=$tempKu->getVorname();
+	$nn=$tempKu->getNachname();
+	$telnr=$tempKu->getTelNr();
+	$freischalten=$tempKu->getFreischaltung();
 	
 	
 if(isset($_GET['submit'])){
-		$svnr=$_GET['SVNr'];
+		$email=$_GET["Email"];
 		$vn=$_GET['vn'];
 		$nn=$_GET['nn'];
-		$skills=$tempMa->getSkills();
-		$urlaube=$tempMa->getUrlaube();
-		$dienstzeiten=$tempMa->getDienstzeiten();
-		$admin=false;
-		if(isset($_GET['admin'])){
-		if ($_GET['admin']=="on") {
-			$admin=true;
+		$telNr=$_GET['telnr'];
+		$foto=$tempKu->getFoto();
+		$interessen=$tempKu->getInteressen();	
+		$freischalten=false;
+		if(isset($_GET['rights'])){
+			if ($_GET['rights']=="on") {
+				$freischalten=true;
+			}
 		}
-		}
-		maUpdate($svnr, $vn, $nn, $skills, $admin, $urlaube, $dienstzeiten);
-	}	
-
-			
 		
-if(isset($_POST['submit'])){
-
-}
-	
+			kuUpdate($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen);
+		}		
 ?>
 <div id="main">
 			<div id="head">
@@ -85,8 +77,8 @@ if(isset($_POST['submit'])){
 			<div id="textArea">
 			<table border="0">
 						<form method="get" action="">
-							<tr><td>Sozialversicherungsnummer:</td><td><input name="SVNr" type="input" class=loginField"required = "required"
-							<?php echo "value='".$_GET['SVNr']."'"; ?>></p></td></tr>
+							<tr><td>Email:</td><td><input name="Email" type="input" class=loginField"required = "required"
+							<?php echo "value='".$_GET['Email']."'"; ?>></p></td></tr>
 							
 							<tr><td>Vorname:</td><td><input name="vn" type="text" class="loginField"required = "required"
 							<?php echo "value='".$vn."'"; ?>></p></td></tr>
@@ -94,12 +86,16 @@ if(isset($_POST['submit'])){
 							<tr><td>Nachname:</td><td><input name="nn" type="text" class="loginField"required = "required"
 							<?php echo "value='".$nn."'"; ?>></p></td></tr>
 							
-							<tr><td>Admin:</td><td><input name="admin" type="checkbox"  class="loginField"
+							<tr><td>Tel Nr.:</td><td><input name="telnr" type="text" class="loginField"required = "required"
+							<?php echo "value='".$telnr."'"; ?>></p></td></tr>
+							
+							<tr><td>Freigeschalten:</td><td><input name="rights" type="checkbox"  class="loginField"
 							<?php 
-							if ($admin == 1) {
+							if ($freischalten == 1) {
 								echo "checked";
 							}
 							?>></p></td></tr>
+							
 										
 							<tr><td><input type="submit" value ="absenden" name="submit"></td>
 							

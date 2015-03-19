@@ -22,7 +22,6 @@
 
 		// Benutzername und Passwort werden überprüft
 				if ($abf) {
-					echo $username;
 					$_SESSION['angemeldet'] = true;
 					$_SESSION['admin'] = true;
 					$_SESSION['mAdmin']= $Mitarbeiter->getAdmin();
