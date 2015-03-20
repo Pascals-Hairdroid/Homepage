@@ -5,7 +5,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<head>
       <title>PASCALS HAIRSTYLE</title>
-	<link rel="stylesheet" type="text/css" href="css/css.css">
+      <?php 
+      if (isset($_GET['webview'])) {
+      	if ($_GET['webview']==1) 
+      		echo "<link rel='stylesheet' type='text/css' href='css/mobile.css'>";		
+      }
+      else 
+     	 echo "<link rel='stylesheet' type='text/css' href='css/css.css'>";
+      ?>
 	</head>
 	<body>
 	<?php
@@ -26,7 +33,7 @@ if(isset($_POST['submit'])){
 			<?php
 					
 					if(!isset($_SESSION['username']))				
-					echo"<table border='0'><form  accept-charset='UTF-8' action='' method='post'><tr><td><input name='username' type='text'placeholder='username' class='loginField'></p></td></tr><tr><td><input name='passwort' type='password' placeholder='passwort' class='loginField'></p></td></tr><tr><td><input type='submit' name='submit' value=' Login '  class='loginButtons'></td></form><form action='Seiten/registration.php'><td><input type='submit' value=' Registrieren '  class='regButton'></td></tr></form></table>";
+					echo"<table border='0' class='hide'><form  accept-charset='UTF-8' action='' method='post'><tr><td><input name='username' type='text'placeholder='username' class='loginField'></p></td></tr><tr><td><input name='passwort' type='password' placeholder='passwort' class='loginField'></p></td></tr><tr><td><input type='submit' name='submit' value=' Login '  class='loginButtons'></td></form><form action='Seiten/registration.php'><td><input type='submit' value=' Registrieren '  class='regButton'></td></tr></form></table>";
 					else{
 					echo"<br><table border='0' class='gruss'>";
 					echo "<tr><td>hallo ".$_SESSION['username']."</tr></td>";

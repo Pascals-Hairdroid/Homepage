@@ -7,6 +7,9 @@ body{
 width:145px;
 
 }
+.hide{
+	display:none;
+}
 .loginButtons{
 width:55px;
 position:relative;
@@ -24,13 +27,13 @@ right:1px;
 
 #main{
 margin:0px auto;
-width:1024px;
+width:640px;
 background:white;
 overflow:hidden;
 }
 #head{
 height:150px;
-width:1024px;
+width:640px;
 }
 #head form{
 
@@ -57,16 +60,15 @@ font-weight:400;
 position:relative;
 height:90px;
 bottom:90px;
-left:445px
+left:255px
 }
 
 #wrapper{
 }
 #textArea{
 margin-top:30px;
-width:1024px;
-padding-left:20px;
-padding-right:500px;
+width:640px;
+
 }
 #textArea p.Name{
 padding-left:250px;
@@ -96,7 +98,7 @@ margin-right:auto;
 border-top:solid 1px black;
 height:30px;
 padding-top:10px;
-width:1024px;
+width:640px;
 }
 #footer ul{
 list-style-type:none;
@@ -116,20 +118,22 @@ padding-right:50px;
 
 /*aufklappbares Menu*/
 #menuwrapper{
-width:1024px;
+width:640px;
 }
 
 #menu {
 font-family:Arial;
   font-size:18px;
   position:absolute;
-  width:1024px;
+  width:640px;
   background-color:#3D3D3D;
   height:32px;
   margin:0px auto;
+  
 }
 
 #menu ul {
+	display:none;
   list-style-type:none;
   list-style-image:none;
   margin:0px;
