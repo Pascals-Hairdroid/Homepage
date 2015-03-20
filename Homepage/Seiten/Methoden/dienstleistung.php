@@ -20,22 +20,28 @@
   
   
   //Damen/Herrenservice auswahl
-  echo"<select name='dienstleistung' size='2'>";
+  echo"<select name='dienstleistung' size='1' style='display:inline-block; vertical-align:top; overflow:hidden; border:solid grey 1px;'>";
+  $kuerzelArray = array();
   foreach ($db->getAllDienstleistung() as $dienstleistung)
   {
-  	if ($dienstleistung->getGruppierung() == Null)
-  	echo "<option style='width:17ex;'value='".$dienstleistung->getKuerzel()."'>".$dienstleistung->getKuerzel()." </option>";
+  	if ($dienstleistung->getGruppierung() == Null && !in_array($dienstleistung->getKuerzel(),$kuerzelArray))
+  		echo "<option style='width:17ex;'value='".$dienstleistung->getKuerzel()."'>".$dienstleistung->getKuerzel()." </option>";
+  		$kuerzelArray[] = $dienstleistung->getKuerzel();
   }
   echo  "</select>";
   
   //Färben/Strähnen/Tönung
-  echo"<select name='dienstleistung2' size='3'>";
+  echo"<select name='dienstleistung2' size='1' style='display:inline-block; vertical-align:top; overflow:hidden; border:solid grey 1px;'>";
+  $kuerzelArray2 = array();
   foreach ($db->getAllDienstleistung() as $dienstleistung)
   {
-  	if ($dienstleistung->getGruppierung() == 1)
+  	if ($dienstleistung->getGruppierung() == 1 && !in_array($dienstleistung->getKuerzel(),$kuerzelArray2))
   	echo "<option style='width:17ex;'value='".$dienstleistung->getKuerzel()."'>".$dienstleistung->getKuerzel()." </option>";
+  	$kuerzelArray2[] = $dienstleistung->getKuerzel();
   }
   echo  "</select>";
+  
+  echo "<input type='week' name='week' style=''>";
   
 ?>
 <br><br>
