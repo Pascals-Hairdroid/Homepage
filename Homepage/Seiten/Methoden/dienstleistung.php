@@ -1,6 +1,6 @@
 <html>
 <body>
-<form action="zeittabelle.php" method="get" target="iframe">
+<form action="methoden/zeittabelle.php" method="get" target="iframe">
  <?php
   include_once("../include_DBA.php");
   $db=new db_con("conf/db.php",true);
@@ -25,7 +25,7 @@
   foreach ($db->getAllDienstleistung() as $dienstleistung)
   {
   	if ($dienstleistung->getGruppierung() == Null && !in_array($dienstleistung->getKuerzel(),$kuerzelArray))
-  		echo "<option style='width:17ex;'value='".$dienstleistung->getKuerzel()."'>".$dienstleistung->getKuerzel()." </option>";
+  		echo "<option style='width:17ex;'value='".$dienstleistung->getKuerzel()."'>".$dienstleistung->getName()." </option>";
   		$kuerzelArray[] = $dienstleistung->getKuerzel();
   }
   echo  "</select>";
@@ -36,12 +36,16 @@
   foreach ($db->getAllDienstleistung() as $dienstleistung)
   {
   	if ($dienstleistung->getGruppierung() == 1 && !in_array($dienstleistung->getKuerzel(),$kuerzelArray2))
-  	echo "<option style='width:17ex;'value='".$dienstleistung->getKuerzel()."'>".$dienstleistung->getKuerzel()." </option>";
+  	echo "<option style='width:17ex;'value='".$dienstleistung->getKuerzel()."'>".$dienstleistung->getName()." </option>";
   	$kuerzelArray2[] = $dienstleistung->getKuerzel();
   }
   echo  "</select>";
   
-  echo "<input type='week' name='week' style=''>";
+  echo "<input type='week' name='week' style='' value=";
+  echo date("o");
+  echo "-W";
+  echo date("W");			
+  echo ">";
   
 ?>
 <br><br>
