@@ -4,45 +4,74 @@
 	<head>
 		<title>PASCALS HAIRSTYLE</title>
 		<link rel='stylesheet' type='text/css' href='css/css.css'>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+    $('#login-trigger').click(function() {
+        $(this).next('#login-content').slideToggle();
+        $(this).toggleClass('active');                    
+        
+        if ($(this).hasClass('active')) $(this).find('span').html('&#x25B2;')
+            else $(this).find('span').html('&#x25BC;')
+        })
+});
+		</script>
+		
 	</head>
 	<body>
 	<?php
-include("Seiten/Anmeldung/login.php");
-if(isset($_POST['submit'])){
-	$passwort = md5($_POST['passwort']);
-	$username=$_POST['username'];
-	$weiterleitung=login($username,$passwort);
-}
-?>
+		include("Seiten/Anmeldung/login.php");
+		if(isset($_POST['submit'])){
+			$passwort = md5($_POST['passwort']);
+			$username=$_POST['username'];
+			$weiterleitung=login($username,$passwort);
+		}
+	?>
+	
 <div id="container">
 <div id="streifen"></div>
 		<div id="main">
+			<div id="Loginbox">
+					<nav>
+						<ul>
+						<?php
+						if(!isset($_SESSION['username'])){
+							echo"<li id='login'>";
+								echo"<a id='login-trigger' href='#'>Log in <span>&#x25BC;</span></a>";
+								echo"<div id='login-content'>";
+									echo"<form method='post' action=''>";
+										echo"<fieldset id='inputs'>";
+											echo"<input id='username' type='text' name='username' placeholder='Username' required>";   
+											echo"<input id='password' type='password' name='passwort' placeholder='Passwort' required>";
+										echo"</fieldset>";
+										echo"<fieldset id='actions'>";
+											echo"<input type='submit' name ='submit' id='submit' value='Log in'>";
+											echo"<label><a href='#'> Forgot Password </a></label>";
+										echo"</fieldset>";
+									echo"</form>";
+								}
+								else{
+									echo"<li id='login'>";
+									echo"<a href='Seiten/Anmeldung/endSession.php'>Log Out</span></a>";
+									echo"<div id='login-content'>";
+										
+								}
+									
+									?>
+								</div>                     
+							</li>
+							<li id="signup">
+								<a href="Seiten/registration.php">Sign up</a>
+							</li>
+						</ul>
+					</nav>
+			</div>
 			<div id="head">
 				<h1>PASCALS<img src="Bilder/Homepage/Logo.png">HAIRSTYLE</h1>
 				<h2>Frisuren zum Wohlf&uuml;hlen</h2>	
-				
-		
-			<?php					
-					if(!isset($_SESSION['username']))				
-					echo"<form  accept-charset='UTF-8' class='hide'  action='' method='post'><input name='username' type='text'placeholder='username' class='loginField'><br><input name='passwort' type='password' placeholder='passwort' class='loginField'><br><input type='submit' name='submit' value=' Login '  class='loginButtons'><form action='Seiten/registration.php'><input type='submit' value=' Registrieren '  class='regButton'></form></form>";
-				
-					else{
-						echo"<br><table border='0' class='gruss'>";
-						echo "<tr><td>hallo ".$_SESSION['username']."</tr></td>";
-						echo"<form action='Seiten/Anmeldung/endSession.php'><tr><td><input type='submit' value='Log-Out' class='logout'></td></tr></form>";
-						if(isset($_SESSION['admin'])){
-						if($_SESSION['admin']==true)
-						echo"<tr><td><a href='Seiten/Verwaltung/Verwaltungsmain.php'>zur Verwaltungsplattform</a></tr></td>";
-					
-					
-					}
-						echo"</table>";
-					}
-					
-					
-					
-				?>
 			</div>
+			
 			<div id="hmenu">
 				<nav id="menu" class="hide">
 					<ul>
