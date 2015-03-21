@@ -15,6 +15,8 @@ if(isset($_POST['submit'])){
 	
 }
 ?>
+<div id="container">
+<div id="streifen"></div>
 <div id="main">
 			<div id="head">
 				<?php
@@ -62,6 +64,6 @@ if(isset($_POST['submit'])){
 					include("HTML/footer.html");
 				?>
 			</div>
-</div>
+</div></div>
 	</body>
 </html>

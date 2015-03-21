@@ -6,6 +6,8 @@
 	<link rel="stylesheet" type="text/css" href="../css/css.css">
 	</head>
 	<body>
+	<div id="container">
+<div id="streifen"></div>
 		<div id="main">
 			<div id="head">
 				<?php
@@ -56,7 +58,7 @@
 				<?php
 					include("HTML/footer.html");
 				?>
-			</div>
+			</div></div>
 		</div>
 	</body>
 </html>

@@ -1,18 +1,9 @@
 <?php session_start();?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-       "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<head>
-      <title>PASCALS HAIRSTYLE</title>
-      <?php 
-      if (isset($_GET['webview'])) {
-      	if ($_GET['webview']==1) 
-      		echo "<link rel='stylesheet' type='text/css' href='css/mobile.css'>";		
-      }
-      else 
-     	 echo "<link rel='stylesheet' type='text/css' href='css/css.css'>";
-      ?>
+		<title>PASCALS HAIRSTYLE</title>
+		<link rel='stylesheet' type='text/css' href='css/css.css'>
 	</head>
 	<body>
 	<?php
@@ -23,96 +14,84 @@ if(isset($_POST['submit'])){
 	$weiterleitung=login($username,$passwort);
 }
 ?>
-	
-<div id="main">
+<div id="container">
+<div id="streifen"></div>
+		<div id="main">
 			<div id="head">
-			<h1>PASCALS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HAIRSTYLE</h1>
-			<h2>weil Deine Haare den Meister verdienen</h2>		
-			<img src="Bilder/Homepage/Logo.png"> 
+				<h1>PASCALS<img src="Bilder/Homepage/Logo.png">HAIRSTYLE</h1>
+				<h2>Frisuren zum Wohlf&uuml;hlen</h2>	
+				
 		
-			<?php
-					
+			<?php					
 					if(!isset($_SESSION['username']))				
-					echo"<table border='0' class='hide'><form  accept-charset='UTF-8' action='' method='post'><tr><td><input name='username' type='text'placeholder='username' class='loginField'></p></td></tr><tr><td><input name='passwort' type='password' placeholder='passwort' class='loginField'></p></td></tr><tr><td><input type='submit' name='submit' value=' Login '  class='loginButtons'></td></form><form action='Seiten/registration.php'><td><input type='submit' value=' Registrieren '  class='regButton'></td></tr></form></table>";
+					echo"<form  accept-charset='UTF-8' class='hide'  action='' method='post'><input name='username' type='text'placeholder='username' class='loginField'><br><input name='passwort' type='password' placeholder='passwort' class='loginField'><br><input type='submit' name='submit' value=' Login '  class='loginButtons'><form action='Seiten/registration.php'><input type='submit' value=' Registrieren '  class='regButton'></form></form>";
+				
 					else{
-					echo"<br><table border='0' class='gruss'>";
-					echo "<tr><td>hallo ".$_SESSION['username']."</tr></td>";
-					echo"<form action='Seiten/Anmeldung/endSession.php'><tr><td><input type='submit' value='Log-Out' class='logout'></td></tr></form></table>";
-					}
-					if(isset($_SESSION['admin'])){
-					if($_SESSION['admin']==true)
-						echo"<a href='Seiten/Verwaltung/Verwaltungsmain.php'>zur Verwaltungsplattform</a>";
+						echo"<br><table border='0' class='gruss'>";
+						echo "<tr><td>hallo ".$_SESSION['username']."</tr></td>";
+						echo"<form action='Seiten/Anmeldung/endSession.php'><tr><td><input type='submit' value='Log-Out' class='logout'></td></tr></form>";
+						if(isset($_SESSION['admin'])){
+						if($_SESSION['admin']==true)
+						echo"<tr><td><a href='Seiten/Verwaltung/Verwaltungsmain.php'>zur Verwaltungsplattform</a></tr></td>";
 					
 					
 					}
+						echo"</table>";
+					}
+					
+					
 					
 				?>
 			</div>
+			<div id="hmenu">
+				<nav id="menu" class="hide">
+					<ul>
+						<li>
+							<a href="index.php" class="selected">Friseurstudio</a>
+							<ul>
+								<li><a href="Seiten/studio.php">Das Studio</a></li>
+								  <li><a href="Seiten/team.php">Unser Team</a></li>
+								  <li><a href="Seiten/dienstleistung.php">Dienstleistungen</a></li>
+								  <li><a href="Seiten/offnungszeiten.php">&Ouml;ffnungszeiten</a></li>
+								  <li><a href="Seiten/kontakt.php">Kontakt</a></li>
+							</ul>
+						</li>
+						<li><a href="Seiten/terminvergabe.php">Termine</a></li>
+						<li><a href="Seiten/Angebote.php">Angebote</a></li>
+						<li><a href="Seiten/Produkte.php">Produkte</a></li>
+						<li><a href="Seiten/Galerie.php">Galerie</a></li>
+						<li class="spacer"></li>
+					</ul>
+				</nav>
+			</div>
 			
-			  <div id="menu" align="center">
-			  
-    <ul>
-      <li class="topmenu">
-        <a href="index.php" class="selected">Friseurstudio</a>
-        <ul>
-          <li class="submenu"><a href="Seiten/studio.php">Das Studio</a></li>
-          <li class="submenu"><a href="Seiten/team.php">Unser Team</a></li>
-          <li class="submenu"><a href="Seiten/dienstleistung.php">Dienstleistungen</a></li>
-          <li class="submenu"><a href="Seiten/offnungszeiten.php">&Ouml;ffnungszeiten</a></li>
-          <li class="submenu"><a href="Seiten/kontakt.php">Kontakt</a></li>
-        </ul>
-      </li>
-      <li class="topmenu">
-        <a href="Seiten/terminvergabe.php">Termine</a>        
-      </li>
-      <li class="topmenu">
-        <a href="Seiten/Angebote.php">Angebote</a>
-      </li>
-	  <li class="topmenu">
-        <a href="Seiten/Produkte.php">Produkte</a>
-      </li>
-	  <li class="topmenu">
-        <a href="Seiten/Galerie.php">Galerie</a>
-      </li>
-    </ul>
-	</div>
-  
-			<div id="wrapper">
-				<div id="textArea">
+			
+			
+			<div id="textArea">
+				<img class="titelbild" src="Bilder/Galerie/homepage74.jpg">
+				<h1>Willkommen bei Pascals Hairstyle!</h1>
+
+				<p>wenn du einen Stylisten suchst der sich Zeit nimmt, um wirklich auf dich einzugehen und dir auch Tipps mitgibt, damit deine Frisur auch in den Wochen nach dem Besuch optimal zur Geltung kommt, bist du hier genau richtig.</p>
+
+				<p>jeder Mensch ist anders. Auch jeder Kopf ist anders. Wenn es darum geht eine neue Frisur zu finden die individuell auf dich abgestimmt ist, dann kann ich dir durch meine intensive Beratung  und langjährige Erfahrung beratend zur Seite stehen, sodass wir gemeinsam zu einem Ergebnis gelangen, dass dich und damit auch mich glücklich macht.</p><br>
+
 				
-				<img src="Bilder/Galerie/homepage74.jpg">
-					<h1>Willkommen bei Pascals Hairstyle!</h1><br>
-
-<p>Schneiden, föhnen frisieren, kurz gesagt "Stylen" im positivsten Sinne. Wenn es um Haare geht, dann ist Vertrauen gefragt. </p>
-
-<p>Wenn du einen Stylisten suchst der wirklich auf dich eingeht, wenn Trend und Mode für dich wichtig sind, aber die Frisierbarkeit zu Hause fast noch wichtiger ist, wenn du Wert auf einen Haarschnitt legst der bis zum Nächsten Friseurbesuch hält, was er beim schneiden versprach, dannhab ich wen für Dich:</p><br>
-
-<h2>PASCALS HAIRSTYLE</h2><br>
-<p>Wagramerstrasse 154 a<br>
-1220 Wien<br>
-Mobil: 0676 92 38 217<br>
-Montag - Freitag :	11:00 -19:00 Uhr<br>
-Samstag :	09:00 -15:00 Uhr</p><br>
-<p>In meinem "Ein-Mann"-Studio gilt die Devise "K�nnen, Service & Friesierbarkeit". Meine Kundinnen wissen meine intensive Beratung zu sch�tzen und vertrauen meiner Erfahrung. </p>
-<br>
-<p>Selbst die tollste Frisur passt nicht auf jeden Kopf. Darum ist Beratung so wichtig und macht Dich auf lange Zeit glücklich mit Deinen Haaren.</p>
-<br>
-<p>Ich sehe mich nicht nur als reinen "Dienst"-leister meiner Kundinnen. Vielmehr als sowas wie ein Partner. Es ist eine Vertrauensbasis auf die sich die Zusammenarbeit stützt. Nur so kann etwas Besonderes entstehen, das über lange Zeit Freude bereitet. Das wissen auch einige Prominente, wie Mausi Lugner oder Manuel Ortega. </p>
-<br>
-<p>Service ist bei mir gro� geschrieben . Ich will, dass Du zufrieden bist, wiederkommst, mich vielleicht auch empfielst.</p>
-<br>
-<p>Ich freu mich auf deinen Besuch!</p>
-<br>
-<p>Pascal</p>
-				</div>
+				<p>Dabei sehe ich mich als deinen Partner der mit dir ein gemeinsames Ziel verfolt: einen Style zu finden der dich begeistert und zu deinem Wohlbefinden beiträgt.</p>
+				<br>
 				
+				<p>Wenn du einen Friseur suchst bei dem dein Wohlbefinden im Vordergrund steht, bist du bei mir genau richtig. Überzeuge dich selbst davon und schau zu einem Beratungstermin vorbei. </p>
+				<br>
+				
+				<p>Ich freue mich darauf schon bald mit dir zusammenzuarbeiten.</p>
+				<br>
+				<p>Pascal</p>
 			</div>
-			<div id="footer" align="center">
-				<ul>
-		<li><a href="">Impressum</a></li>
+			
+			<div id="footer">	
+				<a href="">Impressum</a>
+			</div>
+		</div>
 		
-	</ul>
-			</div>
-</div>
+		</div>
 	</body>
 </html>

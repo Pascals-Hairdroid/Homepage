@@ -1,14 +1,15 @@
 <?php
 include ("Anmeldung/auth.php")
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-       "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 	<head>
       <title>PASCALS HAIRSTYLE</title>
 	<link rel="stylesheet" type="text/css" href="../css/css.css">
 	</head>
 	<body>
+	<div id="container">
+<div id="streifen"></div>
 		<div id="main">
 			<div id="head">
 				<?php
@@ -60,6 +61,6 @@ include ("Anmeldung/auth.php")
 					include("HTML/footer.html");
 				?>
 			</div>
-		</div>
+		</div></div>
 	</body>
 </html>
