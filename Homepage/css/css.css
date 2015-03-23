@@ -128,7 +128,6 @@ and (min-device-width : 481px) {
 	}
 	#hmenu{
 	width:100%;
-	z-index:1;
 	}
 	#menu li{
 	display:inline;
@@ -230,9 +229,11 @@ and (min-device-width : 481px) {
 		margin:-1px 0px 0px 0px;
 		padding:0px;
 		width:100%;
+		display:none;
 	}
 	#menu > ul > li:hover > ul {
 		opacity:0.95;
+		display:block;
 		-o-transition: all 0.6s ease-in-out;
 		-webkit-transition: all 0.6s ease-in-out;
 		-moz-transition: all 0.6s ease-in-out;
