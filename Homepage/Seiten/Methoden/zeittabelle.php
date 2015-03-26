@@ -4,16 +4,33 @@
 	<body>
 		<?php
 		
-		$woche=$_GET["woche"];
-		$woche=$_GET["woche"];
-		$woche=$_GET["woche"];
-		$woche=$_GET["woche"];
-		$woche=$_GET["woche"];
+		$haarlaenge=$_GET["haarlaenge"];
+		$dienstleistung=$_GET["dienstleistung"];
+		$dienstleistung2=$_GET["dienstleistung2"];
+//		$woche=$_GET["woche"];
+		$calender=$_GET["calender"];
 				
-		include_once("../include_DBA.php");
+		include_once("../../include_DBA.php");
   		$db=new db_con("conf/db.php",true);
 				
+  		echo "Haartyp: ".$haarlaenge."";
+  		echo "<br>";
+  		echo "Gew&uuml;nschte Dienstleistung: ".$dienstleistung.", ";
+  		echo $dienstleistung2;
+  		echo "<br>";
+  		echo $woche;
   		
+  		
+  		
+  		
+  		
+  		
+  		
+  		
+  		
+  		
+  		
+  		//echo $woche;
 //  		foreach ($db->)
   			
   			
@@ -64,7 +81,24 @@
 // 		// Arraylist für die einzelnen Tage
 		
 // 		$table1 = array ();
-		
+		$i = 0;
+		$z1 = 11;
+		$z2 = 12;
+  		echo "<table border='1' style='width:50px;height:800px;'>";
+  		echo "<tr>";
+  		echo "<th> Zeit </th>";
+  		echo "</tr>";
+  		while ($i < 8)
+  		{	
+  			echo "<tr>";
+			echo "<td rowspan='4'>".$z1." bis ".$z2." </td>";
+  			//echo "<td rowspan='4'>seas </td>";
+			echo "</tr>";
+			$i++;
+			$z1= $z1+2;
+			$z2= $z2+2;
+  		}
+		echo "</table>"
 // 		?>
 		
 		<!--Table für die Anzeige der Tage-->
@@ -152,6 +186,7 @@
 // 				$count++;
 // 			}
 // 		?>
-<h1> Bissel weiter</h1>
+	
+
 </body> 
 </html>

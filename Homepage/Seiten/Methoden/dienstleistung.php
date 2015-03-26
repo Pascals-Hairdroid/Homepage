@@ -1,4 +1,14 @@
 <html>
+<head>
+<link rel="stylesheet" type="text/css" href="../css/epoch_styles.css" />
+<script type="text/javascript" src="../javascript/epoch_classes.js"></script>
+<script type="text/javascript">
+	var bas_cal,dp_cal,ms_cal;      
+window.onload = function () {
+	dp_cal  = new Epoch('epoch_popup','popup',document.getElementById('calender'));
+};
+</script>
+</head>
 <body>
 <form action="methoden/zeittabelle.php" method="get" target="iframe">
  <?php
@@ -6,13 +16,6 @@
   $db=new db_con("conf/db.php",true);
 
   
-  echo"<select name='mitarbeiter' size='1'>";
-  foreach ($db->getAllMitarbeiter() as $mitarbeiter)
-  	echo "<option style='width:17ex;'value='".$mitarbeiter->getNachname()."'>".$mitarbeiter->getNachname().",".$mitarbeiter->getVorname()." </option>";
-  echo "</select>"; 
-
-	
-
   echo"<select name='haarlaenge' size='1'>";
   foreach ($db->getAllHaartyp() as $haartyp)
   	echo "<option style='width:17ex;'value='".$haartyp->getBezeichnung()."'>".$haartyp->getBezeichnung()." </option>";
@@ -41,7 +44,14 @@
   }
   echo  "</select>";
   
-  echo "<input type='week' name='week' style='' value=";
+  
+  echo "<input type='week' name='woche' value=";
+  echo date("o");
+  echo "-W";
+  echo date("W");			
+  echo ">";
+  
+  echo "<input id='calender' type='text' value=";
   echo date("o");
   echo "-W";
   echo date("W");			
