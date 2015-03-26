@@ -5,6 +5,12 @@
 		<title>PASCALS HAIRSTYLE</title>
 		<link rel='stylesheet' type='text/css' href='css/css.css'>
 		
+		<?php 
+		if(isset($_GET['web']))
+			echo "<link rel='stylesheet' type='text/css' href='css/hide.css'>";
+		?>
+		
+		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 		<script>
 			$(document).ready(function(){
@@ -30,9 +36,9 @@
 	?>
 	
 <div id="container">
-<div id="streifen"></div>
+<div class ="hide" id="streifen"></div>
 		<div id="main">
-			<div id="Loginbox">
+			<div id="Loginbox" class="hide">
 					<nav>
 						<ul>
 						<?php
@@ -68,7 +74,7 @@
 					</nav>
 			</div>
 			<div id="head">
-				<h1>PASCALS<img src="Bilder/Homepage/Logo.png">HAIRSTYLE</h1>
+				<h1>PASCALS<img src="Bilder/Homepage/Logo.png"> HAIRSTYLE</h1>
 				<h2>Frisuren zum Wohlf&uuml;hlen</h2>	
 			</div>
 			
