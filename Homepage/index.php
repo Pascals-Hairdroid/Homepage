@@ -14,15 +14,44 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 		<script>
 			$(document).ready(function(){
-    $('#login-trigger').click(function() {
-        $(this).next('#login-content').slideToggle();
-        $(this).toggleClass('active');                    
-        
-        if ($(this).hasClass('active')) $(this).find('span').html('&#x25B2;')
-            else $(this).find('span').html('&#x25BC;')
-        })
-});
+			$('#login-trigger').click(function() {
+				$(this).next('#login-content').slideToggle();
+				$(this).toggleClass('active');                    
+				
+				if ($(this).hasClass('active')) $(this).find('span').html('&#x25B2;')
+					else $(this).find('span').html('&#x25BC;')
+				})
+		});
 		</script>
+		<script language="javascript" type="text/javascript">
+// Anzeigezeit in ms
+var WechselZeit = 4000;
+
+ImageArr = new Array()
+
+// URL der Bilder  hier eintragen
+ImageArr[ImageArr.length] = "Bilder/homepage/1.jpg";
+ImageArr[ImageArr.length] = "Bilder/homepage/2.jpg";
+
+var xAnzahl = ImageArr.length;
+var xCounter=-1;
+
+function Bildwechsel01() {
+xCounter = xCounter+1;
+  if (xCounter < xAnzahl) {
+     document.getElementById('Foto01').src = ImageArr[xCounter];
+     setTimeout ("Bildwechsel01()",WechselZeit);
+     }
+  else {
+     xCounter = -1;
+     Bildwechsel01();
+     }
+}
+
+// Startverzögerung
+setTimeout('Bildwechsel01()', 4000);
+</script>
+
 		
 	</head>
 	<body>
@@ -103,7 +132,7 @@
 			
 			
 			<div id="textArea">
-				<img class="titelbild" src="Bilder/Galerie/homepage74.jpg">
+				<img class="titelbild" id="Foto01"src="Bilder/homepage/1.jpg">
 				<h1>Willkommen bei Pascals Hairstyle!</h1>
 
 				<p>wenn du einen Stylisten suchst der sich Zeit nimmt, um wirklich auf dich einzugehen und dir auch Tipps mitgibt, damit deine Frisur auch in den Wochen nach dem Besuch optimal zur Geltung kommt, bist du hier genau richtig.</p>

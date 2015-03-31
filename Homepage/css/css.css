@@ -135,7 +135,10 @@ and (min-device-width : 481px) {
 	}
 	#textArea{
 	clear:both;
-	width:100%;
+	max-width: 99999999px;
+	min-width:300px;
+	width:100%
+	
 	}
 	#textArea p.Name{
 	}
@@ -144,12 +147,17 @@ and (min-device-width : 481px) {
 	
 	#textArea img{
 	
+	
 	}
 	#textArea img.titelbild{
 	position:relative;
 	bottom:37px;
 	z-index:-500;
-	width:100%;
+	max-width: 99999999px;
+	min-width:300px;
+	width:100%
+	
+	
 	}
 	#textAreaVerwaltung{
 	}
