@@ -24,32 +24,62 @@
 		});
 		</script>
 		<script language="javascript" type="text/javascript">
-// Anzeigezeit in ms
-var WechselZeit = 4000;
-
-ImageArr = new Array()
-
-// URL der Bilder  hier eintragen
-ImageArr[ImageArr.length] = "Bilder/homepage/1.jpg";
-ImageArr[ImageArr.length] = "Bilder/homepage/2.jpg";
-
-var xAnzahl = ImageArr.length;
-var xCounter=-1;
-
-function Bildwechsel01() {
-xCounter = xCounter+1;
-  if (xCounter < xAnzahl) {
-     document.getElementById('Foto01').src = ImageArr[xCounter];
-     setTimeout ("Bildwechsel01()",WechselZeit);
-     }
-  else {
-     xCounter = -1;
-     Bildwechsel01();
-     }
-}
-
-// Startverzögerung
-setTimeout('Bildwechsel01()', 4000);
+		var wechselZeit = 1000; 
+   imageArr = new Array() 
+   imageArr[imageArr.length] = "Bilder/Homepage/2.jpg"; 
+   imageArr[imageArr.length] = "Bilder/Homepage/1.jpg"; 
+ 
+   var xAnzahl = imageArr.length; 
+   var xCounter=-1; 
+   var maxOpacity = 100; 
+   var minOpacity = 0; 
+   var disableOpacity = maxOpacity; 
+   var fadeInterval = 'fadeout'; 
+ 
+   function Bildwechsel01() 
+   { 
+    var objekt = document.getElementById('Foto01'); 
+    xCounter++; 
+    if (xCounter < xAnzahl) 
+    { 
+     if (fadeInterval == 'fadeout') {setOpacity(objekt, 'fadeout'); } 
+     if (disableOpacity < minOpacity) 
+     { 
+      objekt.src = imageArr[xCounter]; 
+      fadeInterval = 'fadein'; 
+     } 
+     if (fadeInterval == 'fadein') {setOpacity(objekt, 'fadein');} 
+     if (disableOpacity > maxOpacity) 
+     { 
+      fadeInterval = 'fadeout'; 
+      wechselZeit = 1000; 
+     } else { 
+      wechselZeit = 100; 
+     } 
+     setTimeout('Bildwechsel01()', wechselZeit); 
+    } else { 
+     xCounter = -1; 
+     Bildwechsel01(); 
+    } 
+   } 
+   setTimeout('Bildwechsel01()', wechselZeit); 
+ 
+   function setOpacity(obj, direction) 
+   { 
+    obj.style.opacity = (disableOpacity / 100); 
+    obj.MozOpacity = (disableOpacity / 100); 
+    obj.style.filter = "alpha(opacity=" + disableOpacity + ")"; 
+    switch (direction) 
+    { 
+     case 'fadein': 
+      disableOpacity++; 
+      break; 
+     case 'fadeout': 
+      disableOpacity--; 
+      break; 
+    } 
+   } 
+		
 </script>
 
 		
@@ -66,6 +96,7 @@ setTimeout('Bildwechsel01()', 4000);
 	
 <div id="container">
 <div class ="hide" id="streifen"></div>
+
 		<div id="main">
 			<div id="Loginbox" class="hide">
 					<nav>
@@ -132,7 +163,7 @@ setTimeout('Bildwechsel01()', 4000);
 			
 			
 			<div id="textArea">
-				<img class="titelbild" id="Foto01"src="Bilder/homepage/1.jpg">
+				<img class="titelbild" id="Foto01" src="Bilder/Homepage/1.jpg">
 				<h1>Willkommen bei Pascals Hairstyle!</h1>
 
 				<p>wenn du einen Stylisten suchst der sich Zeit nimmt, um wirklich auf dich einzugehen und dir auch Tipps mitgibt, damit deine Frisur auch in den Wochen nach dem Besuch optimal zur Geltung kommt, bist du hier genau richtig.</p>
