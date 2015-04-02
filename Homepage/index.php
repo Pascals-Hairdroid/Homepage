@@ -24,7 +24,7 @@
 		});
 		</script>
 		<script language="javascript" type="text/javascript">
-		var wechselZeit = 1000; 
+		var wechselZeit = 2000; 
    imageArr = new Array() 
    imageArr[imageArr.length] = "Bilder/Homepage/2.jpg"; 
    imageArr[imageArr.length] = "Bilder/Homepage/1.jpg"; 
@@ -52,9 +52,9 @@
      if (disableOpacity > maxOpacity) 
      { 
       fadeInterval = 'fadeout'; 
-      wechselZeit = 1000; 
-     } else { 
       wechselZeit = 100; 
+     } else { 
+      wechselZeit = 50; 
      } 
      setTimeout('Bildwechsel01()', wechselZeit); 
     } else { 
@@ -139,13 +139,13 @@
 			</div>
 			
 			<div id="hmenu">
-				<nav id="menu" class="hide">
-					<ul>
+				<nav id="menu" >
+					<ul class="hide">
 						<li>
 							<a href="index.php" class="selected">Friseurstudio</a>
 							<ul>
 								<li><a href="Seiten/studio.php">Das Studio</a></li>
-								  <li><a href="Seiten/team.php">Unser Team</a></li>
+								  <li><a href="Seiten/Team.php">Unser Team</a></li>
 								  <li><a href="Seiten/dienstleistung.php">Dienstleistungen</a></li>
 								  <li><a href="Seiten/offnungszeiten.php">&Ouml;ffnungszeiten</a></li>
 								  <li><a href="Seiten/kontakt.php">Kontakt</a></li>

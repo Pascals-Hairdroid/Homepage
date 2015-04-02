@@ -17,21 +17,27 @@
 					<nav id="menu" class="hide">
 							<ul>
 								<li>
-									<a href="">Mitarbeiterverwaltung</a>
+									<a href="">Mitarbeiter</a>
 									<ul>
-										<li><a href="maAnlegen.php">Mitarbeiter anlegen</a></li>
-										<li ><a href="maBearbeiten.php">Mitarbeiter bearbeiten</a></li>
+										<li><a href="maAnlegen.php">anlegen</a></li>
+										<li ><a href="maBearbeiten.php">bearbeiten</a></li>
 									</ul>
 								</li>
 								<li><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
 								<li>
-									<a href="">Terminverwaltung</a>
+									<a href="">Termine</a>
 									<ul>
-										<li><a href="terminAnzeigen.php">Termine anzeigen</a></li>
-										<li><a href="terminBearbeiten.php">Termine bearbeiten</a></li>
+										<li><a href="terminAnzeigen.php">anzeigen</a></li>
+										<li><a href="terminBearbeiten.php">bearbeiten</a></li>
 									</ul>
 								</li>
-								<li><a href="notification.php">Notifications aussenden</a></li>
+								<li>
+									<a href="">Notifications</a>
+									<ul>
+										<li><a href="notificationerstellen.php">erstellen</a></li>
+										<li><a href="notification.php">bearbeiten</a></li>
+									</ul>
+								</li>
 								<li class="spacer"></li>
 							</ul>
 						</nav>

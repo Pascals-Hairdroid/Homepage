@@ -192,7 +192,7 @@ and (min-device-width : 481px) {
 	}
 	#main{
 	margin:0px auto;
-	width:60%;
+	width:50%;
 	}
 	#head{
 	height:130px;
@@ -293,6 +293,14 @@ and (min-device-width : 481px) {
 		width:20%;
 		position:relative;
 	}
+	#menu > ul > li.items{
+		margin:0px;
+		padding:0px;
+		list-style:none;
+		float:left;
+		width:25%;
+		position:relative;
+	}
 	#menu > ul > li > a {
 		display:block;
 		text-align:center;
@@ -382,7 +390,7 @@ float:right;
 #Loginbox nav ul {
   list-style: none;
   position: absolute;
-  right:20%;
+  right:25.1%;
   float: right;
   background-color: #3D3D3D;
   border-bottom: 1px solid #444;

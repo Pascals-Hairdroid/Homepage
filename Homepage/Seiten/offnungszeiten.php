@@ -4,6 +4,10 @@
 	<head>
       <title>PASCALS HAIRSTYLE</title>
 	<link rel="stylesheet" type="text/css" href="../css/css.css">
+	<?php 
+		if(isset($_GET['web']))
+			echo "<link rel='stylesheet' type='text/css' href='../css/hide.css'>";
+		?>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 		<script>
 			$(document).ready(function(){
@@ -27,9 +31,9 @@
 		}
 	?>
 	<div id="container">
-<div id="streifen"></div>
+<div id="streifen"  class="hide"></div>
 		<div id="main">
-		<div id="Loginbox">
+		<div id="Loginbox"  class="hide">
 					<nav>
 						<ul>
 						<?php
@@ -70,7 +74,7 @@
 				?>
 			</div>
 			<div id="menu">
-    <ul>
+    <ul class="hide" >
       <li class="topmenu">
         <a href="../index.php" class="selected">Friseurstudio</a>
         <ul>
@@ -97,13 +101,7 @@
   </div>
 			<div id="wrapper">
 				<div id="textArea">
-					<p>Überall kommt es vor: Grad sind zu viele Kundinnen da, du musst warten oder es dauert zu lang. Das kann immer passieren. </p>
-
-<p>Aktionen und Sorry-Gutscheine sind ein nettes Benefit für Dich und mein Zeichen, wie viel mir an Dir und Deiner Zufriedenheit liegt.</p>
-
-<p>Blätter Dich durch die Augenblicklichen Aktionen. Durch einen Klick aufs Bild kommst Du zu einem PDF, das Du ausdrucken und mit zu mir nehmen kannst.Gilt für alles ausser für den Sorry4waiting-Gutschein. Den bekommst Du nämlich von mir persönlich!</p>
-
-<p>Ich freu mich Dich bald zu sehen.</p>
+					<img class="titelbild"src="../Bilder/Homepage/zeiten.jpg">
 				</div>
 				<div id="werbungsbanner">
 				
