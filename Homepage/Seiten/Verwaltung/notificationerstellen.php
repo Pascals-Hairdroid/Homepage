@@ -1,14 +1,25 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-       "http://www.w3.org/TR/html4/loose.dtd">
+<?php session_start();
+include("../../include_DBA.php");
+$db=new DB_CON("conf/db.php",true);?>
+<!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="../../css/css.css">
 </head>
 <body>
 <?php
-include("../../include_DBA.php");
 if(isset($_POST['submit']))
+{
 	
+}
+	
+
+$interessenarray = array();
+	foreach($db->getAllInteresse() as $int){
+		if(isset ($_POST[$int->getID()]))
+			$int = new Interesse($int->getID(),$int->getBezeichnung());
+			$interessenarray[]=$int;
+	}
 ?>
 
 	<div id="container">
@@ -56,22 +67,22 @@ if(isset($_POST['submit']))
 			<div id="hmenu">		
 					<nav id="menu" class="hide">
 							<ul>
-								<li>
+								<li  class="items">
 									<a href="">Mitarbeiter</a>
 									<ul>
 										<li><a href="maAnlegen.php">anlegen</a></li>
 										<li ><a href="maBearbeiten.php">bearbeiten</a></li>
 									</ul>
 								</li>
-								<li><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
-								<li>
+								<li class="items"><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
+								<li class="items">
 									<a href="">Termine</a>
 									<ul>
 										<li><a href="terminAnzeigen.php">anzeigen</a></li>
 										<li><a href="terminBearbeiten.php">bearbeiten</a></li>
 									</ul>
 								</li>
-								<li>
+								<li class="items">
 									<a href="">Notifications</a>
 									<ul>
 										<li><a href="notificationerstellen.php">erstellen</a></li>
@@ -88,12 +99,27 @@ if(isset($_POST['submit']))
 			<div id="textArea">
 			
 						<form method="post" action="">
-							<p>Pushnachricht:<input name="svnr" type="input" required = "required">
+							<p>Pushnachricht:<input name="push" type="input" required = "required">
+							</p>
+							<p>2tes Textfeld:<input name="2tes" type="input" required = "required">
 							</p>
 							
-							<p>Bildupload:<input name="vn" type="file" required = "required">
+							<p>Bildupload:<input name="fileup" type="file" required = "required">
 							</p>
-				
+							<br>
+						<?php 
+						$i=0;
+
+						foreach ($db->getAllInteresse() as $int)
+						  {
+							  $i++;
+							
+							echo "<input type='checkbox' name='".$int->getID()."'>".$int->getBezeichnung()." </input>";
+							
+							  if ($i % 3 === 0) echo "<p>";
+						  }
+						  
+						?>
 							<p><input type="submit" value ="absenden" name="submit"></p>
 							
 						</form>

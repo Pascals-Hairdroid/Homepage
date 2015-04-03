@@ -52,7 +52,7 @@
      if (disableOpacity > maxOpacity) 
      { 
       fadeInterval = 'fadeout'; 
-      wechselZeit = 100; 
+      wechselZeit = 2000; 
      } else { 
       wechselZeit = 50; 
      } 
@@ -127,9 +127,26 @@
 									?>
 								</div>                     
 							</li>
-							<li id="signup">
-								<a href="Seiten/registration.php">Sign up</a>
-							</li>
+							<?php
+							if(isset($_SESSION['username'])){
+							echo"<li "; 
+							if($_SESSION['admin']==false)
+							echo"id='signup'";
+							else
+							echo"id='element'";	
+							echo"><a href='#'>Profil</a></li>";
+							if($_SESSION['admin']==true){
+							echo"<li id='signup'><a href='Seiten/Verwaltung/Verwaltungsmain.php'>Adminbereich</a></li>";
+							}
+													
+							}
+							else{
+								echo"<li id='signup'>";
+								echo"<a href='Seiten/registration.php'>Registrieren</a>";
+								echo"</li>";
+							}
+							?>
+							
 						</ul>
 					</nav>
 			</div>

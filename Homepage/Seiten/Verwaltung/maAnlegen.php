@@ -80,29 +80,28 @@ if(isset($_POST['submit']))
 			<div id="hmenu">		
 					<nav id="menu" class="hide">
 							<ul>
-								<li>
+<li  class="items">
 									<a href="">Mitarbeiter</a>
 									<ul>
 										<li><a href="maAnlegen.php">anlegen</a></li>
 										<li ><a href="maBearbeiten.php">bearbeiten</a></li>
 									</ul>
 								</li>
-								<li><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
-								<li>
+								<li class="items"><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
+								<li class="items">
 									<a href="">Termine</a>
 									<ul>
 										<li><a href="terminAnzeigen.php">anzeigen</a></li>
 										<li><a href="terminBearbeiten.php">bearbeiten</a></li>
 									</ul>
 								</li>
-								<li>
+								<li class="items">
 									<a href="">Notifications</a>
 									<ul>
 										<li><a href="notificationerstellen.php">erstellen</a></li>
 										<li><a href="notification.php">bearbeiten</a></li>
 									</ul>
-								</li>
-								<li class="spacer"></li>
+								</li>								<li class="spacer"></li>
 							</ul>
 						</nav>
 

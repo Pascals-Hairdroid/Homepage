@@ -52,7 +52,7 @@
 		<div id="hmenu">		
 					<nav id="menu" class="hide">
 							<ul>
-								<li class="items">
+								<li  class="items">
 									<a href="">Mitarbeiter</a>
 									<ul>
 										<li><a href="maAnlegen.php">anlegen</a></li>
@@ -60,8 +60,8 @@
 									</ul>
 								</li>
 								<li class="items"><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
-								<li>
-									<a href="" class="items">Termine</a>
+								<li class="items">
+									<a href="">Termine</a>
 									<ul>
 										<li><a href="terminAnzeigen.php">anzeigen</a></li>
 										<li><a href="terminBearbeiten.php">bearbeiten</a></li>

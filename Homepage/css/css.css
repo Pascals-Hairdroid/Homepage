@@ -271,7 +271,18 @@ and (min-device-width : 481px) {
 	#footer a{
 	text-decoration:none;
 	}
-
+	#back a, #back img{
+	position:absolute;
+	right:25.1%;
+	}
+	#back img
+	{
+	width:35px;
+	}
+	
+	
+	
+	
 	/* Dropdown Menü */
 	
 	#menu {
@@ -285,14 +296,6 @@ and (min-device-width : 481px) {
 		margin:0px;
 		padding:0px;
 	}
-	#menu > ul > li {
-		margin:0px;
-		padding:0px;
-		list-style:none;
-		float:left;
-		width:20%;
-		position:relative;
-	}
 	#menu > ul > li.items{
 		margin:0px;
 		padding:0px;
@@ -301,6 +304,16 @@ and (min-device-width : 481px) {
 		width:25%;
 		position:relative;
 	}
+	#menu > ul > li{
+		margin:0px;
+		padding:0px;
+		list-style:none;
+		float:left;
+		width:20%;
+		position:relative;
+	}
+
+	
 	#menu > ul > li > a {
 		display:block;
 		text-align:center;
@@ -411,7 +424,7 @@ float:right;
 }
 
 #Loginbox nav #login-trigger,
-#Loginbox nav #signup a {
+#Loginbox nav #signup a, #element a{
   display: inline-block;
   *display: inline;
   *zoom: 1;
@@ -478,6 +491,7 @@ display: inline-block;
   color: white;
   text-shadow: 0 1px 0 #444;
 }
+
 /*--------------------*/
 
 #inputs input {
