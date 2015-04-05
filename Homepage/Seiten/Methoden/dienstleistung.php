@@ -43,23 +43,33 @@ window.onload = function () {
   	$kuerzelArray2[] = $dienstleistung->getKuerzel();
   }
   echo  "</select>";
-  
-  
-  echo "<input type='week' name='woche' value=";
-  echo date("o");
-  echo "-W";
-  echo date("W");			
-  echo ">";
-  
-  echo "<input id='calender' type='text' value=";
-  echo date("o");
-  echo "-W";
-  echo date("W");			
-  echo ">";
+  include 'getBrowser.php';
+  if ($binfo == 'Google Chrome' or $binfo == 'Apple Safari' or $binfo == 'Opera') 
+  {
+  	echo "<input type='week' name='woche' value=";
+  	echo date("o");
+  	echo "-W";
+  	echo date("W");			
+  	echo ">";
+  }
+  else 
+  {		
+  	echo "<input name='woche' id='calender' type='text' value=";
+  	echo date("m");
+  	echo "/";
+  	echo date("d");			
+  	echo "/";
+  	echo date("o");
+  	echo ">";
+  }
   
 ?>
 <br><br>
 <input type="submit" value="Update" class="loginbuttons">
+
+<!-- <p> Termin eintragen: </p> -->
+<!-- <input type="submit" name="eintragen" value="klicked" class="loginbuttons"> -->
+  		
 </form>
 </body>
 </html>
