@@ -66,7 +66,7 @@ function getBrowser()
 			$version= $matches['version'][0];
 		}
 		else {
-			$version= $matches['version'][1];
+			$version= isset($matches['version'][1]);
 		}
 	}
 	else {
