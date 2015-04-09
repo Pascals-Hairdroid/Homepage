@@ -1,6 +1,6 @@
 <?php session_start();
 include("../../include_DBA.php");
-$db=new DB_CON("conf/db.php",true);?>
+$db=new DB_CON("conf/db.php",true, "utf8");?>
 <!DOCTYPE html>
 <html>
 <head>

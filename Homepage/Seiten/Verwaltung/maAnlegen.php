@@ -9,7 +9,7 @@
 include("../../include_DBA.php");
 function maAnlegen($svnr,$vn,$nn,$passwort,$pw2)
 	{
-		$db=new db_con("conf/db.php",true);
+		$db=new db_con("conf/db.php",true, "utf8");
 		if($svnr !=null &&$vn !=null &&$nn !=null &&$passwort !=null){
 			
 				if($db->getMitarbeiter($svnr))

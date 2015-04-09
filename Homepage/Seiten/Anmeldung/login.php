@@ -3,7 +3,7 @@
 	
 
 	function login($username,$passwort){
-		$db=new DB_CON("conf/db.php",true);
+		$db=new DB_CON("conf/db.php",true, "utf8");
      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if(!isset($_SESSION)) 
       session_start();
@@ -26,6 +26,7 @@
 					$_SESSION['admin'] = true;
 					$_SESSION['mAdmin']= $Mitarbeiter->getAdmin();
 					$_SESSION['username'] = $name;
+					$_SESSION['svnr'] = $username;
 
 					return true;
 				}
@@ -52,6 +53,7 @@
 					$_SESSION['admin'] = false;
 					$_SESSION['freigeschaltet']= $kunde->getFreischaltung();
 					$_SESSION['username'] = $name;
+					$_SESSION['email']=$username;
 					return true;
 				}
 			}	

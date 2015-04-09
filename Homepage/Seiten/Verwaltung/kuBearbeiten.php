@@ -85,7 +85,7 @@
 				<table border="0">
 					<?php
 						include("../../include_DBA.php");
-						$db=new db_con("conf/db.php",true);
+						$db=new db_con("conf/db.php",true, "utf8");
 
 						echo "<tr><td>E-Mail Adresse</td><td>Vorname</td><td>Nachname</td><td>frei geschaltet</td><td>";
 						
