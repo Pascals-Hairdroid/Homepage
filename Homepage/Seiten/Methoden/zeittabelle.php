@@ -11,6 +11,46 @@
 		$woche=$_GET["woche"];
 		
 		
+		//Zeitberechnung
+		$sht;		//service + haartyp
+		$dl;		//dienstleistung
+		$br = null;		//pause
+		$gesamt;
+		
+		if ($haarlaenge == "Kurze Haare")
+			if ($dienstleistung == "DS")
+				$sht = 45; 
+			else 
+				$sht = 30;
+		else 
+			if ($dienstleistung == "HS")
+				$sht = 45;
+			else
+				$sht = 60;
+		
+		switch ($dienstleistung2) 
+		{
+   			case "FA":
+       		$dl = 30;
+       		$br = 30;
+       		break;
+    		case "ME":
+        	$dl = 60;
+       		$br = 30;
+        	break;
+    		case "T÷":
+        	$dl = 30;
+       		$br = 30;
+        	break;
+        	case "OKME":
+        	$dl = 30;
+        	$br = 30;
+        	break;
+		}
+		$gesamt = $sht + $dl + $br;
+		
+		
+		
 		include_once("../../include_DBA.php");
 		$db=new db_con("conf/db.php",true);
 		
@@ -18,6 +58,15 @@
 		echo "<br>";
 		echo "Gew&uuml;nschte Dienstleistung: ".$dienstleistung.", ";
 		echo $dienstleistung2;
+		echo "<br>";
+		echo "<br>";
+		echo "".$dienstleistung2." dauert ".$dl." Minuten gefolgt von ".$br." Minuten Pause";
+		echo "<br>";
+		echo "Nach Pause ".$haarlaenge." + ".$dienstleistung." braucht ".$sht." Minuten";
+		echo "<br>";
+		echo "<br>";
+		echo "Gesamt ".$gesamt." Minuten";
+		echo "<br>";
 		echo "<br>";
 		echo $woche;
 		$week = date("W", strtotime($woche));
@@ -45,138 +94,83 @@
 	
 
 		
-		//Zeittabelle
+		//Tabelle in einem
 		$i = 0;
+		$j=0;
 		$z1 = 11;
 		$z2 = 12;
-  		echo "<table border='1' style='float:left'>";
-  		echo "<tr>";
-  		echo "<th> Zeit </th>";
-  		echo "</tr>";
-  		while ($i < 8)
-  		{	
-  			echo "<tr>";
-			echo "<td height='90'>".$z1." bis ".$z2." </td>";
-			echo "</tr>";
-			$i++;
-			$z1= $z1+1;
-			$z2= $z2+1;
-  		}
-		echo "</table>";
 
-		
-		//Table f√ºr die Anzeige der Tage
-		
-		//Dienstag
-		echo "<table border='1' style='float:left;'>";
-  		echo "<tr>";
-  		echo "<th> Dienstag $ddaw </th>";
-  		echo "</tr>";
-  		$i=0;
-  		$ddaw= new DateTime($ddaw);
-  		$ddaw->modify('+660 minutes');
-  		while ($i < 32)
-  		{	
-  			echo "<tr>";
-			echo "<td>";
-			echo $ddaw->format('H:i');
-			echo "</td>";
-			echo "</tr>";
-			$i++;
-			$ddaw->modify('+15 minutes');
-  		}
-		echo "</table>";
-	
-		//Mittwoch
-		$mdaw=$ddaw;
+		$ddaw= new DateTime($ddaw);
+		$ddaw->modify('+660 minutes');
+		$mdaw= clone $ddaw;
 		$mdaw->add(new DateInterval('P1D'));
-		$mdaw->modify('-480 minutes');
-		echo "<table border='1' style='float:left'>";
+		$dodaw= clone $mdaw;
+		$dodaw->add(new DateInterval('P1D'));
+		$fdaw= clone $dodaw;
+		$fdaw->add(new DateInterval('P1D'));
+		$sdaw= clone $fdaw;
+		$sdaw->add(new DateInterval('P1D'));
+
+		echo "<table border='1'>";
 		echo "<tr>";
+		echo "<th> Zeit </th>";
+		echo "<th> Dienstag ";
+		echo $ddaw->format('d.m.Y');
+		echo " </th>";
 		echo "<th> Mittwoch ";
 		echo $mdaw->format('d.m.Y');
 		echo "</th>";
-		echo "</tr>";
-  		$i=0;
-		while ($i < 32)
-		{
-		echo "<tr>";
-		echo "<td>";
-		echo $mdaw->format('H:i');
-		echo "</td>";
-		echo "</tr>";
-			$i++;
-			$mdaw->modify('+15 minutes');
-		}
-		echo "</table>";
-		
-		//Donnerstag
-		$dodaw= $mdaw;
-		$dodaw->add(new DateInterval('P1D'));
-		$dodaw->modify('-480 minutes');
-		echo "<table border='1' style='float:left'>";
-		echo "<tr>";
 		echo "<th> Donnerstag ";
 		echo $dodaw->format('d.m.Y');
 		echo "</th>";
-		echo "</tr>";
-		$i=0;
-		while ($i < 32)
-		{
-			echo "<tr>";
-			echo "<td>";
-			echo $dodaw->format('H:i');
-			echo "</td>";
-			echo "</tr>";
-			$i++;
-			$dodaw->modify('+15 minutes');
-		}
-		echo "</table>";
-		
-		//Freitag
-		$fdaw= $dodaw;
-		$fdaw->add(new DateInterval('P1D'));
-		$fdaw->modify('-480 minutes');
-		echo "<table border='1' style='float:left'>";
-		echo "<tr>";
 		echo "<th> Freitag ";
 		echo $fdaw->format('d.m.Y');
 		echo "</th>";
-		echo "</tr>";
-		$i=0;
-		while ($i < 32)
-		{
-			echo "<tr>";
-			echo "<td>";
-			echo $fdaw->format('H:i');
-			echo "</td>";
-			echo "</tr>";
-			$i++;
-			$fdaw->modify('+15 minutes');
-		}
-		echo "</table>";
-		
-		//Samstag
-		$sdaw= $fdaw;
-		$sdaw->add(new DateInterval('P1D'));
-		$sdaw->modify('-480 minutes');
-		echo "<table border='1' style='float:left'>";
-		echo "<tr>";
 		echo "<th> Samstag ";
 		echo $sdaw->format('d.m.Y');
 		echo "</th>";
 		echo "</tr>";
-		$i=0;
-		while ($i < 32)
+		while ($i < 8)
 		{
 			echo "<tr>";
-			echo "<td>";
-			echo $fdaw->format('H:i');
-			echo "</td>";
-			echo "</tr>";
+			echo "<td rowspan='4'>".$z1." bis ".$z2." </td>";
+	
+			while ($j < 4)
+			{
+				if($j != 0)
+				{
+					echo "<tr>";
+				}	
+				echo "<td>";
+				echo $ddaw->format('H:i');
+				echo "</td>";
+				echo "<td>";
+				echo $mdaw->format('H:i');
+				echo "</td>";
+				echo "<td>";
+				echo $dodaw->format('H:i');
+				echo "</td>";
+				echo "<td>";
+				echo $fdaw->format('H:i');
+				echo "</td>";
+				echo "<td>";
+			
+				echo $sdaw->format('H:i');
+				echo "</td>";
+				echo "</tr>";
+				$j++;
+				$ddaw->modify('+15 minutes');
+				$mdaw->modify('+15 minutes');
+				$dodaw->modify('+15 minutes');
+				$fdaw->modify('+15 minutes');
+				$sdaw->modify('+15 minutes');
+			}		
 			$i++;
-			$sdaw->modify('+15 minutes');
+			$j=0;
+			$z1= $z1+1;
+			$z2= $z2+1;
 		}
+
 		echo "</table>";
 			
 		
