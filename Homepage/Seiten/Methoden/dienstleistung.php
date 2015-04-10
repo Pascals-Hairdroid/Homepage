@@ -13,7 +13,7 @@ window.onload = function () {
 <form action="Methoden/zeittabelle.php" method="get" target="iframe">
  <?php
   include_once("../include_DBA.php");
-  $db=new db_con("conf/db.php",true);
+  $db=new db_con("conf/db.php",true, "utf8");
 
   
   //Damen/Herrenservice auswahl

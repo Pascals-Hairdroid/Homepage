@@ -7,7 +7,7 @@
 <body>
 <?php
 include("../../include_DBA.php");
-$db=new db_con("conf/db.php",true);
+$db=new db_con("conf/db.php",true, "utf8");
 
 function maUpdate($svnr, $vn, $nn, $skills, $admin, $urlaube, $dienstzeiten)
 {
@@ -22,28 +22,33 @@ function maUpdate($svnr, $vn, $nn, $skills, $admin, $urlaube, $dienstzeiten)
 	else
 		return false;
 }
-
-$tempMa=$db->getMitarbeiter($_GET['SVNr']);
-	$vn=$tempMa->getVorname();
-	$nn=$tempMa->getNachname();
-	$admin=$tempMa->getAdmin();
-	
-	
-	
+$tempMA = $db->getMitarbeiter($_GET['SVNr']);
+$admin=$tempMA->getAdmin();
+$skillarray = array();
 if(isset($_GET['submit'])){
+	foreach ($db->getAllSkill() as $int)
+	{
+		if(	isset ($_GET[$int->getID()])){
+		$int = new Skill($int->getID(),$int->getBeschreibung());
+		$skillarray[]=$int;}
+	}
+	
+		
+	
 		$svnr=$_GET['SVNr'];
 		$vn=$_GET['vn'];
 		$nn=$_GET['nn'];
-		$skills=$tempMa->getSkills();
-		$urlaube=$tempMa->getUrlaube();
-		$dienstzeiten=$tempMa->getDienstzeiten();
+		
+		$urlaube=$tempMA->getUrlaube();
+		$dienstzeiten=$tempMA->getDienstzeiten();
 		$admin=false;
 		if(isset($_GET['admin'])){
 		if ($_GET['admin']=="on") {
 			$admin=true;
 		}
 		}
-		maUpdate($svnr, $vn, $nn, $skills, $admin, $urlaube, $dienstzeiten);
+		
+		maUpdate($svnr, $vn, $nn, $skillarray, $admin, $urlaube, $dienstzeiten);
 	}	
 
 			
@@ -129,27 +134,47 @@ if(isset($_POST['submit'])){
 				
 				
 				<div id="textArea">
-					<table border="0">
-						<form method="get" action="">
-							<tr><td>Sozialversicherungsnummer:</td><td><input name="SVNr" type="input" class=loginField"required = "required"
+						<form method='get' action=''>
+						<table border="0">
+							<tr><td><p>Sozialversicherungsnummer:</td><td><input name="SVNr" type="input" class=loginField" readonly
 							<?php echo "value='".$_GET['SVNr']."'"; ?>></p></td></tr>
 							
-							<tr><td>Vorname:</td><td><input name="vn" type="text" class="loginField"required = "required"
-							<?php echo "value='".$vn."'"; ?>></p></td></tr>
+							<tr><td><p>Vorname:</td><td><input name="vn" type="text" class="loginField"required = "required"
+							<?php echo "value='".$_GET['vn']."'"; ?>></p></td></tr>
 							
-							<tr><td>Nachname:</td><td><input name="nn" type="text" class="loginField"required = "required"
-							<?php echo "value='".$nn."'"; ?>></p></td></tr>
+							<tr><td><p>Nachname:</td><td><input name="nn" type="text" class="loginField"required = "required"
+							<?php echo "value='".$_GET['nn']."'"; ?>></p></td></tr>
 							
-							<tr><td>Admin:</td><td><input name="admin" type="checkbox"  class="loginField"
+							<tr><td>Admin:<input name="admin" type="checkbox"  class="loginField"
 							<?php 
-							if ($admin == 1) {
-								echo "checked";
+							if ( $admin == 1) {
+								echo "checked ></td></tr>";
+								
 							}
-							?>></p></td></tr>
+														
+							$i=0;
+							echo "<br>";
+							Echo"<tr>";
+							foreach ($db->getAllSkill() as $int)
+							{
+								$i++;
+								if(in_array($int,$tempMA->getSkills()))
+								echo "<td><input type='checkbox' name='".$int->getID()."' checked></input></td><td>".$int->getBeschreibung()."</td>";
+								else
+								echo "<td><input type='checkbox' name='".$int->getID()."'></input></td><td>".$int->getBeschreibung()."</td>";
+								
+								
+							
+								if ($i % 3 === 0) echo "</tr></td><tr><td>";
+							}
+							
+						
+							
+							?></tr>
 										
 							<tr><td><input type="submit" value ="absenden" name="submit"></td>	
+						</table>
 						</form>
-					</table>
 						<?php
 						if (isset($erg))
 							echo $erg;
