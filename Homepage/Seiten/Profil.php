@@ -102,6 +102,7 @@
 					
 				if ($_SESSION['admin']=true) {
 						$temp=$db->getMitarbeiter($_SESSION['svnr']);
+						
 						echo"<img src=''>";
 						echo"<p>".$temp->getVorname().$temp->get;
 					}

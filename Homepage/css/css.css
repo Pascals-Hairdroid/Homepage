@@ -250,9 +250,8 @@ and (min-device-width : 481px) {
 	position:relative;
 	bottom:37px;
 	z-index:-500;
-	max-width: 99999999px;
-	min-width:300px;
-	width:100%
+	width:100%;
+	
 	
 	
 	}

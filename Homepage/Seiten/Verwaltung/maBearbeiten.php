@@ -91,7 +91,7 @@
 						echo "<tr><td>Sozialversicherungsnr.:</td><td>Vorname</td><td>Nachname</td><td>Admin</td><td>";
 						
 						foreach($db->getAllMitarbeiter() as $mitarbeiter){
-							echo "<tr><td>".$mitarbeiter->getSVNr()."</td><td>".$mitarbeiter->getVorname()."</td><td>".$mitarbeiter->getNachname()."</td><td>".$mitarbeiter->getAdmin()."</td><td><a href='maUpdate.php?SVNr=".$mitarbeiter->getSVNr()."'>Bearbeiten</a>";
+							echo "<tr><td>".$mitarbeiter->getSVNr()."</td><td>".$mitarbeiter->getVorname()."</td><td>".$mitarbeiter->getNachname()."</td><td>".$mitarbeiter->getAdmin()."</td><td><a href='maUpdate.php?SVNr=".$mitarbeiter->getSVNr()."&vn=".$mitarbeiter->getVorname()."&nn=".$mitarbeiter->getNachname()."&admin=".$mitarbeiter->getAdmin()."'>Bearbeiten</a>";
 				
 						}	
 					?>

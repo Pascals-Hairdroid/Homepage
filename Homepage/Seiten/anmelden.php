@@ -24,7 +24,12 @@ if(isset($_POST['submit'])){
 	$passwort = md5($_POST['passwort']);
 	$username=$_POST['username'];
 	$weiterleitung=login($username,$passwort);
-	
+}
+if(isset($_POST['submit2'])){
+	$passwort = md5($_POST['passwort']);
+	$username=$_POST['username'];
+	$weiterleitung=login($username,$passwort);
+	header('Location: ../index.php');
 }
 ?>
 <div id="container">
@@ -100,7 +105,12 @@ if(isset($_POST['submit'])){
 				<div id="textArea">
 				
 				<?php
-				include ("Formulare/anmeldung.php");
+				
+				echo"<form method='post' action=''>";
+				echo"<p><input id='username' type='text' name='username' placeholder='Username' required></p>";
+				echo"<p><input id='password' type='password' name='passwort' placeholder='Passwort' required></p>";
+				echo"<p><input type='submit' name ='submit2' id='submit' value='Log in'></p>";
+				echo"</form>";
 				?>
 				
 				</div>
