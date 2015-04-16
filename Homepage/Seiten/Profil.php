@@ -109,7 +109,7 @@
 			</ul>
 		</div>
 		<div id="wrapper">
-			<div id="textArea">
+			<div id="textArea" >
 				<?php 
 				include("../include_DBA.php");
 				$db= new DB_Con("conf/db.php",true, "utf8");
@@ -121,9 +121,9 @@
 						else
 							echo"<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
 						echo"<p>";
-						echo "<p>Vorname: &nbsp;&nbsp;&nbsp;".$mitarbeiter->getVorname()."</p>";
-						echo "<p>Nachname: ".$mitarbeiter->getNachname()."</p>";
-						echo "<p>Zitat: ".$mitarbeiter->getZitat()."</p>";
+						echo "<p class='abstand'>Vorname: &nbsp;&nbsp;&nbsp;".$mitarbeiter->getVorname()."</p>";
+						echo "<p class='abstand'>Nachname: ".$mitarbeiter->getNachname()."</p>";
+						echo "<p class='abstand'>Zitat: ".$mitarbeiter->getZitat()."</p>";
 					}
 					else{
 					$email=$_SESSION['email'];		
@@ -133,9 +133,9 @@
 					else
 					echo"<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
 					echo"<p>";
-					echo "<p>Vorname: &nbsp;&nbsp;&nbsp;".$kunde->getVorname()."</p>";
-					echo "<p>Nachname: ".$kunde->getNachname()."</p>";
-					echo "<p>Telefon Nr: ".$kunde->getTelNr()."</p>";
+					echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$kunde->getVorname()."</p>";
+					echo "<p class='abstand'><span class='font'>Nachname: </span>".$kunde->getNachname()."</p>";
+					echo "<p class='abstand'><span class='font'>Telefon Nr: </span>".$kunde->getTelNr()."</p>";
 					
 			}
 			?>

@@ -236,12 +236,23 @@ and (min-device-width : 481px) {
 	}
 	#textArea{
 	clear:both;
-	max-width: 99999999px;
-	min-width:300px;
+	min-height:300px;
 	width:100%
 	
 	}
-	#textArea p.Name{
+	#textArea p{	
+	
+	}
+	#textArea .abstand{
+	position:relative;
+	top:10px;
+	}
+	#textArea .font{
+	font-size:14pt;
+	font-weight:bold;
+	color:darkblue;
+	padding-left:20px;
+	padding-top:5px;
 	}
 	#textArea p.Motto{
 	}
