@@ -6,7 +6,7 @@ function getBrowser()
 	$platform = 'Unknown';
 	$version= "";
 
-	//First get the platform?
+	//Plattform auslesen
 	if (preg_match('/linux/i', $u_agent)) {
 		$platform = 'linux';
 	}
@@ -17,7 +17,7 @@ function getBrowser()
 		$platform = 'windows';
 	}
 
-	// Next get the name of the useragent yes seperately and for good reason
+	// Browesernamen auslesen
 	if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent))
 	{
 		$bname = 'Internet Explorer';
@@ -49,7 +49,7 @@ function getBrowser()
 		$ub = "Netscape";
 	}
 
-	// finally get the correct version number
+	// Version
 	$known = array('Version', isset($ub), 'other');
 	$pattern = '#(?<browser>' . join('|', $known) .
 	')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
@@ -57,7 +57,7 @@ function getBrowser()
 		// we have no matching number just continue
 	}
 
-	// see how many we have
+	// Anzahl
 	$i = count($matches['browser']);
 	if ($i != 1) {
 		//we will have two since we are not using 'other' argument yet

@@ -3,7 +3,7 @@
 		<html>
 		<body>
 		<?php
-
+		date_default_timezone_set('Europe/Vienna');
 $jahr= date('Y');
 $woche2= date('W');
 $ddaw = date( "d.m.Y", strtotime($jahr."W".$woche2."2") ); // Dienstag der ausgewählten Woche
