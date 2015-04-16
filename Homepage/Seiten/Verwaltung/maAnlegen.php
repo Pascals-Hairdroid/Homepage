@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -58,7 +59,7 @@ if(isset($_POST['submit']))
 								}
 								else{
 									echo"<li id='login'>";
-									echo"<a href='Seiten/Anmeldung/endSession.php'>Log Out</span></a>";
+									echo"<a href='../Anmeldung/endSession.php'>Log Out</span></a>";
 									echo"<div id='login-content'>";
 										
 								}
@@ -66,12 +67,30 @@ if(isset($_POST['submit']))
 									?>
 								</div>                     
 							</li>
-							<li id="signup">
-								<a href="Seiten/registration.php">Sign up</a>
-							</li>
+							<?php
+							if(isset($_SESSION['username'])){
+							echo"<li "; 
+							if($_SESSION['admin']==false)
+							echo"id='signup'";
+							else
+							echo"id='element'";	
+							echo"><a href='#'>Profil</a></li>";
+							if($_SESSION['admin']==true){
+							echo"<li id='signup'><a href='../../index.php'>Homepage</a></li>";
+							}
+													
+							
+							}
+							else{
+								echo"<li id='signup'>";
+								echo"<a href='../registration.php'>Registrieren</a>";
+								echo"</li>";
+							}
+							?>
+							
 						</ul>
 					</nav>
-			</div>
+			</div>					
 			<div id="head">
 				<h1>PASCALS<img src="../../Bilder/Homepage/Logo.png">HAIRSTYLE</h1>
 				<h2>Frisuren zum Wohlf&uuml;hlen</h2>		

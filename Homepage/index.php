@@ -123,7 +123,6 @@
 									echo"<div id='login-content'>";
 										
 								}
-									
 									?>
 								</div>                     
 							</li>

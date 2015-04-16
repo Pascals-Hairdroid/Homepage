@@ -31,7 +31,7 @@ include ("Anmeldung/auth.php")
 	<div id="container">
 <div id="streifen"></div>
 		<div id="main">
-		<div id="Loginbox">
+		<div id="Loginbox" class="hide">
 					<nav>
 						<ul>
 						<?php
@@ -53,16 +53,30 @@ include ("Anmeldung/auth.php")
 								else{
 									echo"<li id='login'>";
 									echo"<a href='Anmeldung/endSession.php'>Log Out</span></a>";
-									echo"<div id='login-content'>";
-										
+									echo"<div id='login-content'>";	
 								}
-									
 									?>
 								</div>                     
 							</li>
-							<li id="signup">
-								<a href="registration.php">Sign up</a>
-							</li>
+							<?php
+							if(isset($_SESSION['username'])){
+							echo"<li "; 
+							if($_SESSION['admin']==false)
+							echo"id='signup'";
+							else
+							echo"id='element'";	
+							echo"><a href='Seiten/Profil.php'>Profil</a></li>";
+							if($_SESSION['admin']==true){
+							echo"<li id='signup'><a href='Verwaltung/Verwaltungsmain.php'>Adminbereich</a></li>";
+							}
+													
+							}
+							else{
+								echo"<li id='signup'>";
+								echo"<a href='registration.php'>Registrieren</a>";
+								echo"</li>";
+							}
+							?>
 						</ul>
 					</nav>
 			</div>
