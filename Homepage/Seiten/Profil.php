@@ -100,7 +100,7 @@
 				</li>
 				<li class="topmenu"><a href="terminvergabe.php">Termine</a>
 				</li>
-				<li class="topmenu"><a href="Angebote.php" class="selected">Angebote</a>
+				<li class="topmenu"><a href="Angebote.php">Angebote</a>
 				</li>
 				<li class="topmenu"><a href="Produkte.php">Produkte</a>
 				</li>
@@ -114,15 +114,29 @@
 				include("../include_DBA.php");
 				$db= new DB_Con("conf/db.php",true, "utf8");
 					
-				if ($_SESSION['admin']=true) {
-						$temp=$db->getMitarbeiter($_SESSION['svnr']);
-						
-						echo"<img src=''>";
-						echo"<p>".$temp->getVorname().$temp->get;
+				if ($_SESSION['admin']==true) {
+						$mitarbeiter=$db->getMitarbeiter($_SESSION['svnr']);
+						if ($mitarbeiter->getFoto() != null)
+							echo"<img class='profilbild'src='../Bilder/Profilbilder/".$mitarbeiter->getFoto()."'>";
+						else
+							echo"<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
+						echo"<p>";
+						echo "<p>Vorname: &nbsp;&nbsp;&nbsp;".$mitarbeiter->getVorname()."</p>";
+						echo "<p>Nachname: ".$mitarbeiter->getNachname()."</p>";
+						echo "<p>Zitat: ".$mitarbeiter->getZitat()."</p>";
 					}
 					else{
-					echo"<img src=''>";
+					$email=$_SESSION['email'];		
+					$kunde=$db->getKunde($email);
+					if ($kunde->getFoto() != null)
+					echo"<img class='profilbild'src='../Bilder/Profilbilder/".$kunde->getFoto()."'>";
+					else
+					echo"<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
 					echo"<p>";
+					echo "<p>Vorname: &nbsp;&nbsp;&nbsp;".$kunde->getVorname()."</p>";
+					echo "<p>Nachname: ".$kunde->getNachname()."</p>";
+					echo "<p>Telefon Nr: ".$kunde->getTelNr()."</p>";
+					
 			}
 			?>
 			</div>

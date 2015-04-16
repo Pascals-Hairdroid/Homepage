@@ -178,6 +178,10 @@ and (min-device-width : 481px) {
 	}
 	.logout{
 	}
+	.profilbild{
+	float:left;
+	width:25%;
+	}
 	#container{
 	width:100%;
 	}
