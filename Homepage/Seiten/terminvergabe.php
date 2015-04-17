@@ -118,7 +118,7 @@ include ("Anmeldung/auth.php")
 					include("Methoden/dienstleistung.php")
 					?>
 					<br>
-					<iframe name="iframe" src="Methoden/zeittabelle_start2.php" style="width:970px;height:900px;">
+					<iframe name="iframe" src="Methoden/zeittabelle_start.php" style="width:100%;min-height:900px;padding:0px;margin:auto;">
 					</iframe>
 				</div>
 				<div id="werbungsbanner">
