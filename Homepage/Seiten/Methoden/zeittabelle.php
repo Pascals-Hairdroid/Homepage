@@ -85,14 +85,19 @@
 		}
 		else
 		{
+			$tag=substr($woche, 3, 2);;
+			$monat=substr($woche, 0, 2);
 			$jahr= substr($woche, 6, 4); 
+			$tag2 = new DateTime();
+			$tag2->setDate($jahr, $monat, $tag);
+			if ($tag2->format('l') == 'Sunday')
+			{
+				$week=$week+1;
+			}
 			$ddaw = date( "d.m.Y", strtotime($jahr."W".$week."2") ); // Dienstag der ausgewählten Woche
-			echo $ddaw;
 			echo "<br>";
 		}
 		
-	
-
 		
 		//Tabelle in einem
 		$i = 0;
@@ -102,6 +107,7 @@
 
 		$ddaw= new DateTime($ddaw);
 		$ddaw->modify('+660 minutes');
+		$von= clone $ddaw;
 		$mdaw= clone $ddaw;
 		$mdaw->add(new DateInterval('P1D'));
 		$dodaw= clone $mdaw;
@@ -111,7 +117,7 @@
 		$sdaw= clone $fdaw;
 		$sdaw->add(new DateInterval('P1D'));
 
-		echo "<table border='1'>";
+		echo "<table border='1' id='zeittabelle'>";
 		echo "<tr>";
 		echo "<th> Zeit </th>";
 		echo "<th> Dienstag ";
@@ -170,15 +176,12 @@
 			$z1= $z1+1;
 			$z2= $z2+1;
 		}
-
+		$bis= clone $sdaw;
 		echo "</table>";
 			
 		
 		
-		foreach ($db->getFreieTermine() as $termine)
-		{
- 		 	echo $termine;
- 		}
+		echo $db->getFreieTermine($von, $bis) 
 		?>
 
 </body> 
