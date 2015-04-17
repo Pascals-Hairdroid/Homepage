@@ -1,11 +1,12 @@
 <?php session_start();?>
 <!DOCTYPE html>
 <html>
-	<head>
-      <title>PASCALS HAIRSTYLE</title>
-	<link rel="stylesheet" type="text/css" href="../css/css.css">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-		<script>
+<head>
+<title>PASCALS HAIRSTYLE</title>
+<link rel="stylesheet" type="text/css" href="../css/css.css">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script>
 			$(document).ready(function(){
     $('#login-trigger').click(function() {
         $(this).next('#login-content').slideToggle();
@@ -16,58 +17,59 @@
         })
 });
 		</script>
-	</head>
-	<body>
+</head>
+<body>
 	<?php
-		include("Anmeldung/login.php");
-		if(isset($_POST['submit'])){
+	include("Anmeldung/login.php");
+	if(isset($_POST['submit'])){
 			$passwort = md5($_POST['passwort']);
 			$username=$_POST['username'];
 			$weiterleitung=login($username,$passwort);
 		}
-	?>
+		?>
 	<div id="container">
-<div id="streifen"></div>
+		<div id="streifen"></div>
 		<div id="main">
-		<div id="Loginbox" class="hide">
-					<nav>
-						<ul>
+			<div id="Loginbox" class="hide">
+				<nav>
+					<ul>
 						<?php
 						if(!isset($_SESSION['username'])){
 							echo"<li id='login'>";
-								echo"<a id='login-trigger' href='#'>Log in <span>&#x25BC;</span></a>";
-								echo"<div id='login-content'>";
-									echo"<form method='post' action=''>";
-										echo"<fieldset id='inputs'>";
-											echo"<input id='username' type='text' name='username' placeholder='Username' required>";   
-											echo"<input id='password' type='password' name='passwort' placeholder='Passwort' required>";
-										echo"</fieldset>";
-										echo"<fieldset id='actions'>";
-											echo"<input type='submit' name ='submit' id='submit' value='Log in'>";
-											echo"<label><a href='#'> Forgot Password </a></label>";
-										echo"</fieldset>";
-									echo"</form>";
+							echo"<a id='login-trigger' href='#'>Log in <span>&#x25BC;</span></a>";
+							echo"<div id='login-content'>";
+							echo"<form method='post' action=''>";
+							echo"<fieldset id='inputs'>";
+							echo"<input id='username' type='text' name='username' placeholder='Username' required>";
+							echo"<input id='password' type='password' name='passwort' placeholder='Passwort' required>";
+							echo"</fieldset>";
+							echo"<fieldset id='actions'>";
+							echo"<input type='submit' name ='submit' id='submit' value='Log in'>";
+							echo"<label><a href='#'> Forgot Password </a></label>";
+							echo"</fieldset>";
+							echo"</form>";
 								}
 								else{
 									echo"<li id='login'>";
 									echo"<a href='Anmeldung/endSession.php'>Log Out</span></a>";
-									echo"<div id='login-content'>";	
+									echo"<div id='login-content'>";
 								}
-									?>
-								</div>                     
-							</li>
-							<?php
-							if(isset($_SESSION['username'])){
-							echo"<li "; 
+								?>
+			
+			</div>
+			</li>
+			<?php
+			if(isset($_SESSION['username'])){
+							echo"<li ";
 							if($_SESSION['admin']==false)
-							echo"id='signup'";
+								echo"id='signup'";
 							else
-							echo"id='element'";	
+								echo"id='element'";
 							echo"><a href='Seiten/Profil.php'>Profil</a></li>";
 							if($_SESSION['admin']==true){
 							echo"<li id='signup'><a href='Verwaltung/Verwaltungsmain.php'>Adminbereich</a></li>";
 							}
-													
+
 							}
 							else{
 								echo"<li id='signup'>";
@@ -75,59 +77,99 @@
 								echo"</li>";
 							}
 							?>
-						</ul>
-					</nav>
-			</div>
-			<div id="head">
-				<?php
-					include ("HTML/header.html");
-				?>
-			</div>
-			<div id="menu">
-    <ul>
-      <li class="topmenu">
-        <a href="../index.php">Friseurstudio</a>
-        <ul>
-          <li class="submenu"><a href="studio.php">Das Studio</a></li>
-          <li class="submenu"><a href="team.php">Unser Team</a></li>
-          <li class="submenu"><a href="dienstleistung.php">Dienstleistungen</a></li>
-          <li class="submenu"><a href="offnungszeiten.php">&Ouml;ffnungszeiten</a></li>
-          <li class="submenu"><a href="kontakt.php">Kontakt</a></li>
-        </ul>
-      </li>
-      <li class="topmenu">
-        <a href="terminvergabe.php">Termine</a>        
-      </li>
-      <li class="topmenu">
-        <a href="Angebote.php">Angebote</a>
-      </li>
-	  <li class="topmenu">
-        <a href="Produkte.php">Produkte</a>
-      </li>
-	  <li class="topmenu">
-        <a href="Galerie.php" class="selected">Galerie</a>
-      </li>
-    </ul>
-  </div>
-			<div id="wrapper">
-				<div id="textArea">
-					<p>√úberall kommt es vor: Grad sind zu viele Kundinnen da, du musst warten oder es dauert zu lang. Das kann immer passieren. </p>
+			</ul>
+			</nav>
+		</div>
+		<div id="head">
+			<?php
+			include ("HTML/header.html");
+			?>
+		</div>
+		<div id="menu">
+			<ul>
+				<li class="topmenu"><a href="../index.php">Friseurstudio</a>
+					<ul>
+						<li class="submenu"><a href="studio.php">Das Studio</a></li>
+						<li class="submenu"><a href="team.php">Unser Team</a></li>
+						<li class="submenu"><a href="dienstleistung.php">Dienstleistungen</a>
+						</li>
+						<li class="submenu"><a href="offnungszeiten.php">&Ouml;ffnungszeiten</a>
+						</li>
+						<li class="submenu"><a href="kontakt.php">Kontakt</a></li>
+					</ul>
+				</li>
+				<li class="topmenu"><a href="terminvergabe.php">Termine</a>
+				</li>
+				<li class="topmenu"><a href="Angebote.php">Angebote</a>
+				</li>
+				<li class="topmenu"><a href="Produkte.php">Produkte</a>
+				</li>
+				<li class="topmenu"><a href="Galerie.php" class="selected">Galerie</a>
+				</li>
+			</ul>
+		</div>
+		<div id="wrapper">
+			<div id="textArea">
+				<table border ="0" id="galerie" style="text-align:center;">
+				<tr>
+					<?php
+					// Ordnername
+					$ordner = "../Bilder/Galerie/"; //auch komplette Pfade mˆglich ($ordner = "download/files";)
 
-<p>Aktionen und Sorry-Gutscheine sind ein nettes Benefit f√ºr Dich und mein Zeichen, wie viel mir an Dir und Deiner Zufriedenheit liegt.</p>
-
-<p>Bl√§tter Dich durch die Augenblicklichen Aktionen. Durch einen Klick aufs Bild kommst Du zu einem PDF, das Du ausdrucken und mit zu mir nehmen kannst.Gilt f√ºr alles ausser f√ºr den Sorry4waiting-Gutschein. Den bekommst Du n√§mlich von mir pers√∂nlich!</p>
-
-<p>Ich freu mich Dich bald zu sehen.</p>
-				</div>
-				<div id="werbungsbanner">
+					// Ordner auslesen und Array in Variable speichern
+					$allebilder = scandir($ordner); // Sortierung A-Z
+					// Sortierung Z-A mit scandir($ordner, 1)
+					$i =1;
+					
+					// Schleife um Array "$alledateien" aus scandir Funktion auszugeben
+					// Einzeldateien werden dabei in der Variabel $datei abgelegt
+					foreach ($allebilder as $bild) {
+					
+					// Zusammentragen der Dateiinfo
+					$bildinfo = pathinfo($ordner."/".$bild);
+					//Folgende Variablen stehen nach pathinfo zur Verf¸gung
+					// $dateiinfo['filename'] =Dateiname ohne Dateiendung  *erst mit PHP 5.2
+					// $dateiinfo['dirname'] = Verzeichnisname
+					// $dateiinfo['extension'] = Dateityp -/endung
+					// $dateiinfo['basename'] = voller Dateiname mit Dateiendung
 				
-				</div>
+					// Grˆﬂe ermitteln f¸r Ausgabe
+					$size = ceil(filesize($ordner."/".$bild)/1024);
+					//1024 = kb | 1048576 = MB | 1073741824 = GB
+				
+					// scandir liest alle Dateien im Ordner aus, zus‰tzlich noch "." , ".." als Ordner
+					// Nur echte Dateien anzeigen lassen und keine "Punkt" Ordner
+					// _notes ist eine Erg‰nzung f¸r Dreamweaver Nutzer, denn DW legt zur besseren Synchronisation diese Datei in den Orndern ab
+					// Thumbs.db ist eine Erg‰nzung unsichtbare Dateierg‰nzung die von ACDSee kommt
+					// um weitere ungewollte Dateien von der Anzeige auszuschlieﬂen kann man die if Funktion einfach entsprechend erweitern
+					if ($bild != "." && $bild != ".."  && $bild != "_notes" && $bildinfo['basename'] != "Thumbs.db") {
+					?>
+					
+							<td><img src="<?php echo $bildinfo['dirname']."/".$bildinfo['basename'];?>"
+							width ="154px" height="150px" alt="Vorschau" /></td>
+					
+					<?php
+					if ($i % 4 === 0 && $i != 0) {
+						echo "</tr><tr>";						
+					}
+					$i++;
+					
+					
+					
+	};
+ };
+ ?>
+ </tr>
+				</table>
 			</div>
-			<div id="footer" align = "center">
-				<?php
-					include("HTML/footer.html");
-				?>
-			</div>
-		</div></div>
-	</body>
+			<div id="werbungsbanner"></div>
+		</div>
+		<div id="footer" align="center">
+			<?php
+			include("HTML/footer.html");
+			?>
+		</div>
+	</div>
+	</div>
+</body>
 </html>
