@@ -65,7 +65,7 @@
 							echo"id='signup'";
 							else
 							echo"id='element'";	
-							echo"><a href='Seiten/Profil.php'>Profil</a></li>";
+							echo"><a href='Profil.php'>Profil</a></li>";
 							if($_SESSION['admin']==true){
 							echo"<li id='signup'><a href='Verwaltung/Verwaltungsmain.php'>Adminbereich</a></li>";
 							}
@@ -111,34 +111,70 @@
 		<div id="wrapper">
 			<div id="textArea" >
 				<?php 
-				include("../include_DBA.php");
-				$db= new DB_Con("conf/db.php",true, "utf8");
+					include("../include_DBA.php");
+					$db= new DB_Con("conf/db.php",true, "utf8");
+					if(isset($_GET['SVNr'])){
 					
-				if ($_SESSION['admin']==true) {
-						$mitarbeiter=$db->getMitarbeiter($_SESSION['svnr']);
-						if ($mitarbeiter->getFoto() != null)
-							echo"<img class='profilbild'src='../Bilder/Profilbilder/".$mitarbeiter->getFoto()."'>";
-						else
-							echo"<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
-						echo"<p>";
-						echo "<p class='abstand'>Vorname: &nbsp;&nbsp;&nbsp;".$mitarbeiter->getVorname()."</p>";
-						echo "<p class='abstand'>Nachname: ".$mitarbeiter->getNachname()."</p>";
-						echo "<p class='abstand'>Zitat: ".$mitarbeiter->getZitat()."</p>";
+					$ordner = "../Bilder/Profilbilder/"; // Ordnername
+					$allebilder = scandir($ordner); // Ordner auslesen und Array in Variable speichern
+					$i=1;	
+					// Schleife um Array "$alledateien" aus scandir Funktion auszugeben
+					// Einzeldateien werden dabei in der Variabel $datei abgelegt
+						foreach ($allebilder as $bild) {	
+							// Zusammentragen der Dateiinfo
+							$bildinfo = pathinfo($ordner."/".$bild);
+							//Folgende Variablen stehen nach pathinfo zur Verfügung
+							// $dateiinfo['filename'] =Dateiname ohne Dateiendung  *erst mit PHP 5.2
+							// $dateiinfo['dirname'] = Verzeichnisname
+							// $dateiinfo['extension'] = Dateityp -/endung
+							// $dateiinfo['basename'] = voller Dateiname mit Dateiendung
+							if ($bild != "." && $bild != ".."  && $bild != "_notes" && $bildinfo['basename'] != "Thumbs.db") {
+								if($_GET['SVNr']==$bildinfo['filename']){
+									$ma=$db->getMitarbeiter($_GET['SVNr']);
+									echo "<img src='".$bildinfo['dirname']."/".$bildinfo['basename']."' class='profilbild'>";
+									echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>";
+									echo "<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>";
+									}
+								else if($i == 1){	
+									$ma=$db->getMitarbeiter($_GET['SVNr']);
+									echo "<img src='".$bildinfo['dirname']."/nopicture.jpg"."' class='profilbild'>";
+									echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>";
+									echo "<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>";
+								
+								}
+								$i++;
+							
+							};
+							
+						 };
+						
 					}
 					else{
-					$email=$_SESSION['email'];		
-					$kunde=$db->getKunde($email);
-					if ($kunde->getFoto() != null)
-					echo"<img class='profilbild'src='../Bilder/Profilbilder/".$kunde->getFoto()."'>";
-					else
-					echo"<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
-					echo"<p>";
-					echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$kunde->getVorname()."</p>";
-					echo "<p class='abstand'><span class='font'>Nachname: </span>".$kunde->getNachname()."</p>";
-					echo "<p class='abstand'><span class='font'>Telefon Nr: </span>".$kunde->getTelNr()."</p>";
-					
-			}
-			?>
+							if ($_SESSION['admin']==true) {
+								$mitarbeiter=$db->getMitarbeiter($_SESSION['svnr']);
+								if ($mitarbeiter->getFoto() != null)
+									echo"<img class='profilbild'src='../Bilder/Profilbilder/".$mitarbeiter->getFoto()."'>";
+								else
+									echo"<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
+								echo"<p>";
+								echo "<p class='abstand'>Vorname: &nbsp;&nbsp;&nbsp;".$mitarbeiter->getVorname()."</p>";
+								echo "<p class='abstand'>Nachname: ".$mitarbeiter->getNachname()."</p>";
+								echo "<p class='abstand'>Zitat: ".$mitarbeiter->getZitat()."</p>";
+							}
+							else{
+								$email=$_SESSION['email'];		
+								$kunde=$db->getKunde($email);
+								if ($kunde->getFoto() != null)
+								echo"<img class='profilbild'src='../Bilder/Profilbilder/".$kunde->getFoto()."'>";
+								else
+								echo"<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
+								echo"<p>";
+								echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$kunde->getVorname()."</p>";
+								echo "<p class='abstand'><span class='font'>Nachname: </span>".$kunde->getNachname()."</p>";
+								echo "<p class='abstand'><span class='font'>Telefon Nr: </span>".$kunde->getTelNr()."</p>";
+							}
+					}
+				?>
 			</div>
 			<div id="werbungsbanner"></div>
 		</div>

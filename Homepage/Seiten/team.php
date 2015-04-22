@@ -111,13 +111,43 @@
   </div>
 			<div id="wrapper">
 				<div id="textArea">
-					<p>Überall kommt es vor: Grad sind zu viele Kundinnen da, du musst warten oder es dauert zu lang. Das kann immer passieren. </p>
+					<?php 
+					include("../include_DBA.php");
+					$db=new db_con("conf/db.php",true, "utf8");
+					foreach($db->getAllMitarbeiter() as $ma){
+						$ordner = "../Bilder/Profilbilder/"; // Ordnername
+						$allebilder = scandir($ordner); // Ordner auslesen und Array in Variable speichern
+						$i=1;
+						// Schleife um Array "$alledateien" aus scandir Funktion auszugeben
+						// Einzeldateien werden dabei in der Variabel $datei abgelegt
+						foreach ($allebilder as $bild) {
+							// Zusammentragen der Dateiinfo
+							$bildinfo = pathinfo($ordner."/".$bild);
+							//Folgende Variablen stehen nach pathinfo zur Verf�gung
+							// $dateiinfo['filename'] =Dateiname ohne Dateiendung  *erst mit PHP 5.2
+							// $dateiinfo['dirname'] = Verzeichnisname
+							// $dateiinfo['extension'] = Dateityp -/endung
+							// $dateiinfo['basename'] = voller Dateiname mit Dateiendung
+							if ($bild != "." && $bild != ".."  && $bild != "_notes" && $bildinfo['basename'] != "Thumbs.db") {
+								if($ma->getSvnr()==$bildinfo['filename']){
+								echo "<div style='min-height:300px'>";
+								echo "<img src='".$bildinfo['dirname']."/".$bildinfo['basename']."' class='profilbild'>";
 
-<p>Aktionen und Sorry-Gutscheine sind ein nettes Benefit für Dich und mein Zeichen, wie viel mir an Dir und Deiner Zufriedenheit liegt.</p>
-
-<p>Blätter Dich durch die Augenblicklichen Aktionen. Durch einen Klick aufs Bild kommst Du zu einem PDF, das Du ausdrucken und mit zu mir nehmen kannst.Gilt für alles ausser für den Sorry4waiting-Gutschein. Den bekommst Du nämlich von mir persönlich!</p>
-
-<p>Ich freu mich Dich bald zu sehen.</p>
+								}
+								else if($ma->getSvnr()!=$bildinfo['filename'] && $i % 3 === 0){
+								echo "<div style='min-height:300px'>";
+								echo "<img src='".$bildinfo['dirname']."/nopicture.jpg"."' class='profilbild'>";
+								}
+								
+							}
+							$i++;
+						}
+						
+						echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>";
+						echo "<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>";
+						echo "</div>";
+					}
+					?>
 				</div>
 				<div id="werbungsbanner">
 				
