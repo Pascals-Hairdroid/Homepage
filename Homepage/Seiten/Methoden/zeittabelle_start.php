@@ -1,6 +1,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 		"http://www.w3.org/TR/html4/loose.dtd">
 <html>
+	<head>
+		<link  rel="stylesheet" type="text/css" href="../../css/css.css">
+	</head>
 	<body>
 		<?php
 		
@@ -26,7 +29,7 @@
 		$sdaw= clone $fdaw;
 		$sdaw->add(new DateInterval('P1D'));
 
-		echo "<table border='1' style='margin: 10px auto;text-align:center; width:950px;'>";
+		echo "<table border='1' id='zeittabelle'>";
 		echo "<tr>";
 		echo "<th> Zeit </th>";
 		echo "<th> Dienstag ";

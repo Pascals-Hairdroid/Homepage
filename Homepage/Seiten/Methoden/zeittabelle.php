@@ -1,6 +1,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+	<head>
+		<link  rel="stylesheet" type="text/css" href="../../css/css.css">
+	</head>
 	<body>
 		<?php
 		
@@ -180,8 +183,13 @@
 		echo "</table>";
 			
 		
-		
-		echo $db->getFreieTermine($von, $bis) 
+	
+		$ft= $db->getFreieTermine($von, $bis); 		//FreieTermine
+		var_dump($ft);
+		while ($fta = mysqli_fetch_object($ft))
+		{
+			echo $fta->Zeitstempel;
+		}
 		?>
 
 </body> 
