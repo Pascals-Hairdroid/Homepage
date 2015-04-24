@@ -161,7 +161,7 @@
 							<a href="index.php" class="selected">Friseurstudio</a>
 							<ul>
 								<li><a href="Seiten/studio.php">Das Studio</a></li>
-								  <li><a href="Seiten/Team.php">Unser Team</a></li>
+								  <li><a href="Seiten/team.php">Unser Team</a></li>
 								  <li><a href="Seiten/dienstleistung.php">Dienstleistungen</a></li>
 								  <li><a href="Seiten/offnungszeiten.php">&Ouml;ffnungszeiten</a></li>
 								  <li><a href="Seiten/kontakt.php">Kontakt</a></li>
