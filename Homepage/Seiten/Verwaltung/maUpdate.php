@@ -129,6 +129,8 @@ if(isset($_POST['submit'])){
 									<ul>
 										<li><a href="maAnlegen.php">anlegen</a></li>
 										<li ><a href="maBearbeiten.php">bearbeiten</a></li>
+										<li ><a href="zeiten.php">Dienstzeiten</a></li>
+										<li ><a href="urlaub.php">Urlaub</a></li>
 									</ul>
 								</li>
 								<li class="items"><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
