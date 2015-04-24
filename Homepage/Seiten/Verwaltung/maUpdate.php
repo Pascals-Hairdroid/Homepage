@@ -99,7 +99,7 @@ if(isset($_POST['submit'])){
 							echo"id='signup'";
 							else
 							echo"id='element'";	
-							echo"><a href='#'>Profil</a></li>";
+							echo"><a href='../Profil.php'>Profil</a></li>";
 							if($_SESSION['admin']==true){
 							echo"<li id='signup'><a href='../../index.php'>Homepage</a></li>";
 							}
@@ -167,11 +167,8 @@ if(isset($_POST['submit'])){
 							<?php echo "value='".$_GET['nn']."'"; ?>></p></td></tr>
 							
 							<tr><td>Admin:<input name="admin" type="checkbox"  class="loginField"
+							<?php if ( $admin == 1) echo "checked";	?>></td></tr>
 							<?php 
-							if ( $admin == 1) {
-								echo "checked ></td></tr>";
-								
-							}
 														
 							$i=0;
 							echo "<br>";

@@ -60,7 +60,7 @@ $interessenarray = array();
 							echo"id='signup'";
 							else
 							echo"id='element'";	
-							echo"><a href='#'>Profil</a></li>";
+							echo"><a href='../Profil.php'>Profil</a></li>";
 							if($_SESSION['admin']==true){
 							echo"<li id='signup'><a href='../../index.php'>Homepage</a></li>";
 							}
@@ -90,6 +90,8 @@ $interessenarray = array();
 									<ul>
 										<li><a href="maAnlegen.php">anlegen</a></li>
 										<li ><a href="maBearbeiten.php">bearbeiten</a></li>
+										<li ><a href="zeiten.php">Dienstzeiten</a></li>
+										<li ><a href="urlaub.php">Urlaub</a></li>
 									</ul>
 								</li>
 								<li class="items"><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>

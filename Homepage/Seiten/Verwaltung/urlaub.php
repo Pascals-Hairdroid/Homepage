@@ -1,4 +1,5 @@
-<?php session_start();?>
+<?php session_start();
+include("../../include_DBA.php");?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -7,47 +8,31 @@
 </head>
 <body>
 <?php
-include("../../include_DBA.php");
-$db=new db_con("conf/db.php",true, "utf8");
 
-function kuUpdate($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen)
+function urlaubEintragen($svnr,$von,$bis)
 	{
-		$db=new db_con("conf/db.php",true);
-		if($email != null){
-			$kunde=new Kunde($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen);
-			$db->kundeUpdaten($kunde);
-	
-			return true;
-		}
-		else
-			return false;
+		$db=new db_con("conf/db.php",true, "utf8");
+		if($svnr !=null &&$von !=null &&$bis !=null){
+			$von2 = DateTime::createFromFormat('d.F Y',$von);
+			$bis2 = DateTime::createFromFormat('d.F Y',$bis);
+			$mitarbeiter=$db->getMitarbeiter($svnr);
+			$urlaub=new Urlaub($von2, $bis2);
+			
+				
+					
+					$db->urlaubEintragen($urlaub, $mitarbeiter);
+				
+					
+					return 'Erfolgreich registriert!<a href="../index.php">Zum Login</a>';
+				
+			
+		}	
 	}
-$tempKu=$db->getKunde($_GET['Email']);
-	$vn=$tempKu->getVorname();
-	$nn=$tempKu->getNachname();
-	$telnr=$tempKu->getTelNr();
-	$freischalten=$tempKu->getFreischaltung();
-	
-	
-if(isset($_GET['submit'])){
-		$email=$_GET["Email"];
-		$vn=$_GET['vn'];
-		$nn=$_GET['nn'];
-		$telNr=$_GET['telnr'];
-		$foto=$tempKu->getFoto();
-		$interessen=$tempKu->getInteressen();	
-		$freischalten=false;
-		if(isset($_GET['rights'])){
-			if ($_GET['rights']=="on") {
-				$freischalten=true;
-			}
-		}
-		
-			kuUpdate($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen);
-		}		
+if(isset($_POST['submit']))
+	$erg=urlaubEintragen($_POST['svnr'],$_POST['von'],$_POST['bis']);
 ?>
 
-			<div id="container">
+	<div id="container">
 <div class ="hide" id="streifen"></div><div id="main">
 			<div id="Loginbox" class="hide">
 					<nav>
@@ -110,7 +95,7 @@ if(isset($_GET['submit'])){
 			<div id="hmenu">		
 					<nav id="menu" class="hide">
 							<ul>
-								<li  class="items">
+<li  class="items">
 									<a href="">Mitarbeiter</a>
 									<ul>
 										<li><a href="maAnlegen.php">anlegen</a></li>
@@ -133,48 +118,68 @@ if(isset($_GET['submit'])){
 										<li><a href="notificationerstellen.php">erstellen</a></li>
 										<li><a href="notification.php">bearbeiten</a></li>
 									</ul>
-								</li>
-								<li class="spacer"></li>
+								</li>								<li class="spacer"></li>
 							</ul>
 						</nav>
 
 			</div>
 			
+			
 			<div id="textArea">
-			<table border="0">
-						<form method="get" action="">
-							<tr><td>Email:</td><td><input name="Email" type="input" class=loginField"required = "required"
-							<?php echo "value='".$_GET['Email']."'"; ?>></p></td></tr>
+			
+						<form method="post" action="">
+							<p>Mitarbeiter:
+							<select name="svnr" onChange="settext(this.value)"></p>
 							
-							<tr><td>Vorname:</td><td><input name="vn" type="text" class="loginField"required = "required"
-							<?php echo "value='".$vn."'"; ?>></p></td></tr>
-							
-							<tr><td>Nachname:</td><td><input name="nn" type="text" class="loginField"required = "required"
-							<?php echo "value='".$nn."'"; ?>></p></td></tr>
-							
-							<tr><td>Tel Nr.:</td><td><input name="telnr" type="text" class="loginField"required = "required"
-							<?php echo "value='".$telnr."'"; ?>></p></td></tr>
-							
-							<tr><td>Freigeschalten:</td><td><input name="rights" type="checkbox"  class="loginField"
 							<?php 
-							if ($freischalten == 1) {
-								echo "checked";
-							}
-							?>></p></td></tr>
+							$db=new db_con("conf/db.php",true, "utf8");
+							$Mitarbeiterarray=$db->getAllMitarbeiter();
 							
-										
-							<tr><td><input type="submit" value ="absenden" name="submit"></td>
+							foreach ($Mitarbeiterarray as $ma){
+							if(isset($_POST['svnr']))
+							{
+								if($ma->getSVNR()==$_POST['svnr'])
+									$check=selected;
+								else 
+									$check=null;
+							}
+
+							echo "<option value='".$ma->getSVNR()."'".$check.">".$ma->getVorname()." ".$ma->getNachname().
+							"</option>";
+							}
+							
+							  		
+							?>
+							</select>
+							<p>Von:<input type='text' name='von'></input>
+							Bis:<input type='text' name='bis'></input></p>	
+							<input type="submit" value ="absenden" name="submit">
+							<input type="submit" value ="Urlaube anzeigen" name="submit2">
 							
 						</form>
-					</table>
+					<div style=mmin-height:300px>
+					<?php 
+					if(isset($_POST['submit2'])){
+					$tempMa=$db->getMitarbeiter($_POST['svnr']);
+					$urlaub=$tempMa->getUrlaube();
+					foreach ($urlaub as $u){
+					echo  Date_format($u->getBeginn(),'d.F Y H:i');
+					echo $u->getEnde();
+}
+					
+					
+					}?>
+					
+					</div>
 					<?php
+					
+					
 					if (isset($erg))
 						echo $erg;
 					?>
 			</div>
 			<div id="footer">
 </div>
-</div>	
-</div>		
+</div>		</div>	
 </body>
 </html>

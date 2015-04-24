@@ -162,37 +162,22 @@
 								// $dateiinfo['extension'] = Dateityp -/endung
 								// $dateiinfo['basename'] = voller Dateiname mit Dateiendung
 								if ($bild != "." && $bild != ".."  && $bild != "_notes" && $bildinfo['basename'] != "Thumbs.db") {
-									if($_GET['SVNr']==$bildinfo['filename']){
-										$ma=$db->getMitarbeiter($_GET['SVNr']);
+									if($_SESSION['svnr']==$bildinfo['filename']){
+										$ma=$db->getMitarbeiter($_SESSION['svnr']);
 										echo "<img src='".$bildinfo['dirname']."/".$bildinfo['basename']."' class='profilbild'>";
 										echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>";
 										echo "<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>";
 									}
 									else if($i == 1){
-										$ma=$db->getMitarbeiter($_GET['SVNr']);
+										$ma=$db->getMitarbeiter($_SESSION['svnr']);
 										echo "<img src='".$bildinfo['dirname']."/nopicture.jpg"."' class='profilbild'>";
 										echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>";
 										echo "<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>";
-							
-									}
-									$i++;
-										
+										}
+										$i++;
+									};
 								};
-									
-							};
-								
-								if ($mitarbeiter->getFoto() != null)
-									echo"<img class='profilbild'src='../Bilder/Profilbilder/".$mitarbeiter->getFoto()."'>";
-								else
-									echo"<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
-								echo"<p>";
-								echo "<p class='abstand'>Vorname: &nbsp;&nbsp;&nbsp;".$mitarbeiter->getVorname()."</p>";
-								echo "<p class='abstand'>Nachname: ".$mitarbeiter->getNachname()."</p>";
-								echo "<p class='abstand'>Zitat: ".$mitarbeiter->getZitat()."</p>";
 							}
-							
-							
-							
 							else{
 								$email=$_SESSION['email'];		
 								$kunde=$db->getKunde($email);

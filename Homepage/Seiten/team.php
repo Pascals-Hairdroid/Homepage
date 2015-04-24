@@ -63,7 +63,7 @@
 							echo"id='signup'";
 							else
 							echo"id='element'";	
-							echo"><a href='Seiten/Profil.php'>Profil</a></li>";
+							echo"><a href='Profil.php'>Profil</a></li>";
 							if($_SESSION['admin']==true){
 							echo"<li id='signup'><a href='Verwaltung/Verwaltungsmain.php'>Adminbereich</a></li>";
 							}
