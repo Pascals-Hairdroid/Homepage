@@ -32,6 +32,8 @@
    imageArr[imageArr.length] = "Bilder/Bildlauf/3.jpg"; 
    imageArr[imageArr.length] = "Bilder/Bildlauf/2.jpg"; 
    imageArr[imageArr.length] = "Bilder/Bildlauf/1.jpg"; 
+
+	
  
    var xAnzahl = imageArr.length; 
    var xCounter=-1; 
@@ -39,7 +41,12 @@
    var minOpacity = 0; 
    var disableOpacity = maxOpacity; 
    var fadeInterval = 'fadeout'; 
- 
+   function Vorladen() 
+   { 
+	   for (i = 0; i < imageArr.length; i++) 
+		   { var Bild = new Image(); Bild.src = imageArr[i]; } 
+	   }
+ Vorladen();
    function Bildwechsel01() 
    { 
     var objekt = document.getElementById('Foto01'); 

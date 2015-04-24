@@ -13,8 +13,8 @@ function urlaubEintragen($svnr,$von,$bis)
 	{
 		$db=new db_con("conf/db.php",true, "utf8");
 		if($svnr !=null &&$von !=null &&$bis !=null){
-			$von2 = DateTime::createFromFormat('d.F Y',$von);
-			$bis2 = DateTime::createFromFormat('d.F Y',$bis);
+			$von2 = new DateTime($von);
+			$bis2 = new DateTime($bis);
 			$mitarbeiter=$db->getMitarbeiter($svnr);
 			$urlaub=new Urlaub($von2, $bis2);
 			
@@ -157,20 +157,22 @@ if(isset($_POST['submit']))
 							<input type="submit" value ="Urlaube anzeigen" name="submit2">
 							
 						</form>
-					<div style=mmin-height:300px>
+					
 					<?php 
 					if(isset($_POST['submit2'])){
 					$tempMa=$db->getMitarbeiter($_POST['svnr']);
 					$urlaub=$tempMa->getUrlaube();
-					foreach ($urlaub as $u){
-					echo  Date_format($u->getBeginn(),'d.F Y H:i');
-					echo $u->getEnde();
-}
+					var_dump($urlaub);
+					foreach ($urlaub as $u2){
+					
+					echo  Date_format($u2->getBeginn(),'d.F Y H:i');
+					echo $u2->getEnde();
+					}
 					
 					
 					}?>
 					
-					</div>
+					
 					<?php
 					
 					
