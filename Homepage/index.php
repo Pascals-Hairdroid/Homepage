@@ -26,8 +26,12 @@
 		<script language="javascript" type="text/javascript">
 		var wechselZeit = 2000; 
    imageArr = new Array() 
-   imageArr[imageArr.length] = "Bilder/Homepage/2.jpg"; 
-   imageArr[imageArr.length] = "Bilder/Homepage/1.jpg"; 
+   imageArr[imageArr.length] = "Bilder/Bildlauf/6.jpg"; 
+   imageArr[imageArr.length] = "Bilder/Bildlauf/5.jpg"; 
+   imageArr[imageArr.length] = "Bilder/Bildlauf/4.jpg"; 
+   imageArr[imageArr.length] = "Bilder/Bildlauf/3.jpg"; 
+   imageArr[imageArr.length] = "Bilder/Bildlauf/2.jpg"; 
+   imageArr[imageArr.length] = "Bilder/Bildlauf/1.jpg"; 
  
    var xAnzahl = imageArr.length; 
    var xCounter=-1; 
@@ -52,9 +56,9 @@
      if (disableOpacity > maxOpacity) 
      { 
       fadeInterval = 'fadeout'; 
-      wechselZeit = 2000; 
+      wechselZeit = 3000; 
      } else { 
-      wechselZeit = 50; 
+      wechselZeit = 20; 
      } 
      setTimeout('Bildwechsel01()', wechselZeit); 
     } else { 
@@ -179,7 +183,7 @@
 			
 			
 			<div id="textArea">
-				<img class="titelbild" id="Foto01" src="Bilder/Homepage/1.jpg">
+				<img class="titelbild" id="Foto01" src="Bilder/Bildlauf/1.jpg">
 				<h1>Willkommen bei Pascals Hairstyle!</h1>
 
 				<p>wenn du einen Stylisten suchst der sich Zeit nimmt, um wirklich auf dich einzugehen und dir auch Tipps mitgibt, damit deine Frisur auch in den Wochen nach dem Besuch optimal zur Geltung kommt, bist du hier genau richtig.</p>
