@@ -360,6 +360,11 @@ padding-right:15px;
 
 
 
+
+
+
+
+
 @media only screen 
 and (min-device-width : 481px) {  
 	.loginField{
@@ -436,10 +441,13 @@ and (min-device-width : 481px) {
 	#textArea{
 	clear:both;
 	min-height:300px;
-	width:100%
-	
+	width:100%;
 	}
 	#textArea p{	
+	
+	}
+	#textArea h1{
+	color:red;
 	
 	}
 	#textArea .abstand{
