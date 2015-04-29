@@ -107,7 +107,13 @@
 		$j=0;
 		$z1 = 11;
 		$z2 = 12;
-
+		
+		echo "<form target='r_frame' method='get' action='termineintragen.php'>";
+		
+		echo "<input type='text' name='haarlaenge' value='".$haarlaenge."' hidden='true'>";
+		echo "<input type='text' name='dienstleistung' value='".$dienstleistung."' hidden='true'>";
+		echo "<input type='text' name='dienstleistung2' value='".$dienstleistung2."' hidden='true'>";
+		
 		$ddaw= new DateTime($ddaw);
 		$ddaw->modify('+660 minutes');
 		$von= clone $ddaw;
@@ -151,20 +157,24 @@
 					echo "<tr>";
 				}	
 				echo "<td>";
-				echo $ddaw->format('H:i');
+				echo "<input type='text' name='date' value='".$ddaw->format("d.m.Y H:i")."' hidden='true'>";
+				echo "<input type='submit' value='".$ddaw->format('H:i')."'>";
 				echo "</td>";
 				echo "<td>";
-				echo $mdaw->format('H:i');
+				echo "<input type='text' name='date' value='".$mdaw->format("d.m.Y H:i")."' hidden='true'>";
+				echo "<input type='submit' value='".$mdaw->format('H:i')."'>";
 				echo "</td>";
 				echo "<td>";
-				echo $dodaw->format('H:i');
+				echo "<input type='text' name='date' value='".$dodaw->format("d.m.Y H:i")."' hidden='true'>";
+				echo "<input type='submit' value='".$dodaw->format('H:i')."'>";
 				echo "</td>";
 				echo "<td>";
-				echo $fdaw->format('H:i');
+				echo "<input type='text' name='date' value='".$fdaw->format("d.m.Y H:i")."' hidden='true'>";
+				echo "<input type='submit' value='".$fdaw->format('H:i')."'>";
 				echo "</td>";
 				echo "<td>";
-			
-				echo $sdaw->format('H:i');
+				echo "<input type='text' name='date' value='".$sdaw->format("d.m.Y H:i")."' hidden='true'>";
+				echo "<input type='submit' value='".$sdaw->format('H:i')."'>";
 				echo "</td>";
 				echo "</tr>";
 				$j++;
@@ -180,17 +190,22 @@
 			$z2= $z2+1;
 		}
 		$bis= clone $sdaw;
+		echo "</form>";
 		echo "</table>";
 			
 		
 	
-		$ft= $db->getFreieTermine($von, $bis); 		//FreieTermine
-		var_dump($ft);
-		while ($fta = mysqli_fetch_object($ft))
-		{
-			echo $fta->Zeitstempel;
-		}
+// 		$ft= $db->getFreieTermine($von, $bis); 		//FreieTermine
+// 		var_dump($ft);
+// 		while ($fta = mysqli_fetch_object($ft))
+// 		{
+// 			echo $fta->Zeitstempel;
+// 		}
 		?>
+		
+		<iframe name="r_frame" style="min-width:200px;min-height:90px;padding:0px;margin:auto;">
+			<p> hi </p>
+		</iframe>
 
 </body> 
 </html>
