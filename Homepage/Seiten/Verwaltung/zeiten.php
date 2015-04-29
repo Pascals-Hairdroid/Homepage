@@ -11,7 +11,7 @@ include("../../include_DBA.php");?>
 
 function zeitEintragen($svnr,$von,$bis,$tag)
 	{
-		$db=new db_con("conf/db.php",true, "utf8");
+		$db=new db_con("conf/db.php",true);
 		if($svnr !=null &&$von !=null &&$bis !=null &&$tag !=null){
 			$von2 = DateTime::createFromFormat('H:i',$von);
 			$bis2 = DateTime::createFromFormat('H:i',$bis);
@@ -137,7 +137,7 @@ if(isset($_POST['submit']))
 							<select name="svnr" onChange="settext(this.value)"></p>
 							
 							<?php 
-							$db=new db_con("conf/db.php",true, "utf8");
+							$db=new db_con("conf/db.php",true);
 							$Mitarbeiterarray=$db->getAllMitarbeiter();
 							
 							foreach ($Mitarbeiterarray as $ma){

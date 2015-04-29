@@ -11,7 +11,7 @@ include("../../include_DBA.php");?>
 
 function urlaubEintragen($svnr,$von,$bis)
 	{
-		$db=new db_con("conf/db.php",true, "utf8");
+		$db=new db_con("conf/db.php",true);
 		if($svnr !=null &&$von !=null &&$bis !=null){
 			$von2 = new DateTime($von);
 			$bis2 = new DateTime($bis);
@@ -162,11 +162,10 @@ if(isset($_POST['submit']))
 					if(isset($_POST['submit2'])){
 					$tempMa=$db->getMitarbeiter($_POST['svnr']);
 					$urlaub=$tempMa->getUrlaube();
-					var_dump($urlaub);
 					foreach ($urlaub as $u2){
 					
-					echo  Date_format($u2->getBeginn(),'d.F Y H:i');
-					echo $u2->getEnde();
+					echo $u2->getBeginn()->format('d.F Y H:i');
+					echo $u2->getEnde()->format('d.F Y H:i');
 					}
 					
 					
