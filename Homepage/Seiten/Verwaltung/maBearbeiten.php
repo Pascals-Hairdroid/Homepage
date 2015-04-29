@@ -106,7 +106,7 @@
 				<table border="0">
 					<?php
 						include("../../include_DBA.php");
-						$db=new db_con("conf/db.php",true, "utf8");
+						$db=new db_con("conf/db.php",true);
 						
 						echo "<tr><td>Sozialversicherungsnr.:</td><td>Vorname</td><td>Nachname</td><td>Admin</td><td>";
 						

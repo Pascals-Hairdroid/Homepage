@@ -55,7 +55,7 @@
 		
 		
 		include_once("../../include_DBA.php");
-		$db=new db_con("conf/db.php",true, "utf8");
+		$db=new db_con("conf/db.php",true);
 		
 		echo "Haartyp: ".$haarlaenge."";
 		echo "<br>";

@@ -113,7 +113,7 @@
 				<div id="textArea">
 					<?php 
 					include("../include_DBA.php");
-					$db=new db_con("conf/db.php",true, "utf8");
+					$db=new db_con("conf/db.php",true);
 					foreach($db->getAllMitarbeiter() as $ma){
 						$ordner = "../Bilder/Profilbilder/"; // Ordnername
 						$allebilder = scandir($ordner); // Ordner auslesen und Array in Variable speichern

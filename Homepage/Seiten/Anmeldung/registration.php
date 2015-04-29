@@ -3,7 +3,7 @@ include("../include_DBA.php");
   
 	function reg($email,$vn,$nn,$passwort,$pw2,$telnr,$int)
 	{
-		$db=new db_con("conf/db.php",true, "utf8");
+		$db=new db_con("conf/db.php",true);
 		if($email !=null &&$vn !=null &&$nn !=null &&$telnr !=null &&$passwort !=null){
 			
 				if($db->getKunde($email))

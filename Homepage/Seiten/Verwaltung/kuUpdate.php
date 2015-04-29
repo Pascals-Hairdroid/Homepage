@@ -8,7 +8,7 @@
 <body>
 <?php
 include("../../include_DBA.php");
-$db=new db_con("conf/db.php",true, "utf8");
+$db=new db_con("conf/db.php",true);
 
 function kuUpdate($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen)
 	{
