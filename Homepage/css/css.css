@@ -493,7 +493,7 @@ and (min-device-width : 481px) {
 	}
 	#textArea img.titelbild{
 	position:relative;
-	bottom:37px;
+	bottom:36px;
 	z-index:-500;
 	width:100%;
 	}

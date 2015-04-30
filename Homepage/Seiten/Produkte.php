@@ -1,4 +1,7 @@
-<?php session_start();?>
+<?php session_start();
+include("../include_DBA.php");
+$db=new db_con("conf/db.php",true);
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -102,7 +105,18 @@
         <a href="Angebote.php">Angebote</a>
       </li>
 	  <li class="topmenu">
-        <a href="Produkte.php" class="selected">Produkte</a>
+       <a href="#"> Produkte</a>
+         <ul>
+        <?php 
+       	$produktkategorie=$db->getAllProduktkategorie();
+       	
+       	
+        	foreach ($produktkategorie as $prod){
+		
+          echo" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>";
+         }
+         ?>
+        </ul>
       </li>
 	  <li class="topmenu">
         <a href="Galerie.php">Galerie</a>
@@ -111,13 +125,15 @@
   </div>
 			<div id="wrapper">
 				<div id="textArea">
-					<p>Überall kommt es vor: Grad sind zu viele Kundinnen da, du musst warten oder es dauert zu lang. Das kann immer passieren. </p>
-
-<p>Aktionen und Sorry-Gutscheine sind ein nettes Benefit für Dich und mein Zeichen, wie viel mir an Dir und Deiner Zufriedenheit liegt.</p>
-
-<p>Blätter Dich durch die Augenblicklichen Aktionen. Durch einen Klick aufs Bild kommst Du zu einem PDF, das Du ausdrucken und mit zu mir nehmen kannst.Gilt für alles ausser für den Sorry4waiting-Gutschein. Den bekommst Du nämlich von mir persönlich!</p>
-
-<p>Ich freu mich Dich bald zu sehen.</p>
+					<?php 
+					$kat=NEW Produktkategorie($_GET['Kat'],null);
+					$produkte=$db->getAllProdukt($kat);
+ 					foreach ($produkte as $prod){
+						
+ 						echo $prod->getHersteller()." ".$prod->getName()." ".$prod->getBeschreibung();
+ 						echo "<br>";
+ 					}
+					?>
 				</div>
 				<div id="werbungsbanner">
 				

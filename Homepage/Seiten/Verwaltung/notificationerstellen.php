@@ -119,9 +119,9 @@ $interessenarray = array();
 			<div id="textArea">
 			
 						<form method="post" action="">
-							<p>Pushnachricht:<input name="push" type="input" required = "required">
+							<p>Titel:<input name="push" type="input" required = "required">
 							</p>
-							<p>2tes Textfeld:<input name="2tes" type="input" required = "required">
+							<p>Text:<input name="2tes" type="input" required = "required">
 							</p>
 							
 							<p>Bildupload:<input name="fileup" type="file" required = "required">
