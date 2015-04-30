@@ -850,3 +850,6 @@ background-color: blue;
 	margin-right:auto;
 	
 }
+ul.hide > li > a{
+	line-height: 1.0;
+}
