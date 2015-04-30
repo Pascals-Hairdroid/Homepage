@@ -563,6 +563,7 @@ and (min-device-width : 481px) {
 		color:white;
 		padding:10px;
 		transition:color 1.0s ease-in-out;
+		line-height: 1.0;
 
 	}
 	#menu > ul > li > a.selected {
@@ -850,6 +851,5 @@ background-color: blue;
 	margin-right:auto;
 	
 }
-ul.hide > li > a{
-	line-height: 1.0;
+
 }
