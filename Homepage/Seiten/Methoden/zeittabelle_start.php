@@ -6,6 +6,8 @@
 	</head>
 	<body>
 		<?php
+		include_once("../../include_DBA.php");
+		$db=new db_con("conf/db.php",true);
 		
 		date_default_timezone_set('Europe/Vienna');
 		$jahr= date('Y');
@@ -18,19 +20,36 @@
 		$z1 = 11;
 		$z2 = 12;
 
-		$ddaw= new DateTime($ddaw);
+		$ddaw = new DateTime($ddaw);
 		$ddaw->modify('+660 minutes');
-		$mdaw= clone $ddaw;
+		$von = clone $ddaw;
+		$mdaw = clone $ddaw;
 		$mdaw->add(new DateInterval('P1D'));
-		$dodaw= clone $mdaw;
+		$dodaw = clone $mdaw;
 		$dodaw->add(new DateInterval('P1D'));
-		$fdaw= clone $dodaw;
+		$fdaw = clone $dodaw;
 		$fdaw->add(new DateInterval('P1D'));
-		$sdaw= clone $fdaw;
+		$sdaw = clone $fdaw;
 		$sdaw->add(new DateInterval('P1D'));
+		
+		
+		$von1 = clone $von;
+		$bis1 = clone $von1;
+		$bis1->add(new DateInterval('P4DT7H45M'));
+// 		echo "erster Termin: ".$von1->format('d.m.Y H:i')."";
+// 		echo "<br>";
+// 		echo "letzer Termin: ".$bis1->format('d.m.Y H:i')."";
+		
+		foreach($db->getAllTermin($von1, $bis1) as $termine)
+		{
+// 			echo $termine->format('Y.m.d');
+// 			echo "<br>";
+		}
+		$termin_array = $db->getAllTermin($von1, $bis1);
+		
 
 		echo "<table border='1' id='zeittabelle'>";
-		echo "<tr>";
+		echo "<tr height='50px'>";
 		echo "<th> Zeit </th>";
 		echo "<th> Dienstag ";
 		echo $ddaw->format('d.m.Y');
@@ -58,24 +77,59 @@
 				if($j != 0)
 				{
 					echo "<tr>";
-				}	
-				echo "<td>";
-				echo $ddaw->format('H:i');
-				echo "</td>";
-				echo "<td>";
-				echo $mdaw->format('H:i');
-				echo "</td>";
-				echo "<td>";
-				echo $dodaw->format('H:i');
-				echo "</td>";
-				echo "<td>";
-				echo $fdaw->format('H:i');
-				echo "</td>";
-				echo "<td>";
-		
-				echo $sdaw->format('H:i');
-				echo "</td>";
-				echo "</tr>";
+				}
+				if ($termin_array != null)
+				{
+					if (!in_array($ddaw, $termin_array)) 
+						echo "<td>";
+					else 
+						echo "<td style='background-color:yellow;'>";
+					echo $ddaw->format('H:i');
+					echo "</td>";
+					if (!in_array($mdaw, $termin_array))
+						echo "<td>";
+					else
+						echo "<td style='background-color:yellow;'>";
+					echo $mdaw->format('H:i');
+					echo "</td>";
+					if (!in_array($dodaw, $termin_array))
+						echo "<td>";
+					else
+						echo "<td style='background-color:yellow;'>";
+					echo $dodaw->format('H:i');
+					echo "</td>";
+					if (!in_array($fdaw, $termin_array))
+						echo "<td>";
+					else
+						echo "<td style='background-color:yellow;'>";
+					echo $fdaw->format('H:i');
+					echo "</td>";
+					if (!in_array($sdaw, $termin_array))
+						echo "<td>";
+					else
+						echo "<td style='background-color:yellow;'>";
+					echo $sdaw->format('H:i');
+					echo "</td>";
+				}
+				else
+				{	
+					echo "<td>";
+					echo $ddaw->format('H:i');
+					echo "</td>";
+					echo "<td>";
+					echo $mdaw->format('H:i');
+					echo "</td>";
+					echo "<td>";
+					echo $dodaw->format('H:i');
+					echo "</td>";
+					echo "<td>";
+					echo $fdaw->format('H:i');
+					echo "</td>";
+					echo "<td>";
+					echo $sdaw->format('H:i');
+					echo "</td>";
+					echo "</tr>";
+				}
 				$j++;
 				$ddaw->modify('+15 minutes');
 				$mdaw->modify('+15 minutes');
