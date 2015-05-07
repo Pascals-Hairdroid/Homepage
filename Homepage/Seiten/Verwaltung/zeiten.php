@@ -1,5 +1,7 @@
-<?php session_start();
-include("../../include_DBA.php");?>
+<?php 
+include("../Anmeldung/authMitarbeiterAdmin.php");
+include("../../include_DBA.php");
+$db=new db_con("conf/db.php",true);?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -137,7 +139,6 @@ if(isset($_POST['submit']))
 							<select name="svnr" onChange="settext(this.value)"></p>
 							
 							<?php 
-							$db=new db_con("conf/db.php",true);
 							$Mitarbeiterarray=$db->getAllMitarbeiter();
 							
 							foreach ($Mitarbeiterarray as $ma){

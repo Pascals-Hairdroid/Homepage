@@ -1,4 +1,5 @@
-<?php session_start();
+<?php 
+include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
 $db=new db_con("conf/db.php",true);?>
 <!DOCTYPE html>

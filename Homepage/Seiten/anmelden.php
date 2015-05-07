@@ -1,4 +1,11 @@
-<?php session_start();?>
+<?php session_start();
+include("../include_DBA.php");
+$db=new db_con("conf/db.php",true);
+if (isset($_SESSION['angemeldet']))
+{
+	header('Location: ../index.php');
+}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -108,7 +115,18 @@ if(isset($_POST['submit2'])){
         <a href="angebote.php">Angebote</a>
       </li>
 	  <li class="topmenu">
-        <a href="Produkte.php">Produkte</a>
+       <a href="#"> Produkte</a>
+         <ul>
+        <?php 
+       	$produktkategorie=$db->getAllProduktkategorie();
+       	
+       	
+        	foreach ($produktkategorie as $prod){
+		
+          echo" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>";
+         }
+         ?>
+        </ul>
       </li>
 	  <li class="topmenu">
         <a href="Galerie.php">Galerie</a>

@@ -1,4 +1,6 @@
-<?php session_start();?>
+<?php session_start();
+include("../include_DBA.php");
+$db=new db_con("conf/db.php",true);?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -103,7 +105,18 @@
         <a href="Angebote.php"class="selected">Angebote</a>
       </li>
 	  <li class="topmenu">
-        <a href="Produkte.php">Produkte</a>
+       <a href="#"> Produkte</a>
+         <ul>
+        <?php 
+       	$produktkategorie=$db->getAllProduktkategorie();
+       	
+       	
+        	foreach ($produktkategorie as $prod){
+		
+          echo" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>";
+         }
+         ?>
+        </ul>
       </li>
 	  <li class="topmenu">
         <a href="Galerie.php">Galerie</a>

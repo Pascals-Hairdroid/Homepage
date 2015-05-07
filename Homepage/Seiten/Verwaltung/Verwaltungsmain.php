@@ -1,4 +1,6 @@
-<?php session_start();?>
+<?php 
+include("../Anmeldung/authAdmin.php");
+?>
 <!DOCTYPE html>
 <html>
 <head>

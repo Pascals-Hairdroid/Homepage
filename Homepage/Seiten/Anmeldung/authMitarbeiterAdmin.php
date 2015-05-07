@@ -7,7 +7,7 @@ if(!isset($_SESSION['username']))
    } 
 else
 {
-	if($_SESSION['madmin']==false and $_SESSION['admin']==false){
+	if($_SESSION['mAdmin']==false or $_SESSION['admin']==false){
 		echo "Sie haben keine Berechtigung auf diese Seite zu gelangen!";
 	exit;	
 	}
