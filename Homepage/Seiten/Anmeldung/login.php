@@ -56,6 +56,9 @@
 					$_SESSION['email']=$username;
 					return true;
 				}
+				else{
+					return false;
+				}
 			}	
 			else{
 				return false;
