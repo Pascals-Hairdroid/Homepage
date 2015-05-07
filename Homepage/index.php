@@ -180,7 +180,7 @@
 						</li>
 						<li><a href="Seiten/terminvergabe.php">Termine</a></li>
 						<li><a href="Seiten/Angebote.php">Angebote</a></li>
-						<li><a href="Seiten/Produkte.php">Produkte</a></li>
+						<li><a href="#">Produkte</a></li>
 						<li><a href="Seiten/Galerie.php">Galerie</a></li>
 						<li class="spacer"></li>
 					</ul>

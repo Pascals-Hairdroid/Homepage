@@ -111,13 +111,22 @@
   </div>
 			<div id="wrapper">
 				<div id="textArea">
-					<p>√úberall kommt es vor: Grad sind zu viele Kundinnen da, du musst warten oder es dauert zu lang. Das kann immer passieren. </p>
-
-<p>Aktionen und Sorry-Gutscheine sind ein nettes Benefit f√ºr Dich und mein Zeichen, wie viel mir an Dir und Deiner Zufriedenheit liegt.</p>
-
-<p>Bl√§tter Dich durch die Augenblicklichen Aktionen. Durch einen Klick aufs Bild kommst Du zu einem PDF, das Du ausdrucken und mit zu mir nehmen kannst.Gilt f√ºr alles ausser f√ºr den Sorry4waiting-Gutschein. Den bekommst Du n√§mlich von mir pers√∂nlich!</p>
-
-<p>Ich freu mich Dich bald zu sehen.</p>
+					<h2>Professioneller Haarschnitt</h2>
+<h2>Typgerechte Beratung</h2>
+<h2>Haarpflege f¸r jeden Kopf </h2>
+<ul style="list-style-type: disc;">
+<li>Normal, unbehandelt</li>
+<li>Fein</li>
+<li>Br¸chig, vorzeitiger Haarausfall</li>
+<li>Schuppen</li>
+<li>Sensible Kopfhaut</li>
+<li>Trocken</li>
+<li>Locken</li>
+<li>Gl‰ttung</li>
+<li>Farbbehandeltes Haar</li>
+<li>Strukturgesch‰digtes Haar</li>
+<li>M‰nner</li>
+</ul>			
 				</div>
 				<div id="werbungsbanner">
 				

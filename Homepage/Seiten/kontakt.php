@@ -111,13 +111,17 @@
   </div>
 			<div id="wrapper">
 				<div id="textArea">
-					<p>Überall kommt es vor: Grad sind zu viele Kundinnen da, du musst warten oder es dauert zu lang. Das kann immer passieren. </p>
+					
+<p>Hier meine Koordinaten:</p>
+<br />
+<h3>PASCALS HAIRSTYLE</h3>
+<p>Wagramerstrasse 154 a</p>
+<p>1220 Wien</p>
+<p>Mobil: 0676 92 38 217</p>
+<p>email: office@pascals.at</p>
+<p>http://www.pascals.at</p>
 
-<p>Aktionen und Sorry-Gutscheine sind ein nettes Benefit für Dich und mein Zeichen, wie viel mir an Dir und Deiner Zufriedenheit liegt.</p>
-
-<p>Blätter Dich durch die Augenblicklichen Aktionen. Durch einen Klick aufs Bild kommst Du zu einem PDF, das Du ausdrucken und mit zu mir nehmen kannst.Gilt für alles ausser für den Sorry4waiting-Gutschein. Den bekommst Du nämlich von mir persönlich!</p>
-
-<p>Ich freu mich Dich bald zu sehen.</p>
+<a href="http://www.facebook.com/pages/Pascals-Hairstyle/127153077378966"><img src="../Bilder/Homepage/facebook.jpg"></a>
 				</div>
 				<div id="werbungsbanner">
 				

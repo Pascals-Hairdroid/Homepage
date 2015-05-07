@@ -102,7 +102,7 @@
         <a href="Angebote.php">Angebote</a>
       </li>
 	  <li class="topmenu">
-        <a href="Produkte.php">Produkte</a>
+        <a href="#">Produkte</a>
       </li>
 	  <li class="topmenu">
         <a href="Galerie.php">Galerie</a>

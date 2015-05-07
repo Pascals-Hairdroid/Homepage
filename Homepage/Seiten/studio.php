@@ -102,7 +102,7 @@
         <a href="Angebote.php">Angebote</a>
       </li>
 	  <li class="topmenu">
-        <a href="Produkte.php">Produkte</a>
+        <a href="#">Produkte</a>
       </li>
 	  <li class="topmenu">
         <a href="Galerie.php">Galerie</a>
@@ -111,6 +111,10 @@
   </div>
 			<div id="wrapper">
 				<div id="textArea">
+				<img src="../Bilder/Homepage/studio1.jpg" style="width:32%;" />
+				<img src="../Bilder/Homepage/studio2.jpg" style="width:32%;" />
+				<img src="../Bilder/Homepage/studio3.jpg" style="width:32%;" />
+				
 					<p>Überall kommt es vor: Grad sind zu viele Kundinnen da, du musst warten oder es dauert zu lang. Das kann immer passieren. </p>
 
 <p>Aktionen und Sorry-Gutscheine sind ein nettes Benefit für Dich und mein Zeichen, wie viel mir an Dir und Deiner Zufriedenheit liegt.</p>

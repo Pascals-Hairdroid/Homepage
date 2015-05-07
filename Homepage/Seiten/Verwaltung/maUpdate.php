@@ -15,7 +15,7 @@ function maUpdate($svnr, $vn, $nn, $skills, $admin, $urlaube, $dienstzeiten)
 	if($svnr != null){
 				
 		$db=new db_con("conf/db.php",true);
-		$mitarbeiter=new Mitarbeiter($svnr, $vn, $nn, $skills, $admin, $urlaube, $dienstzeiten);
+		$mitarbeiter=new Mitarbeiter($svnr, $vn, $nn, null,$skills, $admin, $urlaube, $dienstzeiten);
 		$db->mitarbeiterUpdaten($mitarbeiter);
 
 		return true;
