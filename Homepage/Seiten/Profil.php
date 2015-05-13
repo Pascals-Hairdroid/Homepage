@@ -132,36 +132,39 @@ $db=new db_con("conf/db.php",true);?>
 				// Schleife um Array "$alledateien" aus scandir Funktion auszugeben
 				// Einzeldateien werden dabei in der Variabel $datei abgelegt
 				if(isset($_GET['SVNr'])){
-						foreach ($allebilder as $bild) {
-							// Zusammentragen der Dateiinfo
-							$bildinfo = pathinfo($ordner."/".$bild);
-							//Folgende Variablen stehen nach pathinfo zur Verfügung
-							// $dateiinfo['filename'] =Dateiname ohne Dateiendung  *erst mit PHP 5.2
-							// $dateiinfo['dirname'] = Verzeichnisname
-							// $dateiinfo['extension'] = Dateityp -/endung
-							// $dateiinfo['basename'] = voller Dateiname mit Dateiendung
-							if ($bild != "." && $bild != ".."  && $bild != "_notes" && $bildinfo['basename'] != "Thumbs.db") {
+					foreach ($allebilder as $bild) {
+						// Zusammentragen der Dateiinfo
+						$bildinfo = pathinfo($ordner."/".$bild);
+						//Folgende Variablen stehen nach pathinfo zur Verfügung
+						// $dateiinfo['filename'] =Dateiname ohne Dateiendung  *erst mit PHP 5.2
+						// $dateiinfo['dirname'] = Verzeichnisname
+						// $dateiinfo['extension'] = Dateityp -/endung
+						// $dateiinfo['basename'] = voller Dateiname mit Dateiendung
+						if ($bild != "." && $bild != ".."  && $bild != "_notes" && $bildinfo['basename'] != "Thumbs.db") {
 								if($_GET['SVNr']==$bildinfo['filename']){
 									$ma=$db->getMitarbeiter($_GET['SVNr']);
 									echo "<img src='".$bildinfo['dirname']."/".$bildinfo['basename']."' class='profilbild'>";
 									echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>";
 									echo "<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>";
+									echo "<a class='abstand' href='passwortAendern.php'>Passwort &auml;ndern</a>";
+									echo "<a class='abstand' href='profilBearbeiten.php'>Profil bearbeiten</a>";
 									}
 									else if($i == 1){
 									$ma=$db->getMitarbeiter($_GET['SVNr']);
 									echo "<img src='".$bildinfo['dirname']."/nopicture.jpg"."' class='profilbild'>";
 									echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>";
 									echo "<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>";
-
+									echo "<a class='abstand' href='passwortAendern.php'>Passwort &auml;ndern</a>";
+									echo "<a class='abstand' href='profilBearbeiten.php'>Profil bearbeiten</a>";
 								}
 								$i++;
 									
 							};
 
-						 };
+					};
 
-					}
-					else{
+				}
+				else{
 							if ($_SESSION['admin']==true) {
 							$ma=$db->getMitarbeiter($_SESSION['svnr']);
 
@@ -179,12 +182,16 @@ $db=new db_con("conf/db.php",true);?>
 										echo "<img src='".$bildinfo['dirname']."/".$bildinfo['basename']."' class='profilbild'>";
 										echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>";
 										echo "<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>";
+										echo "<a class='abstand' href='passwortAendern.php'>Passwort &auml;ndern</a>";
+										echo "<a class='abstand' href='profilBearbeiten.php'>Profil bearbeiten</a>";
 									}
 									else if($i == 1){
 										$ma=$db->getMitarbeiter($_SESSION['svnr']);
 										echo "<img src='".$bildinfo['dirname']."/nopicture.jpg"."' class='profilbild'>";
 										echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>";
 										echo "<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>";
+										echo "<a class='abstand' href='passwortAendern.php'>Passwort &auml;ndern</a>";	
+										echo "<a class='abstand' href='profilBearbeiten.php'>Profil bearbeiten</a>";
 										}
 										$i++;
 									};
@@ -201,6 +208,8 @@ $db=new db_con("conf/db.php",true);?>
 								echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$kunde->getVorname()."</p>";
 								echo "<p class='abstand'><span class='font'>Nachname: </span>".$kunde->getNachname()."</p>";
 								echo "<p class='abstand'><span class='font'>Telefon Nr: </span>".$kunde->getTelNr()."</p>";
+								echo "<a class='abstand' href='passwortAendern.php'>Passwort &auml;ndern</a>";
+								echo "<a class='abstand' href='profilBearbeiten.php'>Profil bearbeiten</a>";
 							}
 					}
 					?>

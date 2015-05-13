@@ -125,8 +125,6 @@ $db=new db_con("conf/db.php",true);?>
 			<div id="wrapper">
 				<div id="textArea">
 					
-<p>Hier meine Koordinaten:</p>
-<br />
 <h3>PASCALS HAIRSTYLE</h3>
 <p>Wagramerstrasse 154 a</p>
 <p>1220 Wien</p>

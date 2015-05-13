@@ -16,6 +16,7 @@ time, mark, audio, video, active, hover, selected {
     border: 0;
     outline: none;
     text-decoration: none;
+    font-family:calibri;
 }
 
 ol,ul {
