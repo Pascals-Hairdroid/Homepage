@@ -13,6 +13,11 @@
 //		$woche=$_GET["woche"];
 		$woche=$_GET["woche"];
 		
+		if (isset($_GET["schneiden"]))
+			$schneiden="ja";
+		else 
+			$schneiden="nein";
+
 		
 		//Zeitberechnung
 		$sht;		//service + haartyp
@@ -154,7 +159,7 @@
 		
 
 
-		echo "<table border='1' id='zeittabelle' style='border:1px solid red;'>";
+		echo "<table border='1' id='zeittabelle'>";
 		echo "<tr height='50px'>";
 		echo "<th> Zeit </th>";
 		echo "<th> Dienstag ";
@@ -187,31 +192,31 @@
 			if ($termin_array != null)
 				{
 					if (!in_array($ddaw, $termin_array)) 
-						echo "<td style='background-color:green;'>";
+						echo "<td>";
 					else 
 						echo "<td style='background-color:yellow;'>";
 					echo $ddaw->format('H:i');
 					echo "</td>";
 					if (!in_array($mdaw, $termin_array))
-						echo "<td style='background-color:green;'>";
+						echo "<td>";
 					else
 						echo "<td style='background-color:yellow;'>";
 					echo $mdaw->format('H:i');
 					echo "</td>";
 					if (!in_array($dodaw, $termin_array))
-						echo "<td style='background-color:green;'>";
+						echo "<td>";
 					else
 						echo "<td style='background-color:yellow;'>";
 					echo $dodaw->format('H:i');
 					echo "</td>";
 					if (!in_array($fdaw, $termin_array))
-						echo "<td style='background-color:green;'>";
+						echo "<td>";
 					else
 						echo "<td style='background-color:yellow;'>";
 					echo $fdaw->format('H:i');
 					echo "</td>";
 					if (!in_array($sdaw, $termin_array))
-						echo "<td style='background-color:green;'>";
+						echo "<td>";
 					else
 						echo "<td style='background-color:yellow;'>";
 					echo $sdaw->format('H:i');
@@ -250,6 +255,13 @@
 			
 		}
 		$bis= clone $sdaw;
+		
+		
+		$mdaw->modify('-180 minutes');
+// 		echo "<input type='DateTime' name='date' value=".$mdaw->format('d.m.Y H:i')." hidden='true'>";
+// 		echo "<input type='submit' value='do it fgt'>";
+		
+		
 		echo "</form>";
 		echo "</table>";
 // 		echo $von;
@@ -263,13 +275,51 @@
 // 		{
 // 			echo $fta->Zeitstempel;
 // 		}
+
+		echo "<br>";
+		echo "<a href='#openModal'>RESERVIEREN</a>";
 		
-		
+		echo "<div id='openModal' class='modalDialog'>";
+		echo "<div>";
+		echo "<a href='#close' title='Close' class='close'>X</a>";
+		echo "<form action='termineintragen.php' method='post' enctype='multipart/form-data' style='text-align:center;'>";
+		echo "<table border='0' style='text-align:left;'>";
+		echo "<tr>";
+		echo "<td> Termin: </td>";
+		echo "<td> <input type='DateTime' name='' value='$ddaw->format(\"d.m.Y H:i\")' readonly> </td>";
+		echo "</tr>";
+		echo "<tr>";
+		echo "<td> Service: </td>";
+		echo "<td> <input type='Text' name='' value='$dienstleistung' readonly> </td>";
+		echo "</tr>";
+		echo "<tr>";
+		echo "<td> Haarl&auml;nge: </td>";
+		echo "<td> <input type='Text' name='' value='$haarlaenge' readonly> </td>";
+		echo "</tr>";
+		echo "<tr>";
+		echo "<td> Coloration: </td>";
+		echo "<td> <input type='Text' name='' value='$dienstleistung2' readonly> </td>";
+		echo "</tr>";
+		echo "<tr>";
+		echo "<td> Schneiden: </td>";
+		echo "<td> <input type='Text' name='' value='$schneiden' readonly> </td>";
+		echo "</tr>";
+		echo "<tr>";
+		echo "<td> Wunschfrisur (optional): </td>";
+		echo "<td> <input type='file' name='wunschfoto'> </td>";
+		echo "</tr>";
+		echo "</table>";
+		echo "<br>";
+		echo "<input type='submit' value='Reservieren'>";
+		echo "</form>";
+		echo "</div>";
+		echo "</div>";
+			
 		?>
 		
-		<iframe name="r_frame" style="min-width:200px;min-height:90px;padding:0px;margin:auto;">
-			<p> hi </p>
-		</iframe>
+<!-- 		<iframe name="r_frame" src="termineintragen.php" > </iframe> -->
+		
+		
 
 	</body> 
 </html>

@@ -31,7 +31,7 @@ window.onload = function () {
   
   //Schneiden?
   
-  echo "&nbsp;&nbsp;<input type='checkbox' name='schneiden' value='Schneiden' checked> Schneiden &nbsp;&nbsp;";
+  echo "&nbsp;&nbsp;<input type='checkbox' name='schneiden' checked> Schneiden &nbsp;&nbsp;";
   
   
   //Haartyp
