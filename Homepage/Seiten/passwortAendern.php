@@ -37,41 +37,45 @@ $db=new db_con("conf/db.php",true);
 	}
 
 	if(isset($_POST['submit2'])){
-	$ausgabe=passwortcheck($_POST['newPW'], $_POST['newPW2']);
-	if($_POST['newPW'] != $_POST['newPW2'])
-	{
-		
-	}
-	else
-	{
-
-
-		if(isset($_GET['tok']))
+		$ausgabe=passwortcheck($_POST['newPW'], $_POST['newPW2']);
+		if($_POST['newPW'] != $_POST['newPW2'])
 		{
 
 		}
 		else
 		{
-			if(isset($_SESSION['email']))
+
+
+			if(isset($_GET['tok']))
 			{
-				$k=$db->getKunde($_SESSION['email']);
-				if($db->authentifiziereKunde($k, md5($_POST['oldPW']))){
-				$db->kundePwUpdaten($k, md5($_POST['newPW']));
-				$ausgabe="Passwort erfolgreich geändert";
-		}
-		if(isset($_SESSION['svnr']))
-		{
-			$k=$db->getMitarbeiter($_SESSION['svnr']);
-			if($db->authentifiziereMitarbeiter($k, md5($_POST['oldPW']))){
-			$db->mitarbeiterPwUpdaten($k, md5($_POST['newPW']));
-			$ausgabe="Passwort erfolgreich geändert";
+
 			}
-		}
+			else
+			{
+				if(isset($_SESSION['email']))
+				{
+					$k=$db->getKunde($_SESSION['email']);
+					if($db->authentifiziereKunde($k, md5($_POST['oldPW']))){
+						$db->kundePwUpdaten($k, md5($_POST['newPW']));
+						$ausgabe="Passwort erfolgreich geändert";
+					}
+					else $ausgabe="Das eingegebene Passwort ist ungültig!";
+				}
+				if(isset($_SESSION['svnr']))
+				{
+					$m=$db->getMitarbeiter($_SESSION['svnr']);
+					if($db->authentifiziereMitarbeiter($m, md5($_POST['oldPW'])))
+					{
+						$db->mitarbeiterPwUpdaten($m, md5($_POST['newPW']));
+						$ausgabe="Passwort erfolgreich geändert";
+					}
+					else $ausgabe="Das eingegebene Passwort ist ungültig!";
+				}
 			}
 
 
 		}
-	}
+		
 	}
 	?>
 	<div id="container">

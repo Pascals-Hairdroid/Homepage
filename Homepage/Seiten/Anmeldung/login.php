@@ -26,7 +26,7 @@
 					$_SESSION['admin'] = true;
 					$_SESSION['mAdmin']= $Mitarbeiter->getAdmin();
 					$_SESSION['username'] = $name;
-					$_SESSION['svnr'] = $username;
+					$_SESSION['svnr']=$username;
 
 					return true;
 				}

@@ -124,6 +124,10 @@ $db=new db_con("conf/db.php",true);?>
   </div>
 			<div id="wrapper">
 				<div id="textArea">
+				if(isset($_SESSION['mAdmin'])){
+						if($_SESSION['mAdmin']==1)
+							echo"<a href='dienstleistungAdd.php'>Dienstleistung hinzufügen</a>";
+					}
 					<h2>Professioneller Haarschnitt</h2>
 <h2>Typgerechte Beratung</h2>
 <h2>Haarpflege für jeden Kopf </h2>
