@@ -164,7 +164,7 @@ if(isset($_GET['web']))
 			</nav>
 		</div>
 		<div id="head">
-			<a href="index.php" style="color:black;"><h1>
+			<a href="#" style="color:black;"><h1>
 				PASCALS<img src="Bilder/Homepage/Logo.png"> HAIRSTYLE
 			</h1>
 			<h2>Frisuren zum Wohlf&uuml;hlen</h2>
