@@ -139,36 +139,30 @@ if(isset($_POST["submit2"])){
 				
 					<table border="0">
 						<form method="post" action="">
-							<tr><td>E-Mail Adresse:</td><td><input name="username" type="input" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" class="loginField"required = "required"
-							<?php if(isset($ausgabe))echo "value='".$_POST['username']."'"; ?>></p></td></tr>
-							
-							<tr><td>Vorname:</td><td><input name="vn" type="text" class="loginField"required = "required"
-							<?php if(isset($ausgabe))echo "value='".$_POST['vn']."'"; ?>></p></td></tr>
-							
-							<tr><td>Nachname:</td><td><input name="nn" type="text" class="loginField"required = "required"
-							<?php if(isset($ausgabe))echo "value='".$_POST['nn']."'"; ?>></p></td></tr>
-							
-							<tr><td><p>Passwort:</p></td><td><input  name="pw" type="password"  class="loginField"required = "required"></p></td></tr>
-							<tr><td><p>Password wiederholen:</p></td><td><input name="pw2" type="password"  class="loginField"required = "required"></p></td></tr>
-							<tr><td>Telefon Nummer:</td><td><input name="telnr" type="string" pattern="[0-9]{1,20}" class="loginField"required = "required"<?php if(isset($ausgabe))echo "value='".$_POST['telnr']."'"; ?>></p></td></tr><tr><td> <br></td></tr>
-				
-				
-						<?php
+							<tr><td>K&uuml;rzel</td><td><input type="text" name="kuerzl"/></td></tr>
+							<tr><td>Dienstleistungsname</td><td><input type="text" name="name"/></td></tr>
+							<tr><td>Haarl&auml;nge</td>
+							<td><select name="haare">
+							<?php 
+							foreach ($db->getAllDienstleistung() as $dienst){
+								$kuerzel=$dienst->getHaartyp()->getKuerzel();
+								$bezeichnung=$dienst->getHaartyp()->getBezeichnung();
+								
+								echo"<option value='test'>test</option>";
+								
+								
 						
-						
-						$i=0;
-						echo"<tr>";
-						foreach ($db->getAllInteresse() as $int)
-						  {
-							  $i++;
+								}
+							?>
+							</select></td></tr>
 							
-							echo "<td><input type='checkbox' name='".$int->getID()."'>".$int->getBezeichnung()." </input></td>";
 							
-							  if ($i % 3 === 0) echo "</tr><tr>";
-						  }
-						  echo"</tr>";
-						?>
-				
+							
+							
+							<tr><td>Ben&ouml;tigte Einheiten</td><td><input type="text" name="kuerzl"/></td></tr>
+							<tr><td>Pauseneinheiten</td><td><input type="text>" name="kuerzl"/></td></tr>
+							<tr><td>Gruppe</td><td><input type="text>" name="kuerzl"/></td></tr>
+										
 							<tr><td><input type="submit" value ="absenden" name="submit2"></td>
 							
 						</form>

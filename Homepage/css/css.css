@@ -61,12 +61,14 @@ and (max-device-width : 480px) {
 	
 	}
 	#textArea{
-	padding:5px;
+	
 	clear:both;
 	min-height:300px;
 	
 	}
-	#textArea p.Name{
+	#textArea p,h1{
+	padding-left:35px;
+	padding-right:15px;
 	}
 	#textArea p.Motto{
 	}
@@ -74,6 +76,7 @@ and (max-device-width : 480px) {
 	width:100%;
 	}
 	#textArea img.titelbild{
+	padding-top:35px;
 	position:relative;
 	bottom:37px;
 	z-index:-500;
@@ -490,6 +493,9 @@ and (min-device-width : 481px) {
 	#textArea img{
 	
 	
+	}
+	#produktbox{
+	height:150px;
 	}
 	#textArea img.titelbild{
 	position:relative;

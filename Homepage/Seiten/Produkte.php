@@ -7,6 +7,10 @@ $db=new db_con("conf/db.php",true);
 	<head>
       <title>PASCALS HAIRSTYLE</title>
 	<link rel="stylesheet" type="text/css" href="../css/css.css">
+	<?php 
+if(isset($_GET['web']))
+	echo "<link rel='stylesheet' type='text/css' href='../css/hide.css'>";
+?>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 		<script>
 			$(document).ready(function(){
@@ -30,7 +34,7 @@ $db=new db_con("conf/db.php",true);
 		}
 	?>
 	<div id="container">
-<div id="streifen"></div>
+<div id="streifen"  class="hide"></div>
 		<div id="main">
 		<div id="Loginbox" class="hide">
 					<nav>
@@ -86,7 +90,7 @@ $db=new db_con("conf/db.php",true);
 					include ("HTML/header.html");
 				?>
 			</div>
-			<div id="menu">
+			<div id="menu" class="hide">
     <ul>
       <li class="topmenu">
         <a href="../index.php">Friseurstudio</a>
@@ -135,8 +139,9 @@ $db=new db_con("conf/db.php",true);
 					$produkte=$db->getAllProdukt($kat);
 					
  					foreach ($produkte as $prod){
-						
+						echo "<div id='produktbox'>";
  						echo $prod->getHersteller()." ".$prod->getName()." ".$prod->getBeschreibung();
+ 						echo "</div>";
  						echo "<br>";
  					}
 					?>

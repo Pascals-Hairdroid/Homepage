@@ -6,6 +6,10 @@ $db=new db_con("conf/db.php",true);?>
 	<head>
       <title>PASCALS HAIRSTYLE</title>
 	<link rel="stylesheet" type="text/css" href="../css/css.css">
+	<?php 
+if(isset($_GET['web']))
+	echo "<link rel='stylesheet' type='text/css' href='../css/hide.css'>";
+?>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 		<script>
 			$(document).ready(function(){
@@ -85,7 +89,7 @@ $db=new db_con("conf/db.php",true);?>
 					include ("HTML/header.html");
 				?>
 			</div>
-			<div id="menu">
+			<div id="menu" class="hide">
     <ul>
       <li class="topmenu">
         <a href="../index.php" class="selected">Friseurstudio</a>
@@ -124,10 +128,12 @@ $db=new db_con("conf/db.php",true);?>
   </div>
 			<div id="wrapper">
 				<div id="textArea">
+				<?php 
 				if(isset($_SESSION['mAdmin'])){
 						if($_SESSION['mAdmin']==1)
 							echo"<a href='dienstleistungAdd.php'>Dienstleistung hinzufügen</a>";
 					}
+					?>
 					<h2>Professioneller Haarschnitt</h2>
 <h2>Typgerechte Beratung</h2>
 <h2>Haarpflege für jeden Kopf </h2>
