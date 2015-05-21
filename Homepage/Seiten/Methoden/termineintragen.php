@@ -1,42 +1,43 @@
 <?php
-$haarlaenge=$_GET["haarlaenge"];
-$dienstleistung=$_GET["dienstleistung"];
-$dienstleistung2=$_GET["dienstleistung2"];
-$date=$_GET["date"];
+include_once("../../include_DBA.php");
+$db=new db_con("conf/db.php",true);
 
-switch ($dienstleistung)
+$haarlaenge = $_POST["haarlaenge"];
+$dienstleistung = $_POST["dienstleistung"];
+$dienstleistung2 = $_POST["dienstleistung2"];
+$date = $_POST["date"];
+$schneiden = $_POST["schneiden"];
+
+//var_dump($_POST,$_FILES);
+
+
+if (isset($_FILES["wunschfoto"]))
 {
-	case "HS":
-		$dienstleistung="Herren Service";
-		break;
-	case "DS":
-		$dienstleistung="Damen Service";
-		break;
-
+	$foto = $_FILES["wunschfoto"]["tmp_name"];
+	$fotoname = $_FILES["wunschfoto"]["name"];
+	//secho "ging du hua";
 }
-echo "Service: ".$dienstleistung."";
-echo "<br />";
-echo "Haarlänge: ".$haarlaenge."";
-echo "<br />";
-switch ($dienstleistung2)
+else
+	$foto = NULL;
+
+$date = new DateTime($date);
+
+$mitarbeiter = "1000000000";
+$arbeitsplatz = 2;
+$kunde = "f.ghadimi@gmx.at";
+var_dump($foto);
+var_dump($fotoname);
+
+$target = NK_Pfad_Frisur_Bildupload_beginn.$mitarbeiter.NK_Pfad_Frisur_Bild_mitte.$date->format('U').NK_Pfad_Frisur_Bild_ende;
+try
 {
-	case "FA":
-		$dienstleistung2="Färben";
-		break;
-	case "ME":
-		$dienstleistung2="Strähnen";
-		break;
-	case "TÖ":
-		$dienstleistung2="Tönung";
-		break;
-	case "OKME":
-		$dienstleistung2="Oberkopf Strähnen";
-		break;
+	file_upload($fotoname, $foto, $target);
 }
-echo "Colorierung: ".$dienstleistung2."";
-echo "<br />";
-echo "Datum: ".$date."";
-
-
+catch(DB_Exception $e)
+{
+	echo "Fehler bei Bilderupload";
+}
+$foto = NK_Pfad_Frisur_Bild_beginn.$mitarbeiter.NK_Pfad_Frisur_Bild_mitte.$date->format('U').NK_Pfad_Frisur_Bild_ende;
+$db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge);
 
 ?>
