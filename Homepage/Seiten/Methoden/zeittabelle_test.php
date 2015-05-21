@@ -195,13 +195,13 @@
 						echo "<td>";
 					else 
 						echo "<td style='background-color:yellow;'>";
-					echo $ddaw->format('H:i');
+					echo "<a href='#openModal'> $ddaw->format('H:i') </a>";
 					echo "</td>";
 					if (!in_array($mdaw, $termin_array))
 						echo "<td>";
 					else
 						echo "<td style='background-color:yellow;'>";
-					echo $mdaw->format('H:i');
+					echo "<a href='#openModal'> $mdaw->format('H:i') </a>";
 					echo "</td>";
 					if (!in_array($dodaw, $termin_array))
 						echo "<td>";
@@ -277,7 +277,7 @@
 // 		}
 
 		echo "<br>";
-		echo "<a href='#openModal'>RESERVIEREN</a>";
+//		echo "<a href='#openModal'>RESERVIEREN</a>";
 		
 		echo "<div id='openModal' class='modalDialog'>";
 		echo "<div>";
