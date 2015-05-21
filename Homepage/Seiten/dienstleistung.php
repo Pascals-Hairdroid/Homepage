@@ -136,7 +136,9 @@ if(isset($_GET['web']))
 					?>
 					<h2>Professioneller Haarschnitt</h2>
 <h2>Typgerechte Beratung</h2>
-<h2>Haarpflege für jeden Kopf </h2>
+<?php 
+echo umlaute_encode("<h2>Haarpflege für jeden Kopf </h2>");
+?>
 <ul style="list-style-type: disc;">
 <li>Normal, unbehandelt</li>
 <li>Fein</li>

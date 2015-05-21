@@ -24,20 +24,25 @@ $db=new db_con("conf/db.php",true);?>
 include("Anmeldung/registration.php");
 include("Anmeldung/login.php");
 if(isset($_POST["submit2"])){
-	$interessenarray = array();
-	foreach($db->getAllInteresse() as $int){
+$skillarray = array();
+$ausstattungsarray=array();
+foreach($db->getAllSkill() as $int)
+	{
 		if(isset ($_POST[$int->getID()]))
-			$int = new Interesse($int->getID(),$int->getBezeichnung());
-			$interessenarray[]=$int;
+			$int = new Skill($int->getID(),$int->getBeschreibung());
+		$skillarray[]=$int;
 	}
-	
-	$ausgabe=reg(trim($_POST['username']),trim($_POST['vn']),trim($_POST['nn']),$_POST['pw'],$_POST['pw2'],$_POST['telnr'],$interessenarray);
+foreach($db->getAllArbeitsplatzausstattung() as $int)
+	{
+		if(isset ($_POST[$int->getID()]))
+			$int = new Arbeitsplatzausstattung($int->getID(), $int->getName());
+		$ausstattungsarray[]=$int;
+	}
+	$haartyp2=$db->getHaartyp($_POST['laenge']);
+
+	$dienstleistung = new Dienstleistung($_POST['kuerzl'],$haartyp2 , $_POST['name'], $_POST['einheiten'], $_POST['pause'], $skillarray, $ausstattungsarray, $_POST['group']);
+	$db->dienstleistungEintragen($dienstleistung);
 }
-		if(isset($_POST['submit'])){
-			$passwort = md5($_POST['passwort']);
-			$username=$_POST['username'];
-			$weiterleitung=login($username,$passwort);
-		}
 	?>
 <div id="container">
 <div id="streifen"></div>
@@ -139,30 +144,51 @@ if(isset($_POST["submit2"])){
 				
 					<table border="0">
 						<form method="post" action="">
-							<tr><td>K&uuml;rzel</td><td><input type="text" name="kuerzl"/></td></tr>
-							<tr><td>Dienstleistungsname</td><td><input type="text" name="name"/></td></tr>
+							<tr><td>K&uuml;rzel</td><td><input type="text" name="kuerzl" required="required"/></td></tr>
+							<tr><td>Dienstleistungsname</td><td><input type="text" name="name" required="required"/></td></tr>
 							<tr><td>Haarl&auml;nge</td>
-							<td><select name="haare">
+							<td>
 							<?php 
-							foreach ($db->getAllDienstleistung() as $dienst){
-								$kuerzel=$dienst->getHaartyp()->getKuerzel();
-								$bezeichnung=$dienst->getHaartyp()->getBezeichnung();
-								
-								echo"<option value='test'>test</option>";
-								
-								
-						
-								}
+								echo"<select name='laenge' size='1'>";
+	 							echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
+  								foreach ($db->getAllHaartyp() as $haartyp)
+  									echo "<option style='width:17ex;'value='".$haartyp->getKuerzel()."'>".$haartyp->getBezeichnung()." </option>";					
 							?>
 							</select></td></tr>
+							<tr><td>Ben&ouml;tigte Einheiten</td><td><input type="text" name="einheiten" required="required"/></td></tr>
+							<tr><td>Pauseneinheiten</td><td><input type="text>" name="pause" required="required"/></td></tr>
+							<tr><td>Gruppe</td><td><input type="text>" name="group" required="required"/></td></tr>
+							<tr><td>Skills:</td></tr><tr>
+							<?php 
+							$i=0;
+							foreach($db->getAllSkill() as $skills)
+							{
+								
+								$i++;
+								
+								echo "<td><input type='checkbox' name='".$skills->getID()."'>".$skills->getBeschreibung()." </input></td>";
+								
+								if ($i % 3 === 0) echo "</tr><tr>";
+							}
 							
 							
+							?>
+							</tr>
+							<tr><td>Arbeitsplatzausstattung:</td></tr><tr>	
+							<?php 	
+							$i=0;
+							foreach($db->getAllArbeitsplatzausstattung() as $ausstattung)
+							{
+								
+								$i++;
+								
+								echo "<td><input type='checkbox' name='".$ausstattung->getID()."'>".$ausstattung->getName()." </input></td>";
+								
+								if ($i % 3 === 0) echo "</tr><tr>";
+							}
 							
 							
-							<tr><td>Ben&ouml;tigte Einheiten</td><td><input type="text" name="kuerzl"/></td></tr>
-							<tr><td>Pauseneinheiten</td><td><input type="text>" name="kuerzl"/></td></tr>
-							<tr><td>Gruppe</td><td><input type="text>" name="kuerzl"/></td></tr>
-										
+							?>
 							<tr><td><input type="submit" value ="absenden" name="submit2"></td>
 							
 						</form>

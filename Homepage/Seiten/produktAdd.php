@@ -24,20 +24,10 @@ $db=new db_con("conf/db.php",true);?>
 include("Anmeldung/registration.php");
 include("Anmeldung/login.php");
 if(isset($_POST["submit2"])){
-	$interessenarray = array();
-	foreach($db->getAllInteresse() as $int){
-		if(isset ($_POST[$int->getID()]))
-			$int = new Interesse($int->getID(),$int->getBezeichnung());
-			$interessenarray[]=$int;
-	}
-	
-	$ausgabe=reg(trim($_POST['username']),trim($_POST['vn']),trim($_POST['nn']),$_POST['pw'],$_POST['pw2'],$_POST['telnr'],$interessenarray);
+	$produktkat=$db->getProduktkategorie($_POST['kategorie']);
+ 	$produkt=new Produkt($_POST['id'], $_POST['name'],$_POST['hersteller'], $_POST['beschreibung'], $_POST['preis'], $_POST['bestand'], $produktkat);	
+ 	$db->produktEintragen($produkt);
 }
-		if(isset($_POST['submit'])){
-			$passwort = md5($_POST['passwort']);
-			$username=$_POST['username'];
-			$weiterleitung=login($username,$passwort);
-		}
 	?>
 <div id="container">
 <div id="streifen"></div>
@@ -136,46 +126,35 @@ if(isset($_POST["submit2"])){
   </div>
 			<div id="wrapper">
 				<div id="textArea">
-				
 					<table border="0">
 						<form method="post" action="">
-							<tr><td>E-Mail Adresse:</td><td><input name="username" type="input" pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" class="loginField"required = "required"
-							<?php if(isset($ausgabe))echo "value='".$_POST['username']."'"; ?>></p></td></tr>
-							
-							<tr><td>Vorname:</td><td><input name="vn" type="text" class="loginField"required = "required"
-							<?php if(isset($ausgabe))echo "value='".$_POST['vn']."'"; ?>></p></td></tr>
-							
-							<tr><td>Nachname:</td><td><input name="nn" type="text" class="loginField"required = "required"
-							<?php if(isset($ausgabe))echo "value='".$_POST['nn']."'"; ?>></p></td></tr>
-							
-							<tr><td><p>Passwort:</p></td><td><input  name="pw" type="password"  class="loginField"required = "required"></p></td></tr>
-							<tr><td><p>Password wiederholen:</p></td><td><input name="pw2" type="password"  class="loginField"required = "required"></p></td></tr>
-							<tr><td>Telefon Nummer:</td><td><input name="telnr" type="string" pattern="[0-9]{1,20}" class="loginField"required = "required"<?php if(isset($ausgabe))echo "value='".$_POST['telnr']."'"; ?>></p></td></tr><tr><td> <br></td></tr>
-				
-				
-						<?php
-						
-						
-						$i=0;
-						echo"<tr>";
-						foreach ($db->getAllInteresse() as $int)
-						  {
-							  $i++;
-							
-							echo "<td><input type='checkbox' name='".$int->getID()."'>".$int->getBezeichnung()." </input></td>";
-							
-							  if ($i % 3 === 0) echo "</tr><tr>";
-						  }
-						  echo"</tr>";
-						?>
-				
+							<tr><td>ID</td><td><input type="text" name="id" readonly <?php 
+							$produkte=$db->getAllProdukt();
+							$lastelement =count($produkte)+1;
+							echo $lastelement;
+							echo"value='$lastelement' placeholder='$lastelement'";
+							?>/></td></tr>
+							<tr><td>Name</td><td><input type="text" name="name" required="required"/></td></tr>
+							<tr><td>Hersteller</td><td><input type="text" name="hersteller" required="required"/></td></tr>
+							<tr><td>Beschreibung</td><td><input type="text>" name="beschreibung" required="required"/></td></tr>
+							<tr><td>Preis</td><td><input type="text>" name="preis" required="required"/></td></tr>
+							<tr><td>Bestand</td><td><input type="text>" name="bestand" required="required"/></td></tr>
+							<tr><td>Produktkategorie</td>
+							<td>
+							<?php 
+								echo"<select name='kategorie' size='1'>";
+	 							echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
+  								foreach ($db->getAllProduktkategorie() as $kat)
+  									echo "<option style='width:17ex;'value='".$kat->getKuerzel()."'>".$kat->getBezeichnung()." </option>";					
+							?>
+							</select></td></tr>
+							</tr>
 							<tr><td><input type="submit" value ="absenden" name="submit2"></td>
 							
 						</form>
 					</table>
 					<?php
-						if(isset($ausgabe))
-							echo $ausgabe;
+						
 						?>
 					</div>
 				
