@@ -1,5 +1,6 @@
 <?php session_start();
 include("../include_DBA.php");
+include("Methoden/emailMe.php");
 $db=new db_con("conf/db.php",true);?>
 <!DOCTYPE html> 
 <html>
@@ -23,8 +24,10 @@ $db=new db_con("conf/db.php",true);?>
 <?php
 include("Anmeldung/login.php");
 if(isset($_POST["submit2"])){
-	if($db->getKunde($_POST['email'])){
-	
+	try {
+	$kunde = $db->getKunde($_POST['email']);
+	if($kunde == null)
+		throw new DB_Exception(400, "Kunde nicht gefunden!", DB_ERR_VIEW_PARAM_FAIL);
 	$d=date ("d");
 	$m=date ("m");
 	$y=date ("Y");
@@ -35,20 +38,16 @@ if(isset($_POST["submit2"])){
 	$un=  uniqid();
 	$dmtun = $dmt.$un;
 	$mdun = md5($dmtran.$un);
-	
-	 $t=time();
-	 $t2=date("Y-m-d H:i:s",$t);
-	
-	
-	
- 	$token=new Token($mdun,DateTime::createFromFormat('j-M-Y', '15-Feb-2009'));
- 	var_dump($token);
-	
-	$db->kundeTokenUpdaten($db->getKunde($_POST['email']),$token);
+
+	$token=new Token($mdun,DateTime::createFromFormat('j-M-Y', date('d-M-Y')));	
+	sendEmailToken($_POST['email'], "Passwort zur&uuml;rcksetzung zu Ihrem Pascals.at Profil", $mdun);
 	
 	
+	$ausgabe = $db->kundeTokenUpdaten($kunde,$token)?"Ihr Passwort wurde zur&uuml;ckgesetzt. Bitte sehen sie nun in ihren E-Mail Postfach nach! Dieser Vorgang kann bis zu 10 Minuten dauern":"FAIL";
 	}
-	$ausgabe="Ihr Passwort wurde zur&uuml;ckgesetzt. Bitte sehen sie nun in ihren E-Mail Postfach nach! Dieser Vorgang kann bis zu 10 Minuten dauern";
+	Catch(DB_Exception $e){
+		$ausgabe= $e->getViewmsg()." Message: ".$e->getMsg();
+	}
 }
 		if(isset($_POST['submit'])){
 			$passwort = md5($_POST['passwort']);
@@ -166,6 +165,8 @@ if(isset($_POST["submit2"])){
 					<?php
 						if(isset($ausgabe))
 							echo $ausgabe;
+							
+						
 						?>
 					</div>
 				

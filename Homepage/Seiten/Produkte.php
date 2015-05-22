@@ -87,7 +87,8 @@ if(isset($_GET['web']))
 			</div>
 			<div id="head">
 				<?php
-					include ("HTML/header.html");
+					if(isset($_GET['web']))include ("HTML/headerNoLink.html");
+					else include ("HTML/header.html");
 				?>
 			</div>
 			<div id="menu" class="hide">
@@ -130,9 +131,13 @@ if(isset($_GET['web']))
 			<div id="wrapper">
 				<div id="textArea">
 					<?php 
+					if(isset($_GET['web'])){
+					}
+					else{
 					if(isset($_SESSION['mAdmin'])){
 						if($_SESSION['mAdmin']==1)
 							echo"<a href='produktAdd.php'>Produkt hinzufügen</a>";
+					}
 					}
 					
 					$kat=NEW Produktkategorie($_GET['Kat'],null);

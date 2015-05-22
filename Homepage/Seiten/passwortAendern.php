@@ -37,10 +37,10 @@ $db=new db_con("conf/db.php",true);
 	}
 
 	if(isset($_POST['submit2'])){
-		$ausgabe=passwortcheck($_POST['newPW'], $_POST['newPW2']);
+		
 		if($_POST['newPW'] != $_POST['newPW2'])
 		{
-
+			$ausgabe="Die Passw&ouml;rter stimmen nicht &uuml;berein";
 		}
 		else
 		{
@@ -48,7 +48,9 @@ $db=new db_con("conf/db.php",true);
 
 			if(isset($_GET['tok']))
 			{
-
+				$kunde=$db->getKunde($_Get['e']);
+				$tok=$db->getKundeToken($kunde);
+				$db->kundePwUpdaten($kunde, md5($_POST['newPW']));
 			}
 			else
 			{
@@ -176,6 +178,11 @@ $db=new db_con("conf/db.php",true);
 				<?php
 
 				echo"<form method='post' action=''>";
+				if(isset($_GET['tok']))
+				{
+					
+				}
+				else
 				echo"<p><input id='oldPW' type='text' name='oldPW' placeholder='Altes Passwort' required></p>";
 				echo"<p><input id='newPW' type='password' name='newPW' placeholder='Passwort' required></p>";
 				echo"<p><input id='newPW2' type='password' name='newPW2' placeholder='Passwort' required></p>";

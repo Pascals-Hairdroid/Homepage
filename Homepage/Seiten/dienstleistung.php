@@ -129,10 +129,15 @@ if(isset($_GET['web']))
 			<div id="wrapper">
 				<div id="textArea">
 				<?php 
+				if(isset($_GET['web'])){
+					}
+					else{
+				
 				if(isset($_SESSION['mAdmin'])){
 						if($_SESSION['mAdmin']==1)
 							echo"<a href='dienstleistungAdd.php'>Dienstleistung hinzufügen</a>";
 					}
+				}
 					?>
 					<h2>Professioneller Haarschnitt</h2>
 <h2>Typgerechte Beratung</h2>

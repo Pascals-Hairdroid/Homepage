@@ -86,7 +86,8 @@ $db=new db_con("conf/db.php",true);?>
 			</div>
 			<div id="head">
 				<?php
-					include ("HTML/header.html");
+					if(isset($_GET['web']))include ("HTML/headerNoLink.html");
+			else include ("HTML/header.html");
 				?>
 			</div>
 			<div id="menu">

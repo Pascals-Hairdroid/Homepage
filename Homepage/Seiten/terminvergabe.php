@@ -88,7 +88,8 @@ if(isset($_GET['web']))
 			</div>
 			<div id="head">
 				<?php
-					include ("HTML/header.html");
+					if(isset($_GET['web']))include ("HTML/headerNoLink.html");
+			else include ("HTML/header.html");
 				?>
 			</div>
 			<div id="menu" class="hide">
