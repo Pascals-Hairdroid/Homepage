@@ -45,7 +45,7 @@ if(isset($_POST['submit']))
 						<?php
 						if(!isset($_SESSION['username'])){
 							echo"<li id='login'>";
-								echo"<a id='login-trigger' href='#'>Log in <span>&#x25BC;</span></a>";
+								echo"<a id='login-trigger' href='#'>Login <span>&#x25BC;</span></a>";
 								echo"<div id='login-content'>";
 									echo"<form method='post' action=''>";
 										echo"<fieldset id='inputs'>";
@@ -60,7 +60,7 @@ if(isset($_POST['submit']))
 								}
 								else{
 									echo"<li id='login'>";
-									echo"<a href='../Anmeldung/endSession.php'>Log Out</span></a>";
+									echo"<a href='../Anmeldung/endSession.php'>Logout</span></a>";
 									echo"<div id='login-content'>";
 										
 								}
