@@ -3,6 +3,10 @@
 <html>
 	<head>
 		<link  rel="stylesheet" type="text/css" href="../../css/css.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<script type="text/javascript">$(document).ready(function(){
+				$(".zeiteinheit").click(function(e){$("input[name='date']").val(e.currentTarget.dataset.time);});
+			});</script>
 	</head>
 	<body>
 		<?php
@@ -25,63 +29,9 @@
 		$br = null;		//pause
 		$gesamt;
 		
-// 		if ($haarlaenge == "Kurze Haare")
-// 			if ($dienstleistung == "DS")
-// 				$sht = 45; 
-// 			else 
-// 				$sht = 30;
-// 		else 
-// 			if ($dienstleistung == "HS")
-// 				$sht = 45;
-// 			else
-// 				$sht = 60;
-		
-// 		switch ($dienstleistung2) 
-// 		{
-//    			case "FA":
-//        		$dl = 30;
-//        		$br = 30;
-//        		break;
-//     		case "ME":
-//         	$dl = 60;
-//        		$br = 30;
-//         	break;
-//     		case "TÖ":
-//         	$dl = 30;
-//        		$br = 30;
-//         	break;
-//         	case "OKME":
-//         	$dl = 30;
-//         	$br = 30;
-//         	break;
-// 		}
-// 		$gesamt = $sht + $dl + $br;
-		
-		
 		
 		include_once("../../include_DBA.php");
 		$db=new db_con("conf/db.php",true);
-		
-// 		echo "Haartyp: ".$haarlaenge."";
-// 		echo "<br>";
-// 		echo "Gew&uuml;nschte Dienstleistung: ".$dienstleistung.", ";
-// 		echo $dienstleistung2;
-// 		echo "<br>";
-// 		echo "<br>";
-// 		echo "".$dienstleistung2." dauert ".$dl." Minuten gefolgt von ".$br." Minuten Pause";
-// 		echo "<br>";
-// 		echo "Nach Pause ".$haarlaenge." + ".$dienstleistung." braucht ".$sht." Minuten";
-// 		echo "<br>";
-// 		echo "<br>";
-// 		echo "Gesamt ".$gesamt." Minuten";
-// 		echo "<br>";
-// 		echo "<br>";
-// 		echo $woche;
-// 		$week = date("W", strtotime($woche));
-// 		echo "<br>";
-
-		
-		
 		
 		
 		if (strlen($woche) ==8)
@@ -128,9 +78,6 @@
 		$von1 = clone $von;
 		$bis1 = clone $von1;
 		$bis1->add(new DateInterval('P4DT7H45M'));
-// 		echo "erster Termin: ".$von1->format('d.m.Y H:i')."";
-// 		echo "<br>";
-// 		echo "letzer Termin: ".$bis1->format('d.m.Y H:i')."";
 		
 		foreach($db->getAllTermin($von1, $bis1) as $termine)
 		{
@@ -219,25 +166,25 @@
 						echo "<td>";
 					else
 						echo "<td style='background-color:yellow;'>";
-					echo $sdaw->format('H:i');
+					echo$sdaw->format('H:i');
 					echo "</td>";
 				}
 				else
 				{	
 					echo "<td>";
-					echo $ddaw->format('H:i');
+					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$ddaw->format('H:i')."</a>";
 					echo "</td>";
 					echo "<td>";
-					echo $mdaw->format('H:i');
+					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$mdaw->format("d.m.Y H:i")."\">".$mdaw->format('H:i')."</a>";
 					echo "</td>";
 					echo "<td>";
-					echo $dodaw->format('H:i');
+					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$dodaw->format("d.m.Y H:i")."\">".$dodaw->format('H:i')."</a>";
 					echo "</td>";
 					echo "<td>";
-					echo $fdaw->format('H:i');
+					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$fdaw->format("d.m.Y H:i")."\">".$fdaw->format('H:i')."</a>";
 					echo "</td>";
 					echo "<td>";
-					echo $sdaw->format('H:i');
+					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$sdaw->format("d.m.Y H:i")."\">".$sdaw->format('H:i')."</a>";
 					echo "</td>";
 					echo "</tr>";
 				}
@@ -254,31 +201,19 @@
 			$z2= $z2+1;
 			
 		}
-		$bis= clone $sdaw;
+		$bis = clone $sdaw;
 		
 		
 		$mdaw->modify('-180 minutes');
-// 		echo "<input type='DateTime' name='date' value=".$mdaw->format('d.m.Y H:i')." hidden='true'>";
-// 		echo "<input type='submit' value='do it fgt'>";
-		
+	
 		
 		echo "</form>";
 		echo "</table>";
-// 		echo $von;
-// 		echo $bis;
-		$svnr=2050200565;	
+		$svnr = 2050200565;	
 		$mitarbeiter= $db->getMitarbeiter($svnr);
-	
-// 		$ft= $db->getFreieTermine($von, $bis, $mitarbeiter); 		//FreieTermine
-// 		var_dump($ft);
-// 		while ($fta = mysqli_fetch_object($ft))
-// 		{
-// 			echo $fta->Zeitstempel;
-// 		}
+
 
 		echo "<br>";
-		echo "<a href='#openModal'>RESERVIEREN</a>";
-		
 		echo "<div id='openModal' class='modalDialog'>";
 		echo "<div>";
 		echo "<a href='#close' title='Close' class='close'>X</a>";
@@ -286,9 +221,7 @@
 		echo "<table border='0' style='text-align:left;'>";
 		echo "<tr>";
 		echo "<td> Termin: </td>";
-		echo "<td> <input type='DateTime' name='date' value='";
-		echo $ddaw->format("d.m.Y H:i");
-		echo "' readonly> </td>";
+		echo "<td> <input type='DateTime' name='date' value='' readonly> </td>";
 		echo "</tr>";
 		echo "<tr>";
 		echo "<td> Service: </td>";
@@ -308,7 +241,7 @@
 		echo "</tr>";
 		echo "<tr>";
 		echo "<td> Wunschfrisur (optional): </td>";
-		echo "<td> <input type='file' name='wunschfoto'> </td>";
+		echo "<td> <input type='file' name='wunschfoto' value='NULL'> </td>";
 		echo "</tr>";
 		echo "</table>";
 		echo "<br>";

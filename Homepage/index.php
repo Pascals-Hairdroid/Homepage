@@ -117,7 +117,7 @@ if(isset($_GET['web']))
 						<?php
 						if(!isset($_SESSION['username'])){
 							echo"<li id='login'>";
-							echo"<a id='login-trigger' href='#'>Log in <span>&#x25BC;</span></a>";
+							echo"<a id='login-trigger' href='#'>Login <span>&#x25BC;</span></a>";
 							echo"<div id='login-content'>";
 							echo"<form method='post' action=''>";
 							echo"<fieldset id='inputs'>";
@@ -132,7 +132,7 @@ if(isset($_GET['web']))
 								}
 								else{
 									echo"<li id='login'>";
-									echo"<a href='Seiten/Anmeldung/endSession.php'>Log Out</span></a>";
+									echo"<a href='Seiten/Anmeldung/endSession.php'>Logout</span></a>";
 									echo"<div id='login-content'>";
 
 								}
