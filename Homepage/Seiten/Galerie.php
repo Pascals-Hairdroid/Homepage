@@ -47,7 +47,7 @@ $db=new db_con("conf/db.php",true);?>
 							echo"</fieldset>";
 							echo"<fieldset id='actions'>";
 							echo"<input type='submit' name ='submit' id='submit' value='Log in'>";
-							echo"<label><a href='#'> Forgot Password </a></label>";
+							echo"<label><a href='forgotPassword.php'> Forgot Password </a></label>";
 							echo"</fieldset>";
 							echo"</form>";
 								}
