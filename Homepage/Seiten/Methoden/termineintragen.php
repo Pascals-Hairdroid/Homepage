@@ -15,7 +15,6 @@ if (isset($_FILES["wunschfoto"])&& $_FILES["wunschfoto"]["tmp_name"] != "")
 {
 	$foto = $_FILES["wunschfoto"]["tmp_name"];
 	$fotoname = $_FILES["wunschfoto"]["name"];
-	echo "ging du hua";
 }
 
 $date = new DateTime($date);

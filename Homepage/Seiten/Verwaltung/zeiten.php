@@ -178,8 +178,11 @@ if(isset($_POST['submit']))
 					$tempMa=$db->getMitarbeiter($_POST['svnr']);
 					$dienstzeit=$tempMa->getDienstzeiten();
 					foreach ($dienstzeit as $dz){
+					echo "<br>";
 					echo $dz->getWochentag()->getKuerzel();
+					echo " ";
 					echo Date_format($dz->getBeginn(),'H:i');
+					echo " - ";
 					echo Date_format($dz->getEnde(),'H:i');} 
 					}?>
 					

@@ -127,6 +127,7 @@ if(isset($_POST['submit']))
 			
 			
 			<div id="textArea">
+						<br>
 			
 						<form method="post" action="">
 							<p>Mitarbeiter:
@@ -164,8 +165,10 @@ if(isset($_POST['submit']))
 					$tempMa=$db->getMitarbeiter($_POST['svnr']);
 					$urlaub=$tempMa->getUrlaube();
 					foreach ($urlaub as $u2){
-					
+					echo "<<br>";
+					echo "Urlaub von: ";
 					echo $u2->getBeginn()->format('d.F Y H:i');
+					echo " bis ";
 					echo $u2->getEnde()->format('d.F Y H:i');
 					}
 					
