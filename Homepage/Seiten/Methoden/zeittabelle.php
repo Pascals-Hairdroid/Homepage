@@ -1,6 +1,7 @@
 <?php session_start();
-include_once("../../include_DBA.php");
-$db=new db_con("conf/db.php",true);?>
+	include_once("../../include_DBA.php");
+	$db=new db_con("conf/db.php",true);
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -13,10 +14,9 @@ $db=new db_con("conf/db.php",true);?>
 	</head>
 	<body>
 		<?php
-		
 	if (isset($_SESSION['email'])){
 		$kunde=$db->getKunde($_SESSION['email']);
-		var_dump($kunde);
+		$kunde2=($kunde->getEmail());
 		
 	}
 	if (isset($_SESSION['svnr'])){
@@ -283,6 +283,7 @@ $db=new db_con("conf/db.php",true);?>
 		echo "<div>";
 		echo "<a href='#close' title='Close' class='close'>X</a>";
 		echo "<form action='termineintragen.php' method='post' enctype='multipart/form-data' style='text-align:center;'>";
+		echo "<input type='Text' name='kunde' value='$kunde2' hidden>";
 		echo "<table border='0' style='text-align:left;'>";
 		echo "<tr>";
 		echo "<td> Termin: </td>";

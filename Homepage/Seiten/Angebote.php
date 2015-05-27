@@ -137,6 +137,8 @@ if(isset($_GET['web']))
 					<p> Bl&auml;tter dich durch die Aktionen! Durch einen Klick aufs Bild kommst du zu einem PDF, das du ausdrucken und mit zu mir nehmen kannst.</p>
 					<p> Gilt f&uuml;r alles au&szlig;er f&uuml;r den Sorry4waiting-Gutschein. Den bekommst du nat&uuml;rlich von mir pers&ouml;nlich! </p>
 					<p> Ich freue mich Dich bald zu sehen. </p>
+					<br><br>
+					<img src="../Bilder/Werbung/12012012.jpg" style="width:50%;" />
 				</div>
 				<div id="werbungsbanner">
 				
