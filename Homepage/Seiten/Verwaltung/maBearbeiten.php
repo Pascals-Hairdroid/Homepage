@@ -112,7 +112,7 @@ include("../Anmeldung/authMitarbeiterAdmin.php");?>
 				echo "<tr><td>Sozialversicherungsnr.:</td><td>Vorname</td><td>Nachname</td><td>Admin</td><td>";
 
 				foreach($db->getAllMitarbeiter() as $mitarbeiter){
-							echo "<tr><td>".$mitarbeiter->getSVNr()."</td><td>".$mitarbeiter->getVorname()."</td><td>".$mitarbeiter->getNachname()."</td><td>".$mitarbeiter->getAdmin()."</td><td><a href='maUpdate.php?SVNr=".$mitarbeiter->getSVNr()."&vn=".$mitarbeiter->getVorname()."&nn=".$mitarbeiter->getNachname()."&admin=".$mitarbeiter->getAdmin()."'>Bearbeiten</a></td><td><a href='maPWReset.php?SVNr=".$mitarbeiter->getSVNr()."'>Passwort zurücksetzen</a></td></tr>";
+							echo umlaute_encode("<tr><td>".$mitarbeiter->getSVNr()."</td><td>".$mitarbeiter->getVorname()."</td><td>".$mitarbeiter->getNachname()."</td><td>".$mitarbeiter->getAdmin()."</td><td><a href='maUpdate.php?SVNr=".$mitarbeiter->getSVNr()."&vn=".$mitarbeiter->getVorname()."&nn=".$mitarbeiter->getNachname()."&admin=".$mitarbeiter->getAdmin()."'>Bearbeiten</a></td><td><a href='maPWReset.php?SVNr=".$mitarbeiter->getSVNr()."'>Passwort zurücksetzen</a></td></tr>");
 
 						}
 						?>

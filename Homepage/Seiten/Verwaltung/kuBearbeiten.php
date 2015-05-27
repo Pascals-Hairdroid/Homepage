@@ -110,7 +110,7 @@ include("../Anmeldung/authAdmin.php");?>
 						echo "<tr><td>E-Mail Adresse</td><td>Vorname</td><td>Nachname</td><td>Freigeschaltet</td><td>";
 						
 						foreach($db->getAllKunde() as $kunde){
-							echo "<tr><td>".$kunde->getEmail()."</td><td>".$kunde->getVorname()."</td><td>".$kunde->getNachname()."</td><td>".$kunde->getFreischaltung()."</td><td><a href='kuUpdate.php?Email=".$kunde->getEmail()."'>Bearbeiten</a>";
+							echo umlaute_encode("<tr><td>".$kunde->getEmail()."</td><td>".$kunde->getVorname()."</td><td>".$kunde->getNachname()."</td><td>".$kunde->getFreischaltung()."</td><td><a href='kuUpdate.php?Email=".$kunde->getEmail()."'>Bearbeiten</a>");
 				
 						}	
 					?>

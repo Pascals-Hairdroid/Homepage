@@ -184,7 +184,7 @@ $db=new db_con("conf/db.php",true);
 					
 				}
 				else
-				echo"<p><input id='oldPW' type='text' name='oldPW' placeholder='Altes Passwort' required></p>";
+				echo"<p><input id='oldPW' type='password' name='oldPW' placeholder='Altes Passwort' required></p>";
 				echo"<p><input id='newPW' type='password' name='newPW' placeholder='Passwort' required></p>";
 				echo"<p><input id='newPW2' type='password' name='newPW2' placeholder='Passwort' required></p>";
 				echo"<p><input type='submit' name ='submit2' id='submit2' value='Passwort ändern'></p>";

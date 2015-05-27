@@ -29,6 +29,7 @@ if(isset($_POST["submit2"])){
 		if(isset ($_POST[$int->getID()]))
 			$int = new Interesse($int->getID(),$int->getBezeichnung());
 			$interessenarray[]=$int;
+			header('Location: ../Seiten/anmelden.php');
 	}
 	
 	$ausgabe=reg(trim($_POST['username']),trim($_POST['vn']),trim($_POST['nn']),$_POST['pw'],$_POST['pw2'],$_POST['telnr'],$interessenarray);
@@ -37,6 +38,7 @@ if(isset($_POST["submit2"])){
 			$passwort = md5($_POST['passwort']);
 			$username=$_POST['username'];
 			$weiterleitung=login($username,$passwort);
+			
 		}
 	?>
 <div id="container">
@@ -173,10 +175,6 @@ if(isset($_POST["submit2"])){
 							
 						</form>
 					</table>
-					<?php
-						if(isset($ausgabe))
-							echo $ausgabe;
-						?>
 					</div>
 				
 			</div>

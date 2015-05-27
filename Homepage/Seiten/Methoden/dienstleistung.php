@@ -24,7 +24,7 @@ window.onload = function () {
   foreach ($db->getAllDienstleistung() as $dienstleistung)
   {
   	if ($dienstleistung->getGruppierung() == Null && !in_array($dienstleistung->getKuerzel(),$kuerzelArray))
-  		echo "<option style='width:17ex;'value='".$dienstleistung->getKuerzel()."'>".$dienstleistung->getName()." </option>";
+  		echo umlaute_encode("<option style='width:17ex;'value='".$dienstleistung->getKuerzel()."'>".$dienstleistung->getName()." </option>");
   	$kuerzelArray[] = $dienstleistung->getKuerzel();
   }
   echo  "</select>";
@@ -39,7 +39,7 @@ window.onload = function () {
   echo"<select name='haarlaenge' size='1'>";
   echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
   foreach ($db->getAllHaartyp() as $haartyp)
-  	echo "<option style='width:17ex;'value='".$haartyp->getBezeichnung()."'>".$haartyp->getBezeichnung()." </option>";
+  	echo umlaute_encode("<option style='width:17ex;'value='".$haartyp->getBezeichnung()."'>".$haartyp->getBezeichnung()." </option>");
   echo "</select>";
   
   
@@ -51,7 +51,7 @@ window.onload = function () {
   foreach ($db->getAllDienstleistung() as $dienstleistung)
   {
   	if ($dienstleistung->getGruppierung() == 1 && !in_array($dienstleistung->getKuerzel(),$kuerzelArray2))
-  	echo "<option style='width:17ex;'value='".$dienstleistung->getKuerzel()."'>".$dienstleistung->getName()." </option>";
+  	echo umlaute_encode("<option style='width:17ex;'value='".$dienstleistung->getKuerzel()."'>".$dienstleistung->getName()." </option>");
   	$kuerzelArray2[] = $dienstleistung->getKuerzel();
   }
   echo  "</select>";
