@@ -15,6 +15,8 @@ window.onload = function () {
 
   include_once("../include_DBA.php");
   $db=new db_con("conf/db.php",true);
+  
+  include 'getBrowser.php';
 
   
   //Damen/Herrenservice auswahl
@@ -45,6 +47,7 @@ window.onload = function () {
   
   
   //Färben/Strähnen/Tönung
+  echo "<br>";
   echo "&nbsp;Coloration: ";
   echo"<select name='dienstleistung2' size='1' style='display:inline-block; vertical-align:top; overflow:hidden; border:solid grey 1px;'>";
   $kuerzelArray2 = array();
@@ -56,7 +59,8 @@ window.onload = function () {
   	$kuerzelArray2[] = $dienstleistung->getKuerzel();
   }
   echo  "</select>";
-  include 'getBrowser.php';
+  
+  echo "\x20\x20\x20";
   if ($binfo == 'Google Chrome' or $binfo == 'Apple Safari' or $binfo == 'Opera') 
   {
   	echo "<input type='week' name='woche' value=";
@@ -75,9 +79,9 @@ window.onload = function () {
   	echo date("o");
   	echo ">";
   }
-  
+  echo "\x20\x20\x20";
 ?>
-<br><br>
+
 <input type="submit" value="Update" class="loginbuttons">
 
 <!-- <p> Termin eintragen: </p> -->

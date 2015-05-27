@@ -11,6 +11,12 @@ $schneiden = $_POST["schneiden"];
 // var_dump($_FILES);
 
 
+if ($haarlaenge == "Kurze Haare")
+	$haarlaenge = "KH";
+else
+	$haarlaenge = "LH";
+
+
 if (isset($_FILES["wunschfoto"])&& $_FILES["wunschfoto"]["tmp_name"] != "")
 {
 	$foto = $_FILES["wunschfoto"]["tmp_name"];
@@ -25,7 +31,7 @@ $arbeitsplatz = 2;
 // var_dump($foto);
 // var_dump($fotoname);
 
-if (isset ($dienstleistung) && isset ($dienstleistung2))
+if ($dienstleistung != "Null" && $dienstleistung2 != "Null")
 {
 	if (isset ($fotoname))
 	{

@@ -7,10 +7,21 @@
 <html>
 	<head>
 		<link  rel="stylesheet" type="text/css" href="../../css/css.css">
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
 		<script type="text/javascript">$(document).ready(function(){
 				$(".zeiteinheit").click(function(e){$("input[name='date']").val(e.currentTarget.dataset.time);});
-			});</script>
+			});
+		</script>
+		<script>
+			function chkFormular () 
+			{
+				if (document.form.date.value > $now) {
+					alert("Der Termin muss in der Zukunft liegen!");
+					document.form.date.focus();
+					return false;
+				}
+			}
+		</script>
 	</head>
 	<body>
 		<?php
@@ -21,7 +32,7 @@
 	}
 	if (isset($_SESSION['svnr'])){
 		$mitarbeiter=$db->getMitarbeiter($_SESSION['svnr']);
-		var_dump($mitarbeiter);
+// 		var_dump($mitarbeiter);
 	}
 	
 		
@@ -274,15 +285,17 @@
 		
 		echo "</form>";
 		echo "</table>";
-		$svnr = 2050200565;	
-		$mitarbeiter= $db->getMitarbeiter($svnr);
-
+// 		$svnr = 2050200565;	
+// 		$mitarbeiter = $db->getMitarbeiter($svnr);
+		$now = new DateTime();
+		echo $now->format('d.m.Y H:i');
+				
 
 		echo "<br>";
 		echo "<div id='openModal' class='modalDialog'>";
 		echo "<div>";
 		echo "<a href='#close' title='Close' class='close'>X</a>";
-		echo "<form action='termineintragen.php' method='post' enctype='multipart/form-data' style='text-align:center;'>";
+		echo "<form action='termineintragen.php' method='post' enctype='multipart/form-data' style='text-align:center;' name='form' onsubmit='return chkFormular()'>";
 		echo "<input type='Text' name='kunde' value='$kunde2' hidden>";
 		echo "<table border='0' style='text-align:left;'>";
 		echo "<tr>";
@@ -317,9 +330,6 @@
 		echo "</div>";
 			
 		?>
-		
-<!-- 		<iframe name="r_frame" src="termineintragen.php" > </iframe> -->
-		
 		
 
 	</body> 
