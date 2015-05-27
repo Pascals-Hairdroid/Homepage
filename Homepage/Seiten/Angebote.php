@@ -129,14 +129,14 @@ if(isset($_GET['web']))
     </ul>
   </div>
 			<div id="wrapper">
-				<div id="textArea">
-					<p>Überall kommt es vor: Grad sind zu viele Kundinnen da, du musst warten oder es dauert zu lang. Das kann immer passieren. </p>
-
-<p>Aktionen und Sorry-Gutscheine sind ein nettes Benefit für Dich und mein Zeichen, wie viel mir an Dir und Deiner Zufriedenheit liegt.</p>
-
-<p>Blätter Dich durch die Augenblicklichen Aktionen. Durch einen Klick aufs Bild kommst Du zu einem PDF, das Du ausdrucken und mit zu mir nehmen kannst.Gilt für alles ausser für den Sorry4waiting-Gutschein. Den bekommst Du nämlich von mir persönlich!</p>
-
-<p>Ich freu mich Dich bald zu sehen.</p>
+				<div id="textArea" style="text-align:center">
+					<br> <br>
+					<p> &Uuml;berall kommt es vor, es sind zu viele Kunden im Gesch&auml;ft. </p>
+					<p> Du musst warten und es dauert etwas l&auml;nger.</p>
+					<p> Aktionen und Sorry-Gutscheine sind ein nettes Benefit f&uuml;r dich und mein Zeichen, wie viel mir an dir und deiner Zufriedenheit liegt.</p>
+					<p> Bl&auml;tter dich durch die Aktionen! Durch einen Klick aufs Bild kommst du zu einem PDF, das du ausdrucken und mit zu mir nehmen kannst.</p>
+					<p> Gilt f&uuml;r alles au&szlig;er f&uuml;r den Sorry4waiting-Gutschein. Den bekommst du nat&uuml;rlich von mir pers&ouml;nlich! </p>
+					<p> Ich freue mich Dich bald zu sehen. </p>
 				</div>
 				<div id="werbungsbanner">
 				
@@ -147,6 +147,6 @@ if(isset($_GET['web']))
 					include("HTML/footer.html");
 				?>
 			</div>
-		</div></div>
+		</div>
 	</body>
 </html>

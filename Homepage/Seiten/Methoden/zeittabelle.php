@@ -1,3 +1,6 @@
+<?php session_start();
+include_once("../../include_DBA.php");
+$db=new db_con("conf/db.php",true);?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,6 +13,17 @@
 	</head>
 	<body>
 		<?php
+		
+	if (isset($_SESSION['email'])){
+		$kunde=$db->getKunde($_SESSION['email']);
+		var_dump($kunde);
+		
+	}
+	if (isset($_SESSION['svnr'])){
+		$mitarbeiter=$db->getMitarbeiter($_SESSION['svnr']);
+		var_dump($mitarbeiter);
+	}
+	
 		
 		$haarlaenge=$_GET["haarlaenge"];
 		$dienstleistung=$_GET["dienstleistung"];
@@ -34,8 +48,6 @@
 		$gesamt;
 		
 		
-		include_once("../../include_DBA.php");
-		$db=new db_con("conf/db.php",true);
 		
 		
 		if (strlen($woche) ==8)
@@ -93,18 +105,25 @@
 // 		{
 // 			var_dump($termine);
 // 		}
-		foreach($db->getAllArbeitsplatzausstattung() as $arbeitsplatz)
-				{
-					echo $arbeitsplatz->getId();
-					echo "<br>";
-				}
-		
-		
+// 		foreach($db->getAllArbeitsplatz() as $arbeitsplatz)
+// 				{
+// 					echo $arbeitsplatz->getName();
+// 					echo "<br>";
+// 				}
+				
+	
 		//Tabelle in einem
-		$i = 0;
-		$j=0;
+		$i = 1;
+		$j=1;
 		$z1 = 11;
 		$z2 = 12;
+		$arraydi= array((string)$ddaw->format('d.m.Y H:i'));
+		$arraymi= array((string)$mdaw->format('d.m.Y H:i'));
+		$arraydo= array((string)$dodaw->format('d.m.Y H:i'));
+		$arrayfr= array((string)$fdaw->format('d.m.Y H:i'));
+		$arraysa= array((string)$sdaw->format('d.m.Y H:i'));
+// 		$array = array(1, "hello", 1, "world", "hello");
+// 		print_r(array_count_values($termin_array));
 		
 		echo "<form target='r_frame' method='get' action='termineintragen.php'>";
 		
@@ -133,22 +152,55 @@
 		echo $sdaw->format('d.m.Y');
 		echo "</th>";
 		echo "</tr>";
-		while ($i < 8)
+		while ($i < 9)
 		{
 			echo "<tr>";
 			echo "<td rowspan='4'>".$z1." bis ".$z2." </td>";
 	
-			while ($j < 4)
+			while ($j < 5)
 			{
-				if($j != 0)
+				if($j != 1)
 				{
 					echo "<tr>";
 				}	
-			if ($termin_array != null)
+// 				if ($termin_array != null)
+// 				{
+// 					if (count(array_intersect($arraydi, $termin_array)) > 1)
+// 						echo "<td>";
+// 					else 
+// 						echo "<td style='background-color:red;'>";
+// 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$ddaw->format('H:i')."</a>";
+// 					echo "</td>";
+// 					if (count(array_intersect($arraymi, $termin_array)) > 1)
+// 						echo "<td>";
+// 					else
+// 						echo "<td style='background-color:red;'>";
+// 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$mdaw->format('H:i')."</a>";
+// 					echo "</td>";
+// 					if (count(array_intersect($arraydo, $termin_array)) > 1)
+// 						echo "<td>";
+// 					else
+// 						echo "<td style='background-color:red;'>";
+// 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$dodaw->format('H:i')."</a>";
+// 					echo "</td>";
+// 					if (count(array_intersect($arrayfr, $termin_array)) > 1)
+// 						echo "<td>";
+// 					else
+// 						echo "<td style='background-color:red;'>";
+// 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$fdaw->format('H:i')."</a>";
+// 					echo "</td>";
+// 					if (count(array_intersect($arraysa, $termin_array)) > 1)
+// 						echo "<td>";
+// 					else
+// 						echo "<td style='background-color:red;'>";
+// 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$sdaw->format('H:i')."</a>";
+// 					echo "</td>";
+// 				}
+				if ($termin_array != null)
 				{
-					if (!in_array($ddaw, $termin_array)) 
+					if (!in_array($ddaw, $termin_array))
 						echo "<td>";
-					else 
+					else
 						echo "<td style='background-color:yellow;'>";
 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$ddaw->format('H:i')."</a>";
 					echo "</td>";
@@ -156,25 +208,25 @@
 						echo "<td>";
 					else
 						echo "<td style='background-color:yellow;'>";
-					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$mdaw->format('H:i')."</a>";
+					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$mdaw->format("d.m.Y H:i")."\">".$mdaw->format('H:i')."</a>";
 					echo "</td>";
 					if (!in_array($dodaw, $termin_array))
 						echo "<td>";
 					else
 						echo "<td style='background-color:yellow;'>";
-					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$dodaw->format('H:i')."</a>";
+					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$dodaw->format("d.m.Y H:i")."\">".$dodaw->format('H:i')."</a>";
 					echo "</td>";
 					if (!in_array($fdaw, $termin_array))
 						echo "<td>";
 					else
 						echo "<td style='background-color:yellow;'>";
-					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$fdaw->format('H:i')."</a>";
+					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$fdaw->format("d.m.Y H:i")."\">".$fdaw->format('H:i')."</a>";
 					echo "</td>";
 					if (!in_array($sdaw, $termin_array))
 						echo "<td>";
 					else
 						echo "<td style='background-color:yellow;'>";
-					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$sdaw->format('H:i')."</a>";
+					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$sdaw->format("d.m.Y H:i")."\">".$sdaw->format('H:i')."</a>";
 					echo "</td>";
 				}
 				else
@@ -202,9 +254,14 @@
 				$dodaw->modify('+15 minutes');
 				$fdaw->modify('+15 minutes');
 				$sdaw->modify('+15 minutes');
+// 				array_push($arraydi, (string)$ddaw);
+// 				array_push($arraymi, (string)$mdaw);
+// 				array_push($arraydo, (string)$dodaw);
+// 				array_push($arrayfr, (string)$fdaw);
+// 				array_push($arraysa, (string)$sdaw);
 			}		
 			$i++;
-			$j=0;
+			$j=1;
 			$z1= $z1+1;
 			$z2= $z2+1;
 			

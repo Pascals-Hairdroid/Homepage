@@ -33,6 +33,7 @@ if(isset($_GET['web']))
 			$username=$_POST['username'];
 			$weiterleitung=login($username,$passwort);
 		}
+		
 	?>
 	<div id="container">
 <div id="streifen"></div>
