@@ -21,6 +21,10 @@
 			$schneiden="ja";
 		else 
 			$schneiden="nein";
+		
+		
+		//Mitarbeiter + Skill abfrage
+		
 
 		
 		//Zeitberechnung
@@ -89,7 +93,11 @@
 // 		{
 // 			var_dump($termine);
 // 		}
-		
+		foreach($db->getAllArbeitsplatzausstattung() as $arbeitsplatz)
+				{
+					echo $arbeitsplatz->getId();
+					echo "<br>";
+				}
 		
 		
 		//Tabelle in einem
@@ -142,31 +150,31 @@
 						echo "<td>";
 					else 
 						echo "<td style='background-color:yellow;'>";
-					echo $ddaw->format('H:i');
+					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$ddaw->format('H:i')."</a>";
 					echo "</td>";
 					if (!in_array($mdaw, $termin_array))
 						echo "<td>";
 					else
 						echo "<td style='background-color:yellow;'>";
-					echo $mdaw->format('H:i');
+					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$mdaw->format('H:i')."</a>";
 					echo "</td>";
 					if (!in_array($dodaw, $termin_array))
 						echo "<td>";
 					else
 						echo "<td style='background-color:yellow;'>";
-					echo $dodaw->format('H:i');
+					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$dodaw->format('H:i')."</a>";
 					echo "</td>";
 					if (!in_array($fdaw, $termin_array))
 						echo "<td>";
 					else
 						echo "<td style='background-color:yellow;'>";
-					echo $fdaw->format('H:i');
+					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$fdaw->format('H:i')."</a>";
 					echo "</td>";
 					if (!in_array($sdaw, $termin_array))
 						echo "<td>";
 					else
 						echo "<td style='background-color:yellow;'>";
-					echo$sdaw->format('H:i');
+					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$sdaw->format('H:i')."</a>";
 					echo "</td>";
 				}
 				else

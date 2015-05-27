@@ -44,7 +44,49 @@ if (isset ($fotoname))
 		echo "Fehler bei Bilderupload";
 	}
 	$foto = NK_Pfad_Frisur_Bild_beginn.$mitarbeiter.NK_Pfad_Frisur_Bild_mitte.$date->format('U').NK_Pfad_Frisur_Bild_ende;
+	
+	$db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung2, $haarlaenge);
+}
+else 
+{
+		$db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, NULL, $dienstleistung2, $haarlaenge);
+}
+
+
+
+switch ($dienstleistung2) {
+	case "FA":
+		$date->modify('+60 minutes');
+		break;
+	case "ME":
+		$date->modify('+90 minutes');
+		break;
+	case "TÖ":
+		$date->modify('+60 minutes');
+		break;
+}
+
+	echo $date->format("d.m.Y H:i");
+
+if (isset ($fotoname))
+{
+	$target = NK_Pfad_Frisur_Bildupload_beginn.$mitarbeiter.NK_Pfad_Frisur_Bild_mitte.$date->format('U').NK_Pfad_Frisur_Bild_ende;
+	try
+	{
+		file_upload($fotoname, $foto, $target);
+	}
+	catch(DB_Exception $e)
+	{
+		echo "Fehler bei Bilderupload";
+	}
+	$foto = NK_Pfad_Frisur_Bild_beginn.$mitarbeiter.NK_Pfad_Frisur_Bild_mitte.$date->format('U').NK_Pfad_Frisur_Bild_ende;
+	
 	$db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge);
 }
+else
+{
+	$db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, NULL, $dienstleistung, $haarlaenge);
+}
+
 
 ?>
