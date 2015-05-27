@@ -117,7 +117,7 @@ if(isset($_GET['web']))
        	
         	foreach ($produktkategorie as $prod){
 		
-          echo" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>";
+          echo umlaute_encode(" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>");
          }
          ?>
         </ul>
@@ -133,11 +133,11 @@ if(isset($_GET['web']))
 				<img src="../Bilder/Homepage/studio2.jpg" style="width:32%;" />
 				<img src="../Bilder/Homepage/studio3.jpg" style="width:32%;" />
 				
-					<p>Überall kommt es vor: Grad sind zu viele Kundinnen da, du musst warten oder es dauert zu lang. Das kann immer passieren. </p>
+					<p>&Uuml;erall kommt es vor: Grad sind zu viele Kundinnen da, du musst warten oder es dauert zu lang. Das kann immer passieren. </p>
 
-<p>Aktionen und Sorry-Gutscheine sind ein nettes Benefit für Dich und mein Zeichen, wie viel mir an Dir und Deiner Zufriedenheit liegt.</p>
+<p>Aktionen und Sorry-Gutscheine sind ein nettes Benefit f&uuml;r Dich und mein Zeichen, wie viel mir an Dir und Deiner Zufriedenheit liegt.</p>
 
-<p>Blätter Dich durch die Augenblicklichen Aktionen. Durch einen Klick aufs Bild kommst Du zu einem PDF, das Du ausdrucken und mit zu mir nehmen kannst.Gilt für alles ausser für den Sorry4waiting-Gutschein. Den bekommst Du nämlich von mir persönlich!</p>
+<p>Bl&auml;tter Dich durch die Augenblicklichen Aktionen. Durch einen Klick aufs Bild kommst Du zu einem PDF, das Du ausdrucken und mit zu mir nehmen kannst.Gilt für alles ausser für den Sorry4waiting-Gutschein. Den bekommst Du nämlich von mir persönlich!</p>
 
 <p>Ich freu mich Dich bald zu sehen.</p>
 				</div>
@@ -145,7 +145,7 @@ if(isset($_GET['web']))
 				
 				</div>
 			</div>
-			<div id="footer" align = "center">
+			<div id="footer" align = "center"  class="hide">
 				<?php
 					include("HTML/footer.html");
 				?>

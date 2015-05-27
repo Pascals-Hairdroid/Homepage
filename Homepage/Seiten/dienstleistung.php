@@ -116,7 +116,7 @@ if(isset($_GET['web']))
        	
         	foreach ($produktkategorie as $prod){
 		
-          echo" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>";
+          echo umlaute_encode(" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>");
          }
          ?>
         </ul>
@@ -140,29 +140,27 @@ if(isset($_GET['web']))
 				}
 					?>
 					<h2>Professioneller Haarschnitt</h2>
-<h2>Typgerechte Beratung</h2>
-<?php 
-echo umlaute_encode("<h2>Haarpflege für jeden Kopf </h2>");
-?>
-<ul style="list-style-type: disc;">
-<li>Normal, unbehandelt</li>
-<li>Fein</li>
-<li>Brüchig, vorzeitiger Haarausfall</li>
-<li>Schuppen</li>
-<li>Sensible Kopfhaut</li>
-<li>Trocken</li>
-<li>Locken</li>
-<li>Glättung</li>
-<li>Farbbehandeltes Haar</li>
-<li>Strukturgeschädigtes Haar</li>
-<li>Männer</li>
+					<h2>Typgerechte Beratung</h2>
+					<h2>Haarpflege f&uuml;r jeden Kopf </h2>
+					<ul style="list-style-type: disc;">
+					<li>Normal, unbehandelt</li>
+					<li>Fein</li>
+					<li>Br&uuml;chig, vorzeitiger Haarausfall</li>
+					<li>Schuppen</li>
+					<li>Sensible Kopfhaut</li>
+					<li>Trocken</li>
+					<li>Locken</li>
+					<li>Gl&auml;ttung</li>
+					<li>Farbbehandeltes Haar</li>
+					<li>Strukturgesch&auml;digtes Haar</li>
+					<li>M&auml;nner</li>
 </ul>			
 				</div>
 				<div id="werbungsbanner">
 				
 				</div>
 			</div>
-			<div id="footer" align = "center">
+			<div id="footer" align = "center"  class="hide">
 				<?php
 					include("HTML/footer.html");
 				?>

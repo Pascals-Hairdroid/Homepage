@@ -238,7 +238,7 @@ if(isset($_GET['web']))
 			<p>Pascal</p>
 		</div>
 
-		<div id="footer"  class="hide">
+		<div id="footer">
 			<a href="Seiten/Impressum.php">Impressum</a>
 		</div>
 	</div>

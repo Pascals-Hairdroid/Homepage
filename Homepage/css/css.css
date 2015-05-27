@@ -66,14 +66,14 @@ and (max-device-width : 480px) {
 	min-height:300px;
 	
 	}
-	#textArea p,h1{
+	#textArea p,h1,h2,ul{
 	padding-left:35px;
 	padding-right:15px;
 	}
 	#textArea p.Motto{
 	}
 	#textArea img{
-	width:100%;
+	
 	}
 	#textArea img.titelbild{
 	padding-top:35px;
@@ -81,6 +81,9 @@ and (max-device-width : 480px) {
 	bottom:37px;
 	z-index:-500;
 	width:100%;
+	}
+	.profilbild{
+	width:25%;
 	}
 	#textAreaVerwaltung{
 	}
@@ -470,9 +473,10 @@ and (min-device-width : 481px) {
 	min-height:300px;
 	width:100%;
 	}
-	#textArea p{	
-	
+	#textArea h1,h2{	
+	padding-left:15px;
 	}
+	
 	#textArea h1{
 	color:red;
 	
@@ -508,7 +512,13 @@ and (min-device-width : 481px) {
 	}
 	#textArea img{
 	}
-
+	#Profilbox{
+	min-height:300px;
+	margin-top:48px;
+	}
+	#Profilbox img{
+	z-index:-10000;
+	}
 	#footer{
 	border-top:solid black 1px;
 	text-align:center;

@@ -117,7 +117,7 @@ $db=new db_con("conf/db.php",true);?>
        	
         	foreach ($produktkategorie as $prod){
 		
-          echo" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>";
+          echo umlaute_encode(" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>");
          }
          ?>
         </ul>
