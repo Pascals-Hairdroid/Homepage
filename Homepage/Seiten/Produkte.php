@@ -136,7 +136,7 @@ if(isset($_GET['web']))
 					else{
 					if(isset($_SESSION['mAdmin'])){
 						if($_SESSION['mAdmin']==1)
-							echo"<a href='produktAdd.php'>Produkt hinzufügen</a>";
+							echo"<a href='produktAdd.php'>Produkt hinzuf&uuml;gen</a>";
 					}
 					}
 					

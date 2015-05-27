@@ -135,7 +135,7 @@ if(isset($_GET['web']))
 				
 				if(isset($_SESSION['mAdmin'])){
 						if($_SESSION['mAdmin']==1)
-							echo"<a href='dienstleistungAdd.php'>Dienstleistung hinzufügen</a>";
+							echo"<a href='dienstleistungAdd.php'>Dienstleistung hinzuf&uuml;gen</a>";
 					}
 				}
 					?>
