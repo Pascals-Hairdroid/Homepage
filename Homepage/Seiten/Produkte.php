@@ -118,7 +118,7 @@ if(isset($_GET['web']))
        	
         	foreach ($produktkategorie as $prod){
 		
-          echo" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>";
+          echo umlaute_encode(" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>");
          }
          ?>
         </ul>
@@ -136,7 +136,7 @@ if(isset($_GET['web']))
 					else{
 					if(isset($_SESSION['mAdmin'])){
 						if($_SESSION['mAdmin']==1)
-							echo"<a href='produktAdd.php'>Produkt hinzufügen</a>";
+							echo"<a href='produktAdd.php'>Produkt hinzuf&uuml;gen</a>";
 					}
 					}
 					
@@ -145,7 +145,7 @@ if(isset($_GET['web']))
 					
  					foreach ($produkte as $prod){
 						echo "<div id='produktbox'>";
- 						echo $prod->getHersteller()." ".$prod->getName()." ".$prod->getBeschreibung();
+ 						echo umlaute_encode("<p>".$prod->getHersteller()." ".$prod->getName()." ".$prod->getBeschreibung()."</p>");
  						echo "</div>";
  						echo "<br>";
  					}
@@ -155,7 +155,7 @@ if(isset($_GET['web']))
 				
 				</div>
 			</div>
-			<div id="footer" align = "center">
+			<div id="footer" align = "center" class="hide">
 				<?php
 					include("HTML/footer.html");
 				?>

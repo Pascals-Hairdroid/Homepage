@@ -118,7 +118,7 @@ if(isset($_GET['web']))
        	
         	foreach ($produktkategorie as $prod){
 		
-          echo" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>";
+          echo umlaute_encode(" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>");
          }
          ?>
         </ul>
@@ -142,7 +142,7 @@ if(isset($_GET['web']))
 				
 				</div>
 			</div>
-			<div id="footer" align = "center">
+			<div id="footer" align = "center" class="hide">
 				<?php
 					include("HTML/footer.html");
 				?>

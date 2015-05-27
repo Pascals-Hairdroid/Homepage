@@ -9,7 +9,7 @@ $db=new db_con("conf/db.php",true);?>
 <link rel="stylesheet" type="text/css" href="../css/css.css">
 <?php 
 if(isset($_GET['web']))
-	echo "<link rel='stylesheet' type='text/css' href='css/hide.css'>";
+	echo "<link rel='stylesheet' type='text/css' href='../css/hide.css'>";
 ?>
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
@@ -35,7 +35,7 @@ if(isset($_GET['web']))
 		}
 		?>
 	<div id="container">
-		<div id="streifen"></div>
+		<div id="streifen" class="hide"></div>
 		<div id="main">
 			<div id="Loginbox" class="hide">
 				<nav>
@@ -93,7 +93,7 @@ if(isset($_GET['web']))
 			else include ("HTML/header.html");
 			?>
 		</div>
-		<div id="menu">
+		<div id="menu" class="hide">
 			<ul>
 				<li class="topmenu"><a href="../index.php">Friseurstudio</a>
 					<ul>
@@ -118,7 +118,7 @@ if(isset($_GET['web']))
 
 						foreach ($produktkategorie as $prod){
 
-          echo" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>";
+          echo umlaute_encode(" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>");
          }
          ?>
 					</ul>
@@ -130,98 +130,69 @@ if(isset($_GET['web']))
 		</div>
 		<div id="wrapper">
 			<div id="textArea">
-				<?php 				
-				$ordner = "../Bilder/Profilbilder/"; // Ordnername
-				$allebilder = scandir($ordner); // Ordner auslesen und Array in Variable speichern
-				$i=1;
-				// Schleife um Array "$alledateien" aus scandir Funktion auszugeben
-				// Einzeldateien werden dabei in der Variabel $datei abgelegt
-				if(isset($_GET['SVNr'])){
-					foreach ($allebilder as $bild) {
-						// Zusammentragen der Dateiinfo
-						$bildinfo = pathinfo($ordner."/".$bild);
-						//Folgende Variablen stehen nach pathinfo zur Verfügung
-						// $dateiinfo['filename'] =Dateiname ohne Dateiendung  *erst mit PHP 5.2
-						// $dateiinfo['dirname'] = Verzeichnisname
-						// $dateiinfo['extension'] = Dateityp -/endung
-						// $dateiinfo['basename'] = voller Dateiname mit Dateiendung
-						if ($bild != "." && $bild != ".."  && $bild != "_notes" && $bildinfo['basename'] != "Thumbs.db") {
-								if($_GET['SVNr']==$bildinfo['filename']){
-									$ma=$db->getMitarbeiter($_GET['SVNr']);
-									echo "<img src='".$bildinfo['dirname']."/".$bildinfo['basename']."' class='profilbild'>";
-									echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>";
-									echo "<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>";
-									echo "<a class='abstand' href='passwortAendern.php'>Passwort &auml;ndern</a>";
-									echo "<a class='abstand' href='profilBearbeiten.php'>Profil bearbeiten</a>";
-									}
-									else if($i == 1){
-									$ma=$db->getMitarbeiter($_GET['SVNr']);
-									echo "<img src='".$bildinfo['dirname']."/nopicture.jpg"."' class='profilbild'>";
-									echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>";
-									echo "<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>";
-									echo "<a class='abstand' href='passwortAendern.php'>Passwort &auml;ndern</a>";
-									echo "<a class='abstand' href='profilBearbeiten.php'>Profil bearbeiten</a>";
+
+				<?php 
+				$ordner = "../Bilder/Profilbilder/";
+				$allebilder = scandir($ordner);
+					if(isset($_GET['SVNr'])){
+					$ma=$db->getMitarbeiter($_GET['SVNr']);
+					$bildinfo = pathinfo($ordner."/".$ma->getSVNR().".jpg");
+					
+						if(in_array($ma->getSVNR().".jpg",$allebilder)){
+								echo "<div id='Profilbox'>";
+								echo "<img src='".$bildinfo['dirname']."/".$ma->getSVNR().".jpg' class='profilbild'>";
 								}
-								$i++;
-									
-							};
-
-					};
-
-				}
-				else{
-							if ($_SESSION['admin']==true) {
-							$ma=$db->getMitarbeiter($_SESSION['svnr']);
-
-							foreach ($allebilder as $bild) {
-								// Zusammentragen der Dateiinfo
-								$bildinfo = pathinfo($ordner."/".$bild);
-								//Folgende Variablen stehen nach pathinfo zur Verfügung
-								// $dateiinfo['filename'] =Dateiname ohne Dateiendung  *erst mit PHP 5.2
-								// $dateiinfo['dirname'] = Verzeichnisname
-								// $dateiinfo['extension'] = Dateityp -/endung
-								// $dateiinfo['basename'] = voller Dateiname mit Dateiendung
-								if ($bild != "." && $bild != ".."  && $bild != "_notes" && $bildinfo['basename'] != "Thumbs.db") {
-									if($_SESSION['svnr']==$bildinfo['filename']){
-										$ma=$db->getMitarbeiter($_SESSION['svnr']);
-										echo "<img src='".$bildinfo['dirname']."/".$bildinfo['basename']."' class='profilbild'>";
-										echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>";
-										echo "<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>";
-										echo "<a class='abstand' href='passwortAendern.php'>Passwort &auml;ndern</a>";
-										echo "<a class='abstand' href='profilBearbeiten.php'>Profil bearbeiten</a>";
-									}
-									else if($i == 1){
-										$ma=$db->getMitarbeiter($_SESSION['svnr']);
-										echo "<img src='".$bildinfo['dirname']."/nopicture.jpg"."' class='profilbild'>";
-										echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>";
-										echo "<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>";
-										echo "<a class='abstand' href='passwortAendern.php'>Passwort &auml;ndern</a>";	
-										echo "<a class='abstand' href='profilBearbeiten.php'>Profil bearbeiten</a>";
-										}
-										$i++;
-									};
-								};
-							}
-							else{
-								$email=$_SESSION['email'];
-								$kunde=$db->getKunde($email);
-								if ($kunde->getFoto() != null)
-									echo"<img class='profilbild'src='../Bilder/Profilbilder/".$kunde->getFoto()."'>";
-								else
-									echo"<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
-								echo"<p>";
-								echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$kunde->getVorname()."</p>";
-								echo "<p class='abstand'><span class='font'>Nachname: </span>".$kunde->getNachname()."</p>";
-								echo "<p class='abstand'><span class='font'>Telefon Nr: </span>".$kunde->getTelNr()."</p>";
-								echo "<a class='abstand' href='passwortAendern.php'>Passwort &auml;ndern</a>";
-								echo "<a class='abstand' href='profilBearbeiten.php'>Profil bearbeiten</a>";
-							}
+								else {
+								echo "<div id='Profilbox'>";
+								echo "<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
+								}
+								echo umlaute_encode("<p>Vorname:".$ma->getVorname()."</p>");
+								echo umlaute_encode("<p>Nachname:".$ma->getNachname()."</p>");
+								echo umlaute_encode("<p>Motto:".$ma->getMotto()."</p>");
 					}
+					else{
+						if($_SESSION['admin']==true){
+							$ma=$db->getMitarbeiter($_SESSION['svnr']);
+							$bildinfo = pathinfo($ordner."/".$ma->getSVNR().".jpg");
+							
+							if(in_array($ma->getSVNR().".jpg",$allebilder)){
+								echo "<div id='Profilbox'>";
+								echo "<img src='".$bildinfo['dirname']."/".$ma->getSVNR().".jpg' class='profilbild' >";
+								
+							}
+							else {
+								echo "<div id='Profilbox'>";
+								echo "<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild' ;>";
+							}
+							echo umlaute_encode("<p>Vorname:".$ma->getVorname()."</p>");
+							echo umlaute_encode("<p>Nachname:".$ma->getNachname()."</p>");
+							echo umlaute_encode("<p>Motto:".$ma->getMotto()."</p>");
+						}
+						if($_SESSION['admin']==false){
+							$ma=$db->getKunde($_SESSION['email']);
+							$bildinfo = pathinfo($ordner."/".$ma->getEmail().".jpg");
+								
+							if(in_array($ma->getEmail().".jpg",$allebilder)){
+								echo "<div id='Profilbox'>";
+								echo "<img src='".$bildinfo['dirname']."/".$ma->getEmail().".jpg' class='profilbild'>";
+							
+							}
+							else {
+								echo "<div id='Profilbox'>";
+								echo "<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
+							}
+							echo umlaute_encode("<p>Vorname:".$ma->getVorname()."</p>");
+							echo umlaute_encode("<p>Nachname:".$ma->getNachname()."</p>");
+							
+						
+						}
+					}
+				
 					?>
 			</div>
 			<div id="werbungsbanner"></div>
 		</div>
-		<div id="footer" align="center">
+		<div id="footer" align="center" class="hide">
 			<?php
 			include("HTML/footer.html");
 			?>

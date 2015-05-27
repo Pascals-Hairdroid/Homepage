@@ -37,7 +37,6 @@ if(isset($_POST['submit2'])){
 	$passwort = md5($_POST['passwort']);
 	$username=$_POST['username'];
 	$weiterleitung=login($username,$passwort);
-	header('Location: ../index.php');
 }
 ?>
 <div id="container">
@@ -124,7 +123,7 @@ if(isset($_POST['submit2'])){
        	
         	foreach ($produktkategorie as $prod){
 		
-          echo" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>";
+          echo umlaute_encode(" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>");
          }
          ?>
         </ul>

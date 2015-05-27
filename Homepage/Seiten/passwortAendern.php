@@ -48,7 +48,8 @@ $db=new db_con("conf/db.php",true);
 
 			if(isset($_GET['tok']))
 			{
-				$kunde=$db->getKunde($_Get['e']);
+				$kunde=$db->getKunde($_GET['e']);
+				var_dump($kunde);
 				$tok=$db->getKundeToken($kunde);
 				$db->kundePwUpdaten($kunde, md5($_POST['newPW']));
 			}
@@ -163,7 +164,7 @@ $db=new db_con("conf/db.php",true);
 
 						foreach ($produktkategorie as $prod){
 
-          echo" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>";
+          echo umlaute_encode(" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>");
          }
          ?>
 					</ul>
@@ -183,7 +184,7 @@ $db=new db_con("conf/db.php",true);
 					
 				}
 				else
-				echo"<p><input id='oldPW' type='text' name='oldPW' placeholder='Altes Passwort' required></p>";
+				echo"<p><input id='oldPW' type='password' name='oldPW' placeholder='Altes Passwort' required></p>";
 				echo"<p><input id='newPW' type='password' name='newPW' placeholder='Passwort' required></p>";
 				echo"<p><input id='newPW2' type='password' name='newPW2' placeholder='Passwort' required></p>";
 				echo"<p><input type='submit' name ='submit2' id='submit2' value='Passwort ändern'></p>";

@@ -126,7 +126,7 @@ include("../Anmeldung/authAdmin.php");
 						</nav>
 				</div>
 			<div id="textArea">
-				<p>sadasda</p>	
+				<p></p>	
 			</div>
 			<div id="footer">
 </div></div>

@@ -29,14 +29,16 @@ if(isset($_POST["submit2"])){
 		if(isset ($_POST[$int->getID()]))
 			$int = new Interesse($int->getID(),$int->getBezeichnung());
 			$interessenarray[]=$int;
+			
 	}
-	
 	$ausgabe=reg(trim($_POST['username']),trim($_POST['vn']),trim($_POST['nn']),$_POST['pw'],$_POST['pw2'],$_POST['telnr'],$interessenarray);
+	
 }
 		if(isset($_POST['submit'])){
 			$passwort = md5($_POST['passwort']);
 			$username=$_POST['username'];
 			$weiterleitung=login($username,$passwort);
+			
 		}
 	?>
 <div id="container">
@@ -124,7 +126,7 @@ if(isset($_POST["submit2"])){
        	
         	foreach ($produktkategorie as $prod){
 		
-          echo" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>";
+          echo umlaute_encode(" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>");
          }
          ?>
         </ul>
@@ -162,7 +164,7 @@ if(isset($_POST["submit2"])){
 						  {
 							  $i++;
 							
-							echo "<td><input type='checkbox' name='".$int->getID()."'>".$int->getBezeichnung()." </input></td>";
+							echo umlaute_encode("<td><input type='checkbox' name='".$int->getID()."'>".$int->getBezeichnung()." </input></td>");
 							
 							  if ($i % 3 === 0) echo "</tr><tr>";
 						  }
@@ -173,8 +175,7 @@ if(isset($_POST["submit2"])){
 							
 						</form>
 					</table>
-					<?php
-						if(isset($ausgabe))
+					<?php 
 							echo $ausgabe;
 						?>
 					</div>

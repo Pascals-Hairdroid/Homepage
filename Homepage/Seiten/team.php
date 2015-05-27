@@ -112,7 +112,7 @@ $db=new db_con("conf/db.php",true);?>
        	
         	foreach ($produktkategorie as $prod){
 		
-          echo" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>";
+          echo umlaute_encode(" <li class='submenu'><a href='Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>");
          }
          ?>
         </ul>
@@ -128,35 +128,22 @@ $db=new db_con("conf/db.php",true);?>
 					foreach($db->getAllMitarbeiter() as $ma){
 						$ordner = "../Bilder/Profilbilder/"; // Ordnername
 						$allebilder = scandir($ordner); // Ordner auslesen und Array in Variable speichern
-						$i=1;
-						// Schleife um Array "$alledateien" aus scandir Funktion auszugeben
-						// Einzeldateien werden dabei in der Variabel $datei abgelegt
-						foreach ($allebilder as $bild) {
-							// Zusammentragen der Dateiinfo
-							$bildinfo = pathinfo($ordner."/".$bild);
-							//Folgende Variablen stehen nach pathinfo zur Verfügung
-							// $dateiinfo['filename'] =Dateiname ohne Dateiendung  *erst mit PHP 5.2
-							// $dateiinfo['dirname'] = Verzeichnisname
-							// $dateiinfo['extension'] = Dateityp -/endung
-							// $dateiinfo['basename'] = voller Dateiname mit Dateiendung
-							if ($bild != "." && $bild != ".."  && $bild != "_notes" && $bildinfo['basename'] != "Thumbs.db") {
-								if($ma->getSvnr()==$bildinfo['filename']){
-								echo "<div style='min-height:300px'>";
-								echo "<img src='".$bildinfo['dirname']."/".$bildinfo['basename']."' class='profilbild'>";
+						$bildinfo = pathinfo($ordner."/".$ma->getSVNR().".jpg");
+							
+						if($ma->getSVNR()!= 1000000000){
+								if(in_array($ma->getSVNR().".jpg",$allebilder)){
+								echo "<div id='Profilbox'>";
+								echo "<img src='".$bildinfo['dirname']."/".$ma->getSVNR().".jpg' class='profilbild'>";
 
 								}
-								else if($ma->getSvnr()!=$bildinfo['filename'] && $i % 3 === 0){
-								echo "<div style='min-height:300px'>";
-								echo "<img src='".$bildinfo['dirname']."/nopicture.jpg"."' class='profilbild'>";
+								else {
+								echo "<div id='Profilbox'>";
+								echo "<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
 								}
-								
-							}
-							$i++;
-						}
-						
-						echo "<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>";
-						echo "<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>";
+						echo umlaute_encode("<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>");
+						echo umlaute_encode("<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>");
 						echo "</div>";
+						}
 					}
 					?>
 				</div>
