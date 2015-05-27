@@ -20,7 +20,7 @@ include("../include_DBA.php");
 					$db->kundeEintragen($kunde);
 					$db->kundePwUpdaten($kunde,$passwort);					
 					
-					return 'Erfolgreich registriert!<a href="../index.php">Zum Login</a>';
+					return 'Erfolgreich registriert!<a href="anmelden.php">Zum Login</a>';
 				}
 			}
 		}	

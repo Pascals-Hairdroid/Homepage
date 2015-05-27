@@ -29,10 +29,10 @@ if(isset($_POST["submit2"])){
 		if(isset ($_POST[$int->getID()]))
 			$int = new Interesse($int->getID(),$int->getBezeichnung());
 			$interessenarray[]=$int;
-			header('Location: ../Seiten/anmelden.php');
+			
 	}
-	
 	$ausgabe=reg(trim($_POST['username']),trim($_POST['vn']),trim($_POST['nn']),$_POST['pw'],$_POST['pw2'],$_POST['telnr'],$interessenarray);
+	
 }
 		if(isset($_POST['submit'])){
 			$passwort = md5($_POST['passwort']);
@@ -164,7 +164,7 @@ if(isset($_POST["submit2"])){
 						  {
 							  $i++;
 							
-							echo "<td><input type='checkbox' name='".$int->getID()."'>".$int->getBezeichnung()." </input></td>";
+							echo umlaute_encode("<td><input type='checkbox' name='".$int->getID()."'>".$int->getBezeichnung()." </input></td>");
 							
 							  if ($i % 3 === 0) echo "</tr><tr>";
 						  }
@@ -175,6 +175,9 @@ if(isset($_POST["submit2"])){
 							
 						</form>
 					</table>
+					<?php 
+							echo $ausgabe;
+						?>
 					</div>
 				
 			</div>
