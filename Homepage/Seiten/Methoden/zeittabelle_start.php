@@ -80,34 +80,34 @@
 				}
 				if ($termin_array != null)
 				{
-					if (!in_array($ddaw, $termin_array)) 
+					if (!in_array($ddaw, $termin_array))
 						echo "<td>";
-					else 
-						echo "<td style='background-color:yellow;'>";
+					else
+						echo "<td style='background-color:#F83333;'>";
 					echo $ddaw->format('H:i');
 					echo "</td>";
 					if (!in_array($mdaw, $termin_array))
 						echo "<td>";
 					else
-						echo "<td style='background-color:yellow;'>";
+						echo "<td style='background-color:#F83333;'>";
 					echo $mdaw->format('H:i');
 					echo "</td>";
 					if (!in_array($dodaw, $termin_array))
 						echo "<td>";
 					else
-						echo "<td style='background-color:yellow;'>";
+						echo "<td style='background-color:#F83333;'>";
 					echo $dodaw->format('H:i');
 					echo "</td>";
 					if (!in_array($fdaw, $termin_array))
 						echo "<td>";
 					else
-						echo "<td style='background-color:yellow;'>";
+						echo "<td style='background-color:#F83333;'>";
 					echo $fdaw->format('H:i');
 					echo "</td>";
 					if (!in_array($sdaw, $termin_array))
 						echo "<td>";
 					else
-						echo "<td style='background-color:yellow;'>";
+						echo "<td style='background-color:#F83333;'>";
 					echo $sdaw->format('H:i');
 					echo "</td>";
 				}

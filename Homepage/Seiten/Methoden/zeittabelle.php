@@ -212,32 +212,32 @@
 					if (!in_array($ddaw, $termin_array))
 						echo "<td>";
 					else
-						echo "<td style='background-color:yellow;'>";
-					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$ddaw->format('H:i')."</a>";
+						echo "<td style='background-color:#F83333;'>";
+					echo $ddaw->format('H:i');
 					echo "</td>";
 					if (!in_array($mdaw, $termin_array))
 						echo "<td>";
 					else
-						echo "<td style='background-color:yellow;'>";
-					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$mdaw->format("d.m.Y H:i")."\">".$mdaw->format('H:i')."</a>";
+						echo "<td style='background-color:#F83333;'>";
+					echo $mdaw->format('H:i');
 					echo "</td>";
 					if (!in_array($dodaw, $termin_array))
 						echo "<td>";
 					else
-						echo "<td style='background-color:yellow;'>";
-					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$dodaw->format("d.m.Y H:i")."\">".$dodaw->format('H:i')."</a>";
+						echo "<td style='background-color:#F83333;'>";
+					echo $dodaw->format('H:i');
 					echo "</td>";
 					if (!in_array($fdaw, $termin_array))
 						echo "<td>";
 					else
-						echo "<td style='background-color:yellow;'>";
-					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$fdaw->format("d.m.Y H:i")."\">".$fdaw->format('H:i')."</a>";
+						echo "<td style='background-color:#F83333;'>";
+					echo $fdaw->format('H:i');
 					echo "</td>";
 					if (!in_array($sdaw, $termin_array))
 						echo "<td>";
 					else
-						echo "<td style='background-color:yellow;'>";
-					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$sdaw->format("d.m.Y H:i")."\">".$sdaw->format('H:i')."</a>";
+						echo "<td style='background-color:#F83333;'>";
+					echo $sdaw->format('H:i');
 					echo "</td>";
 				}
 				else
