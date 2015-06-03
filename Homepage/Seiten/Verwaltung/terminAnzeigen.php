@@ -61,31 +61,38 @@
 					</nav>
 			</div>								
 		<div id="head">
-			<h1>PASCALS<img src="../../Bilder/Homepage/Logo.png">HAIRSTYLE</h1>
-			<h2>Frisuren zum Wohlf&uuml;hlen</h2>		
+			<a href="#" style="color:black;"><h1>PASCALS<img src="../../Bilder/Homepage/Logo.png">HAIRSTYLE</h1>
+			<h2>Frisuren zum Wohlf&uuml;hlen</h2>		</a>
 		</div>
 		<div id="hmenu">		
 					<nav id="menu" class="hide">
 							<ul>
 								<li  class="items">
-									<a href="">Mitarbeiter</a>
+									<a href="">Personenverwaltung</a>
 									<ul>
-										<li><a href="maAnlegen.php">anlegen</a></li>
-										<li ><a href="maBearbeiten.php">bearbeiten</a></li>
+										<li><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
+										<li ><a href="maBearbeiten.php">Mitarbeiter bearbeiten</a></li>
 										<li ><a href="zeiten.php">Dienstzeiten</a></li>
-										<li ><a href="urlaub.php">Urlaub</a></li>
+										<li ><a href="urlaub.php">Urlaube</a></li>
 									</ul>
 								</li>
-								<li class="items"><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
 								<li class="items">
-									<a href="">Termine</a>
+									<a href="">Studioverwaltung</a>
+									<ul>
+										<li><a href="produktAdd.php">Produkte hinzuf&uuml;gen</a></li>
+										<li><a href="dienstleistungAdd.php">Dienstleistungen bearbeiten</a></li>
+										<li><a href="arbeitsplatz.php">Arbeitspl&auml;tze bearbeiten</a></li>
+									</ul>
+								</li>
+								<li class="items">
+									<a href="" class="selected">Terminverwaltung</a>
 									<ul>
 										<li><a href="terminAnzeigen.php">anzeigen</a></li>
 										<li><a href="terminBearbeiten.php">bearbeiten</a></li>
 									</ul>
 								</li>
 								<li class="items">
-									<a href="">Notifications</a>
+									<a href="">Benachrichtigungen</a>
 									<ul>
 										<li><a href="notificationerstellen.php">erstellen</a></li>
 										<li><a href="notification.php">bearbeiten</a></li>
@@ -94,10 +101,7 @@
 								<li class="spacer"></li>
 							</ul>
 						</nav>
-
-			</div>
-			
-			
+				</div>
 			<div id="textArea">
 		<?php
 		date_default_timezone_set('Europe/Vienna');

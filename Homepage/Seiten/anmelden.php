@@ -4,6 +4,14 @@ $db=new db_con("conf/db.php",true);
 if (isset($_SESSION['angemeldet']))
 {
 	header('Location: ../index.php');
+	exit(0);
+}
+include("Anmeldung/login.php");
+if(isset($_POST['submit'])){
+	$passwort = md5($_POST['passwort']);
+	$username=$_POST['username'];
+	$weiterleitung=login($username,$passwort);
+	header('Location: ../index.php');
 }
 ?>
 <!DOCTYPE html>
@@ -25,20 +33,6 @@ if (isset($_SESSION['angemeldet']))
 		</script>
 	</head>
 	<body>
-	<?php
-include("Anmeldung/login.php");
-if(isset($_POST['submit'])){
-	$passwort = md5($_POST['passwort']);
-	$username=$_POST['username'];
-	$weiterleitung=login($username,$passwort);
-	header('Location: ../index.php');
-}
-if(isset($_POST['submit2'])){
-	$passwort = md5($_POST['passwort']);
-	$username=$_POST['username'];
-	$weiterleitung=login($username,$passwort);
-}
-?>
 <div id="container">
 <div id="streifen"></div>
 <div id="main">
@@ -141,7 +135,7 @@ if(isset($_POST['submit2'])){
 				echo"<form method='post' action=''>";
 				echo"<p><input id='username' type='text' name='username' placeholder='Username' required></p>";
 				echo"<p><input id='password' type='password' name='passwort' placeholder='Passwort' required></p>";
-				echo"<p><input type='submit' name ='submit2' id='submit' value='Log in'></p>";
+				echo"<p><input type='submit' name ='submit' id='submit' value='Log in'></p>";
 				echo"</form>";
 				?>
 				

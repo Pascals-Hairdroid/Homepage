@@ -1,56 +1,51 @@
 <?php 
-include("../Anmeldung/authMitarbeiterAdmin.php");?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-       "http://www.w3.org/TR/html4/loose.dtd">
+include("../Anmeldung/authAdmin.php");
+include("../../include_DBA.php");
+$db=new db_con("conf/db.php",true);
+?>
+<!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="../../css/css.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+			$('#login-trigger').click(function() {
+				$(this).next('#login-content').slideToggle();
+				$(this).toggleClass('active');                    
+				
+				if ($(this).hasClass('active')) $(this).find('span').html('&#x25B2;')
+					else $(this).find('span').html('&#x25BC;')
+				})
+		});
+		</script>
+		<script language="javascript" type="text/javascript">
+		var wechselZeit = 2000; 
+   imageArr = new Array() 
+   imageArr[imageArr.length] = "Bilder/Homepage/2.jpg"; 
+   imageArr[imageArr.length] = "Bilder/Homepage/1.jpg"; 
+ 
+   var xAnzahl = imageArr.length; 
+   var xCounter=-1; 
+   var maxOpacity = 100; 
+   var minOpacity = 0; 
+   var disableOpacity = maxOpacity; 
+   var fadeInterval = 'fadeout'; 
+   </script>
 </head>
 <body>
-<?php
-include("../../include_DBA.php");
-$db=new db_con("conf/db.php",true);
-
-function kuUpdate($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen)
-	{
-		$db=new db_con("conf/db.php",true);
-		if($email != null){
-			$kunde=new Kunde($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen);
-			$db->kundeUpdaten($kunde);
-	
-			return true;
-		}
-		else
-			return false;
-	}
-$tempKu=$db->getKunde($_GET['Email']);
-	$vn=$tempKu->getVorname();
-	$nn=$tempKu->getNachname();
-	$telnr=$tempKu->getTelNr();
-	$freischalten=$tempKu->getFreischaltung();
-	
-	
-if(isset($_GET['submit'])){
-		$email=$_GET["Email"];
-		$vn=$_GET['vn'];
-		$nn=$_GET['nn'];
-		$telNr=$_GET['telnr'];
-		$foto=$tempKu->getFoto();
-		$interessen=$tempKu->getInteressen();	
-		$freischalten=false;
-		if(isset($_GET['rights'])){
-			if ($_GET['rights']=="on") {
-				$freischalten=true;
-			}
-		}
-		
-			kuUpdate($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen);
-		}		
+<?php 
+include("../Anmeldung/login.php");
+if(isset($_POST["submit2"])){
+	$produktkat=$db->getProduktkategorie($_POST['kategorie']);
+ 	$produkt=new Produkt($_POST['id'], $_POST['name'],$_POST['hersteller'], $_POST['beschreibung'], $_POST['preis'], $_POST['bestand'], $produktkat);	
+ 	$db->produktEintragen($produkt);
+}
 ?>
-
-			<div id="container">
-<div class ="hide" id="streifen"></div><div id="main">
-			<div id="Loginbox" class="hide">
+<div id="container">
+<div id="streifen"></div>
+<div id="main">
+<div id="Loginbox" class="hide">
 					<nav>
 						<ul>
 						<?php
@@ -102,17 +97,18 @@ if(isset($_GET['submit'])){
 							
 						</ul>
 					</nav>
-			</div>					
+			</div>							
 			<div id="head">
+			
 				<a href="#" style="color:black;"><h1>PASCALS<img src="../../Bilder/Homepage/Logo.png">HAIRSTYLE</h1>
-				<h2>Frisuren zum Wohlf&uuml;hlen</h2></a>		
+				<h2>Frisuren zum Wohlf&uuml;hlen</h2>		</a>
 		
 			</div>
 			<div id="hmenu">		
 					<nav id="menu" class="hide">
 							<ul>
 								<li  class="items">
-									<a href=""  class="selected">Personenverwaltung</a>
+									<a href="">Personenverwaltung</a>
 									<ul>
 										<li><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
 										<li ><a href="maBearbeiten.php">Mitarbeiter bearbeiten</a></li>
@@ -121,7 +117,7 @@ if(isset($_GET['submit'])){
 									</ul>
 								</li>
 								<li class="items">
-									<a href="">Studioverwaltung</a>
+									<a href=""  class="selected">Studioverwaltung</a>
 									<ul>
 										<li><a href="produktAdd.php">Produkte hinzuf&uuml;gen</a></li>
 										<li><a href="dienstleistungAdd.php">Dienstleistungen bearbeiten</a></li>
@@ -146,42 +142,37 @@ if(isset($_GET['submit'])){
 							</ul>
 						</nav>
 				</div>
-			
 			<div id="textArea">
-			<table border="0">
-						<form method="get" action="">
-							<tr><td>Email:</td><td><input name="Email" type="input" class=loginField"required = "required"
-							<?php echo "value='".$_GET['Email']."'"; ?>></p></td></tr>
-							
-							<tr><td>Vorname:</td><td><input name="vn" type="text" class="loginField"required = "required"
-							<?php echo "value='".$vn."'"; ?>></p></td></tr>
-							
-							<tr><td>Nachname:</td><td><input name="nn" type="text" class="loginField"required = "required"
-							<?php echo "value='".$nn."'"; ?>></p></td></tr>
-							
-							<tr><td>Tel Nr.:</td><td><input name="telnr" type="text" class="loginField"required = "required"
-							<?php echo "value='".$telnr."'"; ?>></p></td></tr>
-							
-							<tr><td>Freigeschalten:</td><td><input name="rights" type="checkbox"  class="loginField"
+				<table border="0">
+						<form method="post" action="">
+							<tr><td>ID</td><td><input type="text" name="id" readonly <?php 
+							$produkte=$db->getAllProdukt();
+							$lastelement =count($produkte)+1;
+							echo $lastelement;
+							echo"value='$lastelement' placeholder='$lastelement'";
+							?>/></td></tr>
+							<tr><td>Name</td><td><input type="text" name="name" required="required"/></td></tr>
+							<tr><td>Hersteller</td><td><input type="text" name="hersteller" required="required"/></td></tr>
+							<tr><td>Beschreibung</td><td><input type="text>" name="beschreibung" required="required"/></td></tr>
+							<tr><td>Preis</td><td><input type="text>" name="preis" required="required"/></td></tr>
+							<tr><td>Bestand</td><td><input type="text>" name="bestand" required="required"/></td></tr>
+							<tr><td>Produktkategorie</td>
+							<td>
 							<?php 
-							if ($freischalten == 1) {
-								echo "checked";
-							}
-							?>></p></td></tr>
-							
-										
-							<tr><td><input type="submit" value ="absenden" name="submit"></td>
+								echo"<select name='kategorie' size='1'>";
+	 							echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
+  								foreach ($db->getAllProduktkategorie() as $kat)
+  									echo "<option style='width:17ex;'value='".$kat->getKuerzel()."'>".$kat->getBezeichnung()." </option>";					
+							?>
+							</select></td></tr>
+							</tr>
+							<tr><td><input type="submit" value ="absenden" name="submit2"></td>
 							
 						</form>
 					</table>
-					<?php
-					if (isset($erg))
-						echo $erg;
-					?>
 			</div>
 			<div id="footer">
-</div>
-</div>	
-</div>		
+</div></div>
+</div>			
 </body>
 </html>

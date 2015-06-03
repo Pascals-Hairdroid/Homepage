@@ -128,17 +128,6 @@ if(isset($_GET['web']))
   </div>
 			<div id="wrapper">
 				<div id="textArea">
-				<?php 
-				if(isset($_GET['web'])){
-					}
-					else{
-				
-				if(isset($_SESSION['mAdmin'])){
-						if($_SESSION['mAdmin']==1)
-							echo"<a href='dienstleistungAdd.php'>Dienstleistung hinzuf&uuml;gen</a>";
-					}
-				}
-					?>
 					<h2>Professioneller Haarschnitt</h2>
 					<h2>Typgerechte Beratung</h2>
 					<h2>Haarpflege f&uuml;r jeden Kopf </h2>

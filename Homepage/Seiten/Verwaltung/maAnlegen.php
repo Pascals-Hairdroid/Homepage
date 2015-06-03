@@ -24,11 +24,12 @@ function maAnlegen($svnr,$vn,$nn,$passwort,$pw2)
 				}
 				else {
 					$passwort = md5($passwort);	
-					$mitarbeiter=new Mitarbeiter($svnr,$vn,$nn,array(),true,array(),array());
+					
+					$mitarbeiter=new Mitarbeiter($svnr,$vn,$nn,null,array(),true,array(),array());
 					$db->mitarbeiterEintragen($mitarbeiter);
 					$db->mitarbeiterPwUpdaten($mitarbeiter,$passwort);					
 					
-					return 'Erfolgreich registriert!<a href="../index.php">Zum Login</a>';
+					return 'Mitarbeiter hinzugefügt';
 				}
 			}
 		}	
@@ -93,9 +94,8 @@ if(isset($_POST['submit']))
 					</nav>
 			</div>					
 			<div id="head">
-				<h1>PASCALS<img src="../../Bilder/Homepage/Logo.png">HAIRSTYLE</h1>
-				<h2>Frisuren zum Wohlf&uuml;hlen</h2>		
-		
+				<a href="#" style="color:black;"><h1>PASCALS<img src="../../Bilder/Homepage/Logo.png">HAIRSTYLE</h1>
+				<h2>Frisuren zum Wohlf&uuml;hlen</h2></a>		
 			</div>
 			<div id="hmenu">		
 					<nav id="menu" class="hide">
