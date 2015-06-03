@@ -173,7 +173,8 @@ if(isset($_POST['anlegen']))
 				foreach($db->getAllMitarbeiter() as $mitarbeiter){
 							echo umlaute_encode("<tr><td>".$mitarbeiter->getSVNr()."</td><td>".$mitarbeiter->getVorname()."</td><td>".$mitarbeiter->getNachname()."</td><td>".$mitarbeiter->getAdmin()."</td>");
 							echo "<td><a href='maUpdate.php?SVNr=".$mitarbeiter->getSVNr()."&vn=".$mitarbeiter->getVorname()."&nn=".$mitarbeiter->getNachname()."&admin=".$mitarbeiter->getAdmin()."'>Bearbeiten</a></td>";
-							echo "<td><a href='maPWReset.php?SVNr=".$mitarbeiter->getSVNr()."'>Passwort zurücksetzen</a></td>";
+							echo "<td><a href='maDelete.php?SVNr=".$mitarbeiter->getSVNr()."'>L&ouml;schen</a></td>";
+							echo "<td><a href='maPWReset.php?SVNr=".$mitarbeiter->getSVNr()."'>Passwort zur&uuml;cksetzen</a></td>";
 							
 							echo"</tr>";
 						}

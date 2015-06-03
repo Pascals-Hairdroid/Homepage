@@ -169,20 +169,20 @@ if(isset($_GET['web']))
 							echo umlaute_encode("<p>Motto:".$ma->getMotto()."</p>");
 						}
 						if($_SESSION['admin']==false){
-							$ma=$db->getKunde($_SESSION['email']);
-							$bildinfo = pathinfo($ordner."/".$ma->getEmail().".jpg");
+							$ku=$db->getKunde($_SESSION['email']);
+							$bildinfo = pathinfo($ordner."/".$ku->getFoto().".jpg");
 								
-							if(in_array($ma->getEmail().".jpg",$allebilder)){
+							if(in_array($ku->getFoto().".jpg",$allebilder)){
 								echo "<div id='Profilbox'>";
-								echo "<img src='".$bildinfo['dirname']."/".$ma->getEmail().".jpg' class='profilbild'>";
+								echo "<img src='".$bildinfo['dirname']."/".$ku->getFoto().".jpg' class='profilbild'>";
 							
 							}
 							else {
 								echo "<div id='Profilbox'>";
 								echo "<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
 							}
-							echo umlaute_encode("<p>Vorname:".$ma->getVorname()."</p>");
-							echo umlaute_encode("<p>Nachname:".$ma->getNachname()."</p>");
+							echo umlaute_encode("<p>Vorname:".$ku->getVorname()."</p>");
+							echo umlaute_encode("<p>Nachname:".$ku->getNachname()."</p>");
 							
 						
 						}

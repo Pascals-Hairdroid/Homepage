@@ -1,7 +1,5 @@
 <?php 
 include("../Anmeldung/authAdmin.php");
-include("../../include_DBA.php");
-$db=new db_con("conf/db.php",true);
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,28 +32,6 @@ $db=new db_con("conf/db.php",true);
    </script>
 </head>
 <body>
-<?php
-if(isset($_POST["submit2"])){
-$skillarray = array();
-$ausstattungsarray=array();
-foreach($db->getAllSkill() as $int)
-	{
-		if(isset ($_POST[$int->getID()]))
-			$int = new Skill($int->getID(),$int->getBeschreibung());
-		$skillarray[]=$int;
-	}
-foreach($db->getAllArbeitsplatzausstattung() as $int)
-	{
-		if(isset ($_POST[$int->getID()]))
-			$int = new Arbeitsplatzausstattung($int->getID(), $int->getName());
-		$ausstattungsarray[]=$int;
-	}
-	$haartyp2=$db->getHaartyp($_POST['laenge']);
-
-	$dienstleistung = new Dienstleistung($_POST['kuerzl'],$haartyp2 , $_POST['name'], $_POST['einheiten'], $_POST['pause'], $skillarray, $ausstattungsarray, $_POST['group']);
-	$db->dienstleistungEintragen($dienstleistung);
-}
-	?>
 <div id="container">
 <div id="streifen"></div>
 <div id="main">
@@ -115,7 +91,7 @@ foreach($db->getAllArbeitsplatzausstattung() as $int)
 			<div id="head">
 			
 				<a href="#" style="color:black;"><h1>PASCALS<img src="../../Bilder/Homepage/Logo.png">HAIRSTYLE</h1>
-				<h2>Frisuren zum Wohlf&uuml;hlen</h2></a>	
+				<h2>Frisuren zum Wohlf&uuml;hlen</h2></a>		
 		
 			</div>
 			<div id="hmenu">		
@@ -131,7 +107,7 @@ foreach($db->getAllArbeitsplatzausstattung() as $int)
 									</ul>
 								</li>
 								<li class="items">
-									<a href=""  class="selected">Studioverwaltung</a>
+									<a href="">Studioverwaltung</a>
 									<ul>
 										<li><a href="produktAdd.php">Produkte hinzuf&uuml;gen</a></li>
 										<li><a href="dienstleistungAdd.php">Dienstleistungen bearbeiten</a></li>
@@ -157,61 +133,7 @@ foreach($db->getAllArbeitsplatzausstattung() as $int)
 						</nav>
 				</div>
 			<div id="textArea">
-				<table border="0">
-						<form method="post" action="">
-							<tr><td>K&uuml;rzel</td><td><input type="text" name="kuerzl" required="required"/></td></tr>
-							<tr><td>Dienstleistungsname</td><td><input type="text" name="name" required="required"/></td></tr>
-							<tr><td>Haarl&auml;nge</td>
-							<td>
-							<?php 
-								echo"<select name='laenge' size='1'>";
-	 							echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
-  								foreach ($db->getAllHaartyp() as $haartyp)
-  									echo "<option style='width:17ex;'value='".$haartyp->getKuerzel()."'>".$haartyp->getBezeichnung()." </option>";					
-							?>
-							</select></td></tr>
-							<tr><td>Ben&ouml;tigte Einheiten</td><td><input type="text" name="einheiten" required="required"/></td></tr>
-							<tr><td>Pauseneinheiten</td><td><input type="text>" name="pause" required="required"/></td></tr>
-							<tr><td>Gruppe</td><td><input type="text>" name="group" required="required"/></td></tr>
-							<tr><td>Skills:</td></tr><tr>
-							<?php 
-							$i=0;
-							foreach($db->getAllSkill() as $skills)
-							{
-								
-								$i++;
-								
-								echo umlaute_encode("<td><input type='checkbox' name='".$skills->getID()."'>".$skills->getBeschreibung()." </input></td>");
-								
-								if ($i % 3 === 0) echo "</tr><tr>";
-							}
-							
-							
-							?>
-							</tr>
-							<tr><td>Arbeitsplatzausstattung:</td></tr><tr>	
-							<?php 	
-							$i=0;
-							foreach($db->getAllArbeitsplatzausstattung() as $ausstattung)
-							{
-								
-								$i++;
-								
-								echo umlaute_encode("<td><input type='checkbox' name='".$ausstattung->getID()."'>".$ausstattung->getName()." </input></td>");
-								
-								if ($i % 3 === 0) echo "</tr><tr>";
-							}
-							
-							
-							?>
-							<tr><td><input type="submit" value ="absenden" name="submit2"></td>
-							
-						</form>
-					</table>
-					<?php
-						if(isset($ausgabe))
-							echo $ausgabe;
-						?>
+				<p></p>	
 			</div>
 			<div id="footer">
 </div></div>
