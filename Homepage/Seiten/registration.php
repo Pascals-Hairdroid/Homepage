@@ -176,6 +176,7 @@ if(isset($_POST["submit2"])){
 						</form>
 					</table>
 					<?php 
+							if(isset($ausgabe))
 							echo $ausgabe;
 						?>
 					</div>
