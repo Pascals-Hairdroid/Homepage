@@ -324,7 +324,7 @@
 		echo "<td> Schneiden: </td>";
 		echo "<td> <input type='Text' name='schneiden' value='$schneiden' readonly> </td>";
 		echo "</tr>";
-		if(stripos($ua,'android') !== false) 
+		if(stripos($ua,'android') === false) 
 		{ 
 			echo "<tr>";
 			echo "<td> Wunschfrisur (optional): </td>";
