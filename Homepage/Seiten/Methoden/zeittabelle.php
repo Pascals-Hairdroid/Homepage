@@ -48,6 +48,8 @@
 		else 
 			$schneiden="nein";
 		
+		$ua = strtolower($_SERVER['HTTP_USER_AGENT']);
+		
 		
 		//Mitarbeiter + Skill abfrage
 		
@@ -80,7 +82,7 @@
 			$jahr = substr($woche, 6, 4); 
 			$tag2 = new DateTime();
 			$tag2->setDate($jahr, $monat, $tag);
-			$week = $tag2->format('W');
+			$week =  $tag2->format('W');
 			if ($tag2->format('l') == 'Sunday')
 			{
 				$week = $week+1;
@@ -322,10 +324,13 @@
 		echo "<td> Schneiden: </td>";
 		echo "<td> <input type='Text' name='schneiden' value='$schneiden' readonly> </td>";
 		echo "</tr>";
-		echo "<tr>";
-		echo "<td> Wunschfrisur (optional): </td>";
-		echo "<td> <input type='file' name='wunschfoto' value='NULL'> </td>";
-		echo "</tr>";
+		if(stripos($ua,'android') !== false) 
+		{ 
+			echo "<tr>";
+			echo "<td> Wunschfrisur (optional): </td>";
+			echo "<td> <input type='file' name='wunschfoto' value='NULL'> </td>";
+			echo "</tr>";
+		}
 		echo "</table>";
 		echo "<br>";
 		echo "<input type='submit' value='Reservieren'>";
