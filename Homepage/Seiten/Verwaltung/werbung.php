@@ -2,20 +2,6 @@
 include("../Anmeldung/authAdmin.php");
 include("../../include_DBA.php");
 $db=new db_con("conf/db.php",true);
-
-if (isset($anlegen)){
-	$ausstattungsarray=array();
-	foreach ($db->getAllArbeitsplatzausstattung as $int)
-	{
-		if(	isset ($_GET[$int->getID()])){
-			$int = new Arbeitsplatzausstattung($int->getID(),$int->getBeschreibung());
-			$ausstattungsarray[]=$int;
-		}
-	}
-	$arbeitsplatz=new Arbeitsplatz($_GET['id'], $_GET['name'], $ausstattungsarray);
-	$erg=$db->arbeitsplatzEintragen($arbeitsplatz);
-	
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,7 +19,6 @@ if (isset($anlegen)){
 				})
 		});
 		</script>
-		
 </head>
 <body>
 <div id="container">
@@ -137,49 +122,16 @@ if (isset($anlegen)){
 						</nav>
 				</div>
 			<div id="textArea">
-				<table border="0">
-						<form method="get" action="">
-							<tr><td>ID</td><td><input type="text" name="id" readonly
-							<?php 
-							$produkte=$db->getAllArbeitsplatz();
-							$lastelement =count($produkte)+1;
-							echo $lastelement;
-							echo"value='$lastelement' placeholder='$lastelement'";
-							?>/></td></tr>
-							
-							<tr><td>Arbeitsplatzname:</td><td><input name="naem" type="text" class="loginField"required = "required"></p></td></tr>
-							
-							<tr><td>Ausstattung:</td>
-							<?php 
-								echo"<select name='kategorie' size='1'>";
-	 							echo "<td><option style='width:17ex;'value='Null'> Keine Auswahl </option></td>";
-  								foreach ($db->getAllArbeitsplatzausstattung() as $kat)
-  									echo "<td><option style='width:17ex;'value='".$kat->getID()."'>".$kat->getAustattung()." </option></td>";					
-							?>
-							
-							<tr><td><input type="submit" value ="absenden" name="anlegen"></td>
-							
-						</form>
-					</table>
-					<?php
-					if (isset($erg))
-						echo $erg."<br />";
-					?>
-					<br />
-			<table border="0">
-				<?php
-				
-
-				echo "<tr><td>Arbeitsplatznummer.:</td><td>Arbeitsplatzname</td></tr>";
-
-				foreach($db->getAllArbeitsplatz() as $arbeitsplatz){
-							echo umlaute_encode("<tr><td>".$arbeitsplatz->getID()."</td><td>".$arbeitsplatz->getArbeitsplatzname()."</td><td>".$mitarbeiter->getNachname()."</td><td>".$mitarbeiter->getAdmin()."</td>");
-							echo "<td><a href='maUpdate.php?SVNr=".$arbeitsplatz->getID()."'>Bearbeiten</a></td>";
-							echo "<td><a href='maDelete.php?SVNr=".$arbeitsplatz->getID()."'>L&ouml;schen</a></td>";
-							echo"</tr>";
-						}
-						?>
-			</table>
+			<?php 
+			if(! isset($_GET['nummer'])){
+			}
+			else{
+			$werbung=$db->getWerbung($_GET['nummer']);
+			echo $werbung->getTitel();
+			echo"<br>";
+			echo $werbung->getText();
+			}
+			?>
 			</div>
 			<div id="footer">
 </div></div>

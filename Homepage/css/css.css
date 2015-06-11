@@ -476,7 +476,7 @@ and (min-device-width : 481px) {
 	min-height:300px;
 	width:100%;
 	}
-	#textArea h1,h2{	
+	#textArea p{	
 	padding-left:15px;
 	}
 	
@@ -512,8 +512,7 @@ and (min-device-width : 481px) {
 	z-index:-500;
 	width:100%;
 	}
-	#textAreaVerwaltung{
-	}
+
 	#textArea img{
 	}
 	#Profilbox{

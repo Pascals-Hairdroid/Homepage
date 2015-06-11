@@ -191,7 +191,8 @@ if(isset($_POST['submit']))
 					echo " ";
 					echo Date_format($dz->getBeginn(),'H:i');
 					echo " - ";
-					echo Date_format($dz->getEnde(),'H:i');} 
+					echo Date_format($dz->getEnde(),'H:i');
+					echo "<a href='dDel.php'";} 
 					}
 					
 					if (isset($erg))
