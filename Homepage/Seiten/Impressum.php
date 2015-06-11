@@ -129,20 +129,126 @@ if(isset($_GET['web']))
     </ul>
   </div>
 			<div id="wrapper">
-				<div id="textArea" style="text-align:center">
-					<br> <br>
-					<p> &Uuml;berall kommt es vor, es sind zu viele Kunden im Gesch&auml;ft. </p>
-					<p> Du musst warten und es dauert etwas l&auml;nger.</p>
-					<p> Aktionen und Sorry-Gutscheine sind ein nettes Benefit f&uuml;r dich und mein Zeichen, wie viel mir an dir und deiner Zufriedenheit liegt.</p>
-					<p> Bl&auml;tter dich durch die Aktionen! Durch einen Klick aufs Bild kommst du zu einem PDF, das du ausdrucken und mit zu mir nehmen kannst.</p>
-					<p> Gilt f&uuml;r alles au&szlig;er f&uuml;r den Sorry4waiting-Gutschein. Den bekommst du nat&uuml;rlich von mir pers&ouml;nlich! </p>
-					<p> Ich freue mich Dich bald zu sehen. </p>
-					<br><br>
-					<img src="../Bilder/Werbung/12012012.jpg" style="width:50%;" />
-				</div>
-				<div id="werbungsbanner">
-				
-				</div>
+				<div id="textArea">
+					
+		<br>
+			<h2>ADRESSDATEN</h2>
+			<p>
+				PASCALS HAIRSTYLE<br> 
+				Hairstyle Kagranerplatz GMBH<br>
+				Wagramerstrasse 154 a<br> 
+				1220 Wien
+			</p>
+			<br>
+			<h2>KONTAKTDATEN</h2>
+			<p>
+				Telefon: +43676 92 38 217<br> 
+				E-Mail: office@pascals.at<br>
+				Internet: http://www.pascals.at<br>
+			</p>
+			<br>
+			<h2>RECHTLICHE INFORMATIONEN</h2>
+			<p>
+		
+				<h3>Inhaber</h3>
+				<p>Herr Pascal Petritsch </p>
+				<h3>Rechtsform</h3>
+				<p>Gesellschaft mit beschr&auml;nkter Haftung</p>
+				<h3>Berufsbezeichung</h3>
+				<p>Friseur, &Ouml;sterreich</p>
+				<h3>Umsatzsteuer ID</h3>
+				<p>12345678</p><br>
+			</p>
+			<br>
+			<p>
+			<h1 style="color:black;">HAFTUNGSAUSSCHLUSS</h1>
+			<br> 
+			<h2>1. Inhalt des Onlineangebotes</h2>
+			<p>
+			Der Autor &uuml;bernimmt keinerlei Gew&auml;hr f&uuml;r die Aktualit&auml;t, Korrektheit,
+			Vollst&auml;ndigkeit oder Qualit&auml;t der bereitgestellten Informationen.
+			Haftungsanspr&uuml;che gegen den Autor, welche sich auf Sch&auml;den
+			materieller oder ideeller Art beziehen, die durch die Nutzung oder
+			Nichtnutzung der dargebotenen Informationen bzw. durch die Nutzung
+			fehlerhafter und unvollst&auml;ndiger Informationen verursacht wurden,
+			sind grunds&auml;tzlich ausgeschlossen, sofern seitens des Autors kein
+			nachweislich vors&auml;tzliches oder grob fahrl&auml;ssiges Verschulden
+			vorliegt. Alle Angebote sind freibleibend und unverbindlich. Der
+			Autor beh&auml;lt es sich ausdr&uuml;cklich vor, Teile der Seiten oder das
+			gesamte Angebot ohne gesonderte Ank&uuml;ndigung zu ver&auml;ndern, zu
+			erg&auml;nzen, zu l&ouml;schen oder die Ver&ouml;ffentlichung zeitweise oder
+			endg&uuml;ltig einzustellen.</p>
+			<br><br>
+			<h2>2. Verweise und Links</h2>
+			<p>
+			Bei direkten oder indirekten Verweisen auf fremde Webseiten
+			("Hyperlinks"), die auﬂerhalb des Verantwortungsbereiches des Autors
+			liegen, w&uuml;rde eine Haftungsverpflichtung ausschlieﬂlich in dem Fall
+			in Kraft treten, in dem der Autor von den Inhalten Kenntnis hat und
+			es ihm technisch m&ouml;glich und zumutbar w&auml;re, die Nutzung im Falle
+			rechtswidriger Inhalte zu verhindern. Der Autor erkl&auml;rt hiermit
+			ausdr&uuml;cklich, dass zum Zeitpunkt der Linksetzung keine illegalen
+			Inhalte auf den zu verlinkenden Seiten erkennbar waren. Auf die
+			aktuelle und zuk&uuml;nftige Gestaltung, die Inhalte oder die
+			Urheberschaft der verlinkten/verkn&uuml;pften Seiten hat der Autor
+			keinerlei Einfluss. Deshalb distanziert er sich hiermit ausdr&uuml;cklich
+			von allen Inhalten aller verlinkten /verkn&uuml;pften Seiten, die nach der
+			Linksetzung ver&auml;ndert wurden. Diese Feststellung gilt f&uuml;r alle
+			innerhalb des eigenen Internetangebotes gesetzten Links und Verweise
+			sowie f&uuml;r Fremdeintr&auml;ge in vom Autor eingerichteten G&auml;steb&uuml;chern,
+			Diskussionsforen, Linkverzeichnissen, Mailinglisten und in allen
+			anderen Formen von Datenbanken, auf deren Inhalt externe
+			Schreibzugriffe m&ouml;glich sind. F&uuml;r illegale, fehlerhafte oder
+			unvollst&auml;ndige Inhalte und insbesondere f&uuml;r Sch&auml;den, die aus der
+			Nutzung oder Nichtnutzung solcherart dargebotener Informationen
+			entstehen, haftet allein der Anbieter der Seite, auf welche verwiesen
+			wurde, nicht derjenige, der &uuml;ber Links auf die jeweilige
+			Ver&ouml;ffentlichung lediglich verweist.</p>
+			<br><br>
+			<h2>3. Urheber- und Kennzeichenrecht</h2>
+			<p>Der Autor ist bestrebt, in allen Publikationen die Urheberrechte der
+			verwendeten Bilder, Grafiken, Tondokumente, Videosequenzen und Texte
+			zu beachten, von ihm selbst erstellte Bilder, Grafiken, Tondokumente,
+			Videosequenzen und Texte zu nutzen oder auf lizenzfreie Grafiken,
+			Tondokumente, Videosequenzen und Texte zur&uuml;ckzugreifen. Alle
+			innerhalb des Internetangebotes genannten und ggf. durch Dritte
+			gesch&uuml;tzten Marken- und Warenzeichen unterliegen uneingeschr&auml;nkt den
+			Bestimmungen des jeweils g&uuml;ltigen Kennzeichenrechts und den
+			Besitzrechten der jeweiligen eingetragenen Eigent&uuml;mer. Allein
+			aufgrund der bloﬂen Nennung ist nicht der Schluss zu ziehen, dass
+			Markenzeichen nicht durch Rechte Dritter gesch&uuml;tzt sind! Das
+			Copyright f&uuml;r ver&ouml;ffentlichte, vom Autor selbst erstellte Objekte
+			bleibt allein beim Autor der Seiten. Eine Vervielf&auml;ltigung oder
+			Verwendung solcher Grafiken, Tondokumente, Videosequenzen und Texte
+			in anderen elektronischen oder gedruckten Publikationen ist ohne
+			ausdr&uuml;ckliche Zustimmung des Autors nicht gestattet.</p>
+			<br><br>
+			<h2>4. Datenschutz</h2>
+			<p>
+			Sofern innerhalb des Internetangebotes die M&ouml;glichkeit zur Eingabe
+			pers&ouml;nlicher oder gesch&auml;ftlicher Daten (Emailadressen, Namen,
+			Anschriften) besteht, so erfolgt die Preisgabe dieser Daten seitens
+			des Nutzers auf ausdr&uuml;cklich freiwilliger Basis. Die Inanspruchnahme
+			und Bezahlung aller angebotenen Dienste ist - soweit technisch
+			m&ouml;glich und zumutbar - auch ohne Angabe solcher Daten bzw. unter
+			Angabe anonymisierter Daten oder eines Pseudonyms gestattet. Die
+			Nutzung der im Rahmen des Impressums oder vergleichbarer Angaben
+			ver&ouml;ffentlichten Kontaktdaten wie Postanschriften, Telefon- und
+			Faxnummern sowie Emailadressen durch Dritte zur &uuml;bersendung von nicht
+			ausdr&uuml;cklich angeforderten Informationen ist nicht gestattet.
+			Rechtliche Schritte gegen die Versender von sogenannten Spam-Mails
+			bei Verst&ouml;ssen gegen dieses Verbot sind ausdr&uuml;cklich vorbehalten.</p>
+			<br><br>
+			<h2>5. Rechtswirksamkeit dieses Haftungsausschlusses</h2>
+			<p>Dieser Haftungsausschluss ist als Teil des Internetangebotes zu
+			betrachten, von dem aus auf diese Seite verwiesen wurde. Sofern Teile
+			oder einzelne Formulierungen dieses Textes der geltenden Rechtslage
+			nicht, nicht mehr oder nicht vollst&auml;ndig entsprechen sollten, bleiben
+			die &uuml;brigen Teile des Dokumentes in ihrem Inhalt und ihrer G&uuml;ltigkeit
+			davon unber&uuml;hrt.</p>
+			
+			
+	
 			</div>
 			<div id="footer" align = "center" class="hide">
 				<?php
