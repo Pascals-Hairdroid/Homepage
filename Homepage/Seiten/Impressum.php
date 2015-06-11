@@ -157,7 +157,7 @@ if(isset($_GET['web']))
 				<h3>Berufsbezeichung</h3>
 				<p>Friseur, &Ouml;sterreich</p>
 				<h3>Umsatzsteuer ID</h3>
-				<p>12345678</p><br>
+				<p>ATU67500028</p><br>
 			</p>
 			<br>
 			<p>
