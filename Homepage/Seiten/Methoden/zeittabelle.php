@@ -41,11 +41,14 @@
 		$dienstleistung2=$_GET["dienstleistung2"];
 //		$woche=$_GET["woche"];
 		$woche=$_GET["woche"];
+	
 		
 		if (isset($_GET["schneiden"]))
 			$schneiden="ja";
 		else 
 			$schneiden="nein";
+		
+		$ua = strtolower($_SERVER['HTTP_USER_AGENT']);
 		
 		
 		//Mitarbeiter + Skill abfrage
@@ -63,6 +66,7 @@
 		
 		if (strlen($woche) ==8)
 		{
+			
 			$jahr= substr($woche, 0, 4);
 			$woche2= substr($woche, 6, 2);
 			$ddaw = date( "d.m.Y", strtotime($jahr."W".$woche2."2") ); // Dienstag der ausgewählten Woche
@@ -72,20 +76,22 @@
 		}
 		else
 		{
-			$tag=substr($woche, 3, 2);;
-			$monat=substr($woche, 0, 2);
-			$jahr= substr($woche, 6, 4); 
+			
+			$tag = substr($woche, 3, 2);;
+			$monat = substr($woche, 0, 2);
+			$jahr = substr($woche, 6, 4); 
 			$tag2 = new DateTime();
 			$tag2->setDate($jahr, $monat, $tag);
+			$week =  $tag2->format('W');
 			if ($tag2->format('l') == 'Sunday')
 			{
-				$week=$week+1;
+				$week = $week+1;
 			}
 			$ddaw = date( "d.m.Y", strtotime($jahr."W".$week."2") ); // Dienstag der ausgewählten Woche
 			echo "<br>";
 		}
 		
-
+		
 		// Datumsvariablen Definieren
 		
 		$ddaw= new DateTime($ddaw);
@@ -318,10 +324,13 @@
 		echo "<td> Schneiden: </td>";
 		echo "<td> <input type='Text' name='schneiden' value='$schneiden' readonly> </td>";
 		echo "</tr>";
-		echo "<tr>";
-		echo "<td> Wunschfrisur (optional): </td>";
-		echo "<td> <input type='file' name='wunschfoto' value='NULL'> </td>";
-		echo "</tr>";
+		if(stripos($ua,'android') === false) 
+		{ 
+			echo "<tr>";
+			echo "<td> Wunschfrisur (optional): </td>";
+			echo "<td> <input type='file' name='wunschfoto' value='NULL'> </td>";
+			echo "</tr>";
+		}
 		echo "</table>";
 		echo "<br>";
 		echo "<input type='submit' value='Reservieren'>";
