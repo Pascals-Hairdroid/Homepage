@@ -24,6 +24,7 @@ if(isset($_GET['web']))
         })
 });
 		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
 	<?php

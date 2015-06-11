@@ -10,6 +10,22 @@ $date = $_POST["date"];
 $schneiden = $_POST["schneiden"];
 // var_dump($_FILES);
 
+if($dienstleistung == Damenservice)
+	$dienstleistung = "DS";
+elseif ($dienstleistung == Herrenservice)
+	$dienstleistung = "HS";
+else
+	$dlservice = "Keine Auswahl";
+
+if($dienstleistung2 == Färben)
+	$dienstleistung2 = "FA";
+elseif ($dienstleistung2 == Strähnen)
+	$dienstleistung2 = "ME";
+elseif ($dienstleistung2 == Tönen)
+	$dienstleistung2 = "TÖ";
+else
+	$dlcoloration = "Keine Auswahl";
+
 
 if ($haarlaenge == "Kurze Haare")
 	$haarlaenge = "KH";

@@ -22,6 +22,10 @@ time, mark, audio, video, active, hover, selected {
 ol,ul {
     list-style: none;
 }
+html,body{
+	height: 100%;
+	width:100%;
+}
 
 @media only screen 
 and (max-device-width : 480px) {
@@ -923,7 +927,16 @@ background-color: blue;
 
 .close:hover { background: #00d9ff; }
 
+@viewport {
+    width: extend-to-zoom 980px;
+    min-zoom: 0.25;
+    max-zoom: 5;
+
 }
+@viewport {
+    width: extend-to-zoom 980px;
+    min-zoom: 0.25;
+    max-zoom: 5;
 
 
 

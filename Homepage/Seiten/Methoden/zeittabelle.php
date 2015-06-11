@@ -22,6 +22,9 @@
 				}
 			}
 		</script>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	</head>
 	<body>
 		<?php
@@ -296,7 +299,23 @@
 		$now = new DateTime();
 // 		echo $now->format('d.m.Y H:i');
 				
-
+		if($dienstleistung == DS)
+			$dlservice = "Damenservice";
+		elseif ($dienstleistung == HS)
+			$dlservice = "Herrenservice";
+		else 
+			$dlservice = "Keine Auswahl";
+		
+		if($dienstleistung2 == FA)
+			$dlcoloration = "Färben";
+		elseif ($dienstleistung2 == ME)
+			$dlcoloration = "Strähnen";
+		elseif ($dienstleistung2 == TÖ)
+			$dlcoloration = "Tönen";
+		else
+			$dlcoloration = "Keine Auswahl";
+		
+		
 		echo "<br>";
 		echo "<div id='openModal' class='modalDialog'>";
 		echo "<div>";
@@ -310,7 +329,7 @@
 		echo "</tr>";
 		echo "<tr>";
 		echo "<td> Service: </td>";
-		echo "<td> <input type='Text' name='dienstleistung' value='$dienstleistung' readonly> </td>";
+		echo "<td> <input type='Text' name='dienstleistung' value='$dlservice' readonly> </td>";
 		echo "</tr>";
 		echo "<tr>";
 		echo "<td> Haarl&auml;nge: </td>";
@@ -318,7 +337,7 @@
 		echo "</tr>";
 		echo "<tr>";
 		echo "<td> Coloration: </td>";
-		echo "<td> <input type='Text' name='dienstleistung2' value='$dienstleistung2' readonly> </td>";
+		echo "<td> <input type='Text' name='dienstleistung2' value='$dlcoloration' readonly> </td>";
 		echo "</tr>";
 		echo "<tr>";
 		echo "<td> Schneiden: </td>";
