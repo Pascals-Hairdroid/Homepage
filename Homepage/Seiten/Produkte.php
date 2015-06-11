@@ -134,13 +134,23 @@ if(isset($_GET['web']))
 										
 					$kat=NEW Produktkategorie($_GET['Kat'],null);
 					$produkte=$db->getAllProdukt($kat);
-					
- 					foreach ($produkte as $prod){
-						echo "<div id='produktbox'>";
- 						echo umlaute_encode("<p>".$prod->getHersteller()." ".$prod->getName()." ".$prod->getBeschreibung()."</p>");
- 						echo "</div>";
- 						echo "<br>";
- 					}
+					foreach($produkte as $prod){
+						$ordner = "../Bilder/Produkte/ESTELProdukte/"; // Ordnername
+						$allebilder = scandir($ordner); // Ordner auslesen und Array in Variable speichern
+						$bildinfo = pathinfo($ordner."/".$prod->getID().".jpg");
+						
+							if(in_array($prod->getID().".jpg",$allebilder)){
+								echo "<div id='produktbox'>";
+								echo "<img src='".$bildinfo['dirname']."/".$prod->getID().".jpg' style='width:100px;float:left;max-height:300px'>";
+// 								echo $prod->getID()."<br>";
+								echo umlaute_encode("<br><p> Hersteller:".$prod->getHersteller()."<br> Produktname: ".$prod->getName()."<br> Beschreibung ".$prod->getBeschreibung()."</p>");
+								echo "</div>";
+								echo "<br>";
+	
+							}
+						
+					}
+ 					
 					?>
 				</div>
 				<div id="werbungsbanner">

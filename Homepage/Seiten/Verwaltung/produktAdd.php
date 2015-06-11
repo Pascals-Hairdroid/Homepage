@@ -19,19 +19,6 @@ $db=new db_con("conf/db.php",true);
 				})
 		});
 		</script>
-		<script language="javascript" type="text/javascript">
-		var wechselZeit = 2000; 
-   imageArr = new Array() 
-   imageArr[imageArr.length] = "Bilder/Homepage/2.jpg"; 
-   imageArr[imageArr.length] = "Bilder/Homepage/1.jpg"; 
- 
-   var xAnzahl = imageArr.length; 
-   var xCounter=-1; 
-   var maxOpacity = 100; 
-   var minOpacity = 0; 
-   var disableOpacity = maxOpacity; 
-   var fadeInterval = 'fadeout'; 
-   </script>
 </head>
 <body>
 <?php 

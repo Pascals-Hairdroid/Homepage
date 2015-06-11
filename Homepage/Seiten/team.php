@@ -129,7 +129,6 @@ $db=new db_con("conf/db.php",true);?>
 						$ordner = "../Bilder/Profilbilder/"; // Ordnername
 						$allebilder = scandir($ordner); // Ordner auslesen und Array in Variable speichern
 						$bildinfo = pathinfo($ordner."/".$ma->getSVNR().".jpg");
-						echo "<div >";	
 						if($ma->getSVNR() > 1000010100){
 								if(in_array($ma->getSVNR().".jpg",$allebilder)){
 								echo "<div id='Profilbox'>";

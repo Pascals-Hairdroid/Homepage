@@ -83,7 +83,10 @@ and (max-device-width : 480px) {
 	width:100%;
 	}
 	.profilbild{
-	width:25%;
+	width:50%;
+	}
+	.produktbild{
+	width:100px;
 	}
 	#textAreaVerwaltung{
 	}
@@ -500,8 +503,9 @@ and (min-device-width : 481px) {
 	
 	}
 	#produktbox{
-	height:150px;
+	height:300px;
 	}
+	
 	#textArea img.titelbild{
 	position:relative;
 	bottom:36px;
