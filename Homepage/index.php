@@ -164,9 +164,9 @@ if(isset($_GET['web']))
 			</nav>
 		</div>
 		<div id="head">
-			<a href="#" style="color:black;"><h1>
-				<img src="Bilder/Homepage/LogoSchriftIrisUPC.jpg"> 
-		</a>
+			<h1><a href="#" style="color:black;">
+				<img src="Bilder/Homepage/LogoSchriftIrisUPC.jpg" style="min-width:20%"> 
+		</a></h1>
 		</div>
 
 		<div id="hmenu">

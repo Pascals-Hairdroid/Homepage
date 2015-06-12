@@ -134,6 +134,7 @@ if(isset($_GET['web']))
 										
 					$kat=NEW Produktkategorie($_GET['Kat'],null);
 					$produkte=$db->getAllProdukt($kat);
+					
 					foreach($produkte as $prod){
 						$ordner = "../Bilder/Produkte/ESTELProdukte/"; // Ordnername
 						$allebilder = scandir($ordner); // Ordner auslesen und Array in Variable speichern
@@ -152,9 +153,6 @@ if(isset($_GET['web']))
 					}
  					
 					?>
-				</div>
-				<div id="werbungsbanner">
-				
 				</div>
 			</div>
 			<div id="footer" align = "center" class="hide">
