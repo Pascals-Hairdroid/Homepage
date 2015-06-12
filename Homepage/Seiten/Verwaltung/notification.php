@@ -79,8 +79,9 @@ $db=new db_con("conf/db.php",true);
 			</div>							
 			<div id="head">
 			
-				<a href="#" style="color:black;"><h1>PASCALS<img src="../../Bilder/Homepage/Logo.png">HAIRSTYLE</h1>
-				<h2>Frisuren zum Wohlf&uuml;hlen</h2></a>		
+				<?php 
+				include ("../HTML/Verwaltungheader.html"); 
+				?>	
 		
 			</div>
 			<div id="hmenu">		
@@ -124,6 +125,14 @@ $db=new db_con("conf/db.php",true);
 			<div id="textArea">
 			<?php 
 			if(! isset($_GET['nummer'])){
+			foreach($db->getAllWerbung() as $werbung)
+			{
+				echo "<div id='werbungsbox' style='height:300px'>";
+				echo $werbung->getTitel();
+				echo"<br>";
+				echo $werbung->getText();
+				echo "</div>";
+			}
 			}
 			else{
 			$werbung=$db->getWerbung($_GET['nummer']);

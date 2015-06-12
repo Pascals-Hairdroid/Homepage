@@ -35,32 +35,37 @@ and (max-device-width : 480px) {
 	#main{
 	width:100%;
 	}
-	#head{
-	height:60px;
-	clear:both;
+	
+	.test{
+	
 	
 	}
+	#head{
+	height:130px;
+	}
 	#head img{
-	width:42px;
-	vertical-align:middle;
+	width:35%;
 	}
 	#head p{
 	}
 	#head h1{
-	font-size:14pt;
+	font-size:16pt;
 	text-align:center;
 	font-family:"Times New Roman";
 	font-weight:lighter;
 	}
 	#head h2{
-	font-size:12pt;
+	font-size:14pt;
 	text-align:center;
 	line-height:0px;
 	font-family:"Times New Roman";
 	font-weight:lighter;
 	}
-	#head img{
+	
+	#head a{
+	text-align:center;
 	}
+	
 	#menu{
 	
 	}
@@ -82,7 +87,7 @@ and (max-device-width : 480px) {
 	#textArea img.titelbild{
 	padding-top:35px;
 	position:relative;
-	bottom:37px;
+	bottom:42px;
 	z-index:-500;
 	width:100%;
 	}
@@ -90,7 +95,11 @@ and (max-device-width : 480px) {
 	width:50%;
 	}
 	.produktbild{
-	width:100px;
+	max-width:100px;
+	max-height:200px;
+	}
+	#produktbox{
+	height:200px;
 	}
 	#textAreaVerwaltung{
 	}
@@ -126,7 +135,11 @@ and (max-device-width : 480px) {
 		text-decoration:none;
 		background:#3D3D3D;
 		color:white;
-		padding:10px;
+		font-size:17pt;
+		padding-left:10px;
+		padding-right:10px;
+		padding-bottom:15px;
+		padding-top:15px;
 		transition:color 1.0s ease-in-out;
 
 	}
@@ -135,7 +148,11 @@ and (max-device-width : 480px) {
 		text-align:center;
 		text-decoration:none;
 		background:#3D3D3D;
-		padding:10px;
+		font-size:17pt;
+		padding-left:10px;
+		padding-right:10px;
+		padding-bottom:15px;
+		padding-top:15px;
 		color:#00cc66;
 		transition:color 1.0s ease-in-out;
 
@@ -177,7 +194,7 @@ and (max-device-width : 480px) {
 	}
 	#menu > ul > li > ul > li > a {
 		display:block;
-		font-size:0.9em;
+		font-size:14pt;
 		text-decoration:none;
 		background: black;
 		padding:5px;
@@ -236,7 +253,11 @@ float:right;
   height: 25px;
   line-height: 25px;
   font-weight: bold;
-  padding: 0 8px;
+ 	padding-left:10px;
+		padding-right:10px;
+		padding-bottom:15px;
+		padding-top:15px;
+		font-size:17pt;
   text-decoration: none;
   color: white;
   text-shadow: 0 1px 0 #444;
@@ -418,10 +439,7 @@ and (min-device-width : 481px) {
 	}
 	.logout{
 	}
-	.profilbild{
-	float:left;
-	width:25%;
-	}
+	
 	#container{
 	width:100%;
 	}
@@ -441,14 +459,21 @@ and (min-device-width : 481px) {
 	#head{
 	height:130px;
 	z-index:500;
+	overflow:hidden;
 	}
 	#head img{
-	width:60px;
-	vertical-align:middle;
+	position:relative;
+	top:5px;
+	z-index:-100000;
+	width:350px;
+	
 	}
 	#head table{
 	position:absolute;
 	top:0px;
+	}
+	#head a{
+	text-align:center;
 	}
 	#head p{
 	}
@@ -467,8 +492,6 @@ and (min-device-width : 481px) {
 	text-align:center;
 	font-family:"Times New Roman";
 	}
-	#head img{
-	}
 	#hmenu{
 	width:100%;
 	}
@@ -479,19 +502,17 @@ and (min-device-width : 481px) {
 	clear:both;
 	min-height:300px;
 	width:100%;
+	padding-top:2px;
 	}
 	#textArea p{	
 	padding-left:15px;
 	}
 	
 	#textArea h1{
-	color:red;
+	
 	
 	}
-	#textArea .abstand{
-	position:relative;
-	top:10px;
-	}
+	
 	#textArea .font{
 	font-size:14pt;
 	font-weight:bold;
@@ -506,9 +527,7 @@ and (min-device-width : 481px) {
 	
 	
 	}
-	#produktbox{
-	height:300px;
-	}
+	
 	
 	#textArea img.titelbild{
 	position:relative;
@@ -519,12 +538,15 @@ and (min-device-width : 481px) {
 
 	#textArea img{
 	}
-	#Profilbox{
-	min-height:300px;
-	margin-top:48px;
+	#produktbox{
+	height:300px;
 	}
-	#Profilbox img{
-	z-index:-10000;
+	#Profilbox{
+	height:300px;
+	}
+	.profilbild{
+	width:25%;
+	float:left;
 	}
 	#footer{
 	border-top:solid black 1px;
@@ -637,10 +659,13 @@ and (min-device-width : 481px) {
 	}
 	#menu > ul > li > ul > li > a {
 		display:block;
-		font-size:0.9em;
+		font-size:14pt;
 		text-decoration:none;
 		background: black;
-		padding:5px;
+		padding-left:5px;
+		padding-top:5px;
+		padding-right:15px;
+		padding-bottom:5px;
 		color:#FFF;
 		border:1px solid rgba(0,0,0,0.2);
 		border-top:0px solid;

@@ -86,9 +86,9 @@ if(isset($_POST["submit2"])){
 					</nav>
 			</div>							
 			<div id="head">
-			
-				<a href="#" style="color:black;"><h1>PASCALS<img src="../../Bilder/Homepage/Logo.png">HAIRSTYLE</h1>
-				<h2>Frisuren zum Wohlf&uuml;hlen</h2>		</a>
+			<?php 
+				include ("../HTML/Verwaltungheader.html"); 
+				?>
 		
 			</div>
 			<div id="hmenu">		

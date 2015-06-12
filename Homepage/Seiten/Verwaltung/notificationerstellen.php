@@ -9,18 +9,25 @@ $db=new db_con("conf/db.php",true);?>
 </head>
 <body>
 	<?php
-	if(isset($_POST['submit']))
-	{
-
-	}
-
-
 	$interessenarray = array();
 	foreach($db->getAllInteresse() as $int){
 		if(isset ($_POST[$int->getID()]))
 			$int = new Interesse($int->getID(),$int->getBezeichnung());
 		$interessenarray[]=$int;
 	}
+	if(isset($_POST['submit']))
+	{
+		
+		$lastNr=$db->getAllWerbung();
+		$lastelement =count($lastNr)+1;
+	
+		
+		$werbung=new Werbung($lastelement, $_POST['titel'], $_POST['text'], DateTime::createFromFormat('j-M-Y', date('d-M-Y')), $interessenarray);
+		$db->werbungEintragen($werbung);
+	}
+
+
+	
 	?>
 
 	<div id="container">
@@ -81,8 +88,9 @@ $db=new db_con("conf/db.php",true);?>
 			</nav>
 		</div>
 		<div id="head">
-			<a href="#" style="color:black;"><h1>PASCALS<img src="../../Bilder/Homepage/Logo.png">HAIRSTYLE</h1>
-			<h2>Frisuren zum Wohlf&uuml;hlen</h2></a>
+			<?php 
+				include ("../HTML/Verwaltungheader.html"); 
+				?>
 
 		</div>
 		<div id="hmenu">		
@@ -126,12 +134,12 @@ $db=new db_con("conf/db.php",true);?>
 
 		<div id="textArea">
 
-			<form action="file_upload.php" method="post" enctype="multipart/form-data">
+			<form action="" method="post" enctype="multipart/form-data">
 				<p>
-					Notificationtext<input type="text" name="notification">
+					Titel:<input type="text" name="titel" required="required">
 				</p>
 				<p>
-					Text<input type="text" name="text">
+					Text:<input type="text" name="text">
 				</p>
 				<p>
 					Werbungsbild: <input type="file" name="fileToUpload"
@@ -146,7 +154,7 @@ $db=new db_con("conf/db.php",true);?>
 				{
 					$i++;
 
-					echo "<input type='checkbox' name='".$int->getID()."'>".$int->getBezeichnung()." </input>";
+					echo umlaute_encode("<input type='checkbox' name='".$int->getID()."'>".$int->getBezeichnung()." </input>");
 
 					if ($i % 3 === 0) echo "<p>";
 				}

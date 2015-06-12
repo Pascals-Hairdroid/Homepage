@@ -129,7 +129,7 @@ if(isset($_GET['web']))
   </div>
 			<div id="wrapper">
 				<div id="textArea">
-				<br><br>
+				<br>
 				<img src="../Bilder/Homepage/studio1.jpg" style="width:32%;" />
 				<img src="../Bilder/Homepage/studio2.jpg" style="width:32%;" />
 				<img src="../Bilder/Homepage/studio3.jpg" style="width:32%;" />
@@ -141,7 +141,10 @@ if(isset($_GET['web']))
 					<p style="text-align:center"> Bl&auml;tter dich durch die Aktionen! Durch einen Klick aufs Bild kommst du zu einem PDF, das du ausdrucken und mit zu mir nehmen kannst.</p>
 					<p style="text-align:center"> Gilt f&uuml;r alles au&szlig;er f&uuml;r den Sorry4waiting-Gutschein. Den bekommst du nat&uuml;rlich von mir pers&ouml;nlich! </p>
 					<p style="text-align:center"> Ich freue mich Dich bald zu sehen. </p>
-					<br><br>
+					<br>
+					<p style="text-align:center"> <img src="../Bilder/Homepage/studio4.jpg" style="width:32%;" /></p>
+					
+					
 				</div>
 				<div id="werbungsbanner">
 				

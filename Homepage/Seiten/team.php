@@ -129,20 +129,19 @@ $db=new db_con("conf/db.php",true);?>
 						$ordner = "../Bilder/Profilbilder/"; // Ordnername
 						$allebilder = scandir($ordner); // Ordner auslesen und Array in Variable speichern
 						$bildinfo = pathinfo($ordner."/".$ma->getSVNR().".jpg");
-						if($ma->getSVNR() > 1000010100){
-								if(in_array($ma->getSVNR().".jpg",$allebilder)){
-								echo "<div id='Profilbox'>";
-								echo "<img src='".$bildinfo['dirname']."/".$ma->getSVNR().".jpg' class='profilbild'>";
-
-								}
-								else {
-								echo "<div id='Profilbox'>";
-								echo "<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
-								}
-						echo umlaute_encode("<p class='abstand'><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>");
-						echo umlaute_encode("<p class='abstand'><span class='font'>Nachname: </span>".$ma->getNachname()."</p>");
-						echo "</div>";
+					
+						if(in_array($ma->getSVNR().".jpg",$allebilder)){
+							echo "<div id='Profilbox'>";
+							echo "<img src='".$bildinfo['dirname']."/".$ma->getSVNR().".jpg' class='profilbild' style='width:100px;float:left;max-height:300px'>";
+						
 						}
+						else {
+							echo "<div id='Profilbox'>";
+							echo "<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'style='width:100px;float:left;max-height:300px'>";
+						}
+						echo umlaute_encode("<p><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>");
+						echo umlaute_encode("<p><span class='font'>Nachname: </span>".$ma->getNachname()."</p>");
+						echo "</div>";
 					}
 					?>
 					

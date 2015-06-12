@@ -146,9 +146,9 @@ if(isset($_GET['web']))
 								echo "<div id='Profilbox'>";
 								echo "<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
 								}
-								echo umlaute_encode("<p>Vorname:".$ma->getVorname()."</p>");
-								echo umlaute_encode("<p>Nachname:".$ma->getNachname()."</p>");
-								echo umlaute_encode("<p>Motto:".$ma->getMotto()."</p>");
+								echo umlaute_encode("<p><span class='font'>Vorname:</span>".$ma->getVorname()."</p>");
+								echo umlaute_encode("<p><span class='font'>Nachname:</span>".$ma->getNachname()."</p>");
+								echo umlaute_encode("<p><span class='font'>Motto:</span>".$ma->getMotto()."</p>");
 					}
 					else{
 						if($_SESSION['admin']==true){
@@ -164,9 +164,10 @@ if(isset($_GET['web']))
 								echo "<div id='Profilbox'>";
 								echo "<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild' ;>";
 							}
-							echo umlaute_encode("<p>Vorname:".$ma->getVorname()."</p>");
-							echo umlaute_encode("<p>Nachname:".$ma->getNachname()."</p>");
-							echo umlaute_encode("<p>Motto:".$ma->getMotto()."</p>");
+							echo umlaute_encode("<p><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>");
+							echo umlaute_encode("<p><span class='font'>Nachname: </span>".$ma->getNachname()."</p>");
+						
+							echo umlaute_encode("<p><span class='font'>Motto:</span>".$ma->getMotto()."</p>");
 						}
 						if($_SESSION['admin']==false){
 							$ku=$db->getKunde($_SESSION['email']);
@@ -181,8 +182,8 @@ if(isset($_GET['web']))
 								echo "<div id='Profilbox'>";
 								echo "<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
 							}
-							echo umlaute_encode("<p>Vorname:".$ku->getVorname()."</p>");
-							echo umlaute_encode("<p>Nachname:".$ku->getNachname()."</p>");
+							echo umlaute_encode("<p><span class='font'>Vorname:</span>".$ku->getVorname()."</p>");
+							echo umlaute_encode("<p><span class='font'>Nachname:</span>".$ku->getNachname()."</p>");
 							
 						
 						}
