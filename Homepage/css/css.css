@@ -45,6 +45,8 @@ and (max-device-width : 480px) {
 	}
 	#head img{
 	width:35%;
+	overflow:hidden;
+	z-index:-100000;
 	}
 	#head p{
 	}
