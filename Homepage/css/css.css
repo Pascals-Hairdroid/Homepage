@@ -41,8 +41,11 @@ and (max-device-width : 480px) {
 	
 	}
 	#head img{
-	width:42px;
-	vertical-align:middle;
+	position:relative;
+	bottom:20px;
+	z-index:-100000;
+	width:20%;
+	
 	}
 	#head p{
 	}
