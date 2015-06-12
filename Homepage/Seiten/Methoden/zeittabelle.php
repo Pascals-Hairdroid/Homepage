@@ -23,8 +23,8 @@
 			}
 		</script>
 		
-		<meta name="MobileOptimized" content="320">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<!-- 		<meta name="MobileOptimized" content="320"> -->
+<!-- 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"> -->
 
 	</head>
 	<body>
@@ -299,20 +299,17 @@
 // 		$mitarbeiter = $db->getMitarbeiter($svnr);
 		$now = new DateTime();
 // 		echo $now->format('d.m.Y H:i');
-				
-		if($dienstleistung == DS)
-			$dlservice = "Damenservice";
-		elseif ($dienstleistung == HS)
-			$dlservice = "Herrenservice";
+
+		$haarlaenge = "KH";
+		
+		if($dienstleistung != "")
+			$dlservice = umlaute_encode ($db->getDienstleistung($dienstleistung, new Haartyp($haarlaenge, null))->getName());
 		else 
 			$dlservice = "Keine Auswahl";
 		
-		if($dienstleistung2 == FA)
-			$dlcoloration = "Färben";
-		elseif ($dienstleistung2 == ME)
-			$dlcoloration = "Strähnen";
-		elseif ($dienstleistung2 == TÖ)
-			$dlcoloration = "Tönen";
+		if($dienstleistung2 != ""){	
+			$dlcoloration = umlaute_encode($db->getDienstleistung($dienstleistung2, new Haartyp($haarlaenge, null))->getName());
+		}
 		else
 			$dlcoloration = "Keine Auswahl";
 		

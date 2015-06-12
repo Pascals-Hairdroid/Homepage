@@ -3,8 +3,8 @@
 <html>
 	<head>
 		<link  rel="stylesheet" type="text/css" href="../../css/css.css">
-		<meta name="MobileOptimized" content="320">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<!-- 		<meta name="MobileOptimized" content="320"> -->
+<!-- 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"> -->
 	</head>
 	<body>
 		<?php

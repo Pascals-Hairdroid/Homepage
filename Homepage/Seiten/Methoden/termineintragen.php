@@ -63,11 +63,21 @@ if ($dienstleistung != "Null" && $dienstleistung2 != "Null")
 		}
 		$foto = NK_Pfad_Frisur_Bild_beginn.$mitarbeiter.NK_Pfad_Frisur_Bild_mitte.$date->format('U').NK_Pfad_Frisur_Bild_ende;
 		
-		$db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung2, $haarlaenge);
+		$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge))[0];
+		var_dump($a);
+		if ($a=="1")
+			echo "Ihr Termin wurde erfolgreich eingetragen.";
+		else
+			echo "Fehler beim eintragen des Termins.";
 	}
 	else 
 	{
-			$db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, NULL, $dienstleistung2, $haarlaenge);
+			$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, Null, $dienstleistung, $haarlaenge))[0];
+			var_dump($a);
+			if ($a=="1")
+				echo "Ihr Termin wurde erfolgreich eingetragen.";
+			else
+				echo "Fehler beim eintragen des Termins.";
 	}
 	
 	
@@ -99,11 +109,20 @@ if ($dienstleistung != "Null" && $dienstleistung2 != "Null")
 		}
 		$foto = NK_Pfad_Frisur_Bild_beginn.$mitarbeiter.NK_Pfad_Frisur_Bild_mitte.$date->format('U').NK_Pfad_Frisur_Bild_ende;
 		
-		$db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge);
+		$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge))[0];
+		var_dump($a);
+		if ($a=="1")
+			echo "Ihr Termin wurde erfolgreich eingetragen.";
+		else 
+			echo "Fehler beim eintragen des Termins.";
 	}
 	else
 	{
-		$db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, NULL, $dienstleistung, $haarlaenge);
+		$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, NULL, $dienstleistung, $haarlaenge))[0];
+		if ($a=="1")
+			echo "Ihr Termin wurde erfolgreich eingetragen.";
+		else 
+			echo "Fehler beim eintragen des Termins.";
 	}
 }
 else 
@@ -121,15 +140,25 @@ else
 		}
 		$foto = NK_Pfad_Frisur_Bild_beginn.$mitarbeiter.NK_Pfad_Frisur_Bild_mitte.$date->format('U').NK_Pfad_Frisur_Bild_ende;
 	
-		$db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge);
+		$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge))[0];
+		var_dump($a);
+		if ($a=="1")
+			echo "Ihr Termin wurde erfolgreich eingetragen.";
+		else 
+			echo "Fehler beim eintragen des Termins.";
 	}
 	else
 	{
 		$res = false;
-		$abf = $db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, NULL, $dienstleistung, $haarlaenge);
-		if($abf!=false)$res = mysqli_fetch_row($abf)[0]=="1"?true:false;
+		$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge))[0];
+		var_dump($a);
+		if ($a=="1")
+			echo "Ihr Termin wurde erfolgreich eingetragen.";
+		else 
+			echo "Fehler beim eintragen des Termins.";
+		if($a!=false)$res = mysqli_fetch_row($abf)[0]=="1"?true:false;
 		
-		if ($abf == false)
+		if ($a == false)
 			echo "Datenbankfehler: Termin konnte nicht eingetragen werden.";
 		elseif ($res == false)
 			echo "Termin konnte nicht eingetragen werden.";
