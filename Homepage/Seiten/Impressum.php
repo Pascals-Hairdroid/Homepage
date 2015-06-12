@@ -107,7 +107,7 @@ if(isset($_GET['web']))
         <a href="terminvergabe.php">Termine</a>        
       </li>
       <li class="topmenu">
-        <a href="Angebote.php"class="selected">Angebote</a>
+        <a href="Angebote.php">Angebote</a>
       </li>
 	  <li class="topmenu">
        <a href="#"> Produkte</a>
