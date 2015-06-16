@@ -35,8 +35,8 @@ function zeitEintragen($svnr,$von,$bis,$tag)
 			
 		}	
 	}
-if(isset($_POST['submit']))
-	$erg=zeitEintragen($_POST['svnr'],$_POST['von'],$_POST['bis'],$_POST['tag']);
+if(isset($_GET['submit']))
+	$erg=zeitEintragen($_GET['svnr'],$_GET['von'],$_GET['bis'],$_GET['tag']);
 ?>
 
 	<div id="container">
@@ -142,7 +142,7 @@ if(isset($_POST['submit']))
 			
 			<div id="textArea">
 			
-						<form method="post" action="">
+						<form method="get" action="">
 							<p>Mitarbeiter:
 							<select name="svnr" onChange="settext(this.value)"></p>
 							
@@ -150,9 +150,9 @@ if(isset($_POST['submit']))
 							$Mitarbeiterarray=$db->getAllMitarbeiter();
 							
 							foreach ($Mitarbeiterarray as $ma){
-							if(isset($_POST['svnr']))
+							if(isset($_GET['svnr']))
 							{
-								if($ma->getSVNR()==$_POST['svnr'])
+								if($ma->getSVNR()==$_GET['svnr'])
 									$check=selected;
 								else 
 									$check=null;
@@ -182,17 +182,19 @@ if(isset($_POST['submit']))
 						</form>
 					
 					<?php 
-					if(isset($_POST['submit2'])){
-					$tempMa=$db->getMitarbeiter($_POST['svnr']);
+					if(isset($_GET['submit2'])){
+					$tempMa=$db->getMitarbeiter($_GET['svnr']);
 					$dienstzeit=$tempMa->getDienstzeiten();
 					foreach ($dienstzeit as $dz){
+					$tempMa=$db->getMitarbeiter($_GET['svnr']);
 					echo "<br>";
 					echo $dz->getWochentag()->getKuerzel();
 					echo " ";
 					echo Date_format($dz->getBeginn(),'H:i');
 					echo " - ";
 					echo Date_format($dz->getEnde(),'H:i');
-					echo "<a href='dDel.php'";} 
+					echo "<a href='dDel.php?svnr=".$tempMa->getSvnr()."&tag=".$dz->getWochentag()->getKuerzel()."&von=".$dz->getBeginn()."&bis=".$dz->getEnde()."'>entfernen</a>";
+					} 
 					}
 					
 					if (isset($erg))

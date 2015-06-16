@@ -29,8 +29,8 @@ function urlaubEintragen($svnr,$von,$bis)
 			
 		}	
 	}
-if(isset($_POST['submit']))
-	$erg=urlaubEintragen($_POST['svnr'],$_POST['von'],$_POST['bis']);
+if(isset($_GET['submit']))
+	$erg=urlaubEintragen($_GET['svnr'],$_GET['von'],$_GET['bis']);
 ?>
 
 	<div id="container">
@@ -135,7 +135,7 @@ if(isset($_POST['submit']))
 			<div id="textArea">
 						<br>
 			
-						<form method="post" action="">
+						<form method="GET" action="">
 							<p>Mitarbeiter:
 							<select name="svnr" onChange="settext(this.value)"></p>
 							
@@ -144,16 +144,15 @@ if(isset($_POST['submit']))
 							$Mitarbeiterarray=$db->getAllMitarbeiter();
 							
 							foreach ($Mitarbeiterarray as $ma){
-							if(isset($_POST['svnr']))
+							if(isset($_GET['svnr']))
 							{
-								if($ma->getSVNR()==$_POST['svnr'])
+								if($ma->getSVNR()==$_GET['svnr'])
 									$check=selected;
 								else 
 									$check=null;
 							}
 
-							echo "<option value='".$ma->getSVNR()."'".$check.">".$ma->getVorname()." ".$ma->getNachname().
-							"</option>";
+							echo umlaute_encode("<option value='".$ma->getSVNR()."'".$check.">".$ma->getVorname()." ".$ma->getNachname()."</option>");
 							}
 							
 							  		
@@ -167,15 +166,18 @@ if(isset($_POST['submit']))
 						</form>
 					
 					<?php 
-					if(isset($_POST['submit2'])){
-					$tempMa=$db->getMitarbeiter($_POST['svnr']);
+					if(isset($_GET['submit2'])){
+					$tempMa=$db->getMitarbeiter($_GET['svnr']);
 					$urlaub=$tempMa->getUrlaube();
 					foreach ($urlaub as $u2){
+			
 					echo "<br>";
 					echo "Urlaub von: ";
 					echo $u2->getBeginn()->format('d.F Y H:i');
 					echo " bis ";
 					echo $u2->getEnde()->format('d.F Y H:i');
+					echo "<a href='uDel.php?svnr=".$tempMa->getSvnr()."&von=".$u2->getBeginn()->format('d.F Y H:i')."&bis=".$u2->getEnde()->format('d.F Y H:i')."'>entfernen</a>";
+						
 					}
 					
 					

@@ -149,7 +149,7 @@ if(isset($_POST["submit2"])){
 								echo"<select name='kategorie' size='1'>";
 	 							echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
   								foreach ($db->getAllProduktkategorie() as $kat)
-  									echo "<option style='width:17ex;'value='".$kat->getKuerzel()."'>".$kat->getBezeichnung()." </option>";					
+  									echo umlaute_encode("<option style='width:17ex;'value='".$kat->getKuerzel()."'>".$kat->getBezeichnung()." </option>");					
 							?>
 							</select></td></tr>
 							</tr>
