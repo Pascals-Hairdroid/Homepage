@@ -1,3 +1,35 @@
+#zeittabelle {
+margin: 10px auto;
+text-align:center;
+width:98%;
+font-size:18pt;
+}
+
+#zeittabelle  > tr > th {
+	
+}
+
+#zeittabelle > tr > td {
+background-color: blue;
+
+}
+
+#zeittabelle td:hover {
+
+}
+
+#dienstleistungFrom {
+font-size:20pt;
+}
+
+#dienstleistungFrom > input , select {
+font-size:18pt;
+}
+
+input[type="checkbox"][name="schneiden"]{
+  width:18pt; height:18pt;
+}
+
 *{margin:0px;padding:0px;}
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, hr, p, blockquote, pre,
@@ -425,7 +457,19 @@ padding-right:15px;
 
 
 @media only screen 
-and (min-device-width : 481px) {  
+and (min-device-width : 481px) {
+  #dienstleistungFrom {
+  font-size:18pt;
+  }
+
+  #dienstleistungFrom > input , select {
+  font-size:16pt;
+  }
+
+  input[type="checkbox"][name="schneiden"]{
+    width:14pt; height:14pt;
+  }
+  
 	.loginField{
 	width:170px;
 	}
@@ -878,23 +922,7 @@ color:white;
 padding-right:15px;
 }
 
-#zeittabelle {
-margin: 10px auto;
-text-align:center;
-width:98%;
-}
 
-#zeittabelle  > tr > th {
-	
-}
-
-#zeittabelle > tr > td {
-background-color: blue;
-}
-
-#zeittabelle td:hover {
-
-}
 
 }
 #galerie{
