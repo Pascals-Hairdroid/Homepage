@@ -24,8 +24,12 @@ if(isset($_GET['web']))
         })
 });
 		</script>
-<!-- 		<meta name="MobileOptimized" content="320"> -->
-<!-- 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"> -->
+<!--		
+		<meta name="MobileOptimized" content="350">
+		
+
+		<meta name="viewport" content="width=device-width, initial-scale=0.75, maximum-scale=5.0, minimum-scale=0.25, user-scalable=yes">
+-->		
 	</head>
 	<body>
 	<?php
@@ -139,7 +143,7 @@ if(isset($_GET['web']))
 					include("Methoden/dienstleistung.php")
 					?>
 					<br>
-					<iframe name="iframe" src="Methoden/zeittabelle_start.php" style="width:100%;min-height:900px;padding:0px;margin:auto;" />
+					<iframe name="iframe" src="Methoden/zeittabelle_start.php" style="width:100%;min-height:900px;height:1200px;padding:0px;margin:auto;" />
 				</div>
 				<div id="werbungsbanner">
 				

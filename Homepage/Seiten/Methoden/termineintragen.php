@@ -1,6 +1,7 @@
 <?php
 include_once("../../include_DBA.php");
-$db=new db_con("conf/db.php",true);
+$db=new db_con("conf/db.php",true, "utf8");
+$db2=new db_con("conf/db.php",true,"utf8");
 
 $kunde = $_POST["kunde"];
 $haarlaenge = $_POST["haarlaenge"];
@@ -10,19 +11,16 @@ $date = $_POST["date"];
 $schneiden = $_POST["schneiden"];
 // var_dump($_FILES);
 
-if($dienstleistung == Damenservice)
-	$dienstleistung = "DS";
-elseif ($dienstleistung == Herrenservice)
-	$dienstleistung = "HS";
-else
-	$dlservice = "Keine Auswahl";
+var_dump($kunde);
+var_dump($haarlaenge);
+var_dump($dienstleistung);
+var_dump($dienstleistung2);
+echo "<br> <br>";
 
-if($dienstleistung2 == Färben)
-	$dienstleistung2 = "FA";
-elseif ($dienstleistung2 == Strähnen)
-	$dienstleistung2 = "ME";
-elseif ($dienstleistung2 == Tönen)
-	$dienstleistung2 = "TÖ";
+
+if($dienstleistung2 != ""){
+	$dlcoloration = umlaute_encode($db->getDienstleistung($dienstleistung2, new Haartyp($haarlaenge, null))->getName());
+}
 else
 	$dlcoloration = "Keine Auswahl";
 
@@ -42,7 +40,7 @@ if (isset($_FILES["wunschfoto"])&& $_FILES["wunschfoto"]["tmp_name"] != "")
 $date = new DateTime($date);
 $start = clone ($date);
 
-$mitarbeiter = "1000000000";
+$mitarbeiter = "166212028";
 $arbeitsplatz = 2;
 
 // var_dump($foto);
@@ -63,7 +61,7 @@ if ($dienstleistung != "Null" && $dienstleistung2 != "Null")
 		}
 		$foto = NK_Pfad_Frisur_Bild_beginn.$mitarbeiter.NK_Pfad_Frisur_Bild_mitte.$date->format('U').NK_Pfad_Frisur_Bild_ende;
 		
-		$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge))[0];
+		$a = mysqli_fetch_row($db2->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, utf8_encode($dienstleistung), $haarlaenge))[0];
 		var_dump($a);
 		if ($a=="1")
 			echo "Ihr Termin wurde erfolgreich eingetragen.";
@@ -72,7 +70,7 @@ if ($dienstleistung != "Null" && $dienstleistung2 != "Null")
 	}
 	else 
 	{
-			$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, Null, $dienstleistung, $haarlaenge))[0];
+			$a = mysqli_fetch_row($db2->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, Null, $dienstleistung, $haarlaenge))[0];
 			var_dump($a);
 			if ($a=="1")
 				echo "Ihr Termin wurde erfolgreich eingetragen.";
@@ -111,18 +109,18 @@ if ($dienstleistung != "Null" && $dienstleistung2 != "Null")
 		
 		$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge))[0];
 		var_dump($a);
-		if ($a=="1")
-			echo "Ihr Termin wurde erfolgreich eingetragen.";
-		else 
-			echo "Fehler beim eintragen des Termins.";
+// 		if ($a=="1")
+// 			echo "Ihr Termin wurde erfolgreich eingetragen.";
+// 		else 
+// 			echo "Fehler beim eintragen des Termins.";
 	}
 	else
 	{
 		$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, NULL, $dienstleistung, $haarlaenge))[0];
-		if ($a=="1")
-			echo "Ihr Termin wurde erfolgreich eingetragen.";
-		else 
-			echo "Fehler beim eintragen des Termins.";
+// 		if ($a=="1")
+// 			echo "Ihr Termin wurde erfolgreich eingetragen.";
+// 		else 
+// 			echo "Fehler beim eintragen des Termins.";
 	}
 }
 else 
@@ -140,7 +138,7 @@ else
 		}
 		$foto = NK_Pfad_Frisur_Bild_beginn.$mitarbeiter.NK_Pfad_Frisur_Bild_mitte.$date->format('U').NK_Pfad_Frisur_Bild_ende;
 	
-		$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge))[0];
+		$a = mysqli_fetch_row($db2->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge))[0];
 		var_dump($a);
 		if ($a=="1")
 			echo "Ihr Termin wurde erfolgreich eingetragen.";
@@ -150,7 +148,7 @@ else
 	else
 	{
 		$res = false;
-		$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge))[0];
+		$a = mysqli_fetch_row($db2->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge))[0];
 		var_dump($a);
 		if ($a=="1")
 			echo "Ihr Termin wurde erfolgreich eingetragen.";

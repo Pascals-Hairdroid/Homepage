@@ -10,11 +10,11 @@ window.onload = function () {
 </script>
 </head>
 <body>
-<form action="Methoden/zeittabelle.php" method="get" target="iframe">
+<form action="Methoden/zeittabelle.php" method="get" id="dienstleistungFrom" target="iframe">
  <?php
 
-  include_once(dirname(__FILE__)."/../../include_DBA.php");
-  $db=new db_con(DB_DEFAULT_CONF_FILE,true);
+  include_once("../include_DBA.php");
+  $db=new db_con("conf/db.php",true);
   
   include 'getBrowser.php';
 
@@ -23,7 +23,7 @@ window.onload = function () {
   echo "Service: ";
   echo"<select name='dienstleistung' size='1' style='display:inline-block; vertical-align:top; overflow:hidden; border:solid grey 1px;'>";
   $kuerzelArray = array();
-  echo "<option style='width:17ex;'value=''> Keine Auswahl </option>";
+  echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
   foreach ($db->getAllDienstleistung() as $dienstleistung)
   {
   	if ($dienstleistung->getGruppierung() == Null && !in_array($dienstleistung->getKuerzel(),$kuerzelArray))
@@ -40,7 +40,7 @@ window.onload = function () {
   //Haartyp
   echo "&nbsp;Haartyp: ";
   echo"<select name='haarlaenge' size='1'>";
-  echo "<option style='width:17ex;' value=''> Keine Auswahl </option>";
+  echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
   foreach ($db->getAllHaartyp() as $haartyp)
   	echo umlaute_encode("<option style='width:17ex;'value='".$haartyp->getBezeichnung()."'>".$haartyp->getBezeichnung()." </option>");
   echo "</select>";
@@ -51,7 +51,7 @@ window.onload = function () {
   echo "&nbsp;Coloration: ";
   echo"<select name='dienstleistung2' size='1' style='display:inline-block; vertical-align:top; overflow:hidden; border:solid grey 1px;'>";
   $kuerzelArray2 = array();
-  echo "<option style='width:17ex;' value=''> Keine Auswahl </option>";
+  echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
   foreach ($db->getAllDienstleistung() as $dienstleistung)
   {
   	if ($dienstleistung->getGruppierung() == 1 && !in_array($dienstleistung->getKuerzel(),$kuerzelArray2))
