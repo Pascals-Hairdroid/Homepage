@@ -148,7 +148,7 @@ and (max-device-width : 480px) {
 	#menu {
 	background:#3D3D3D;
 	font-family:Helvetica;	
-	margin:10px auto;
+	margin-top:70px;
 	width:100%;  /* Breite des Menüs */
 	}
 	 /* Erste Ebene */
@@ -280,7 +280,7 @@ float:right;
   box-shadow: 1px 0 0 #444;  
 }
 
-#Loginbox nav #login-trigger,
+#Loginbox nav #login-trigger,#login,
 #Loginbox nav #signup a, #element a{
   display: inline-block;
   *display: inline;
@@ -761,7 +761,7 @@ float:right;
   box-shadow: 1px 0 0 #444;  
 }
 
-#Loginbox nav #login-trigger,
+#Loginbox nav #login-trigger,#login a,
 #Loginbox nav #signup a, #element a{
   display: inline-block;
   *display: inline;
@@ -996,3 +996,4 @@ padding-right:15px;
     width: extend-to-zoom 980px;
     min-zoom: 0.25;
     max-zoom: 5;
+}
