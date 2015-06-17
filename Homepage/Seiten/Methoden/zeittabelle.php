@@ -1,6 +1,6 @@
 <?php session_start();
 	include_once("../../include_DBA.php");
-	$db=new db_con("conf/db.php",true);
+	$db=new db_con("conf/db.php",true, "utf8");
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
@@ -23,8 +23,8 @@
 			}
 		</script>
 		
-		<meta name="MobileOptimized" content="320">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<!-- 		<meta name="MobileOptimized" content="320"> -->
+<!-- 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"> -->
 
 	</head>
 	<body>
@@ -299,22 +299,29 @@
 // 		$mitarbeiter = $db->getMitarbeiter($svnr);
 		$now = new DateTime();
 // 		echo $now->format('d.m.Y H:i');
-				
-		if($dienstleistung == DS)
-			$dlservice = "Damenservice";
-		elseif ($dienstleistung == HS)
-			$dlservice = "Herrenservice";
+
+		$haarlaenge = "KH";
+		
+		if($dienstleistung != "")
+			$dlservice = umlaute_encode ($db->getDienstleistung($dienstleistung, new Haartyp($haarlaenge, null))->getName());
 		else 
 			$dlservice = "Keine Auswahl";
 		
-		if($dienstleistung2 == FA)
-			$dlcoloration = "Färben";
-		elseif ($dienstleistung2 == ME)
-			$dlcoloration = "Strähnen";
-		elseif ($dienstleistung2 == TÖ)
-			$dlcoloration = "Tönen";
+		if($dienstleistung2 != ""){	
+// 			var_dump($dienstleistung2);
+// 			var_dump($haarlaenge);
+// 			var_dump((new Dienstleistung($dienstleistung2, new Haartyp(null, null), null, null, null, array(), array(), null))->getKuerzel());
+			
+			$dlcoloration = umlaute_encode($db->getDienstleistung(utf8_decode(utf8_encode($dienstleistung2)), new Haartyp($haarlaenge, null))->getName());
+		}
 		else
 			$dlcoloration = "Keine Auswahl";
+		
+		if($haarlaenge != ""){
+			$haartyp = umlaute_encode($db->getHaartyp($haarlaenge)->getBezeichnung());
+		}
+		else
+			$haartyp = "Keine Auswahl";
 		
 		
 		echo "<br>";
@@ -330,15 +337,18 @@
 		echo "</tr>";
 		echo "<tr>";
 		echo "<td> Service: </td>";
-		echo "<td> <input type='Text' name='dienstleistung' value='$dlservice' readonly> </td>";
+		echo "<td> <input type='Text' value='$dlservice' readonly> </td>";
+		echo "<input type='Text' name='dienstleistung' value='$dienstleistung' hidden>";
 		echo "</tr>";
 		echo "<tr>";
 		echo "<td> Haarl&auml;nge: </td>";
-		echo "<td> <input type='Text' name='haarlaenge' value='$haarlaenge' readonly> </td>";
+		echo "<td> <input type='Text' value='$haartyp' readonly> </td>";
+		echo "<input type='Text' name='haarlaenge' value='$haarlaenge' hidden>";
 		echo "</tr>";
 		echo "<tr>";
 		echo "<td> Coloration: </td>";
-		echo "<td> <input type='Text' name='dienstleistung2' value='$dlcoloration' readonly> </td>";
+		echo "<td> <input type='Text' value='$dlcoloration' readonly> </td>";
+		echo "<input type='Text' name='dienstleistung2' value='$dienstleistung2' hidden>";
 		echo "</tr>";
 		echo "<tr>";
 		echo "<td> Schneiden: </td>";
