@@ -595,6 +595,17 @@ and (min-device-width : 481px) {
 	width:25%;
 	float:left;
 	}
+	#arbeitspaltz{
+	width:50%;
+	float:left;
+	
+	}
+	#Arbeitsplatzausstattung{
+	width:50%;
+	margin-left:50%;
+	
+	}
+	
 	#footer{
 	border-top:solid black 1px;
 	text-align:center;
