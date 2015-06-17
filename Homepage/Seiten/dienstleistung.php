@@ -89,6 +89,8 @@ if(isset($_GET['web']))
 					include ("HTML/header.html");
 				?>
 			</div>
+			<?php if(!isset($_GET['web']))
+			{?>
 			<div id="menu" class="hide">
     <ul>
       <li class="topmenu">
@@ -125,7 +127,7 @@ if(isset($_GET['web']))
         <a href="Galerie.php">Galerie</a>
       </li>
     </ul>
-  </div>
+  </div><?php }?>
 			<div id="wrapper">
 				<div id="textArea">
 					<h2>Professioneller Haarschnitt</h2>

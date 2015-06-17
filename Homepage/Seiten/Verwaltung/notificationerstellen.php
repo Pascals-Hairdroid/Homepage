@@ -139,7 +139,7 @@ $db=new db_con("conf/db.php",true);?>
 					Titel:<input type="text" name="titel" required="required">
 				</p>
 				<p>
-					Text:<input type="text" name="text">
+					Text:<input type="text" name="text" style="height:100px">
 				</p>
 				<p>
 					Werbungsbild: <input type="file" name="fileToUpload"

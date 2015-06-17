@@ -168,10 +168,12 @@ if(isset($_GET['web']))
 				<img src="Bilder/Homepage/LogoSchriftIrisUPC.jpg" style="min-width:20%"> 
 		</a></h1>
 		</div>
-
+ <?php 
+ if(!isset($_GET['web'])){
+?>
 		<div id="hmenu">
 			<nav id="menu">
-				<ul class="hide">
+				<ul>
 					<li><a href="index.php" class="selected">Friseurstudio</a>
 						<ul>
 							<li><a href="Seiten/studio.php">Das Studio</a></li>
@@ -185,14 +187,15 @@ if(isset($_GET['web']))
 					<li><a href="Seiten/Angebote.php">Angebote</a></li>
 					<li class="topmenu"><a href="#"> Produkte</a>
 						<ul>
+						
 							<?php 
 							$produktkategorie=$db->getAllProduktkategorie();
 
 
 							foreach ($produktkategorie as $prod){
 
-          echo umlaute_encode(" <li class='submenu'><a href='Seiten/Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>");
-         }
+        				  echo umlaute_encode(" <li class='submenu'><a href='Seiten/Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>");
+       					  }
          ?>
 						</ul>
 					</li>
@@ -201,7 +204,9 @@ if(isset($_GET['web']))
 				</ul>
 			</nav>
 		</div>
-
+<?php 
+}
+?>
 
 
 		<div id="textArea">
