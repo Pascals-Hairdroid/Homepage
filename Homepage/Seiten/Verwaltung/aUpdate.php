@@ -1,25 +1,23 @@
 <?php 
-include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
 $db=new db_con("conf/db.php",true);
 $arbeitsplatzOld=$db->getArbeitsplatz($_GET['Nr']);
-
-$ausstattung = array();
-foreach($db->getAllArbeitsplatzausstattung() as $int){
-	if(isset ($_GET[$int->getID()]))
-		$int = new Arbeitsplatzausstattung($int->getID(), $int->getName());
-	$ausstattung[]=$int;
-}
 if (isset($_GET['submit']))
 {
+	$ausstattung = array();
+	foreach($db->getAllArbeitsplatzausstattung() as $int){
+		if(isset($_GET[$int->getID()])){
+			$int = new Arbeitsplatzausstattung($int->getID(), $int->getName());
+			$ausstattung[]=$int;
+		}
+	}
 	$arbeitsplatz=new Arbeitsplatz($arbeitsplatzOld->getNummer(), $_GET['name'], $ausstattung);
 	$db->arbeitsplatzUpdaten($arbeitsplatz);
 	header('Location: arbeitsplatz.php');
-	exit(0);
-}
+	exit(0);}
+	include("../Anmeldung/authMitarbeiterAdmin.php");
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-       "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="../../css/css.css">
@@ -92,7 +90,7 @@ if (isset($_GET['submit']))
 					<nav id="menu" class="hide">
 							<ul>
 								<li  class="items">
-									<a href=""  class="selected">Personenverwaltung</a>
+									<a href="" >Personenverwaltung</a>
 									<ul>
 										<li><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
 										<li ><a href="maBearbeiten.php">Mitarbeiter bearbeiten</a></li>
@@ -101,7 +99,7 @@ if (isset($_GET['submit']))
 									</ul>
 								</li>
 								<li class="items">
-									<a href="">Studioverwaltung</a>
+									<a href=""  class="selected">Studioverwaltung</a>
 									<ul>
 										<li><a href="produktAdd.php">Produkte hinzuf&uuml;gen</a></li>
 										<li><a href="dienstleistungAdd.php">Dienstleistungen bearbeiten</a></li>
@@ -134,7 +132,7 @@ if (isset($_GET['submit']))
 						<td>Arbeitsplatznummer:</td>
 						<td><input type="text" name="Nr" readonly value="<?php echo $arbeitsplatzOld->getNummer();?>"></tD></tr>
 						<tr><td>Arbeitsplatzname:</td><td><input name="name" type="text" class="loginField"required = "required" 
-						value="<?php echo $arbeitsplatzOld->getName();?>"></p></td></tr>
+						value="<?php echo $db->getArbeitsplatz($_GET['Nr'])->getName();?>"></p></td></tr>
 								
 								<tr><td>Ausstattung:</td></tr><tr>
 								<?php 
@@ -148,7 +146,7 @@ if (isset($_GET['submit']))
 										echo "checked>";
 									else
 										echo ">";
-									echo $int->getName()."</input></td>";
+									echo umlaute_encode($int->getName()."</input></td>");
 	
 									if ($i % 3 === 0) echo "</tr><tr>";
 					}	

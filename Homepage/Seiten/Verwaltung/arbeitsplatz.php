@@ -5,9 +5,10 @@ $db=new db_con("conf/db.php",true);
 
 $ausstattung = array();
 foreach($db->getAllArbeitsplatzausstattung() as $int){
-	if(isset ($_GET[$int->getID()]))
+	if(isset($_GET[$int->getID()])){
 		$int = new Arbeitsplatzausstattung($int->getID(), $int->getName());
-	$ausstattung[]=$int;
+		$ausstattung[]=$int;
+	}
 }
 if(isset($_GET['arbeitsplatz']))
 {
@@ -187,10 +188,6 @@ if(isset($_GET['arbeitsplatzausstattung']))
 								
 							</form>
 						</table>
-						<?php
-						if (isset($erg))
-							echo $erg."<br />";
-						?>
 					</div>
 					<div id="Arbeitsplatzausstattung">
 					Arbeitsplatzausstattung hinzuf&uuml;gen:<br>
@@ -212,16 +209,18 @@ if(isset($_GET['arbeitsplatzausstattung']))
 								
 							</form>
 						</table>
-						<?php
-						if (isset($erg))
-							echo $erg."<br />";
-						?>
+						
 					</div>
 					
 					
 					
 					<br />
+					<?php
+						if (isset($erg))
+							echo $erg."<br />";
+						?>
 							<table border="0">
+							
 				<?php
 				
 
@@ -231,7 +230,7 @@ if(isset($_GET['arbeitsplatzausstattung']))
 							echo umlaute_encode("<tr><td>".$arbeitsplatz->getNummer()."</td><td>".$arbeitsplatz->getName()."</td><td>");
 							
 							foreach ($arbeitsplatz->getAusstattung() as $aus)
-								echo $aus->getName()."<br>";
+								echo umlaute_encode($aus->getName()."<br>");
 							echo "</td>";
 							
 							echo "<td><a href='aUpdate.php?Nr=".$arbeitsplatz->getNummer()."'>Bearbeiten</a></td>";
