@@ -20,7 +20,10 @@ $db=new db_con("conf/db.php",true);?>
 		
 		$lastNr=$db->getAllWerbung();
 		$lastelement =count($lastNr)+1;
-	
+		
+		file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
+		
+		//file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], dirname(__FILE__)."/../../Bilder/Werbung/".$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
 		
 		$werbung=new Werbung($lastelement, $_POST['titel'], $_POST['text'], DateTime::createFromFormat('j-M-Y', date('d-M-Y')), $interessenarray);
 		$db->werbungEintragen($werbung);
@@ -142,8 +145,7 @@ $db=new db_con("conf/db.php",true);?>
 					Text:<input type="text" name="text" style="height:100px">
 				</p>
 				<p>
-					Werbungsbild: <input type="file" name="fileToUpload"
-						id="fileToUpload">
+					Werbungsbild: <input type="file" name="fileToUpload" id="fileToUpload">
 				</p>
 				<br>
 
