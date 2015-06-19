@@ -176,7 +176,7 @@ if(isset($_GET['submit']))
 					echo $u2->getBeginn()->format('d.F Y H:i');
 					echo " bis ";
 					echo $u2->getEnde()->format('d.F Y H:i');
-					echo "<a href='uDel.php?svnr=".$tempMa->getSvnr()."&von=".$u2->getBeginn()->format('d.F Y H:i')."&bis=".$u2->getEnde()->format('d.F Y H:i')."'>entfernen</a>";
+					echo " <a href='uDel.php?svnr=".$tempMa->getSvnr()."&von=".$u2->getBeginn()->format('d.F Y H:i')."&bis=".$u2->getEnde()->format('d.F Y H:i')."'>entfernen</a>";
 						
 					}
 					

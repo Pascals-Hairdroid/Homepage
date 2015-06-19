@@ -1,6 +1,49 @@
 <?php session_start();
+var_dump($_FILES);
 include("../include_DBA.php");
-$db=new db_con("conf/db.php",true);?>
+$db=new db_con("conf/db.php",true);
+if(isset($_POST['anlegenM']))
+{
+	$mitarbeiter=$db->getMitarbeiter($_POST['id']);
+	$mitarbeiter->setVorname($_POST['vn']);
+	$mitarbeiter->setNachname($_POST['nn']);
+	
+//Server:
+ 	file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Kunde_Bildupload_beginn.$_POST['id'].NK_Pfad_Kunde_Bild_ende,true);
+//Local:
+//  file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], dirname(__FILE__)."/../Bilder/Profilbilder/".$_POST['id'].NK_Pfad_Kunde_Bild_ende,true);
+	
+	
+	$db->mitarbeiterUpdaten($mitarbeiter);
+}
+if(isset($_POST['anlegenK']))
+{
+	$interessenarray = array();
+	foreach($db->getAllInteresse() as $int){
+		if(isset ($_POST[$int->getID()])){
+			$int = new Interesse($int->getID(),$int->getBezeichnung());
+			$interessenarray[]=$int;
+		}
+	}
+		
+	$kunde=$db->getKunde($_POST['id']);
+	$kunde->setVorname($_POST['vn']);
+	$kunde->setNachname($_POST['nn']);
+	$kunde->setTelNr($_POST['tel']);
+	$kunde->setInteressen($interessenarray);
+	$kunde->setFoto(NK_Pfad_Kunde_Bild_beginn.md5($_POST['id']).NK_Pfad_Kunde_Bild_ende);
+	//$kunde->setFoto("http://localhost/homepage/Homepage/bilder/Profilbilder/".md5($_POST['id']).NK_Pfad_Kunde_Bild_ende);
+	
+//Server:::::::::::::::: 	
+	file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Kunde_Bildupload_beginn.md5($_POST['id']).NK_Pfad_Kunde_Bild_ende,true);
+
+//Local:	
+//	file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], dirname(__FILE__)."/../Bilder/Profilbilder/".md5($_POST['id']).NK_Pfad_Kunde_Bild_ende,true);
+	
+	$db->kundeUpdaten($kunde);
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -135,66 +178,47 @@ if(isset($_GET['web']))
 			<div id="textArea">
 
 				<?php 
-				$ordner = "../Bilder/Profilbilder/";
-				$allebilder = scandir($ordner);
-					if(isset($_GET['SVNr'])){
+				if(isset($_GET['SVNr']))
+				{
 					$ma=$db->getMitarbeiter($_GET['SVNr']);
-					$bildinfo = pathinfo($ordner."/".$ma->getSVNR().".jpg");
-					
-						if(in_array($ma->getSVNR().".jpg",$allebilder)){
-								echo "<div id='Profilbox'>";
-								echo "<img src='".$bildinfo['dirname']."/".$ma->getSVNR().".jpg' class='profilbild'>";
-								}
-								else {
-								echo "<div id='Profilbox'>";
-								echo "<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
-								}
-								echo umlaute_encode("<p><span class='font'>Vorname:</span>".$ma->getVorname()."</p>");
-								echo umlaute_encode("<p><span class='font'>Nachname:</span>".$ma->getNachname()."</p>");
-								echo umlaute_encode("<p><span class='font'>Motto:</span>".$ma->getMotto()."</p>");
-								echo "<a class='font' href='ProfilBearbeiten.php?SVNr=".$ma->getSvnr()."'>Profil bearbeiten</a>";
-					}
-					else{
-						if($_SESSION['admin']==true){
-							$ma=$db->getMitarbeiter($_SESSION['svnr']);
-							$bildinfo = pathinfo($ordner."/".$ma->getSVNR().".jpg");
+					echo "<table border='0'>";
+						echo "<form method='post' enctype='multipart/form-data'>";
+							echo "<tr><td>SozialversicherungsNr.:</td><td><input type='text' name='id' readonly value='".$_GET['SVNr']."' placeholder='".$_GET['SVNr']."'></td></tr>";
+							echo "<tr><td>Vorname: </td><td><input type='text' name='vn'value='".$ma->getVorname()."' placeholder='".$ma->getVorname()."'></td></tr>";
+							echo "<tr><td>Nachname: </td><td><input type='text' name='nn' value='".$ma->getNachname()."' placeholder='".$ma->getNachname()."'></td></tr>";
+							echo "<tr><td>Motto:</td><td><input type='text' name='mo' value='".$ma->getMotto()."' placeholder='".$ma->getMotto()."'></td></tr>";
+							echo "<tr><td>Profilbild:</td><td><input type='file' name='fileToUpload' id='fileToUpload'></td></tr>";
+							echo "<tr><td><input type='submit' name='anlegenM' value='aktualisieren'></td></tr>";
+						echo "</form>";
+					echo "</table>";
+				}
+				if(isset($_GET['Email']))
+				{
+					$ku=$db->getKunde($_GET['Email']);	
+					echo "<table border='0'>";
+						echo "<form method='post' enctype='multipart/form-data'>";
+							echo "<tr><td>E-Mail.:</td><td><input type='text' name='id' readonly value='".$_GET['Email']."' placeholder='".$_GET['Email']."'></td></tr>";
+							echo "<tr><td>Vorname: </td><td><input type='text' name='vn'value='".$ku->getVorname()."' placeholder='".$ku->getVorname()."'></td></tr>";
+							echo "<tr><td>Nachname: </td><td><input type='text' name='nn' value='".$ku->getNachname()."' placeholder='".$ku->getNachname()."'></td></tr>";
+							echo "<td>Nachname: </td><td><input type='text' name='tel' value='".$ku->getTelNr()."' placeholder='".$ku->getTelNr()."'></td></tr>";
+							echo "<tr><td>Profilbild:</td><td><input type='file' name='fileToUpload' id='fileToUpload'></td></tr>";
 							
-							if(in_array($ma->getSVNR().".jpg",$allebilder)){
-								echo "<div id='Profilbox'>";
-								echo "<img src='".$bildinfo['dirname']."/".$ma->getSVNR().".jpg' class='profilbild' >";
-								
+							$i=0;
+							echo"<tr>";
+							foreach ($db->getAllInteresse() as $int)
+							{
+								$i++;
+									
+								echo umlaute_encode("<td><input type='checkbox' name='".$int->getID()."'>".$int->getBezeichnung()." </input></td>");
+									
+								if ($i % 3 === 0) echo "</tr><tr>";
 							}
-							else {
-								echo "<div id='Profilbox'>";
-								echo "<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild' ;>";
-							}
-							echo umlaute_encode("<p><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>");
-							echo umlaute_encode("<p><span class='font'>Nachname: </span>".$ma->getNachname()."</p>");
-			
-							echo umlaute_encode("<p><span class='font'>Motto:</span>".$ma->getMotto()."</p>");
-							echo "<a class='font' href='ProfilBearbeiten.php?SVNr=".$ma->getSvnr()."'>Profil bearbeiten</a>";
-						}
-						if($_SESSION['admin']==false){
-							$ku=$db->getKunde($_SESSION['email']);
-							$bildinfo = pathinfo($ku->getFoto());
-							echo "<div id='Profilbox'>";
-							if(exists($ku->getFoto())){
-								
-								echo "<img src='".$ku->getFoto()."' class='profilbild'>";
+							echo"</tr>";
 							
-							}
-							else {
-							
-								echo "<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'>";
-							}
-							echo umlaute_encode("<p><span class='font'>Vorname:</span>".$ku->getVorname()."</p>");
-							echo umlaute_encode("<p><span class='font'>Nachname:</span>".$ku->getNachname()."</p>");
-							echo "<a class='font' href='ProfilBearbeiten.php?Email=".$ku->getEmail()."'>Profil bearbeiten</a>";
-							
-						
-						}
-					}
-				
+							echo "<tr><td><input type='submit' name='anlegenK' value='aktualisieren'></td></tr>";
+						echo "</form>";
+					echo "</table>";
+				}
 					?>
 			</div>
 			<div id="werbungsbanner"></div>

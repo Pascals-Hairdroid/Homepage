@@ -1,6 +1,7 @@
 <?php 
 include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
+include("maPWReset.php");
 $db=new db_con("conf/db.php",true);?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
@@ -9,6 +10,11 @@ $db=new db_con("conf/db.php",true);?>
 <link rel="stylesheet" type="text/css" href="../../css/css.css">
 
 </head>
+<script>
+function reload() {
+    location.reload();
+}
+</script>
 <body>
 <?php
 include("../../include_DBA.php");
@@ -168,16 +174,29 @@ if(isset($_POST['anlegen']))
 			<table border="0">
 				<?php
 				
-
+				echo "<tr><td>Mitarbeiter:</td></tr>";
 				echo "<tr><td>Sozialversicherungsnr.:</td><td>Vorname</td><td>Nachname</td><td>Admin</td><td>";
 
-				foreach($db->getAllMitarbeiter(false) as $mitarbeiter){
+				foreach($db->getAllMitarbeiter(true) as $mitarbeiter){
 							echo umlaute_encode("<tr><td>".$mitarbeiter->getSVNr()."</td><td>".$mitarbeiter->getVorname()."</td><td>".$mitarbeiter->getNachname()."</td><td>".$mitarbeiter->getAdmin()."</td>");
 							echo "<td><a href='maUpdate.php?SVNr=".$mitarbeiter->getSVNr()."&vn=".$mitarbeiter->getVorname()."&nn=".$mitarbeiter->getNachname()."&admin=".$mitarbeiter->getAdmin()."'>Bearbeiten</a></td>";
 							echo "<td><a href='maDelete.php?SVNr=".$mitarbeiter->getSVNr()."'>L&ouml;schen</a></td>";
-							echo "<td><a href='maPWReset.php?SVNr=".$mitarbeiter->getSVNr()."'>Passwort zur&uuml;cksetzen</a></td>";
+							echo "<td><a href='maBearbeiten.php?SVNr=".$mitarbeiter->getSVNr()."'>Passwort zur&uuml;cksetzen</a></td>";
 							
 							echo"</tr>";
+						}
+				echo "<tr><td>Ehemalige Mitarbeiter</td></tr>";
+				echo "<tr><td>Sozialversicherungsnr.:</td><td>Vorname</td><td>Nachname</td><td>Admin</td><td>";
+				foreach($db->getAllNoMitarbeiter() as $mitarbeiter){
+							echo umlaute_encode("<tr><td>".$mitarbeiter->getSVNr()."</td><td>".$mitarbeiter->getVorname()."</td><td>".$mitarbeiter->getNachname()."</td><td>".$mitarbeiter->getAdmin()."</td>");
+							echo "<td><a href='maUpdate.php?SVNr=".$mitarbeiter->getSVNr()."&vn=".$mitarbeiter->getVorname()."&nn=".$mitarbeiter->getNachname()."&admin=".$mitarbeiter->getAdmin()."'>Bearbeiten</a></td>";
+							echo "<td><a href='maBearbeiten.php?SVNr=".$mitarbeiter->getSVNr()."'>Mitarbeiter einstellen</a></td>";
+							echo"</tr>";
+						}	
+						if(isset($_GET['SVNr'])){
+							pwReset($_GET['SVNr']);
+							echo "<tr><td>".pwReset($_GET['SVNr'])."</td></tr>";
+							
 						}
 						?>
 			</table>

@@ -35,8 +35,15 @@ function zeitEintragen($svnr,$von,$bis,$tag)
 			
 		}	
 	}
-if(isset($_GET['submit']))
+if(isset($_GET['submit'])){
+	try{
 	$erg=zeitEintragen($_GET['svnr'],$_GET['von'],$_GET['bis'],$_GET['tag']);
+		}
+		catch (Exception $e)
+		{
+			echo 'Die Dienstzeit ist ung&uuml;ltig: ',  $e->getMessage(), "\n";
+		}
+}
 ?>
 
 	<div id="container">
@@ -183,6 +190,9 @@ if(isset($_GET['submit']))
 					
 					<?php 
 					if(isset($_GET['submit2'])){
+					$wochentage = array("Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag","Sonntag");
+	
+
 					$tempMa=$db->getMitarbeiter($_GET['svnr']);
 					$dienstzeit=$tempMa->getDienstzeiten();
 					foreach ($dienstzeit as $dz){
@@ -193,7 +203,7 @@ if(isset($_GET['submit']))
 					echo Date_format($dz->getBeginn(),'H:i');
 					echo " - ";
 					echo Date_format($dz->getEnde(),'H:i');
-					echo "<a href='dDel.php?svnr=".$tempMa->getSvnr()."&tag=".$dz->getWochentag()->getKuerzel()."&von=".$dz->getBeginn()."&bis=".$dz->getEnde()."'>entfernen</a>";
+					echo " <a href='dDel.php?svnr=".$tempMa->getSvnr()."&tag=".$dz->getWochentag()->getKuerzel()."&von=".$dz->getBeginn()->format('H:i')."&bis=".$dz->getEnde()->format('H:i')."'>entfernen</a>";
 					} 
 					}
 					
