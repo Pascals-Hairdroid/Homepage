@@ -2,6 +2,7 @@
 include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
 $db=new db_con("conf/db.php",true);
+$werbung=$db->getWerbung($_GET['Nr']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,21 +15,20 @@ $db=new db_con("conf/db.php",true);
 	foreach ($db->getAllInteresse() as $int)
 	{
 		if(	isset ($_POST[$int->getID()])){
-		$int = new Interesse($int->getID(), $int->getbezeichnung());
-		$interessenarray[]=$int;}
+			$int = new Interesse($int->getID(), $int->getbezeichnung());
+			$interessenarray[]=$int;}
 	}
-	
-	
 	if(isset($_POST['submit']))
 	{
-	
 		$lastNr=$db->getAllWerbung();
 		$lastelement =count($lastNr)+1;
-		if(isset($_POST['fileToUpload']))file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
+		if(isset($_POST['fileToUpload']))file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende,true);
 		//file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], dirname(__FILE__)."/../../Bilder/Werbung/".$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
+		$werbung->setTitel($_POST['titel']);
+		$werbung->setText($_POST['text']);
+		$werbung->setInteressen($interessenarray);
 		
-		$werbung=new Werbung($lastelement, $_POST['titel'], $_POST['text'], DateTime::createFromFormat('j-M-Y', date('d-M-Y')), $interessenarray);
-		$db->werbungEintragen($werbung);
+		$db->werbungUpdaten($werbung);
 	}
 
 
@@ -141,10 +141,10 @@ $db=new db_con("conf/db.php",true);
 
 			<form action="" method="post" enctype="multipart/form-data">
 				<p>
-					Titel:<input type="text" name="titel" required="required">
+					Titel:<input type="text" name="titel" required="required" value='<?php echo $werbung->getTitel();?>'>
 				</p>
 				<p>
-					Text:<input type="text" name="text" style="height:100px">
+					Text:<input type="text" name="text" style="height:100px" value='<?php echo $werbung->getText();?>'>
 				</p>
 				<p>
 					Werbungsbild: <input type="file" name="fileToUpload" id="fileToUpload">
@@ -156,13 +156,15 @@ $db=new db_con("conf/db.php",true);
 
 				foreach ($db->getAllInteresse() as $int)
 				{
+					
 					$i++;
 
-					echo umlaute_encode("<input type='checkbox' name='".$int->getID()."'>".$int->getBezeichnung()." </input>");
+					echo umlaute_encode("<input type='checkbox' name='".$int->getID()."'");
+					if(in_array($int,$werbung->getInteressen())) echo "checked";
+					echo ">".$int->getBezeichnung()." </input>";
 
 					if ($i % 3 === 0) echo "<p>";
 				}
-
 				?>
 				<br>
 				<br>

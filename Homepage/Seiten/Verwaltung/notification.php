@@ -127,10 +127,17 @@ $db=new db_con("conf/db.php",true);
 			if(! isset($_GET['nummer'])){
 			foreach($db->getAllWerbung() as $werbung)
 			{
+				$ordner = "../../Bilder/Werbung/"; // Ordnername
+				$allebilder = scandir($ordner); // Ordner auslesen und Array in Variable speichern
+				$bildinfo = pathinfo($ordner."/".$werbung->getNummer().".jpg");
 				echo "<div id='werbungsbox' style='height:300px'>";
+				if(in_array($werbung->getNummer().".jpg",$allebilder))
+				echo "<img src='".$bildinfo['dirname']."/".$prod->getID().".jpg' style='width:100px;float:left;max-height:300px'>";
 				echo $werbung->getTitel();
 				echo"<br>";
 				echo $werbung->getText();
+				echo "<br>";
+				echo "<a href='notificationUpdate.php?Nr=".$werbung->getNummer()."'>Bearbeiten</a>";
 				echo "</div>";
 			}
 			}
