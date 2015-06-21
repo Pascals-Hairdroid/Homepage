@@ -172,8 +172,8 @@ if(isset($_GET['submit'])){
 							  		
 							?>
 							</select>
-							<p>Von:<input type='text' name='von'></input>
-							Bis:<input type='text' name='bis'></input>  
+							<p>Von:<input type='time' name='von'></input>
+							Bis:<input type='time' name='bis'></input>  
 							Tag:<select name="tag">
 								<option value="MO">Montag</option>
 								<option value="DI">Dienstag</option>

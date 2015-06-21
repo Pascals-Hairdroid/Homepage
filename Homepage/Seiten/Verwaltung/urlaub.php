@@ -158,8 +158,8 @@ if(isset($_GET['submit']))
 							  		
 							?>
 							</select>
-							<p>Von:<input type='text' name='von'></input>
-							Bis:<input type='text' name='bis'></input></p>	
+							<p>Von:<input type='date' name='von'></input>
+							Bis:<input type='date' name='bis'></input></p>	
 							<input type="submit" value ="absenden" name="submit">
 							<input type="submit" value ="Urlaube anzeigen" name="submit2">
 							
