@@ -50,7 +50,7 @@ if(isset($_POST['submit'])){
 											echo"<input id='password' type='password' name='passwort' placeholder='Passwort' required>";
 										echo"</fieldset>";
 										echo"<fieldset id='actions'>";
-											echo"<input type='submit' name ='submit' id='submit' value='Log in'>";
+											echo"<input type='submit' name ='submit' id='login' value='Log in'>";
 											echo"<label><a href='forgotPassword.php'> Forgot Password </a></label>";
 										echo"</fieldset>";
 									echo"</form>";
@@ -106,7 +106,7 @@ if(isset($_POST['submit'])){
         <a href="terminvergabe.php">Termine</a>        
       </li>
       <li class="topmenu">
-        <a href="angebote.php">Angebote</a>
+        <a href="Angebote.php">Angebote</a>
       </li>
 	  <li class="topmenu">
        <a href="#"> Produkte</a>
@@ -131,7 +131,10 @@ if(isset($_POST['submit'])){
 				<div id="textArea">
 				
 				<?php
-				
+				if(isset($_GET['f']))
+				{
+					if ($_GET['f']==1) echo "Bitte loggen Sie sich erstmal ein!";
+				}
 				echo"<form method='post' action=''>";
 				echo"<p><input id='username' type='text' name='username' placeholder='Username' required></p>";
 				echo"<p><input id='password' type='password' name='passwort' placeholder='Passwort' required></p>";

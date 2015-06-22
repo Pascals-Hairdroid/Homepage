@@ -45,6 +45,8 @@ if(isset($_GET['submit'])){
 		}
 		
 			kuUpdate($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen);
+		$link="<a href='kuBearbeiten.php?f=1'>Kundenansicht</a>";
+		$erg="Kunde erfolgreich ge&auml;ndert! Hier geht es zur&uuml;ck zur Kundenansicht->".$link;
 		}		
 ?>
 

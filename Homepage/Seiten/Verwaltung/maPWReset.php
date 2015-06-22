@@ -1,5 +1,4 @@
 <?php 
-include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -23,10 +22,6 @@ function pwReset($svnr)
 	else
 		return false;
 }		
-
-pwReset($_GET['SVNr']);
-
-	
 ?>
 
 </body>

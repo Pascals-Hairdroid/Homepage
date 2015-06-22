@@ -1,5 +1,6 @@
-<?php 
-include("../Anmeldung/authMitarbeiterAdmin.php");?>
+<?php include("../Anmeldung/authAdmin.php");
+include("../../include_DBA.php");
+$db=new db_con("conf/db.php",true);?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -8,9 +9,6 @@ include("../Anmeldung/authMitarbeiterAdmin.php");?>
 </head>
 <body>
 <?php
-include("../../include_DBA.php");
-$db=new db_con("conf/db.php",true);
-
 function maUpdate($svnr, $vn, $nn, $skills, $admin, $urlaube, $dienstzeiten)
 {
 	if($svnr != null){
@@ -34,9 +32,6 @@ if(isset($_GET['submit'])){
 		$int = new Skill($int->getID(),$int->getBeschreibung());
 		$skillarray[]=$int;}
 	}
-	
-		
-	
 		$svnr=$_GET['SVNr'];
 		$vn=$_GET['vn'];
 		$nn=$_GET['nn'];
@@ -51,13 +46,10 @@ if(isset($_GET['submit'])){
 		}
 		
 		maUpdate($svnr, $vn, $nn, $skillarray, $admin, $urlaube, $dienstzeiten);
-	}	
-
-			
+		$link="<a href='maBearbeiten.php?f=4'>Mitarbeiteransicht</a>";
+		$erg="Mitarbeiter erfolgreich ge&auml;ndert! Hier geht es zur&uuml;ck zur Mitarbeiteransicht->".$link;
 		
-if(isset($_POST['submit'])){
-
-}
+	}
 	
 ?>
 
@@ -176,30 +168,30 @@ if(isset($_POST['submit'])){
 							
 							<tr><td>Admin:<input name="admin" type="checkbox"  class="loginField"
 							<?php if ( $admin == 1) echo "checked";	?>></td></tr>
+							</table>
 							<?php 
 														
 							$i=0;
-							echo "<br>";
 							Echo"<tr>";
 							foreach ($db->getAllSkill() as $int)
 							{
 								$i++;
 								if(in_array($int,$tempMA->getSkills()))
-								echo umlaute_encode("<td><input type='checkbox' name='".$int->getID()."' checked></input></td><td>".$int->getBeschreibung()."</td>");
+								echo umlaute_encode("<input type='checkbox' name='".$int->getID()."' checked> ".$int->getBeschreibung()." ");
 								else
-								echo umlaute_encode("<td><input type='checkbox' name='".$int->getID()."'></input></td><td>".$int->getBeschreibung()."</td>");
+								echo umlaute_encode("<input type='checkbox' name='".$int->getID()."'> ".$int->getBeschreibung()." ");
 								
 								
 							
-								if ($i % 3 === 0) echo "</tr></td><tr><td>";
+								if ($i % 3 === 0) echo "<p>";
 							}
 							
 						
 							
-							?></tr>
+							?>
 										
-							<tr><td><input type="submit" value ="absenden" name="submit"></td>	
-						</table>
+							<input type="submit" value ="absenden" name="submit">
+						
 						</form>
 						<?php
 						if (isset($erg))

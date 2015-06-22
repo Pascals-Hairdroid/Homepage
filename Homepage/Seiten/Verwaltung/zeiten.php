@@ -15,14 +15,14 @@ $db=new db_con("conf/db.php",true);?>
 $(function(){
     $('#time').combodate({
         firstItem: 'name', //show 'hour' and 'minute' string at first item of dropdown
-        minuteStep: 1
+        minuteStep: 15
     });  
 });
 
 $(function(){
     $('#time2').combodate({
         firstItem: 'name', //show 'hour' and 'minute' string at first item of dropdown
-        minuteStep: 1
+        minuteStep: 15
     });  
 });
 </script>
@@ -39,24 +39,30 @@ function zeitEintragen($svnr,$von,$bis,$tag)
 			$mitarbeiter=$db->getMitarbeiter($svnr);
 			$wochentag=$db->getWochentag($tag);
 			
+			
+			if($von > $bis){ return 'Bis-Zeit liegt vor der Vor-Zeit';}
 				if($db->getDienstzeit($mitarbeiter, $wochentag)){
 					$dienstzeit = new Dienstzeit($wochentag, $von2, $bis2);
 					$db->dienstzeitUpdaten($dienstzeit, $mitarbeiter);
+					return 'Zeit erfolgreich ver&auml;ndert';
 					}
 				else 
 				{
 					$dienstzeit = new Dienstzeit($wochentag, $von2, $bis2);
 					$db->dienstzeitEintragen($dienstzeit, $mitarbeiter);
-				}
-					
 					return 'Zeit erfolgreich eingetragen';
+				}
+			}
+	
 				
 			
 		}	
-	}
+	
 if(isset($_GET['submit'])){
 	try{
+if($_GET['von'] != "" && $_GET['bis'] != "")
 	$erg=zeitEintragen($_GET['svnr'],$_GET['von'],$_GET['bis'],$_GET['tag']);
+else $erg="Bitte f&uuml;llen Sie alle Felder aus!";
 		}
 		catch (Exception $e)
 		{
@@ -194,8 +200,8 @@ if(isset($_GET['submit'])){
 							<br><br>
 							<?php 
 							if($binfo!="Google Chrome"){
-							?><p>Von:<input id="time" data-format="HH:mm" data-template="HH : mm"  type='time' name='von'></p></input>
-							<p>Bis: &nbsp;<input id="time2" data-format="HH:mm" data-template="HH : mm"  type='time' name='bis'></p></input>  
+							?><p>Von:<input id="time" data-format="HH:mm" data-template="HH : mm"  type='time' name='von' value="08:00"></p></input>
+							<p>Bis: &nbsp;<input id="time2" data-format="HH:mm" data-template="HH : mm"  type='time' name='bis' value="19:00"></p></input>  
 							<?php 
 							}
 							else{?>
@@ -218,6 +224,8 @@ if(isset($_GET['submit'])){
 						</form>
 					
 					<?php 
+					if (isset($_GET['submit']))
+						echo $erg;
 					if(isset($_GET['submit2'])){
 					$wochentage = array("Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag","Sonntag");
 	
@@ -236,8 +244,7 @@ if(isset($_GET['submit'])){
 					} 
 					}
 					
-					if (isset($erg))
-						echo $erg;
+					
 					?>
 			</div>
 			<div id="footer">

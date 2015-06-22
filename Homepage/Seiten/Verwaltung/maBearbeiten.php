@@ -1,20 +1,13 @@
 <?php 
 include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
-include("maPWReset.php");
 $db=new db_con("conf/db.php",true);?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-       "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="../../css/css.css">
 
 </head>
-<script>
-function reload() {
-    location.reload();
-}
-</script>
 <body>
 <?php
 include("../../include_DBA.php");
@@ -179,8 +172,8 @@ if(isset($_POST['anlegen']))
 				foreach($db->getAllMitarbeiter(true) as $mitarbeiter){
 							echo umlaute_encode("<tr><td>".$mitarbeiter->getSVNr()."</td><td>".$mitarbeiter->getVorname()."</td><td>".$mitarbeiter->getNachname()."</td><td>".$mitarbeiter->getAdmin()."</td>");
 							echo "<td><a href='maUpdate.php?SVNr=".$mitarbeiter->getSVNr()."&vn=".$mitarbeiter->getVorname()."&nn=".$mitarbeiter->getNachname()."&admin=".$mitarbeiter->getAdmin()."'>Bearbeiten</a></td>";
-							echo "<td><a href='maDelete.php?SVNr=".$mitarbeiter->getSVNr()."'>L&ouml;schen</a></td>";
-							echo "<td><a href='maBearbeiten.php?SVNr=".$mitarbeiter->getSVNr()."'>Passwort zur&uuml;cksetzen</a></td>";
+							echo "<td><a href='maDelete.php?&SVNr=".$mitarbeiter->getSVNr()."'>L&ouml;schen</a></td>";
+							echo "<td><a href='maBearbeiten.php?f=1SVNr=".$mitarbeiter->getSVNr()."'>Passwort zur&uuml;cksetzen</a></td>";
 							
 							echo"</tr>";
 						}
@@ -192,13 +185,18 @@ if(isset($_POST['anlegen']))
 							echo umlaute_encode("<tr><td>".$mitarbeiter->getSVNr()."</td><td>".$mitarbeiter->getVorname()."</td><td>".$mitarbeiter->getNachname()."</td><td>".$mitarbeiter->getAdmin()."</td>");
 							echo "<td><a href='maUpdate.php?SVNr=".$mitarbeiter->getSVNr()."&vn=".$mitarbeiter->getVorname()."&nn=".$mitarbeiter->getNachname()."&admin=".$mitarbeiter->getAdmin()."'>Bearbeiten</a></td>";
 							echo "<td></td>";
-							echo "<td><a href='maBearbeiten.php?SVNr=".$mitarbeiter->getSVNr()."'>Mitarbeiter einstellen</a></td>";
+							echo "<td><a href='maBearbeiten.php?f=2&SVNr=".$mitarbeiter->getSVNr()."'>Mitarbeiter einstellen</a></td>";
 							echo"</tr>";
 						}	
 						if(isset($_GET['SVNr'])){
-							pwReset($_GET['SVNr']);
-							echo "<tr><td>".pwReset($_GET['SVNr'])."</td></tr>";
-							
+							include("maPWReset.php");
+							pwReset($_GET['SVNr']);								
+							}
+							if(isset($_GET['f'])){
+								if($_GET['f']==1)echo "Passwort erfolgreich zur&uuml;ckgesetzt!";
+								if($_GET['f']==2)echo "Mitarbeiter erfolgreich wieder eingestellt!<br>Ansicht aktualisiert sich automatisch in 10 Sekunden";
+								if($_GET['f']==3)echo "Mitarbeiter erfolgreich gek&uuml;ndigt!";
+								if($_GET['f']==4)echo "Mitarbeiter erfolgreich ge&auml;ndert";
 						}
 						?>
 			</table>

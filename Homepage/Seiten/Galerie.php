@@ -46,7 +46,7 @@ $db=new db_con("conf/db.php",true);?>
 							echo"<input id='password' type='password' name='passwort' placeholder='Passwort' required>";
 							echo"</fieldset>";
 							echo"<fieldset id='actions'>";
-							echo"<input type='submit' name ='submit' id='submit' value='Log in'>";
+							echo"<input type='submit' name ='submit' id='login' value='Log in'>";
 							echo"<label><a href='forgotPassword.php'> Forgot Password </a></label>";
 							echo"</fieldset>";
 							echo"</form>";
@@ -132,12 +132,14 @@ $db=new db_con("conf/db.php",true);?>
 
 					// Ordner auslesen und Array in Variable speichern
 					$allebilder = scandir($ordner); // Sortierung A-Z
+					natsort($allebilder);
 					// Sortierung Z-A mit scandir($ordner, 1)
 					$i =1;
 					
 					// Schleife um Array "$alledateien" aus scandir Funktion auszugeben
 					// Einzeldateien werden dabei in der Variabel $datei abgelegt
 					foreach ($allebilder as $bild) {
+						
 					
 					// Zusammentragen der Dateiinfo
 					$bildinfo = pathinfo($ordner."/".$bild);

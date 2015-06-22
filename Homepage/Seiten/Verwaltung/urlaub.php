@@ -33,17 +33,18 @@ function urlaubEintragen($svnr,$von,$bis)
 			$urlaub=new Urlaub($von2, $bis2);
 			
 				
-					
-					$db->urlaubEintragen($urlaub, $mitarbeiter);
-				
-					
+					if($von > $bis){ return 'Bis-Datum liegt vor dem Vor-Datum';}
+					if($db->urlaubEintragen($urlaub, $mitarbeiter))
 					return 'Urlaub erfolgreich eingetragen!';
+					else return 'Urlaub existiert schon, bitte Urlaub l&ouml;schen welcher den Selben Starttag hat und dann erneut versuchen!';
 				
 			
 		}	
 	}
 if(isset($_GET['submit']))
+	if($_GET['von'] != "" && $_GET['bis'] != "")	
 	$erg=urlaubEintragen($_GET['svnr'],$_GET['von'],$_GET['bis']);
+else $erg="Bitte f&uuml;llen Sie alle Felder aus!";
 ?>
 
 	<div id="container">
@@ -185,6 +186,10 @@ if(isset($_GET['submit']))
 							<input type="submit" value ="Urlaube anzeigen" name="submit2">
 							
 						</form>
+						<?php 
+						if(isset($_GET['submit']))
+							echo $erg;
+						?>
 					
 					<?php 
 					if(isset($_GET['submit2'])){
@@ -203,14 +208,6 @@ if(isset($_GET['submit']))
 					
 					
 					}?>
-					
-					
-					<?php
-					
-					
-					if (isset($erg))
-						echo $erg;
-					?>
 			</div>
 			<div id="footer">
 </div>

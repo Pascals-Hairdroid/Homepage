@@ -121,7 +121,12 @@ include("../Anmeldung/authAdmin.php");
 						</nav>
 				</div>
 			<div id="textArea">
-				<p></p>	
+				<?php 
+				if(isset($_GET['f']))
+				{
+					if ($_GET['f']==1) echo "Sie haben keine Berechtigung auf den Zugriff dieser Seite!";
+				}
+				?>
 			</div>
 			<div id="footer">
 </div></div>

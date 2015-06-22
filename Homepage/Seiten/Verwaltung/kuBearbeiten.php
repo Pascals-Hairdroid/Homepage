@@ -120,6 +120,10 @@ include("../Anmeldung/authAdmin.php");?>
 						}	
 					?>
 					</table>
+					<br>
+					<?php 
+					if($_GET['f']==1)echo "Kunde erfolgreich ver&auml;ndert!";
+					?>
 			</div>
 			<div id="footer">
 </div>

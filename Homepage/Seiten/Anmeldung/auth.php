@@ -2,7 +2,7 @@
 session_start();
 if(!isset($_SESSION['username'])) 
    { 
-   echo "Bitte erst <a href='anmelden.php'>einloggen</a>";
+   	header('Location: anmelden.php?f=1');
    exit; 
    } 
 ?> 

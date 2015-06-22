@@ -49,7 +49,7 @@ if(isset($_GET['web']))
 											echo"<input id='password' type='password' name='passwort' placeholder='Passwort' required>";
 										echo"</fieldset>";
 										echo"<fieldset id='actions'>";
-											echo"<input type='submit' name ='submit' id='submit' value='Log in'>";
+											echo"<input type='submit' name ='submit' id='login' value='Log in'>";
 											echo"<label><a href='forgotPassword.php'> Forgot Password </a></label>";
 										echo"</fieldset>";
 									echo"</form>";
@@ -138,12 +138,14 @@ if(isset($_GET['web']))
 				<img src="../Bilder/Homepage/studio3.jpg" style="width:32%;" />
 				
 					<br> <br>
-					<p style="text-align:center"> &Uuml;berall kommt es vor, es sind zu viele Kunden im Gesch&auml;ft. </p>
-					<p style="text-align:center"> Du musst warten und es dauert etwas l&auml;nger.</p>
-					<p style="text-align:center"> Aktionen und Sorry-Gutscheine sind ein nettes Benefit f&uuml;r dich und mein Zeichen, wie viel mir an dir und deiner Zufriedenheit liegt.</p>
-					<p style="text-align:center"> Bl&auml;tter dich durch die Aktionen! Durch einen Klick aufs Bild kommst du zu einem PDF, das du ausdrucken und mit zu mir nehmen kannst.</p>
-					<p style="text-align:center"> Gilt f&uuml;r alles au&szlig;er f&uuml;r den Sorry4waiting-Gutschein. Den bekommst du nat&uuml;rlich von mir pers&ouml;nlich! </p>
-					<p style="text-align:center"> Ich freue mich Dich bald zu sehen. </p>
+					<p style="text-align:center"> Im Studio Pascals Hairstyle wird Freundlichkeit und eine gem&uuml;tliche Atmosph&auml;re gro&szlig; geschrieben! </p>
+					<p style="text-align:center"> Das Wohlbefinden der Kunden ist unser Ziel. Um das zu erreichen f&auml;ngt unser Service schon beim</p>
+					<p style="text-align:center"> betreten des Studios an. Unser modernes Ambiente, immer am Puls der Zeit und die professionelle </p>
+					<p style="text-align:center"> Typberatung lassen unsere Kunden schnell den Altagsstress vergessen.</p>
+					<br>
+					<p style="text-align:center"> Unser Salon verf&uuml;gt &uuml;ber 4 Bedienungspl&auml;tze sowie 2 Waschpl&auml;tze, bietet eine moderne Ausstattung </p>
+					<p style="text-align:center">und eine klimatisierte Bel&uuml;ftung. Er befindet sich im Zentrum des 22ten Wiener Bezirkes in der </p>
+					<p style="text-align:center">Wagramer Stra&szlig;e und ist direkt mit der U1 Station Kagraner Platz zu erreichen.</p>
 					<br>
 					<p style="text-align:center"> <img src="../Bilder/Homepage/studio4.jpg" style="width:32%;" /></p>
 					
