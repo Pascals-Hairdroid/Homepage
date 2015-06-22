@@ -50,14 +50,25 @@
 		
 				
 		
-		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
-			$dienstleistungen = array($db->getDienstleistung($dienstleistung, new Haartyp($haarlaenge, "")), $db->getDienstleistung($dienstleistung2, new Haartyp($haarlaenge, "")));
-	
+		$dienstleistungen = array();
+			if(isset($haarlaenge))
+			{
+				if (isset($dienstleistung))
+					array_push($dienstleistungen, $db->getDienstleistung($dienstleistung, new Haartyp($haarlaenge, "")));
+				if (isset($dienstleistung2))
+					array_push($dienstleistungen, $db->getDienstleistung($dienstleistung2, new Haartyp($haarlaenge, "")));
+			}
+		
+		$dienstleistungenKuerzel= array();
+			foreach($dienstleistungen as $ds)
+				array_push($dienstleistungenKuerzel, $ds->getKuerzel());
+// 			var_dump($dienstleistungenKuerzel);
+					
 		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
 		{
-			$hackler = $db->getNotFreeMitarbeiterMitSkills($dienstleistungen);
-// 			echo "Mitarbeiter:";
-// 			var_dump($hackler);
+			$hackler = $db->getNotFreeMitarbeiterMitSkills($dienstleistungenKuerzel);
+			echo "Mitarbeiter:";
+			var_dump($hackler);
 		}
 		
 		
@@ -129,13 +140,7 @@
 		$bis1->add(new DateInterval('P4DT7H45M'));
 		
 		
-		if (isset($dienstleistungen))
-		{
-			$arbeitsplaetze = $db->getArbeitsplaetzeFuerDienstleistung($dienstleistungen);
-// 			var_dump($arbeitsplaetze, $von1, $bis1);
-			$plaetze = array($db->getBelegteZeitenVonArbeitsplaetzen($von1, $bis1, $arbeitsplaetze));
-// 			echo "<h1> ".var_dump($plaetze)." </h1>";
-		}
+		
 		
 		//ArbeitsplatzOK suchen
 		
@@ -164,13 +169,21 @@
 // 				}
 		if (isset($dienstleistungen))
 		{		
-			$arbeitsplatzl = $db->getNotFreeArbeitsplatzMitAustattungen($dienstleistungen);
-// 			echo "Arbeitsplatzl:";
-// 			var_dump($arbeitsplatzl);
+			$arbeitsplatzl = $db->getNotFreeArbeitsplatzMitAustattungen($dienstleistungenKuerzel);
+			echo "Arbeitsplatzl:";
+			var_dump($arbeitsplatzl);
+		}
+		
+		if (isset($dienstleistungen))
+		{
+			$arbeitsplaetze = $db->getArbeitsplaetzeFuerDienstleistung($dienstleistungen);
+			// 			var_dump($arbeitsplaetze, $von1, $bis1);
+			$plaetze = array($db->getBelegteZeitenVonArbeitsplaetzen($von1, $bis1, $arbeitsplaetze));
+			// 			echo "<h1> ".var_dump($plaetze)." </h1>";
 		}
 		
 		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
-			$skills = array($db->getSkillFuerDienstleistung($dienstleistungen));
+			$skills = array($db->getSkillFuerDienstleistung($dienstleistungenKuerzel));
 		echo "Skills";
 		var_dump($skills);
 	

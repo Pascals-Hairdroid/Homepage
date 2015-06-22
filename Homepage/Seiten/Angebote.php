@@ -134,18 +134,26 @@ if(isset($_GET['web']))
 			<div id="wrapper">
 				<div id="textArea" style="text-align:center">
 					<?php
-					foreach($db->getAllWerbung() as $werbung){
+					if(!isset($_GET['nummer']))
+						$ws = $db->getAllWerbung();
+					else{
+						$ws= $db->getWerbung($_GET['nummer']);
+						if($ws != null && $ws instanceof Werbung)
+							$ws = array($ws);
+					}
 					
-            echo "<div id='werbungsbox'>";
-            echo "<br/><br/>";
-            echo umlaute_encode($werbung->getTitel());
-            echo"<br>";
-            echo umlaute_encode($werbung->getText());
-            echo "<br/>";
-            foreach($werbung->getFotos() as $foto)
-            echo "<img src=\"".$foto."\" height=\"200px\"/>";
-            echo "</div>";
-          }
+					foreach($ws as $werbung){
+					
+						echo "<div id='werbungsbox'>";
+						echo "<br/><br/>";
+						echo umlaute_encode($werbung->getTitel());
+						echo"<br>";
+						echo umlaute_encode($werbung->getText());
+						echo "<br/>";
+						foreach($werbung->getFotos() as $foto)
+						echo "<img src=\"".$foto."\" height=\"200px\"/>";
+						echo "</div>";
+					}
           ?>
 				</div>
 				<div id="werbungsbanner">
