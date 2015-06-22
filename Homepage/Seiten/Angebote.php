@@ -146,7 +146,7 @@ if(isset($_GET['web']))
 					
 						echo "<div id='werbungsbox'>";
 						echo "<br/><br/>";
-						echo umlaute_encode($werbung->getTitel());
+						echo "<span style=\"font-weight:bold;\">".umlaute_encode($werbung->getTitel())."</span>";
 						echo"<br>";
 						echo umlaute_encode($werbung->getText());
 						echo "<br/>";

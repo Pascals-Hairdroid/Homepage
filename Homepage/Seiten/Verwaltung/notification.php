@@ -138,7 +138,7 @@ $db=new db_con("conf/db.php",true);
         foreach($db->getAllWerbung() as $werbung){
           echo "<div id='werbungsbox'>";
           echo "<br/><br/>";
-          echo umlaute_encode($werbung->getTitel());
+          echo "<span style=\"font-weight:bold;\">".umlaute_encode($werbung->getTitel())."</span>";
           echo"<br>";
           echo umlaute_encode($werbung->getText());
           echo "<br/>";

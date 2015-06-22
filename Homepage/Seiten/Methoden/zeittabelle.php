@@ -71,6 +71,20 @@
 			var_dump($hackler);
 		}
 		
+		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
+		{
+			$echteHackler = $db->getMitarbeiterMitSkills($dienstleistungenKuerzel);
+			echo "echte Mitarbeiter:";
+			var_dump($echteHackler);
+		}
+		
+		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
+		{
+			$arbeitsplatz = $db->getArbeitsplatzMitAusstattung($dienstleistung);
+			echo "guade Arbeitsplätze:";
+			var_dump($arbeitsplatz);
+		}
+		
 		
 		if (isset($_GET["schneiden"]))
 			$schneiden="ja";

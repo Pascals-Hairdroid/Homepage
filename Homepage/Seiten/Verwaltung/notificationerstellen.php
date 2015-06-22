@@ -17,16 +17,16 @@ $db=new db_con("conf/db.php",true);?>
 	}
 	if(isset($_POST['submit']))
 	{
-    // Ausgebessert:
-		$lastelement =mysqli_fetch_row($db->query("SELECT DISTINCT MAX(".DB_F_WERBUNG_PK_NUMMER.") FROM ".DB_TB_WERBUNG))[0] + 1;
-
+    $abf = $db->query("SELECT werbung_nextval() FROM dual;");
+    //var_dump($abf, mysqli_error($db->con));
+      $lastelement=mysqli_fetch_row($abf)[0];
 		if(isset($_FILES["fileToUpload"]["name"])&&$_FILES["fileToUpload"]["name"]!="")
       file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
 		
 		//file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], dirname(__FILE__)."/../../Bilder/Werbung/".$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
 		
 		$werbung=new Werbung($lastelement, $_POST['titel'], $_POST['text'], DateTime::createFromFormat('j-M-Y', date('d-M-Y')), $interessenarray);
-		$db->werbungEintragen($werbung);
+		$eingetragen = $db->werbungEintragen($werbung);
 	}
 
 
@@ -136,7 +136,16 @@ $db=new db_con("conf/db.php",true);?>
 				</div>
 
 		<div id="textArea">
-
+		<?php
+      if(isset($eingetragen)){
+        echo "<br/>";
+        if($eingetragen)
+          echo "<h3>Werbung eingetragen.</h3>";
+        else
+          echo "<h3>Fehler beim eintragen der Werbung!</h3>";
+        echo "<br/>";
+      }
+		?>
 			<form action="" method="post" enctype="multipart/form-data">
 				<p>
 					Titel:<input type="text" name="titel" required="required">
