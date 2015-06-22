@@ -139,12 +139,12 @@
 		
 		//ArbeitsplatzOK suchen
 		
-		if (isset($dienstleistungen))
-		{
-			$arbeitsplatzOK = $db->checkArbeitsplatzFree($von1, $bis1, $dienstleistungen);
-			$boolArbeitsplatzOK = count($arbeitsplatzOK)==0?false:true;
+// 		if (isset($dienstleistungen))
+// 		{
+// 			$arbeitsplatzOK = $db->checkArbeitsplatzFree($von1, $bis1, $dienstleistungen);
+// 			$boolArbeitsplatzOK = count($arbeitsplatzOK)==0?false:true;
 // 			var_dump($arbeitsplatzOK, $boolArbeitsplatzOK);
-		}	
+// 		}	
 		
 		
 		foreach($db->getAllTermin($von1, $bis1) as $termine)
