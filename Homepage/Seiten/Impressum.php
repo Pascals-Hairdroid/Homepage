@@ -182,8 +182,8 @@ if(isset($_GET['web']))
 			<h2>2. Verweise und Links</h2>
 			<p>
 			Bei direkten oder indirekten Verweisen auf fremde Webseiten
-			("Hyperlinks"), die au&szlig;erhalb des Verantwortungsbereiches des Autors
-			liegen, w&uuml;rde eine Haftungsverpflichtung ausschlie&szlig;lich in dem Fall
+			("Hyperlinks"), die auﬂerhalb des Verantwortungsbereiches des Autors
+			liegen, w&uuml;rde eine Haftungsverpflichtung ausschlieﬂlich in dem Fall
 			in Kraft treten, in dem der Autor von den Inhalten Kenntnis hat und
 			es ihm technisch m&ouml;glich und zumutbar w&auml;re, die Nutzung im Falle
 			rechtswidriger Inhalte zu verhindern. Der Autor erkl&auml;rt hiermit
@@ -215,7 +215,7 @@ if(isset($_GET['web']))
 			gesch&uuml;tzten Marken- und Warenzeichen unterliegen uneingeschr&auml;nkt den
 			Bestimmungen des jeweils g&uuml;ltigen Kennzeichenrechts und den
 			Besitzrechten der jeweiligen eingetragenen Eigent&uuml;mer. Allein
-			aufgrund der blo&szlig;en Nennung ist nicht der Schluss zu ziehen, dass
+			aufgrund der bloﬂen Nennung ist nicht der Schluss zu ziehen, dass
 			Markenzeichen nicht durch Rechte Dritter gesch&uuml;tzt sind! Das
 			Copyright f&uuml;r ver&ouml;ffentlichte, vom Autor selbst erstellte Objekte
 			bleibt allein beim Autor der Seiten. Eine Vervielf&auml;ltigung oder

@@ -127,11 +127,14 @@ $db=new db_con("conf/db.php",true);?>
       </li>
     </ul>
   </div>
-		
+			<div id="wrapper">
 				<div id="textArea">
 					<img class="titelbild"src="../Bilder/Homepage/zeiten.jpg">
 				</div>
-			
+				<div id="werbungsbanner">
+				
+				</div>
+			</div>
 			<div id="footer" align = "center">
 				<?php
 					include("HTML/footer.html");

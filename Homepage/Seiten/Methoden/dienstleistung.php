@@ -36,7 +36,7 @@ window.onload = function () {
   echo  "</select>";
   echo "</td>";
   //Schneiden?
-  echo "<td rowspan='2'>";
+  echo "<td colspan='2'>";
   echo "<input type='checkbox' name='schneiden' checked> Schneiden";
   echo "</td>";
   echo "</tr>";
@@ -44,9 +44,9 @@ window.onload = function () {
   //Haartyp
   echo "<tr>";
   echo "<td>";
-  echo "&nbsp;Haartyp: ";
+  echo "Haartyp: ";
   echo "</td>";
-  echo "<td rowspan='2'>";
+  echo "<td colspan='2'>";
   echo"<select name='haarlaenge' size='1'>";
   echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
   foreach ($db->getAllHaartyp() as $haartyp)
@@ -60,7 +60,7 @@ window.onload = function () {
   echo "<td>";
    echo "Coloration: ";
   echo "</td>";
-  echo "<td rowspan='2'>";
+  echo "<td colspan='2'>";
   echo"<select name='dienstleistung2' size='1' style='display:inline-block; vertical-align:top; overflow:hidden; border:solid grey 1px;'>";
   $kuerzelArray2 = array();
   echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
@@ -73,6 +73,7 @@ window.onload = function () {
   echo  "</select>";
   echo "</td>";
   echo "</tr>";
+  echo "</table>";
   echo "\x20\x20\x20";
   if ($binfo == 'Google Chrome' or $binfo == 'Apple Safari' or $binfo == 'Opera') 
   {

@@ -47,11 +47,8 @@
 		$woche=$_GET["woche"];
 		
 // 		var_dump($dienstleistung, $dienstleistung2, $haarlaenge);
-		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
-			$skills = array($db->getSkillFuerDienstleistung($dienstleistungen));
-		echo "Skills";
-		var_dump($skills);
 		
+				
 		
 		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
 			$dienstleistungen = array($db->getDienstleistung($dienstleistung, new Haartyp($haarlaenge, "")), $db->getDienstleistung($dienstleistung2, new Haartyp($haarlaenge, "")));
@@ -171,6 +168,11 @@
 // 			echo "Arbeitsplatzl:";
 // 			var_dump($arbeitsplatzl);
 		}
+		
+		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
+			$skills = array($db->getSkillFuerDienstleistung($dienstleistungen));
+		echo "Skills";
+		var_dump($skills);
 	
 		//Tabelle in einem
 		$i = 1;

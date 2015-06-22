@@ -123,23 +123,31 @@ $db=new db_con("conf/db.php",true);
 						</nav>
 				</div>
 			<div id="textArea">
-			<?php 
-			if(! isset($_GET['nummer'])){
-			foreach($db->getAllWerbung() as $werbung)
-			{
-				$ordner = "../../Bilder/Werbung/"; // Ordnername
-				$allebilder = scandir($ordner); // Ordner auslesen und Array in Variable speichern
-				$bildinfo = pathinfo($ordner."/".$werbung->getNummer().".jpg");
-				echo "<div id='werbungsbox' style='height:300px'>";
-				if(in_array($werbung->getNummer().".jpg",$allebilder))
-				echo "<img src='".$bildinfo['dirname']."/".$prod->getID().".jpg' style='width:100px;float:left;max-height:300px'>";
-				echo $werbung->getTitel();
-				echo"<br>";
-				echo $werbung->getText();
-				echo "<br>";
-				echo "<a href='notificationUpdate.php?Nr=".$werbung->getNummer()."'>Bearbeiten</a>";
-				echo "</div>";
-			}
+			<?php
+			if(isset($_GET["del"]) && isset($_GET["nummer"])){
+        if(isset($_SESSION[L_ADMIN])&&$_SESSION[L_ADMIN])
+          if($db->werbungEntfernen($db->getWerbung($_GET["nummer"])))
+            echo "<h3>Werbung gel&ouml;scht.</h3>";
+          else
+            echo "<h3>Fehler beim l&ouml;schen!</h3>";
+        else
+          echo "<h3>Keine Berechtigung!</h3>";
+        $_GET["nummer"] = null;
+      }
+			if(!isset($_GET['nummer'])){
+        foreach($db->getAllWerbung() as $werbung){
+          echo "<div id='werbungsbox'>";
+          echo "<br/><br/>";
+          echo umlaute_encode($werbung->getTitel());
+          echo"<br>";
+          echo umlaute_encode($werbung->getText());
+          echo "<br/>";
+          foreach($werbung->getFotos() as $foto)
+          echo "<img src=\"".$foto."\" height=\"200px\"/>";
+          echo "<br/>";
+          echo "<a href=\"notification.php?del=1&nummer=".$werbung->getNummer()."\">L&ouml;schen</a>";
+          echo "</div>";
+        }
 			}
 			else{
 			$werbung=$db->getWerbung($_GET['nummer']);
