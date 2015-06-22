@@ -85,7 +85,6 @@ function getBrowser()
 	);
 }
 $ua=getBrowser();
-echo "<br>";
 $binfo = ($ua['name']);
 
 ?>

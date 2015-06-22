@@ -1,12 +1,31 @@
 <?php 
 include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
+include("../Methoden/getBrowser.php");
 $db=new db_con("conf/db.php",true);?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="../../css/css.css">
+    <script src="../../javascript/jquery.min.js"></script> 
+    <script src="../../javascript/moment.js"></script> 
+    <script src="../../javascript/combodate.js"></script> 
+<script>
+$(function(){
+    $('#time').combodate({
+        firstItem: 'name', //show 'hour' and 'minute' string at first item of dropdown
+        minuteStep: 1
+    });  
+});
+
+$(function(){
+    $('#time2').combodate({
+        firstItem: 'name', //show 'hour' and 'minute' string at first item of dropdown
+        minuteStep: 1
+    });  
+});
+</script>
 </head>
 <body>
 <?php
@@ -172,9 +191,19 @@ if(isset($_GET['submit'])){
 							  		
 							?>
 							</select>
-							<p>Von:<input type='time' name='von'></input>
-							Bis:<input type='time' name='bis'></input>  
-							Tag:<select name="tag">
+							<br><br>
+							<?php 
+							if($binfo!="Google Chrome"){
+							?><p>Von:<input id="time" data-format="HH:mm" data-template="HH : mm"  type='time' name='von'></p></input>
+							<p>Bis: &nbsp;<input id="time2" data-format="HH:mm" data-template="HH : mm"  type='time' name='bis'></p></input>  
+							<?php 
+							}
+							else{?>
+							<p>Von:<input type='time' name='von'></p></input>
+							<p>Bis: &nbsp;<input type='time' name='bis'></p></input>  
+							<?php 
+							}?>
+							<p>Tag: <select name="tag">
 								<option value="MO">Montag</option>
 								<option value="DI">Dienstag</option>
 								<option value="MI">Mittwoch</option>
@@ -182,7 +211,7 @@ if(isset($_GET['submit'])){
 								<option value="FR">Freitag</option>
 								<option value="SA">Samstag</option>							
 							</select></p>		
-							<span id="text"></span>		
+							<br>	
 							<input type="submit" value ="absenden" name="submit">
 							<input type="submit" value ="Dienstzeiten anzeigen" name="submit2">
 							

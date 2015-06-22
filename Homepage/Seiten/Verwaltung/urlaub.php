@@ -1,6 +1,7 @@
 <?php 
 include("../../include_DBA.php");
-include("../Anmeldung/authMitarbeiterAdmin.php");?>
+include("../Anmeldung/authMitarbeiterAdmin.php");
+include("../Methoden/getBrowser.php");?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -8,6 +9,18 @@ include("../Anmeldung/authMitarbeiterAdmin.php");?>
 <link rel="stylesheet" type="text/css" href="../../css/css.css">
 </head>
 <body>
+<script src="../../javascript/jquery.min.js"></script> 
+    <script src="../../javascript/moment.js"></script> 
+    <script src="../../javascript/combodate.js"></script> 
+<script type="text/javascript">
+$(function(){
+    $('#von').combodate();  
+});
+$(function(){
+    $('#bis').combodate();  
+});
+</script>
+
 <?php
 
 function urlaubEintragen($svnr,$von,$bis)
@@ -158,8 +171,16 @@ if(isset($_GET['submit']))
 							  		
 							?>
 							</select>
+							<?php if($binfo!="Google Chrome"){?>
+							<p>Von:<input id="von" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="01-01-2015 00:00" type='date' name='von'></input></p>
+							<p>Bis: &nbsp;<input id="bis" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="01-01-2015 01:00" type='date' name='bis'></input></p>
+							<?php 
+							}
+							else{
+							?>
 							<p>Von:<input type='date' name='von'></input>
 							Bis:<input type='date' name='bis'></input></p>	
+							<?php }?>
 							<input type="submit" value ="absenden" name="submit">
 							<input type="submit" value ="Urlaube anzeigen" name="submit2">
 							
