@@ -9,46 +9,36 @@ include("../Anmeldung/authMitarbeiterAdmin.php");?>
 <body>
 <?php
 include("../../include_DBA.php");
-$db=new db_con("conf/db.php",true);
-
-function kuUpdate($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen)
+function maAnlegen($svnr,$vn,$nn,$passwort,$pw2)
 	{
 		$db=new db_con("conf/db.php",true);
-		if($email != null){
-			$kunde=new Kunde($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen);
-			$db->kundeUpdaten($kunde);
-	
-			return true;
-		}
-		else
-			return false;
-	}
-$tempKu=$db->getKunde($_GET['Email']);
-	$vn=$tempKu->getVorname();
-	$nn=$tempKu->getNachname();
-	$telnr=$tempKu->getTelNr();
-	$freischalten=$tempKu->getFreischaltung();
-	
-	
-if(isset($_GET['submit'])){
-		$email=$_GET["Email"];
-		$vn=$_GET['vn'];
-		$nn=$_GET['nn'];
-		$telNr=$_GET['telnr'];
-		$foto=$tempKu->getFoto();
-		$interessen=$tempKu->getInteressen();	
-		$freischalten=false;
-		if(isset($_GET['rights'])){
-			if ($_GET['rights']=="on") {
-				$freischalten=true;
+		if($svnr !=null &&$vn !=null &&$nn !=null &&$passwort !=null){
+			
+				if($db->getMitarbeiter($svnr))
+			{
+				return "User existiert schon!";
 			}
-		}
-		
-			kuUpdate($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen);
-		}		
+			else{
+				if($passwort != $pw2) {
+					return "Passwort stimmen nicht &Uuml;berein";
+				}
+				else {
+					$passwort = md5($passwort);	
+					
+					$mitarbeiter=new Mitarbeiter($svnr,$vn,$nn,null,array(),true,array(),array());
+					$db->mitarbeiterEintragen($mitarbeiter);
+					$db->mitarbeiterPwUpdaten($mitarbeiter,$passwort);					
+					
+					return 'Mitarbeiter hinzugefügt';
+				}
+			}
+		}	
+	}
+if(isset($_POST['submit']))
+	$erg=maAnlegen($_POST['svnr'],$_POST['vn'],$_POST['nn'],$_POST['pw'],$_POST['pw2']);
 ?>
 
-			<div id="container">
+	<div id="container">
 <div class ="hide" id="streifen"></div><div id="main">
 			<div id="Loginbox" class="hide">
 					<nav>
@@ -106,71 +96,56 @@ if(isset($_GET['submit'])){
 			<div id="head">
 				<?php 
 				include ("../HTML/Verwaltungheader.html"); 
-				?>	
-		
+				?>		
 			</div>
 			<div id="hmenu">		
 					<nav id="menu" class="hide">
 							<ul>
-								<li  class="items">
-									<a href=""  class="selected">Personenverwaltung</a>
+<li  class="items">
+									<a href="">Mitarbeiter</a>
 									<ul>
-										<li><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
-										<li ><a href="maBearbeiten.php">Mitarbeiter bearbeiten</a></li>
+										<li><a href="maAnlegen.php">anlegen</a></li>
+										<li ><a href="maBearbeiten.php">bearbeiten</a></li>
 										<li ><a href="zeiten.php">Dienstzeiten</a></li>
-										<li ><a href="urlaub.php">Urlaube</a></li>
+										<li ><a href="urlaub.php">Urlaub</a></li>
 									</ul>
 								</li>
+								<li class="items"><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
 								<li class="items">
-									<a href="">Studioverwaltung</a>
-									<ul>
-										<li><a href="produktAdd.php">Produkte hinzuf&uuml;gen</a></li>
-										<li><a href="dienstleistungAdd.php">Dienstleistungen bearbeiten</a></li>
-										<li><a href="arbeitsplatz.php">Arbeitspl&auml;tze bearbeiten</a></li>
-									</ul>
-								</li>
-								<li class="items">
-									<a href="">Terminverwaltung</a>
+									<a href="">Termine</a>
 									<ul>
 										<li><a href="terminAnzeigen.php">anzeigen</a></li>
 										<li><a href="terminBearbeiten.php">bearbeiten</a></li>
 									</ul>
 								</li>
 								<li class="items">
-									<a href="">Benachrichtigungen</a>
+									<a href="">Notifications</a>
 									<ul>
 										<li><a href="notificationerstellen.php">erstellen</a></li>
 										<li><a href="notification.php">bearbeiten</a></li>
 									</ul>
-								</li>
-								<li class="spacer"></li>
+								</li>								<li class="spacer"></li>
 							</ul>
 						</nav>
-				</div>
+
+			</div>
+			
 			
 			<div id="textArea">
 			<table border="0">
-						<form method="get" action="">
-							<tr><td>Email:</td><td><input name="Email" type="input" class=loginField"required = "required"
-							<?php echo "value='".$_GET['Email']."'"; ?>></p></td></tr>
+						<form method="post" action="">
+							<tr><td>Sozialversicherungsnummer:</td><td><input name="svnr" type="input" class=loginField"required = "required"
+							<?php if(isset($erg))echo "value='".$_POST['svnr']."'"; ?>></p></td></tr>
 							
 							<tr><td>Vorname:</td><td><input name="vn" type="text" class="loginField"required = "required"
-							<?php echo "value='".$vn."'"; ?>></p></td></tr>
+							<?php if(isset($erg))echo "value='".$_POST['vn']."'"; ?>></p></td></tr>
 							
 							<tr><td>Nachname:</td><td><input name="nn" type="text" class="loginField"required = "required"
-							<?php echo "value='".$nn."'"; ?>></p></td></tr>
+							<?php if(isset($erg))echo "value='".$_POST['nn']."'"; ?>></p></td></tr>
 							
-							<tr><td>Tel Nr.:</td><td><input name="telnr" type="text" class="loginField"required = "required"
-							<?php echo "value='".$telnr."'"; ?>></p></td></tr>
-							
-							<tr><td>Freigeschalten:</td><td><input name="rights" type="checkbox"  class="loginField"
-							<?php 
-							if ($freischalten == 1) {
-								echo "checked";
-							}
-							?>></p></td></tr>
-							
-										
+							<tr><td><p>Passwort:</p></td><td><input  name="pw" type="password"  class="loginField"required = "required"></p></td></tr>
+							<tr><td><p>Password wiederholen:</p></td><td><input name="pw2" type="password"  class="loginField"required = "required"></p></td></tr>
+											
 							<tr><td><input type="submit" value ="absenden" name="submit"></td>
 							
 						</form>
@@ -182,7 +157,6 @@ if(isset($_GET['submit'])){
 			</div>
 			<div id="footer">
 </div>
-</div>	
-</div>		
+</div>		</div>	
 </body>
 </html>

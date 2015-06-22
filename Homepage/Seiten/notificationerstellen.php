@@ -17,11 +17,11 @@ $db=new db_con("conf/db.php",true);?>
 	}
 	if(isset($_POST['submit']))
 	{
-    // Ausgebessert:
-		$lastelement =mysqli_fetch_row($db->query("SELECT DISTINCT MAX(".DB_F_WERBUNG_PK_NUMMER.") FROM ".DB_TB_WERBUNG))[0] + 1;
-
-		if(isset($_FILES["fileToUpload"]["name"])&&$_FILES["fileToUpload"]["name"]!="")
-      file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
+		echo "<p>aaa</p>";
+		$lastNr=$db->getAllWerbung();
+		$lastelement =count($lastNr)+1;
+		
+		file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
 		
 		//file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], dirname(__FILE__)."/../../Bilder/Werbung/".$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
 		

@@ -1,5 +1,16 @@
 <?php 
+include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="refresh" content="10;url=maBearbeiten.php" />
+<link rel="stylesheet" type="text/css" href="../../css/css.css">
+</head>
+<body>
+<?php
 
 function pwReset($svnr)
 {
@@ -7,10 +18,16 @@ function pwReset($svnr)
 		$db=new db_con("conf/db.php",true);
 		$ma=$db->getMitarbeiter($svnr);
 		$db->mitarbeiterPwUpdaten($ma,md5('pascalshairdroid'));	
-		return "Passwort wurde ge&auml;ndert!";
+		return true;
 	}
 	else
-		return "Passwort wurde nicht ge&auml;ndert!";
+		return false;
 }		
 
+pwReset($_GET['SVNr']);
+
+	
 ?>
+
+</body>
+</html>
