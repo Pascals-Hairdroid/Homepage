@@ -45,7 +45,24 @@
 		$dienstleistung2=$_GET["dienstleistung2"];
 //		$woche=$_GET["woche"];
 		$woche=$_GET["woche"];
+		
+// 		var_dump($dienstleistung, $dienstleistung2, $haarlaenge);
+		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
+			$skills = array($db->getSkillFuerDienstleistung($dienstleistungen));
+		echo "Skills";
+		var_dump($skills);
+		
+		
+		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
+			$dienstleistungen = array($db->getDienstleistung($dienstleistung, new Haartyp($haarlaenge, "")), $db->getDienstleistung($dienstleistung2, new Haartyp($haarlaenge, "")));
 	
+		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
+		{
+			$hackler = $db->getNotFreeMitarbeiterMitSkills($dienstleistungen);
+// 			echo "Mitarbeiter:";
+// 			var_dump($hackler);
+		}
+		
 		
 		if (isset($_GET["schneiden"]))
 			$schneiden="ja";
@@ -64,8 +81,6 @@
 		$dl;		//dienstleistung
 		$br = null;		//pause
 		$gesamt;
-		
-		
 		
 		
 		if (strlen($woche) ==8)
@@ -116,6 +131,25 @@
 		$bis1 = clone $von1;
 		$bis1->add(new DateInterval('P4DT7H45M'));
 		
+		
+		if (isset($dienstleistungen))
+		{
+			$arbeitsplaetze = $db->getArbeitsplaetzeFuerDienstleistung($dienstleistungen);
+// 			var_dump($arbeitsplaetze, $von1, $bis1);
+			$plaetze = array($db->getBelegteZeitenVonArbeitsplaetzen($von1, $bis1, $arbeitsplaetze));
+// 			echo "<h1> ".var_dump($plaetze)." </h1>";
+		}
+		
+		//ArbeitsplatzOK suchen
+		
+		if (isset($dienstleistungen))
+		{
+			$arbeitsplatzOK = $db->checkArbeitsplatzFree($von1, $bis1, $dienstleistungen);
+			$boolArbeitsplatzOK = count($arbeitsplatzOK)==0?false:true;
+// 			var_dump($arbeitsplatzOK, $boolArbeitsplatzOK);
+		}	
+		
+		
 		foreach($db->getAllTermin($von1, $bis1) as $termine)
 		{
 // 				echo $termine->format('Y.m.d');
@@ -131,7 +165,12 @@
 // 					echo $arbeitsplatz->getName();
 // 					echo "<br>";
 // 				}
-				
+		if (isset($dienstleistungen))
+		{		
+			$arbeitsplatzl = $db->getNotFreeArbeitsplatzMitAustattungen($dienstleistungen);
+// 			echo "Arbeitsplatzl:";
+// 			var_dump($arbeitsplatzl);
+		}
 	
 		//Tabelle in einem
 		$i = 1;
@@ -300,29 +339,36 @@
 		$now = new DateTime();
 // 		echo $now->format('d.m.Y H:i');
 
-		$haarlaenge = "KH";
 		
-		if($dienstleistung != "")
-			$dlservice = umlaute_encode ($db->getDienstleistung($dienstleistung, new Haartyp($haarlaenge, null))->getName());
-		else 
-			$dlservice = "Keine Auswahl";
 		
-		if($dienstleistung2 != ""){	
-// 			var_dump($dienstleistung2);
-// 			var_dump($haarlaenge);
-// 			var_dump((new Dienstleistung($dienstleistung2, new Haartyp(null, null), null, null, null, array(), array(), null))->getKuerzel());
+		if ($dienstleistung != "Null")
+		{
+			if($dienstleistung != "")
+				$dlservice = umlaute_encode ($db->getDienstleistung($dienstleistung, new Haartyp($haarlaenge, null))->getName());
+			else 
+				$dlservice = "Keine Auswahl";
+		}
+		if ($dienstleistung2 != "Null")
+		{
+			if($dienstleistung2 != ""){	
+// 				var_dump($dienstleistung2);
+// 				var_dump($haarlaenge);
+// 				var_dump((new Dienstleistung($dienstleistung2, new Haartyp(null, null), null, null, null, array(), array(), null))->getKuerzel());
 			
-			$dlcoloration = umlaute_encode($db->getDienstleistung(utf8_decode(utf8_encode($dienstleistung2)), new Haartyp($haarlaenge, null))->getName());
+				$dlcoloration = umlaute_encode($db->getDienstleistung(utf8_decode(utf8_encode($dienstleistung2)), new Haartyp($haarlaenge, null))->getName());
+			}
+			else
+				$dlcoloration = "Keine Auswahl";
 		}
-		else
-			$dlcoloration = "Keine Auswahl";
 		
-		if($haarlaenge != ""){
-			$haartyp = umlaute_encode($db->getHaartyp($haarlaenge)->getBezeichnung());
+		if (isset($haarlaenge))
+		{
+			if($haarlaenge != ""){
+				$haartyp = umlaute_encode($db->getHaartyp($haarlaenge)->getBezeichnung());
+			}
+			else
+				$haartyp = "Keine Auswahl";
 		}
-		else
-			$haartyp = "Keine Auswahl";
-		
 		
 		echo "<br>";
 		echo "<div id='openModal' class='modalDialog'>";

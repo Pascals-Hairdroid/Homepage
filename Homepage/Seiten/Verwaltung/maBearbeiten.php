@@ -152,16 +152,16 @@ if(isset($_POST['anlegen']))
 		<table border="0">
 						<form method="post" action="">
 							<tr><td>Sozialversicherungsnummer:</td><td><input name="svnr" type="input" class=loginField"required = "required"
-							<?php if(isset($erg))echo "value='".$_POST['svnr']."'"; ?>></p></td></tr>
+							<?php if(isset($erg))echo "value='".$_POST['svnr']."'"; ?>></td></tr>
 							
 							<tr><td>Vorname:</td><td><input name="vn" type="text" class="loginField"required = "required"
-							<?php if(isset($erg))echo "value='".$_POST['vn']."'"; ?>></p></td></tr>
+							<?php if(isset($erg))echo "value='".$_POST['vn']."'"; ?>></td></tr>
 							
 							<tr><td>Nachname:</td><td><input name="nn" type="text" class="loginField"required = "required"
-							<?php if(isset($erg))echo "value='".$_POST['nn']."'"; ?>></p></td></tr>
+							<?php if(isset($erg))echo "value='".$_POST['nn']."'"; ?>></td></tr>
 							
-							<tr><td><p>Passwort:</p></td><td><input  name="pw" type="password"  class="loginField"required = "required"></p></td></tr>
-							<tr><td><p>Password wiederholen:</p></td><td><input name="pw2" type="password"  class="loginField"required = "required"></p></td></tr>											
+							<tr><td>Passwort:</td><td><input  name="pw" type="password"  class="loginField"required = "required"></p></td></tr>
+							<tr><td>Passwort wiederholen:</td><td><input name="pw2" type="password"  class="loginField"required = "required"></p></td></tr>											
 							<tr><td><input type="submit" value ="absenden" name="anlegen"></td>
 							
 						</form>
@@ -170,12 +170,11 @@ if(isset($_POST['anlegen']))
 					if (isset($erg))
 						echo $erg."<br />";
 					?>
-					<br />
 			<table border="0">
 				<?php
 				
-				echo "<tr><td>Mitarbeiter:</td></tr>";
-				echo "<tr><td>Sozialversicherungsnr.:</td><td>Vorname</td><td>Nachname</td><td>Admin</td><td>";
+				echo "<tr><td colspan=\"7\"><h3>Mitarbeiter</h3></td></tr>";
+				echo "<tr><th>Sozialversicherungsnr.:</th><th>Vorname</th><th>Nachname</th><th>Admin</th></tr><td>";
 
 				foreach($db->getAllMitarbeiter(true) as $mitarbeiter){
 							echo umlaute_encode("<tr><td>".$mitarbeiter->getSVNr()."</td><td>".$mitarbeiter->getVorname()."</td><td>".$mitarbeiter->getNachname()."</td><td>".$mitarbeiter->getAdmin()."</td>");
@@ -185,11 +184,14 @@ if(isset($_POST['anlegen']))
 							
 							echo"</tr>";
 						}
-				echo "<tr><td>Ehemalige Mitarbeiter</td></tr>";
-				echo "<tr><td>Sozialversicherungsnr.:</td><td>Vorname</td><td>Nachname</td><td>Admin</td><td>";
+						echo "<tr><td> &nbsp;</td></tr>";
+						echo "<tr ><td colspan=\"7\"><h3>Gel&ouml;schte Mitarbeiter</h3></td></tr>";
+				//echo "<tr><th>Sozialversicherungsnr.:</th><th>Vorname</th><th>Nachname</th><th>Admin</th></tr><td>";
+				echo "<td>";
 				foreach($db->getAllNoMitarbeiter() as $mitarbeiter){
 							echo umlaute_encode("<tr><td>".$mitarbeiter->getSVNr()."</td><td>".$mitarbeiter->getVorname()."</td><td>".$mitarbeiter->getNachname()."</td><td>".$mitarbeiter->getAdmin()."</td>");
 							echo "<td><a href='maUpdate.php?SVNr=".$mitarbeiter->getSVNr()."&vn=".$mitarbeiter->getVorname()."&nn=".$mitarbeiter->getNachname()."&admin=".$mitarbeiter->getAdmin()."'>Bearbeiten</a></td>";
+							echo "<td></td>";
 							echo "<td><a href='maBearbeiten.php?SVNr=".$mitarbeiter->getSVNr()."'>Mitarbeiter einstellen</a></td>";
 							echo"</tr>";
 						}	

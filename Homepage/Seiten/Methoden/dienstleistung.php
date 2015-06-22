@@ -18,9 +18,12 @@ window.onload = function () {
   
   include 'getBrowser.php';
 
-  
+  echo "<table border='0'>";
   //Damen/Herrenservice auswahl
+  echo "<tr> <td>";
   echo "Service: ";
+  echo "</td>";
+  echo "<td>";
   echo"<select name='dienstleistung' size='1' style='display:inline-block; vertical-align:top; overflow:hidden; border:solid grey 1px;'>";
   $kuerzelArray = array();
   echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
@@ -31,24 +34,33 @@ window.onload = function () {
   	$kuerzelArray[] = $dienstleistung->getKuerzel();
   }
   echo  "</select>";
-  
+  echo "</td>";
   //Schneiden?
-  
-  echo "&nbsp;&nbsp;<input type='checkbox' name='schneiden' checked> Schneiden &nbsp;&nbsp;";
-  
+  echo "<td rowspan='2'>";
+  echo "<input type='checkbox' name='schneiden' checked> Schneiden";
+  echo "</td>";
+  echo "</tr>";
   
   //Haartyp
+  echo "<tr>";
+  echo "<td>";
   echo "&nbsp;Haartyp: ";
+  echo "</td>";
+  echo "<td rowspan='2'>";
   echo"<select name='haarlaenge' size='1'>";
   echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
   foreach ($db->getAllHaartyp() as $haartyp)
-  	echo umlaute_encode("<option style='width:17ex;'value='".$haartyp->getBezeichnung()."'>".$haartyp->getBezeichnung()." </option>");
+  	echo umlaute_encode("<option style='width:17ex;'value='".$haartyp->getKuerzel()."'>".$haartyp->getBezeichnung()." </option>");
   echo "</select>";
-  
+  echo "</td>";
+  echo "</tr>";
   
   //Färben/Strähnen/Tönung
-  echo "<br>";
-  echo "&nbsp;Coloration: ";
+  echo "<tr>";
+  echo "<td>";
+   echo "Coloration: ";
+  echo "</td>";
+  echo "<td rowspan='2'>";
   echo"<select name='dienstleistung2' size='1' style='display:inline-block; vertical-align:top; overflow:hidden; border:solid grey 1px;'>";
   $kuerzelArray2 = array();
   echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
@@ -59,7 +71,8 @@ window.onload = function () {
   	$kuerzelArray2[] = $dienstleistung->getKuerzel();
   }
   echo  "</select>";
-  
+  echo "</td>";
+  echo "</tr>";
   echo "\x20\x20\x20";
   if ($binfo == 'Google Chrome' or $binfo == 'Apple Safari' or $binfo == 'Opera') 
   {

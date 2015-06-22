@@ -1,5 +1,5 @@
 <?php session_start();
-var_dump($_FILES);
+//var_dump($_FILES);
 include("../include_DBA.php");
 $db=new db_con("conf/db.php",true);
 if(isset($_POST['anlegenM']))
@@ -9,7 +9,7 @@ if(isset($_POST['anlegenM']))
 	$mitarbeiter->setNachname($_POST['nn']);
 	
 //Server:
- 	if(isset($_POST['fileToUpload']))file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Kunde_Bildupload_beginn.$_POST['id'].NK_Pfad_Kunde_Bild_ende,true);
+ 	file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Kunde_Bildupload_beginn.$_POST['id'].NK_Pfad_Kunde_Bild_ende,true);
 //Local:
 //  file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], dirname(__FILE__)."/../Bilder/Profilbilder/".$_POST['id'].NK_Pfad_Kunde_Bild_ende,true);
 	
