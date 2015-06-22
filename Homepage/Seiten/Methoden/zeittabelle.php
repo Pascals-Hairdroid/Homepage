@@ -80,7 +80,9 @@
 		
 		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
 		{
-			$arbeitsplatz = $db->getArbeitsplatzMitAusstattung($dienstleistung);
+			var_dump($dienstleistungenKuerzel);
+			$arbeitsplatz = $db->getArbeitsplatzMitAusstattung($dienstleistungenKuerzel);
+			
 			echo "guade Arbeitsplätze:";
 			var_dump($arbeitsplatz);
 		}

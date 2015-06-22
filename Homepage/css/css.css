@@ -22,11 +22,11 @@ background-color: blue;
 font-size:20pt;
 }
 
-#dienstleistungFrom > input , select {
+#dienstleistungFrom > input , #dienstleistungFrom > select {
 font-size:18pt;
 }
 
-input[type="checkbox"][name="schneiden"]{
+#dienstleistungFrom > input[type="checkbox"][name="schneiden"]{
   width:18pt; height:18pt;
 }
 
@@ -459,16 +459,40 @@ padding-right:15px;
 
 @media only screen 
 and (min-device-width : 481px) {
-  #dienstleistungFrom {
-  font-size:18pt;
+  #zeittabelle {
+  margin: 10px auto;
+  text-align:center;
+  width:98%;
+  font-size:14pt;
   }
 
-  #dienstleistungFrom > input , select {
-  font-size:16pt;
+  #zeittabelle  > tr > th {
+    
+  }
+
+  #zeittabelle > tr > td {
+  background-color: blue;
+
+  }
+
+  #zeittabelle td:hover {
+
+  }
+  
+  #dienstleistungFrom {
+  font-size:12pt;
+  }
+
+  #dienstleistungFrom > input {
+  font-size:12pt;
+  }
+  
+  #dienstleistungFrom > select{
+  font-size:12pt;
   }
 
   input[type="checkbox"][name="schneiden"]{
-    width:14pt; height:14pt;
+    width:11pt; height:11pt;
   }
   
 	.loginField{
@@ -717,7 +741,7 @@ and (min-device-width : 481px) {
 	}
 	#menu > ul > li > ul > li > a {
 		display:block;
-		font-size:14pt;
+		font-size:12pt;
 		text-decoration:none;
 		background: black;
 		padding-left:5px;
