@@ -153,7 +153,7 @@ if(isset($_GET['web']))
 								echo umlaute_encode("<p><span class='font'>Nachname:</span>".$ma->getNachname()."</p>");
 								echo umlaute_encode("<p><span class='font'>Motto:</span>".$ma->getMotto()."</p>");
 								echo "<a class='font' href='ProfilBearbeiten.php?SVNr=".$ma->getSvnr()."'>Profil bearbeiten</a>";
-								echo "<a class='font' href='passwortAendern.php'>Passwort &aul;ndern</a>";
+								echo "<a class='font' href='passwortAendern.php'>Passwort &auml;ndern</a>";
 }
 					else{
 						if($_SESSION['admin']==true){
@@ -174,7 +174,7 @@ if(isset($_GET['web']))
 			
 							echo umlaute_encode("<p><span class='font'>Motto:</span>".$ma->getMotto()."</p>");
 							echo "<a class='font' href='ProfilBearbeiten.php?SVNr=".$ma->getSvnr()."'>Profil bearbeiten</a>";
-							echo "<a class='font' href='passwortAendern.php'>Passwort &aul;ndern</a>";
+							echo "<a class='font' href='passwortAendern.php'>Passwort &auml;ndern</a>";
 }
 						if($_SESSION['admin']==false){
 							$ku=$db->getKunde($_SESSION['email']);
@@ -192,7 +192,7 @@ if(isset($_GET['web']))
 							echo umlaute_encode("<p><span class='font'>Vorname:</span>".$ku->getVorname()."</p>");
 							echo umlaute_encode("<p><span class='font'>Nachname:</span>".$ku->getNachname()."</p>");
 							echo "<a class='font' href='ProfilBearbeiten.php?Email=".$ku->getEmail()."'>Profil bearbeiten</a>";
-							echo "<a class='font' href='passwortAendern.php'>Passwort &aul;ndern</a>";
+							echo "<a class='font' href='passwortAendern.php'>Passwort &auml;ndern</a>";
 							
 						
 						}
