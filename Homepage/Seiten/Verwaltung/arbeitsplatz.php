@@ -233,8 +233,8 @@ if(isset($_GET['arbeitsplatzausstattung']))
 								echo umlaute_encode($aus->getName()."<br>");
 							echo "</td>";
 							
-							echo "<td><a href='aUpdate.php?Nr=".$arbeitsplatz->getNummer()."'>Bearbeiten</a></td>";
-							echo "<td><a href='aDelete.php?Nr=".$arbeitsplatz->getNummer()."'>L&ouml;schen</a></td>";
+							echo "<td style='width:100px;text-align:center;'><a href='aUpdate.php?Nr=".$arbeitsplatz->getNummer()."'>Bearbeiten</a></td>";
+							echo "<td style='width:100px;text-align:center;'><a href='aDelete.php?Nr=".$arbeitsplatz->getNummer()."'>L&ouml;schen</a></td>";
 							echo"</tr>";
 						}
 						?>

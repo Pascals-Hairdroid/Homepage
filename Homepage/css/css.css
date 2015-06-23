@@ -73,10 +73,10 @@ and (max-device-width : 480px) {
 	
 	}
 	#head{
-	height:80px;
+	height:150px;
 	}
 	#head img{
-	padding-top:15px;
+	padding-top:60px;
 	width:55%;
 	overflow:hidden;
 	z-index:-100000;
@@ -248,6 +248,8 @@ and (max-device-width : 480px) {
 		-ms-transition: all 0.3s ease-in-out;
 		transition: all 0.3s ease-in-out;  
 	}
+	
+	
 		/* Dropdown Login */
 	
   
@@ -280,7 +282,7 @@ float:right;
   box-shadow: 1px 0 0 #444;  
 }
 
-#Loginbox nav #login-trigger,#login,
+#Loginbox nav #login-trigger a,#login,
 #Loginbox nav #signup a, #element a{
   display: inline-block;
   *display: inline;
@@ -340,7 +342,7 @@ float:right;
 #login-content a {
 color:white;
 }
-#login a{
+#login a, #submit a{
 display: inline-block;
   *display: inline;
   *zoom: 1;
@@ -616,7 +618,7 @@ and (min-device-width : 481px) {
 	height:300px;
 	}
 	.profilbild{
-	width:25%;
+	width:30%;
 	float:left;
 	}
 	#arbeitspaltz{

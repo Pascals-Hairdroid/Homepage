@@ -60,9 +60,9 @@ $db=new db_con("conf/db.php",true);
 					$k=$db->getKunde($_SESSION['email']);
 					if($db->authentifiziereKunde($k, md5($_POST['oldPW']))){
 						$db->kundePwUpdaten($k, md5($_POST['newPW']));
-						$ausgabe="Passwort erfolgreich geändert";
+						$ausgabe="Passwort erfolgreich ge&auml;ndert";
 					}
-					else $ausgabe="Das eingegebene Passwort ist ungültig!";
+					else $ausgabe="Das eingegebene Passwort ist ung&uuml;ltig!";
 				}
 				if(isset($_SESSION['svnr']))
 				{
@@ -70,9 +70,9 @@ $db=new db_con("conf/db.php",true);
 					if($db->authentifiziereMitarbeiter($m, md5($_POST['oldPW'])))
 					{
 						$db->mitarbeiterPwUpdaten($m, md5($_POST['newPW']));
-						$ausgabe="Passwort erfolgreich geändert";
+						$ausgabe="Passwort erfolgreich ge&auml;ndert";
 					}
-					else $ausgabe="Das eingegebene Passwort ist ungültig!";
+					else $ausgabe="Das eingegebene Passwort ist ung&uuml;ltig!";
 				}
 			}
 
@@ -187,7 +187,7 @@ $db=new db_con("conf/db.php",true);
 				echo"<p><input id='oldPW' type='password' name='oldPW' placeholder='Altes Passwort' required></p>";
 				echo"<p><input id='newPW' type='password' name='newPW' placeholder='Passwort' required></p>";
 				echo"<p><input id='newPW2' type='password' name='newPW2' placeholder='Passwort' required></p>";
-				echo"<p><input type='submit' name ='submit2' id='submit2' value='Passwort ändern'></p>";
+				echo"<p><input type='submit' name ='submit2' id='submit2' value='Passwort &auml;ndern'></p>";
 				echo"</form>";
 				if(isset($ausgabe))
 					echo $ausgabe;

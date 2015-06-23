@@ -14,8 +14,8 @@ if(isset($_POST['anlegenM']))
 //Local:
 //  file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], dirname(__FILE__)."/../Bilder/Profilbilder/".$_POST['id'].NK_Pfad_Kunde_Bild_ende,true);
 	
-	
 	$db->mitarbeiterUpdaten($mitarbeiter);
+	$ausgabe="Erfolgreich bearbeitet!";
 }
 if(isset($_POST['anlegenK']))
 {
@@ -193,6 +193,7 @@ if(isset($_GET['web']))
 							echo "<tr><td><input type='submit' name='anlegenM' value='aktualisieren'></td></tr>";
 						echo "</form>";
 					echo "</table>";
+					if(isset($ausgabe)) echo $ausgabe;
 				}
 				if(isset($_GET['Email']))
 				{
