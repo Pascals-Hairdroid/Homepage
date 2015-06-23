@@ -114,44 +114,42 @@ if(isset($_GET['web']))
 			<div id="Loginbox" class="hide">
 				<nav>
 					<ul>
-						<?php
+					<?php
 						if(!isset($_SESSION['username'])){
 							echo"<li id='login'>";
-							echo"<a href='#'>Login &#x25BC;</span></a>";
-							echo"<div id='login-content'>";
-							echo"<form method='post' action=''>";
-							echo"<fieldset id='inputs'>";
-							echo"<input id='username' type='text' name='username' placeholder='Username' required>";
-							echo"<input id='password' type='password' name='passwort' placeholder='Passwort' required>";
-							echo"</fieldset>";
-							echo"<fieldset id='actions'>";
-							echo"<input type='submit' name ='submit' id='login' value='Log in'>";
-							echo"<label><a href='Seiten/forgotPassword.php'> Forgot Password </a></label>";
-							echo"</fieldset>";
-							echo"</form>";
+								echo"<a id='login-trigger' href='#'>Login <span>&#x25BC;</span></a>";
+								echo"<div id='login-content'>";
+									echo"<form method='post' action=''>";
+										echo"<fieldset id='inputs'>";
+											echo"<input id='username' type='text' name='username' placeholder='Username' required>";   
+											echo"<input id='password' type='password' name='passwort' placeholder='Passwort' required>";
+										echo"</fieldset>";
+										echo"<fieldset id='actions'>";
+											echo"<input type='submit' name ='submit' id='submit' value='Log in'>";
+											echo"<label><a href='Seiten/forgotPassword.php'> Forgot Password </a></label>";
+										echo"</fieldset>";
+									echo"</form>";
 								}
 								else{
 									echo"<li id='login'>";
 									echo"<a href='Seiten/Anmeldung/endSession.php'>Logout</span></a>";
-									echo"<div id='login-content'>";
-
+									echo"<div id='login-content'>";	
 								}
-								?>
-			
-			</div>
-			</li>
-			<?php
-			if(isset($_SESSION['username'])){
-							echo"<li ";
+									?>
+								</div>                     
+							</li>
+							<?php
+							if(isset($_SESSION['username'])){
+							echo"<li "; 
 							if($_SESSION['admin']==false)
-								echo"id='signup'";
+							echo"id='signup'";
 							else
-								echo"id='element'";
+							echo"id='element'";	
 							echo"><a href='Seiten/Profil.php'>Profil</a></li>";
 							if($_SESSION['admin']==true){
 							echo"<li id='signup'><a href='Seiten/Verwaltung/Verwaltungsmain.php'>Adminbereich</a></li>";
 							}
-
+													
 							}
 							else{
 								echo"<li id='signup'>";
