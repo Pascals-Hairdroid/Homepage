@@ -20,10 +20,9 @@ $werbung=$db->getWerbung($_GET['Nr']);
 	}
 	if(isset($_POST['submit']))
 	{
-		$lastNr=$db->getAllWerbung();
-		$lastelement =count($lastNr)+1;
-		if(isset($_POST['fileToUpload']))file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende,true);
-		//file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], dirname(__FILE__)."/../../Bilder/Werbung/".$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
+	 if(isset($_FILES["fileToUpload"]["name"])&&$_FILES["fileToUpload"]["name"]!="")
+      file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Werbung_Bildupload_beginn.$_GET['Nr'].NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende,true);
+		
 		$werbung->setTitel($_POST['titel']);
 		$werbung->setText($_POST['text']);
 		$werbung->setInteressen($interessenarray);
@@ -161,7 +160,7 @@ $werbung=$db->getWerbung($_GET['Nr']);
 
 					echo umlaute_encode("<input type='checkbox' name='".$int->getID()."'");
 					if(in_array($int,$werbung->getInteressen())) echo "checked";
-					echo ">".$int->getBezeichnung()." </input>";
+					echo umlaute_encode(">".$int->getBezeichnung()." </input>");
 
 					if ($i % 3 === 0) echo "<p>";
 				}
