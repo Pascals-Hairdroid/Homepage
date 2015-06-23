@@ -152,8 +152,8 @@ if(isset($_GET['web']))
 								echo umlaute_encode("<p><span class='font'>Vorname:</span>".$ma->getVorname()."</p>");
 								echo umlaute_encode("<p><span class='font'>Nachname:</span>".$ma->getNachname()."</p>");
 								echo umlaute_encode("<p><span class='font'>Motto:</span>".$ma->getMotto()."</p>");
-								echo "<a class='font' href='ProfilBearbeiten.php?SVNr=".$ma->getSvnr()."'>Profil bearbeiten</a>";
-								echo "<a class='font' href='passwortAendern.php'>Passwort &auml;ndern</a>";
+								//echo "<a class='font' href='ProfilBearbeiten.php?SVNr=".$ma->getSvnr()."'>Profil bearbeiten</a>";
+								//echo "<a class='font' href='passwortAendern.php'>Passwort &auml;ndern</a>";
 }
 					else{
 						if($_SESSION['admin']==true){
