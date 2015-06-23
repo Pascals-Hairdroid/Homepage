@@ -28,6 +28,7 @@ $werbung=$db->getWerbung($_GET['Nr']);
 		$werbung->setInteressen($interessenarray);
 		
 		$db->werbungUpdaten($werbung);
+		$erg ="Werbung erfolgreich ver&auml;ndert";
 	}
 
 

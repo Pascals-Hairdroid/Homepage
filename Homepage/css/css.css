@@ -130,11 +130,11 @@ and (max-device-width : 480px) {
 	width:50%;
 	}
 	.produktbild{
-	max-width:100px;
+	max-width:200px;
 	max-height:200px;
 	}
 	#produktbox{
-	height:200px;
+	height:300px;
 	}
 	#textAreaVerwaltung{
 	}
