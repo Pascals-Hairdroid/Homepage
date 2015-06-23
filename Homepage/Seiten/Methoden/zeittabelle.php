@@ -58,33 +58,85 @@
 				if (isset($dienstleistung2))
 					array_push($dienstleistungen, $db->getDienstleistung($dienstleistung2, new Haartyp($haarlaenge, "")));
 			}
-		
-		$dienstleistungenKuerzel= array();
-			foreach($dienstleistungen as $ds)
-				array_push($dienstleistungenKuerzel, $ds->getKuerzel());
-// 			var_dump($dienstleistungenKuerzel);
-					
+			
+			
 		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
 		{
-			$hackler = $db->getNotFreeMitarbeiterMitSkills($dienstleistungenKuerzel);
-			echo "Mitarbeiter:";
-			var_dump($hackler);
+			$dienstleistungenKuerzel= array();
+			foreach($dienstleistungen as $ds)
+				array_push($dienstleistungenKuerzel, $ds->getKuerzel());
+			// 			var_dump($dienstleistungenKuerzel);
+		}
+			
+		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
+		{
+			$skills = array($db->getSkillFuerDienstleistung($dienstleistungenKuerzel));
+			// 			echo "</p>";
+			// 			echo "Skills:";
+			// 			echo "</p>";
+			// 			var_dump($skills);
 		}
 		
 		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
 		{
 			$echteHackler = $db->getMitarbeiterMitSkills($dienstleistungenKuerzel);
+			echo "</p>";
 			echo "echte Mitarbeiter:";
+			echo "</p>";
+			var_dump($echteHackler);
+			echo "Prio Hackler";
+			var_dump(PRIORITY_MITARBEITER);
+			if(in_array(PRIORITY_MITARBEITER, $echteHackler))
+			{
+				$index = array_search(PRIORITY_MITARBEITER, $echteHackler);
+				$temp = $echteHackler[0];
+				$echteHackler[0] = PRIORITY_MITARBEITER;
+				$echteHackler[$index]=$temp;
+			}
+			echo "neue Reihenfolge";
 			var_dump($echteHackler);
 		}
 		
 		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
 		{
-			var_dump($dienstleistungenKuerzel);
-			$arbeitsplatz = $db->getArbeitsplatzMitAusstattung($dienstleistungenKuerzel);
+			$hackler = $db->getNotFreeMitarbeiterMitSkills($dienstleistungenKuerzel);
+			echo "Mitarbeiter belegte Zeiten:";
+			echo "</p>";
+// 			var_dump($hackler);
 			
-			echo "guade Arbeitsplätze:";
-			var_dump($arbeitsplatz);
+			$arraymitzeitn=array();
+			foreach ($hackler as $key=>$value){
+// 				echo "</p>";
+// 				var_dump($hackler,"hackler");
+// 				echo "</p>";
+// 				var_dump($key."","key");
+// 				echo "</p>";
+// 				var_dump($value,"gönn dir");
+// 				echo "</p>";
+// 				var_dump($echteHackler,"echte Hackler");
+// 				echo "</p>";
+				
+				if(in_array($key, $echteHackler)){
+// 					var_dump($key."","key2", $echteHackler,"diehackler2");
+					array_push($arraymitzeitn, $value);
+						
+				}
+			}
+// 			echo "</p>";
+// 			echo "Mitarbeiter belegte Zeiten2:";
+// 			echo "</p>";
+//  			var_dump($arraymitzeitn, "ende");
+// 			print_r($arraymitzeitn);
+		}
+		
+		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
+		{
+// 			var_dump($dienstleistungenKuerzel);
+			$arbeitsplatz = $db->getArbeitsplatzMitAusstattung($dienstleistungenKuerzel);
+// 			echo "</p>";
+// 			echo "guade Arbeitsplätze:";
+// 			echo "</p>";
+// 			var_dump($arbeitsplatz);
 		}
 		
 		
@@ -156,23 +208,6 @@
 		$bis1->add(new DateInterval('P4DT7H45M'));
 		
 		
-		
-		
-		//ArbeitsplatzOK suchen
-		
-// 		if (isset($dienstleistungen))
-// 		{
-// 			$arbeitsplatzOK = $db->checkArbeitsplatzFree($von1, $bis1, $dienstleistungen);
-// 			$boolArbeitsplatzOK = count($arbeitsplatzOK)==0?false:true;
-// 			var_dump($arbeitsplatzOK, $boolArbeitsplatzOK);
-// 		}	
-		
-		
-		foreach($db->getAllTermin($von1, $bis1) as $termine)
-		{
-// 				echo $termine->format('Y.m.d');
-// 				echo "<br>";
-		}
 		$termin_array = $db->getAllTermin($von1, $bis1);
 // 		foreach($db->getTermineVonBis($von1, $bis1) as $termine)
 // 		{
@@ -183,25 +218,43 @@
 // 					echo $arbeitsplatz->getName();
 // 					echo "<br>";
 // 				}
-		if (isset($dienstleistungen))
-		{		
-			$arbeitsplatzl = $db->getNotFreeArbeitsplatzMitAustattungen($dienstleistungenKuerzel);
-			echo "Arbeitsplatzl:";
-			var_dump($arbeitsplatzl);
-		}
 		
-		if (isset($dienstleistungen))
+		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
 		{
-			$arbeitsplaetze = $db->getArbeitsplaetzeFuerDienstleistung($dienstleistungen);
-			// 			var_dump($arbeitsplaetze, $von1, $bis1);
-			$plaetze = array($db->getBelegteZeitenVonArbeitsplaetzen($von1, $bis1, $arbeitsplaetze));
-			// 			echo "<h1> ".var_dump($plaetze)." </h1>";
+			if (isset($dienstleistungen))
+			{
+				$arbeitsplaetze = $db->getArbeitsplaetzeFuerDienstleistung($dienstleistungen);
+				// 			var_dump($arbeitsplaetze, $von1, $bis1);
+				$plaetze = array($db->getBelegteZeitenVonArbeitsplaetzen($von1, $bis1, $arbeitsplaetze));
+				// 			echo "<h1> ".var_dump($plaetze)." </h1>";
+			}
 		}
 		
 		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
-			$skills = array($db->getSkillFuerDienstleistung($dienstleistungenKuerzel));
-		echo "Skills";
-		var_dump($skills);
+		{	
+			if (isset($dienstleistungen))
+			{		
+				$arbeitsplatzl = $db->getNotFreeArbeitsplatzMitAustattungen($dienstleistungenKuerzel);
+	// 			
+				$arraymitzeitn2=array();
+				foreach ($arbeitsplatzl as $key=>$value)
+				{
+	// 								
+					if(in_array($key, $arbeitsplaetze))
+					{
+						var_dump($key."","key2", $arbeitsplaetze,"diehackler2");
+						array_push($arraymitzeitn2, $value);
+							
+					}
+				}
+				echo "</p>";
+				echo "Arbeitsplätze belegte Zeiten2:";
+				echo "</p>";
+				// 			var_dump($arraymitzeitn, "ende");
+				print_r($arraymitzeitn2);
+			}
+		}
+		
 	
 		//Tabelle in einem
 		$i = 1;
