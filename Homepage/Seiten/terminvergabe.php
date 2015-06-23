@@ -143,7 +143,7 @@ if(isset($_GET['web']))
 					include("Methoden/dienstleistung.php")
 					?>
 					<br>
-					<iframe name="iframe" src="Methoden/zeittabelle_start.php" style="width:100%;min-height:900px;height:1200px;padding:0px;margin:auto;" />
+					<iframe name="iframe" src="Methoden/zeittabelle.php" style="width:100%;min-height:900px;height:1200px;padding:0px;margin:auto;" />
 				</div>
 				<div id="werbungsbanner">
 				
