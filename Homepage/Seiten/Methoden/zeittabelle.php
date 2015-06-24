@@ -39,12 +39,13 @@
 // 		var_dump($mitarbeiter);
 	}
 	
+		date_default_timezone_set('Europe/Vienna');
 		
-		$haarlaenge=$_GET["haarlaenge"];
-		$dienstleistung=$_GET["dienstleistung"];
-		$dienstleistung2=$_GET["dienstleistung2"];
+		$haarlaenge=isset($_GET["haarlaenge"])?$_GET["haarlaenge"]:"";
+		$dienstleistung=isset($_GET["dienstleistung"])?$_GET["dienstleistung"]:"";
+		$dienstleistung2=isset($_GET["dienstleistung2"])?$_GET["dienstleistung2"]:"";
 //		$woche=$_GET["woche"];
-		$woche=$_GET["woche"];
+		$woche=isset($_GET["woche"])?$_GET["woche"]:(date('Y')."-W".date('W'));
 		
 // 		var_dump($dienstleistung, $dienstleistung2, $haarlaenge);
 		
@@ -59,85 +60,28 @@
 					array_push($dienstleistungen, $db->getDienstleistung($dienstleistung2, new Haartyp($haarlaenge, "")));
 			}
 			
-			
-		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
+		$dienstleistungenKuerzel= array();
+		if($dienstleistung != "" && $dienstleistung2 != "")
 		{
-			$dienstleistungenKuerzel= array();
 			foreach($dienstleistungen as $ds)
 				array_push($dienstleistungenKuerzel, $ds->getKuerzel());
 			// 			var_dump($dienstleistungenKuerzel);
 		}
-			
-		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
+		
+		
+		$echteHackler = $db->getMitarbeiterMitSkills($dienstleistungenKuerzel);
+		if(in_array(PRIORITY_MITARBEITER, $echteHackler))
 		{
-			$skills = array($db->getSkillFuerDienstleistung($dienstleistungenKuerzel));
-			// 			echo "</p>";
-			// 			echo "Skills:";
-			// 			echo "</p>";
-			// 			var_dump($skills);
+			$index = array_search(PRIORITY_MITARBEITER, $echteHackler);
+			$temp = $echteHackler[0];
+			$echteHackler[0] = PRIORITY_MITARBEITER;
+			$echteHackler[$index]=$temp;
 		}
 		
-		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
-		{
-			$echteHackler = $db->getMitarbeiterMitSkills($dienstleistungenKuerzel);
-			echo "</p>";
-			echo "echte Mitarbeiter:";
-			echo "</p>";
-			var_dump($echteHackler);
-			echo "Prio Hackler";
-			var_dump(PRIORITY_MITARBEITER);
-			if(in_array(PRIORITY_MITARBEITER, $echteHackler))
-			{
-				$index = array_search(PRIORITY_MITARBEITER, $echteHackler);
-				$temp = $echteHackler[0];
-				$echteHackler[0] = PRIORITY_MITARBEITER;
-				$echteHackler[$index]=$temp;
-			}
-			echo "neue Reihenfolge";
-			var_dump($echteHackler);
-		}
 		
-		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
-		{
-			$hackler = $db->getNotFreeMitarbeiterMitSkills($dienstleistungenKuerzel);
-			echo "Mitarbeiter belegte Zeiten:";
-			echo "</p>";
-// 			var_dump($hackler);
-			
-			$arraymitzeitn=array();
-			foreach ($hackler as $key=>$value){
-// 				echo "</p>";
-// 				var_dump($hackler,"hackler");
-// 				echo "</p>";
-// 				var_dump($key."","key");
-// 				echo "</p>";
-// 				var_dump($value,"gönn dir");
-// 				echo "</p>";
-// 				var_dump($echteHackler,"echte Hackler");
-// 				echo "</p>";
-				
-				if(in_array($key, $echteHackler)){
-// 					var_dump($key."","key2", $echteHackler,"diehackler2");
-					array_push($arraymitzeitn, $value);
-						
-				}
-			}
-// 			echo "</p>";
-// 			echo "Mitarbeiter belegte Zeiten2:";
-// 			echo "</p>";
-//  			var_dump($arraymitzeitn, "ende");
-// 			print_r($arraymitzeitn);
-		}
 		
-		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
-		{
-// 			var_dump($dienstleistungenKuerzel);
-			$arbeitsplatz = $db->getArbeitsplatzMitAusstattung($dienstleistungenKuerzel);
-// 			echo "</p>";
-// 			echo "guade Arbeitsplätze:";
-// 			echo "</p>";
-// 			var_dump($arbeitsplatz);
-		}
+		$arbeitsplatz = $db->getArbeitsplatzMitAusstattung($dienstleistungenKuerzel);
+		
 		
 		
 		if (isset($_GET["schneiden"]))
@@ -208,6 +152,47 @@
 		$bis1->add(new DateInterval('P4DT7H45M'));
 		
 		
+		if($dienstleistung != "" && $dienstleistung2 != "")
+		{
+			$hackler = $db->getNotFreeMitarbeiterMitSkills($dienstleistungenKuerzel, $von1, $bis1);
+			// 			echo "Mitarbeiter belegte Zeiten:";
+			// 			echo "</p>";
+// 			 			var_dump($hackler);
+				
+			foreach ($hackler as $key=>$value)
+			{
+				// 				echo "</p>";
+				// 				var_dump($hackler,"hackler");
+				// 				echo "</p>";
+				// 				var_dump($key."","key");
+				// 				echo "</p>";
+				// 				var_dump($value,"gönn dir");
+				// 				echo "</p>";
+				// 				var_dump($echteHackler,"echte Hackler");
+				// 				echo "</p>";
+		
+				if(!in_array($key, $echteHackler))
+					unset($hackler[$key]);
+			}
+			$arraymitzeitn=$hackler[$echteHackler[0]];
+			foreach($arraymitzeitn as $k=>$zeit){
+				$bleib=true;
+				foreach($hackler as $z)
+					if(!in_array($zeit, $z))
+						$bleib=false;
+				if(!$bleib)
+					unset($arraymitzeitn[$k]);
+			}
+
+// 			var_dump($hackler);
+// 			echo "</p>";
+// 			echo "Mitarbeiter belegte Zeiten2:";
+// 			echo "</p>";
+//  			var_dump($arraymitzeitn, "ende");
+// 			print_r($arraymitzeitn);
+		}
+		
+		
 		$termin_array = $db->getAllTermin($von1, $bis1);
 // 		foreach($db->getTermineVonBis($von1, $bis1) as $termine)
 // 		{
@@ -219,7 +204,7 @@
 // 					echo "<br>";
 // 				}
 		
-		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
+		if($dienstleistung != "" && $dienstleistung2 != "")
 		{
 			if (isset($dienstleistungen))
 			{
@@ -230,30 +215,44 @@
 			}
 		}
 		
-		if($dienstleistung != "Null" && $dienstleistung2 != "Null")
+		if($dienstleistung != "" && $dienstleistung2 != "")
 		{	
 			if (isset($dienstleistungen))
 			{		
-				$arbeitsplatzl = $db->getNotFreeArbeitsplatzMitAustattungen($dienstleistungenKuerzel);
+				$arbeitsplatzl = $db->getNotFreeArbeitsplatzMitAustattungen($dienstleistungenKuerzel, $von1, $bis1);
 	// 			
-				$arraymitzeitn2=array();
-				foreach ($arbeitsplatzl as $key=>$value)
-				{
-	// 								
-					if(in_array($key, $arbeitsplaetze))
-					{
-						var_dump($key."","key2", $arbeitsplaetze,"diehackler2");
-						array_push($arraymitzeitn2, $value);
+// 				foreach ($arbeitsplatzl as $key=>$value)
+// 				{
+// 	// 								
+// 					if(in_array($key, $arbeitsplaetze))
+// 					{
+// 						var_dump($key."","key2", $arbeitsplatzl,"diehackler2");
+// 						array_push($arraymitzeitn2, $value);
 							
-					}
+// 					}
+// 				}
+				reset($arbeitsplatzl);
+				$arraymitzeitn2=$arbeitsplatzl[key($arbeitsplatzl)];
+				foreach($arraymitzeitn2 as $k=>$zeit){
+					$bleib=true;
+					foreach($arbeitsplatzl as $z)
+					if(!in_array($zeit, $z))
+						$bleib=false;
+					if(!$bleib)
+						unset($arraymitzeitn2[$k]);
 				}
-				echo "</p>";
-				echo "Arbeitsplätze belegte Zeiten2:";
-				echo "</p>";
+				
+// 				echo "</p>";
+// 				echo "Arbeitsplätze belegte Zeiten2:";
+// 				echo "</p>";
+// 				var_dump($arbeitsplatzl);
 				// 			var_dump($arraymitzeitn, "ende");
-				print_r($arraymitzeitn2);
+// 				print_r($arraymitzeitn2);
 			}
 		}
+// 		var_dump($echteHackler,$arbeitsplatz);
+		$alleArbeiter = implode(", ", $echteHackler);
+		$alleArbeitsplaetze = implode(", ", $arbeitsplatz);
 		
 	
 		//Tabelle in einem
@@ -307,88 +306,133 @@
 				{
 					echo "<tr>";
 				}	
+// 				
 // 				if ($termin_array != null)
 // 				{
-// 					if (count(array_intersect($arraydi, $termin_array)) > 1)
+// 					if (!in_array($ddaw, $termin_array))
 // 						echo "<td>";
-// 					else 
-// 						echo "<td style='background-color:red;'>";
+// 					else
+// 						echo "<td style='background-color:#F83333;'>";
 // 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$ddaw->format('H:i')."</a>";
 // 					echo "</td>";
-// 					if (count(array_intersect($arraymi, $termin_array)) > 1)
+// 					if (!in_array($mdaw, $termin_array))
 // 						echo "<td>";
 // 					else
-// 						echo "<td style='background-color:red;'>";
-// 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$mdaw->format('H:i')."</a>";
+// 						echo "<td style='background-color:#F83333;'>";
+// 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$mdaw->format("d.m.Y H:i")."\">".$mdaw->format('H:i')."</a>";
 // 					echo "</td>";
-// 					if (count(array_intersect($arraydo, $termin_array)) > 1)
+// 					if (!in_array($dodaw, $termin_array))
 // 						echo "<td>";
 // 					else
-// 						echo "<td style='background-color:red;'>";
-// 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$dodaw->format('H:i')."</a>";
+// 						echo "<td style='background-color:#F83333;'>";
+// 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$dodaw->format("d.m.Y H:i")."\">".$dodaw->format('H:i')."</a>";
 // 					echo "</td>";
-// 					if (count(array_intersect($arrayfr, $termin_array)) > 1)
+// 					if (!in_array($fdaw, $termin_array))
 // 						echo "<td>";
 // 					else
-// 						echo "<td style='background-color:red;'>";
-// 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$fdaw->format('H:i')."</a>";
+// 						echo "<td style='background-color:#F83333;'>";
+// 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$fdaw->format("d.m.Y H:i")."\">".$fdaw->format('H:i')."</a>";
 // 					echo "</td>";
-// 					if (count(array_intersect($arraysa, $termin_array)) > 1)
+// 					if (!in_array($sdaw, $termin_array))
 // 						echo "<td>";
 // 					else
-// 						echo "<td style='background-color:red;'>";
-// 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$sdaw->format('H:i')."</a>";
+// 						echo "<td style='background-color:#F83333;'>";
+// 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$sdaw->format("d.m.Y H:i")."\">".$sdaw->format('H:i')."</a>";
 // 					echo "</td>";
 // 				}
-				if ($termin_array != null)
+				if (count($arraymitzeitn)+count($arraymitzeitn2) !=  0)
 				{
-					if (!in_array($ddaw, $termin_array))
+					if (!in_array($ddaw, $arraymitzeitn) && !in_array($ddaw, $arraymitzeitn2))
+					{
 						echo "<td>";
+						echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$ddaw->format('H:i')."</a>";
+					}
 					else
+					{
 						echo "<td style='background-color:#F83333;'>";
+						echo $ddaw->format('H:i');
+					}
+					echo "</td>";
+					if (!in_array($mdaw, $arraymitzeitn) && !in_array($mdaw, $arraymitzeitn2))
+					{
+						echo "<td>";
+						echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$mdaw->format("d.m.Y H:i")."\">".$mdaw->format('H:i')."</a>";
+					}
+					else
+					{
+						echo "<td style='background-color:#F83333;'>";
+						echo $mdaw->format('H:i');
+					}
+					echo "</td>";
+					if (!in_array($dodaw, $arraymitzeitn) && !in_array($dodaw, $arraymitzeitn2))
+					{
+						echo "<td>";
+						echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$dodaw->format("d.m.Y H:i")."\">".$dodaw->format('H:i')."</a>";
+					}
+					else
+					{
+						echo "<td style='background-color:#F83333;'>";
+						echo $dodaw->format('H:i');
+					}
+					echo "</td>";
+					if (!in_array($fdaw, $arraymitzeitn) && !in_array($fdaw, $arraymitzeitn2))
+					{
+						echo "<td>";
+						echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$fdaw->format("d.m.Y H:i")."\">".$fdaw->format('H:i')."</a>";
+					}
+					else
+					{
+						echo "<td style='background-color:#F83333;'>";
+						echo $fdaw->format('H:i');
+					}
+					echo "</td>";
+					if (!in_array($sdaw, $arraymitzeitn) && !in_array($sdaw, $arraymitzeitn2))
+					{
+						echo "<td>";
+						echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$sdaw->format("d.m.Y H:i")."\">".$sdaw->format('H:i')."</a>";
+					}
+					else
+					{
+						echo "<td style='background-color:#F83333;'>";
+						echo $sdaw->format('H:i');
+					}
+					echo "</td>";
+				}
+				elseif($haarlaenge!="" && $dienstleistung.$dienstleistung2!="")
+				{
+					echo "<td>";
 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$ddaw->format('H:i')."</a>";
 					echo "</td>";
-					if (!in_array($mdaw, $termin_array))
-						echo "<td>";
-					else
-						echo "<td style='background-color:#F83333;'>";
+					echo "<td>";
 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$mdaw->format("d.m.Y H:i")."\">".$mdaw->format('H:i')."</a>";
 					echo "</td>";
-					if (!in_array($dodaw, $termin_array))
-						echo "<td>";
-					else
-						echo "<td style='background-color:#F83333;'>";
+					echo "<td>";
 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$dodaw->format("d.m.Y H:i")."\">".$dodaw->format('H:i')."</a>";
 					echo "</td>";
-					if (!in_array($fdaw, $termin_array))
-						echo "<td>";
-					else
-						echo "<td style='background-color:#F83333;'>";
+					echo "<td>";
 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$fdaw->format("d.m.Y H:i")."\">".$fdaw->format('H:i')."</a>";
 					echo "</td>";
-					if (!in_array($sdaw, $termin_array))
-						echo "<td>";
-					else
-						echo "<td style='background-color:#F83333;'>";
+					echo "<td>";
 					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$sdaw->format("d.m.Y H:i")."\">".$sdaw->format('H:i')."</a>";
 					echo "</td>";
+					echo "</tr>";
 				}
 				else
 				{	
 					echo "<td>";
-					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$ddaw->format("d.m.Y H:i")."\">".$ddaw->format('H:i')."</a>";
+					echo $ddaw->format('H:i');
 					echo "</td>";
 					echo "<td>";
-					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$mdaw->format("d.m.Y H:i")."\">".$mdaw->format('H:i')."</a>";
+					echo $mdaw->format('H:i');
 					echo "</td>";
 					echo "<td>";
-					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$dodaw->format("d.m.Y H:i")."\">".$dodaw->format('H:i')."</a>";
+					echo $dodaw->format('H:i');
 					echo "</td>";
 					echo "<td>";
-					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$fdaw->format("d.m.Y H:i")."\">".$fdaw->format('H:i')."</a>";
+					echo $fdaw->format('H:i');
 					echo "</td>";
 					echo "<td>";
-					echo "<a href=\"#openModal\" class=\"zeiteinheit\" data-time=\"".$sdaw->format("d.m.Y H:i")."\">".$sdaw->format('H:i')."</a>";
+					echo $sdaw->format('H:i');
 					echo "</td>";
 					echo "</tr>";
 				}
@@ -424,30 +468,24 @@
 // 		echo $now->format('d.m.Y H:i');
 
 		
+		if($dienstleistung != "" && $haarlaenge != "")
+			$dlservice = umlaute_encode ($db->getDienstleistung($dienstleistung, new Haartyp($haarlaenge, null))->getName());
+		else 
+			$dlservice = "Keine Auswahl";
 		
-		if ($dienstleistung != "Null")
+		
+		if($dienstleistung2 != "" && $haarlaenge != "")
 		{
-			if($dienstleistung != "")
-				$dlservice = umlaute_encode ($db->getDienstleistung($dienstleistung, new Haartyp($haarlaenge, null))->getName());
-			else 
-				$dlservice = "Keine Auswahl";
+			$dlcoloration = umlaute_encode($db->getDienstleistung(utf8_decode(utf8_encode($dienstleistung2)), new Haartyp($haarlaenge, null))->getName());
 		}
-		if ($dienstleistung2 != "Null")
-		{
-			if($dienstleistung2 != ""){	
-// 				var_dump($dienstleistung2);
-// 				var_dump($haarlaenge);
-// 				var_dump((new Dienstleistung($dienstleistung2, new Haartyp(null, null), null, null, null, array(), array(), null))->getKuerzel());
-			
-				$dlcoloration = umlaute_encode($db->getDienstleistung(utf8_decode(utf8_encode($dienstleistung2)), new Haartyp($haarlaenge, null))->getName());
-			}
-			else
-				$dlcoloration = "Keine Auswahl";
-		}
+		else
+			$dlcoloration = "Keine Auswahl";
+	
 		
 		if (isset($haarlaenge))
 		{
 			if($haarlaenge != ""){
+// 				var_dump($haarlaenge);
 				$haartyp = umlaute_encode($db->getHaartyp($haarlaenge)->getBezeichnung());
 			}
 			else
@@ -493,6 +531,8 @@
 		}
 		echo "</table>";
 		echo "<br>";
+		echo "<input type='text' name='mitarbeiter' value='$alleArbeiter' hidden>";
+		echo "<input type='text' name='arbeitsplatz' value='$alleArbeitsplaetze' hidden>";
 		echo "<input type='submit' value='Reservieren'>";
 		echo "</form>";
 		echo "</div>";

@@ -11,6 +11,9 @@ window.onload = function () {
 </head>
 <body>
 <form action="Methoden/zeittabelle.php" method="get" id="dienstleistungFrom" target="iframe">
+ <br/>
+ <br/>
+ 
  <?php
 
   include_once("../include_DBA.php");
@@ -26,7 +29,7 @@ window.onload = function () {
   echo "<td>";
   echo"<select name='dienstleistung' size='1' style='display:inline-block; vertical-align:top; overflow:hidden; border:solid grey 1px;'>";
   $kuerzelArray = array();
-  echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
+  echo "<option style='width:17ex;'value=''> Keine Auswahl </option>";
   foreach ($db->getAllDienstleistung() as $dienstleistung)
   {
   	if ($dienstleistung->getGruppierung() == Null && !in_array($dienstleistung->getKuerzel(),$kuerzelArray))
@@ -48,7 +51,7 @@ window.onload = function () {
   echo "</td>";
   echo "<td colspan='2'>";
   echo"<select name='haarlaenge' size='1'>";
-  echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
+  echo "<option style='width:17ex;'value=''> Keine Auswahl </option>";
   foreach ($db->getAllHaartyp() as $haartyp)
   	echo umlaute_encode("<option style='width:17ex;'value='".$haartyp->getKuerzel()."'>".$haartyp->getBezeichnung()." </option>");
   echo "</select>";
@@ -63,7 +66,7 @@ window.onload = function () {
   echo "<td colspan='2'>";
   echo"<select name='dienstleistung2' size='1' style='display:inline-block; vertical-align:top; overflow:hidden; border:solid grey 1px;'>";
   $kuerzelArray2 = array();
-  echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
+  echo "<option style='width:17ex;'value=''> Keine Auswahl </option>";
   foreach ($db->getAllDienstleistung() as $dienstleistung)
   {
   	if ($dienstleistung->getGruppierung() == 1 && !in_array($dienstleistung->getKuerzel(),$kuerzelArray2))

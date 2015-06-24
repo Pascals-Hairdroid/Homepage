@@ -158,7 +158,7 @@ $(function(){
 					Titel:<input type="text" name="titel" required="required" value='<?php echo $werbung->getTitel();?>'>
 				</p>
 				<p>
-					Text:<input type="text" name="text" style="height:100px" value='<?php echo $werbung->getText();?>'>
+					Text:<textarea rows="10" cols="20" name="text"><?php echo $werbung->getText();?></textarea><!--style="height:100px"-->
 				</p>
 				<?php if($binfo!="Google Chrome"){?>
 					<p>G&uuml;ltig bis: <input id="bis" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="<?php echo date('d-m-Y H:i');?>" type='date' name='bis'></input></p>
