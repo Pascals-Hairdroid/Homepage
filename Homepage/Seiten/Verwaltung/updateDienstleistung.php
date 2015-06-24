@@ -49,8 +49,8 @@ foreach($db->getAllArbeitsplatzausstattung() as $int)
 	$dienstleistungNew->setSkills($skillarray);
 	$dienstleistungNew->setGruppierung($_POST['group']);
 	
-	var_dump($dienstleistungNew);
-	var_dump($db->dienstleistungUpdaten($dienstleistungNew));
+	
+	$db->dienstleistungUpdaten($dienstleistungNew);
 	$erg="Dienstleistung eingetragen!";
 	
 }

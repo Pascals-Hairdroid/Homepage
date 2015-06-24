@@ -2,6 +2,7 @@
 include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
 include("../Methoden/getBrowser.php");
+include("../Methoden/emailMe.php");
 $db=new db_con("conf/db.php",true);?>
 <!DOCTYPE html>
 <html>
@@ -40,7 +41,7 @@ $(function(){
 	if(isset($_POST['Email']))
 	{
 		foreach ($db->getAllKunde() as $kun){
-		var_dump(sendEmailNotification($kun, $_POST['titel'], $_post['text'], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende));
+		sendEmailNotification("ket14088@spengergasse.at", $_POST['titel'], $_post['text'], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
 		}
 	}
 
@@ -199,14 +200,9 @@ $(function(){
 				?>
 				<br>
 				<br>
-				<input type="submit" value="Notification verschicken" name="submit">
+				<input type="submit" value="Notification speichern" name="submit">
 				<input type="submit" value="Notification und E-Mail verschicken" name="Email">
 			</form>
-
-
-
-
-
 			<?php
 			if (isset($erg))
 				echo $erg;
