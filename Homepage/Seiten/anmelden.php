@@ -11,7 +11,6 @@ if(isset($_POST['submit'])){
 	$passwort = md5($_POST['passwort']);
 	$username=$_POST['username'];
 	$weiterleitung=login($username,$passwort);
-	header('Location: ../index.php');
 }
 ?>
 <!DOCTYPE html>

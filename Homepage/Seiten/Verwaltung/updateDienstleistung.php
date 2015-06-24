@@ -2,6 +2,8 @@
 include("../Anmeldung/authAdmin.php");
 include("../../include_DBA.php");
 $db=new db_con("conf/db.php",true);
+$haartyp=$db->getHaartyp($_GET['haartyp']);
+$dienstleistung=$db->getDienstleistung($_GET['Krzl'], $haartyp);
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,34 +28,31 @@ $db=new db_con("conf/db.php",true);
 if(isset($_POST["submit2"])){
 $skillarray = array();
 $ausstattungsarray=array();
-foreach($db->getAllSkill() as $int)
+foreach($db->getAllSkill() as $skill)
 	{
-		if(isset ($_POST['s'.$int->getID()]))
-			$int = new Skill($int->getID(),$int->getBeschreibung());
-		$skillarray[]=$int;
+		if(isset ($_POST['s'.$skill->getID()])){
+			$int = new Skill($skill->getID(),$skill->getBeschreibung());
+		$skillarray[]=$skill;}
 	}
 foreach($db->getAllArbeitsplatzausstattung() as $int)
 	{
-		if(isset ($_POST['a'.$int->getID()]))
+		if(isset ($_POST['a'.$int->getID()])){
 			$int = new Arbeitsplatzausstattung($int->getID(), $int->getName());
-		$ausstattungsarray[]=$int;
+		$ausstattungsarray[]=$int;}
 	}
-	$haartyp2=$db->getHaartyp($_POST['laenge']);
-
-	$dienstleistung = new Dienstleistung($_POST['kuerzl'],$haartyp2 , $_POST['name'], $_POST['einheiten'], $_POST['pause'], $skillarray, $ausstattungsarray, $_POST['group']);
-	$db->dienstleistungEintragen($dienstleistung);
+	$dienstleistungNew=$dienstleistung;
+	$dienstleistungNew->setName($_POST['name']);
+	$dienstleistungNew->setBenoetigteEinheiten($_POST['einheiten']);
+	$dienstleistungNew->setPausenEinheiten($_POST['pause']);
+	$dienstleistungNew->setHaartyp($db->getHaartyp($_POST['laenge']));
+	$dienstleistungNew->setArbeitsplatzausstattungen($ausstattungsarray);
+	$dienstleistungNew->setSkills($skillarray);
+	$dienstleistungNew->setGruppierung($_POST['group']);
+	
+	var_dump($dienstleistungNew);
+	var_dump($db->dienstleistungUpdaten($dienstleistungNew));
 	$erg="Dienstleistung eingetragen!";
-}
-
-if(isset($_GET['skill']))
-{
-
-	$produkte=$db->getAllSkill();
-	$lastelement =count($produkte)+1;
-
-	$skill=new Skill($lastelement, $_GET['name']);
-	$db->skillEintragen($skill);
-	$erg="Skill erfolgreich angelegt";
+	
 }
 	?>
 <div id="container">
@@ -158,25 +157,25 @@ if(isset($_GET['skill']))
 						</nav>
 				</div>
 			<div id="textArea">
-				
-					<div id="arbeitspaltz">
-				Dienstleistung hinzuf&uuml;gen:<br>
-					<table border="0">
+				<table border="0">
 						<form method="post" action="">
-							<tr><td>K&uuml;rzel</td><td><input type="text" name="kuerzl" required="required"/></td></tr>
-							<tr><td>Dienstleistungsname</td><td><input type="text" name="name" required="required"/></td></tr>
+							<tr><td>K&uuml;rzel</td><td><input type="text" name="kuerzl" required="required"<?php echo "value='".$dienstleistung->getKuerzel()."'readonly"?>/></td></tr>
+							<tr><td>Dienstleistungsname</td><td><input type="text" name="name" required="required"<?php echo "value='".$dienstleistung->getName()."'"?>/></td></tr>
 							<tr><td>Haarl&auml;nge</td>
 							<td>
 							<?php 
 								echo"<select name='laenge' size='1'>";
-	 							echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
-  								foreach ($db->getAllHaartyp() as $haartyp)
+  								foreach ($db->getAllHaartyp() as $haartyp){
+									if(in_array($haartyp,$dienstleistung->getHaartyp()))
+										echo "<option selected='selected' style='width:17ex;'value='".$haartyp->getKuerzel()."'>".$haartyp->getBezeichnung()." </option>";
+										else
   									echo "<option style='width:17ex;'value='".$haartyp->getKuerzel()."'>".$haartyp->getBezeichnung()." </option>";					
-							?>
+							}
+  									?>
 							</select></td></tr>
-							<tr><td>Ben&ouml;tigte Einheiten</td><td><input type="text" name="einheiten" required="required"/></td></tr>
-							<tr><td>Pauseneinheiten</td><td><input type="text>" name="pause" required="required"/></td></tr>
-							<tr><td>Gruppe</td><td><input type="text>" name="group" required="required"/></td></tr>
+							<tr><td>Ben&ouml;tigte Einheiten</td><td><input type="text" name="einheiten" required="required" <?php echo "value='".$dienstleistung->getBenoetigteEinheiten()."'"?>/></td></tr>
+							<tr><td>Pauseneinheiten</td><td><input type="text>" name="pause" required="required"<?php echo "value='".$dienstleistung->getPausenEinheiten()."'"?>/></td></tr>
+							<tr><td>Gruppe</td><td><input type="text>" name="group" required="required" <?php echo "value='".$dienstleistung->getGruppierung()."'"?>/></td></tr>
 							<tr><td>Skills:</td></tr><tr>
 							<?php 
 							$i=0;
@@ -184,10 +183,12 @@ if(isset($_GET['skill']))
 							{
 								
 								$i++;
-								
+								if(in_array($skills,$dienstleistung->getSkills()))
+									echo umlaute_encode("<td><input type='checkbox' name='s".$skills->getID()."' checked> ".$skills->getBeschreibung()." </input></td>");
+									else
 								echo umlaute_encode("<td><input type='checkbox' name='s".$skills->getID()."'> ".$skills->getBeschreibung()." </input></td>");
 								
-								if ($i % 2 === 0) echo "</tr><tr>";
+								if ($i % 4 === 0) echo "</tr><tr>";
 							}
 							
 							
@@ -200,10 +201,12 @@ if(isset($_GET['skill']))
 							{
 								
 								$i++;
-								
+								if(in_array($ausstattung,$dienstleistung->getArbeitsplatzausstattungen()))
+									echo umlaute_encode("<td><input type='checkbox' name='a".$ausstattung->getID()."'checked> ".$ausstattung->getName()." </input></td>");
+									else
 								echo umlaute_encode("<td><input type='checkbox' name='a".$ausstattung->getID()."'> ".$ausstattung->getName()." </input></td>");
 								
-								if ($i % 2 === 0) echo "</tr><tr>";
+								if ($i % 4 === 0) echo "</tr><tr>";
 							}
 							
 							
@@ -212,58 +215,6 @@ if(isset($_GET['skill']))
 							
 						</form>
 					</table>
-					</div>
-					<div id="Arbeitsplatzausstattung">
-					Skill hinzuf&uuml;gen:<br>
-					<table border="0">
-					<form method='get'>
-							<tr>
-								<td>Skill ID:</td>
-								<td><input type="text" name="id" readonly
-								<?php 
-								$produkte=$db->getAllSkill();
-								$lastelement =count($produkte)+1;
-								echo $lastelement;
-								echo"value='$lastelement' placeholder='$lastelement'";
-								?>/></td></tr>
-								
-								<tr><td>Bezeichnung:</td><td><input name="name" type="text" class="loginField"required = "required"></p></td></tr>
-								
-								<tr><td><input type="submit" value ="anlegen" name="skill"></td></tr>
-								
-							</form>
-						</table>
-						
-					</div>
-					
-					
-					
-					<br />
-					<?php
-						if (isset($erg))
-							echo $erg."<br />";
-						?>
-							<table border="0">
-							
-				<?php
-				
-
-				echo "<tr><td>K&uuml;rzel.:</td><td>Dienstleistungsname</td><td style='text-align:center;width:100px;'>Haarl&auml;nge</td><td style='width:260px;text-align:center;'>Ben&ouml;tigte Einheiten</td><td>Pauseneinheiten</td></tr>";
-
-				foreach($db->getAllDienstleistung() as $dienst){
-							echo umlaute_encode("<tr><td>".$dienst->getKuerzel()."</td><td>".$dienst->getName()."</td><td style='text-align:center;width:100px;'>".$dienst->getHaartyp()->getBezeichnung()."</td><td style='width:130px;text-align:center;'>".$dienst->getBenoetigteEinheiten()."</td><td style='text-align:center'>".$dienst->getPausenEinheiten()."</td><td>");
-							echo "<td style='width:100px;text-align:center;'><a href='updateDienstleistung.php?Krzl=".$dienst->getKuerzel()."&haartyp=".$dienst->getHaartyp()->getKuerzel()."'>Bearbeiten</a></td>";
-							echo "<td style='width:100px;text-align:center;'><a href='deleteDienstleistung.php?Krzl=".$dienst->getKuerzel()."&haartyp=".$dienst->getHaartyp()->getKuerzel()."'>L&ouml;schen</a></td>";
-							echo"</tr>";
-						}
-						?>
-					</table>
-					<?php 
-				if(isset($_GET['f']))
-				{
-					if ($_GET['f']==1) echo "Dienstleistung erfolgreich gel&ouml;scht!";
-				}
-				?>
 			</div>
 			<div id="footer">
 </div></div>
