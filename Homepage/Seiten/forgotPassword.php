@@ -43,7 +43,7 @@ if(isset($_POST["submit2"])){
 	sendEmailToken($_POST['email'], "Passwort zur&uuml;rcksetzung zu Ihrem Pascals.at Profil", $mdun);
 	
 	
-	$ausgabe = $db->kundeTokenUpdaten($kunde,$token)?"Ihr Passwort wurde zur&uuml;ckgesetzt. Bitte sehen sie nun in ihren E-Mail Postfach nach! Dieser Vorgang kann bis zu 10 Minuten dauern":"FAIL";
+	$ausgabe = $db->kundeTokenUpdaten($kunde,$token)?"Ihr Passwort wurde zur&uuml;ckgesetzt. Bitte sehen sie nun in ihrem E-Mail Postfach nach! Dieser Vorgang kann bis zu 10 Minuten dauern":"FAIL";
 	}
 	Catch(DB_Exception $e){
 		$ausgabe= $e->getViewmsg()." Message: ".$e->getMsg();
