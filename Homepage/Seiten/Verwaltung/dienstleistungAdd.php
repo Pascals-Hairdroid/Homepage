@@ -26,17 +26,17 @@ $db=new db_con("conf/db.php",true);
 if(isset($_POST["submit2"])){
 $skillarray = array();
 $ausstattungsarray=array();
-foreach($db->getAllSkill() as $int)
+foreach($db->getAllSkill() as $skill)
 	{
-		if(isset ($_POST['s'.$int->getID()]))
-			$int = new Skill($int->getID(),$int->getBeschreibung());
-		$skillarray[]=$int;
+		if(isset ($_POST['s'.$skill->getID()])){
+			$int = new Skill($skill->getID(),$skill->getBeschreibung());
+		$skillarray[]=$skill;}
 	}
 foreach($db->getAllArbeitsplatzausstattung() as $int)
 	{
-		if(isset ($_POST['a'.$int->getID()]))
+		if(isset ($_POST['a'.$int->getID()])){
 			$int = new Arbeitsplatzausstattung($int->getID(), $int->getName());
-		$ausstattungsarray[]=$int;
+		$ausstattungsarray[]=$int;}
 	}
 	$haartyp2=$db->getHaartyp($_POST['laenge']);
 
@@ -243,6 +243,11 @@ if(isset($_GET['skill']))
 					<?php
 						if (isset($erg))
 							echo $erg."<br />";
+						if(isset($_GET['f']))
+						{
+							if ($_GET['f']==1) echo "Dienstleistung erfolgreich gel&ouml;scht!";
+						}				
+						
 						?>
 							<table border="0">
 							
@@ -259,12 +264,6 @@ if(isset($_GET['skill']))
 						}
 						?>
 					</table>
-					<?php 
-				if(isset($_GET['f']))
-				{
-					if ($_GET['f']==1) echo "Dienstleistung erfolgreich gel&ouml;scht!";
-				}
-				?>
 			</div>
 			<div id="footer">
 </div></div>
