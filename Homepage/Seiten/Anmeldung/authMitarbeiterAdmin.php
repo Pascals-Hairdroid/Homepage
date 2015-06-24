@@ -2,7 +2,7 @@
 session_start();
 if(!isset($_SESSION['username'])) 
    { 
-   header('Location: ../anmelden');
+   header('Location: ../anmelden.php');
    } 
 else
 {

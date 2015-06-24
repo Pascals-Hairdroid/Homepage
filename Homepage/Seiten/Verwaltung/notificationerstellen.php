@@ -40,9 +40,20 @@ $(function(){
 	}
 	if(isset($_POST['Email']))
 	{
-		foreach ($db->getAllKunde() as $kun){
-		sendEmailNotification("ket14088@spengergasse.at", $_POST['titel'], $_post['text'], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
-		}
+		$abf = $db->query("SELECT werbung_nextval() FROM dual;");
+		//var_dump($abf, mysqli_error($db->con));
+		$lastelement=mysqli_fetch_row($abf)[0];
+		if(isset($_FILES["fileToUpload"]["name"])&&$_FILES["fileToUpload"]["name"]!=""){
+			file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
+}
+		else $file=null;
+			
+		$werbung=new Werbung($lastelement, $_POST['titel'], $_POST['text'], new Datetime($_POST['bis']), $interessenarray);
+		$eingetragen = $db->werbungEintragen($werbung);
+		
+		//foreach ($db->getAllKunde() as $kun){
+		sendEmailNotification("ket14088@spengergasse.at", $_POST['titel'], $_POST['text'], "http://www.pascals.at/v2/Bilder/Werbung/".$lastelement."_0".NK_Pfad_Werbung_Bild_ende);
+		//}
 	}
 
 	
@@ -207,6 +218,7 @@ $(function(){
 			if (isset($erg))
 				echo $erg;
 			?>
+			
 		</div>
 		<div id="footer"></div>
 	</div>
