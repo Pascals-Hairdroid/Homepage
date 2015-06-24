@@ -1,6 +1,7 @@
 <?php 
 include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
+include("../Methoden/getBrowser.php");
 $db=new db_con("conf/db.php",true);?>
 <!DOCTYPE html>
 <html>
@@ -8,6 +9,14 @@ $db=new db_con("conf/db.php",true);?>
 <link rel="stylesheet" type="text/css" href="../../css/css.css">
 </head>
 <body>
+<script src="../../javascript/jquery.min.js"></script> 
+    <script src="../../javascript/moment.js"></script> 
+    <script src="../../javascript/combodate.js"></script> 
+<script type="text/javascript">
+$(function(){
+    $('#bis').combodate();  
+});
+</script>
 	<?php
 	$interessenarray = array();
 	foreach($db->getAllInteresse() as $int){
@@ -25,7 +34,7 @@ $db=new db_con("conf/db.php",true);?>
 		
 		//file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], dirname(__FILE__)."/../../Bilder/Werbung/".$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
 		
-		$werbung=new Werbung($lastelement, $_POST['titel'], $_POST['text'], DateTime::createFromFormat('j-M-Y', date('d-M-Y')), $interessenarray);
+		$werbung=new Werbung($lastelement, $_POST['titel'], $_POST['text'], new Datetime($_POST['bis']), $interessenarray);
 		$eingetragen = $db->werbungEintragen($werbung);
 	}
 
@@ -154,6 +163,17 @@ $db=new db_con("conf/db.php",true);?>
 				<p>
 					Text:<input type="text" name="text" style="height:100px">
 				</p>
+					
+				<?php if($binfo!="Google Chrome"){?>
+					<p>Bis: &nbsp;<input id="bis" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="<?php echo date('d-m-Y H:i');?>" type='date' name='bis'></input></p>
+							<?php 
+							}
+							else{
+							?>
+				<p>
+					G&uuml;ltig bis: <input type="datetime-local" name="bis">
+				</p>
+				<?php }?>
 				<p>
 					Werbungsbild: <input type="file" name="fileToUpload" id="fileToUpload">
 				</p>

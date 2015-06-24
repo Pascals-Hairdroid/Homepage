@@ -174,8 +174,8 @@ else $erg="Bitte f&uuml;llen Sie alle Felder aus!";
 							?>
 							</select>
 							<?php if($binfo!="Google Chrome"){?>
-							<p>Von:<input id="von" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="01-01-2015 00:00" type='date' name='von'></input></p>
-							<p>Bis: &nbsp;<input id="bis" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="01-01-2015 01:00" type='date' name='bis'></input></p>
+							<p>Von:<input id="von" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="<?php echo date('d-m-Y H:i');?>" type='date' name='von'></input></p>
+							<p>Bis: &nbsp;<input id="bis" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="<?php echo date('d-m-Y H:i');?>" type='date' name='bis'></input></p>
 							<?php 
 							}
 							else{
