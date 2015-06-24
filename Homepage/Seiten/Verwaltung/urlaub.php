@@ -180,8 +180,8 @@ else $erg="Bitte f&uuml;llen Sie alle Felder aus!";
 							}
 							else{
 							?>
-							<p>Von:<input type='date' name='von'></input>
-							Bis:<input type='date' name='bis'></input></p>	
+							<p>Von:<input type='datetime-local' name='von'></input>
+							Bis:<input type='datetime-local' name='bis'></input></p>	
 							<?php }?>
 							<input type="submit" value ="absenden" name="submit">
 							<input type="submit" value ="Urlaube anzeigen" name="submit2">
