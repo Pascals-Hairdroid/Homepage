@@ -2,13 +2,13 @@
 session_start();
 if(!isset($_SESSION['username'])) 
    { 
-   echo "Bitte erst <a href='anmelden.php'>einloggen</a>";
+   header('Location: ../anmelden.php?f=1');
    exit; 
    } 
 else
 {
 	if($_SESSION['admin']==false){
-		echo "Sie haben keine Berechtigung auf diese Seite zu gelangen!";
+		header('Location: ../anmelden.php');
 	exit;	
 	}
 }	
