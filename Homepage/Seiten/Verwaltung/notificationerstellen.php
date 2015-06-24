@@ -199,7 +199,7 @@ $(function(){
 				?>
 				<br>
 				<br>
-				<input type="submit" value="Notification speichern" name="submit">
+				<input type="submit" value="Notification verschicken" name="submit">
 				<input type="submit" value="Notification und E-Mail verschicken" name="Email">
 			</form>
 
