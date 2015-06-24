@@ -185,7 +185,7 @@ $(function(){
 					Werbungsbild: <input type="file" name="fileToUpload" id="fileToUpload">
 				</p>
 				<br>
-
+				<p>
 				<?php 
 				$i=0;
 
@@ -195,10 +195,11 @@ $(function(){
 
 					echo umlaute_encode("<input type='checkbox' name='".$int->getID()."'>".$int->getBezeichnung()." </input>");
 
-					if ($i % 3 === 0) echo "<p>";
+					if ($i % 3 === 0) echo "</p><p>";
 				}
 
 				?>
+				</p>
 				<br>
 				<br>
 				<input type="submit" value="Notification ausschicken" name="submit">
