@@ -41,7 +41,7 @@ $(function(){
 	if(isset($_POST['E-Mail']))
 	{
 		foreach ($db->getAllKunde() as $kun){
-		sendEmailNotification($kun, $_POST['titel'], $_post['text'], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
+		var_dump(sendEmailNotification($kun, $_POST['titel'], $_post['text'], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende));
 		}
 	}
 
@@ -168,7 +168,7 @@ $(function(){
 					Titel:<input type="text" name="titel" required="required">
 				</p>
 				<p>
-					Text:<input type="text" name="text" style="height:100px">
+					Text:<textarea rows="10" cols="20" name="text" ></textarea>
 				</p>
 					
 				<?php if($binfo!="Google Chrome"){?>
