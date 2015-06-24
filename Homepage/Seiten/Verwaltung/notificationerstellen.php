@@ -2,6 +2,7 @@
 include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
 include("../Methoden/getBrowser.php");
+include("../Methoden/emailMe.php");
 $db=new db_con("conf/db.php",true);?>
 <!DOCTYPE html>
 <html>
@@ -36,6 +37,12 @@ $(function(){
 		
 		$werbung=new Werbung($lastelement, $_POST['titel'], $_POST['text'], new Datetime($_POST['bis']), $interessenarray);
 		$eingetragen = $db->werbungEintragen($werbung);
+	}
+	if(isset($_POST['E-Mail']))
+	{
+		foreach ($db->getAllKunde() as $kun){
+		sendEmailNotification($kun, $_POST['titel'], $_post['text'], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
+		}
 	}
 
 
@@ -165,7 +172,7 @@ $(function(){
 				</p>
 					
 				<?php if($binfo!="Google Chrome"){?>
-					<p>Bis: &nbsp;<input id="bis" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="<?php echo date('d-m-Y H:i');?>" type='date' name='bis'></input></p>
+					<p>G&uuml;ltig bis: <input id="bis" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="<?php echo date('d-m-Y H:i');?>" type='date' name='bis'></input></p>
 							<?php 
 							}
 							else{
@@ -195,6 +202,7 @@ $(function(){
 				<br>
 				<br>
 				<input type="submit" value="Notification ausschicken" name="submit">
+				<input type="submit" value="Notification an E-Mail verschicken" name="Email">
 			</form>
 
 
