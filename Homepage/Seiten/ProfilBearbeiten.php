@@ -9,12 +9,13 @@ if(isset($_POST['anlegenM']))
 	$mitarbeiter->setNachname($_POST['nn']);
 	
 //Server:
+	if(isset($_FILES["fileToUpload"]["name"])&&$_FILES["fileToUpload"]["name"]!="")
  	file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Kunde_Bildupload_beginn.$_POST['id'].NK_Pfad_Kunde_Bild_ende,true);
 //Local:
 //  file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], dirname(__FILE__)."/../Bilder/Profilbilder/".$_POST['id'].NK_Pfad_Kunde_Bild_ende,true);
 	
-	
 	$db->mitarbeiterUpdaten($mitarbeiter);
+	$ausgabe="Erfolgreich bearbeitet!";
 }
 if(isset($_POST['anlegenK']))
 {
@@ -34,13 +35,14 @@ if(isset($_POST['anlegenK']))
 	$kunde->setFoto(NK_Pfad_Kunde_Bild_beginn.md5($_POST['id']).NK_Pfad_Kunde_Bild_ende);
 	//$kunde->setFoto("http://localhost/homepage/Homepage/bilder/Profilbilder/".md5($_POST['id']).NK_Pfad_Kunde_Bild_ende);
 	
-//Server:::::::::::::::: 	
+//Server:::::::::::::::: 
+	if(isset($_FILES["fileToUpload"]["name"])&&$_FILES["fileToUpload"]["name"]!="")	
 	file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Kunde_Bildupload_beginn.md5($_POST['id']).NK_Pfad_Kunde_Bild_ende,true);
 
 //Local:	
 //	file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], dirname(__FILE__)."/../Bilder/Profilbilder/".md5($_POST['id']).NK_Pfad_Kunde_Bild_ende,true);
-	
 	$db->kundeUpdaten($kunde);
+	$ausgabe="Erfolgreich bearbeitet!";
 }
 
 ?>
@@ -191,6 +193,7 @@ if(isset($_GET['web']))
 							echo "<tr><td><input type='submit' name='anlegenM' value='aktualisieren'></td></tr>";
 						echo "</form>";
 					echo "</table>";
+					if(isset($ausgabe)) echo $ausgabe;
 				}
 				if(isset($_GET['Email']))
 				{
@@ -208,7 +211,9 @@ if(isset($_GET['web']))
 							foreach ($db->getAllInteresse() as $int)
 							{
 								$i++;
-									
+								if(in_array($int,$ku->getInteressen()))
+									echo umlaute_encode("<td><input type='checkbox' name='".$int->getID()."' checked>".$int->getBezeichnung()." </input></td>");
+								else 
 								echo umlaute_encode("<td><input type='checkbox' name='".$int->getID()."'>".$int->getBezeichnung()." </input></td>");
 									
 								if ($i % 3 === 0) echo "</tr><tr>";
@@ -218,6 +223,7 @@ if(isset($_GET['web']))
 							echo "<tr><td><input type='submit' name='anlegenK' value='aktualisieren'></td></tr>";
 						echo "</form>";
 					echo "</table>";
+					if(isset($ausgabe)) echo $ausgabe;
 				}
 					?>
 			</div>

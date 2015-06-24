@@ -132,6 +132,7 @@ else $erg="Bitte f&uuml;llen Sie alle Felder aus!";
 									<ul>
 										<li><a href="terminAnzeigen.php">anzeigen</a></li>
 										<li><a href="terminBearbeiten.php">bearbeiten</a></li>
+										<li><a href="statistik.php">Statistik</a></li>
 									</ul>
 								</li>
 								<li class="items">
@@ -173,14 +174,14 @@ else $erg="Bitte f&uuml;llen Sie alle Felder aus!";
 							?>
 							</select>
 							<?php if($binfo!="Google Chrome"){?>
-							<p>Von:<input id="von" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="01-01-2015 00:00" type='date' name='von'></input></p>
-							<p>Bis: &nbsp;<input id="bis" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="01-01-2015 01:00" type='date' name='bis'></input></p>
+							<p>Von:<input id="von" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="<?php echo date('d-m-Y H:i');?>" type='date' name='von'></input></p>
+							<p>Bis: &nbsp;<input id="bis" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="<?php echo date('d-m-Y H:i');?>" type='date' name='bis'></input></p>
 							<?php 
 							}
 							else{
 							?>
-							<p>Von:<input type='date' name='von'></input>
-							Bis:<input type='date' name='bis'></input></p>	
+							<p>Von:<input type='datetime-local' name='von'></input>
+							Bis:<input type='datetime-local' name='bis'></input></p>	
 							<?php }?>
 							<input type="submit" value ="absenden" name="submit">
 							<input type="submit" value ="Urlaube anzeigen" name="submit2">

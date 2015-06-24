@@ -2,6 +2,8 @@
 include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
 $db=new db_con("conf/db.php",true);
+include("../Methoden/getBrowser.php");
+include("../Methoden/emailMe.php");
 $werbung=$db->getWerbung($_GET['Nr']);
 ?>
 <!DOCTYPE html>
@@ -10,6 +12,14 @@ $werbung=$db->getWerbung($_GET['Nr']);
 <link rel="stylesheet" type="text/css" href="../../css/css.css">
 </head>
 <body>
+<script src="../../javascript/jquery.min.js"></script> 
+    <script src="../../javascript/moment.js"></script> 
+    <script src="../../javascript/combodate.js"></script> 
+<script type="text/javascript">
+$(function(){
+    $('#bis').combodate();  
+});
+</script>
 	<?php
 	$interessenarray = array();
 	foreach ($db->getAllInteresse() as $int)
@@ -20,19 +30,22 @@ $werbung=$db->getWerbung($_GET['Nr']);
 	}
 	if(isset($_POST['submit']))
 	{
-		$lastNr=$db->getAllWerbung();
-		$lastelement =count($lastNr)+1;
-		if(isset($_POST['fileToUpload']))file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende,true);
-		//file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], dirname(__FILE__)."/../../Bilder/Werbung/".$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
+	 if(isset($_FILES["fileToUpload"]["name"])&&$_FILES["fileToUpload"]["name"]!="")
+      file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Werbung_Bildupload_beginn.$_GET['Nr'].NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende,true);
+		
 		$werbung->setTitel($_POST['titel']);
 		$werbung->setText($_POST['text']);
 		$werbung->setInteressen($interessenarray);
 		
 		$db->werbungUpdaten($werbung);
+		$erg ="Werbung erfolgreich ver&auml;ndert";
 	}
-
-
-	
+	if(isset($_POST['E-Mail']))
+	{
+		foreach ($db->getAllKunde() as $kun){
+			sendEmailNotification($kun, $_POST['titel'], $_post['text'], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
+		}
+	}	
 	?>
 
 	<div id="container">
@@ -123,6 +136,7 @@ $werbung=$db->getWerbung($_GET['Nr']);
 									<ul>
 										<li><a href="terminAnzeigen.php">anzeigen</a></li>
 										<li><a href="terminBearbeiten.php">bearbeiten</a></li>
+										<li><a href="statistik.php">Statistik</a></li>
 									</ul>
 								</li>
 								<li class="items">
@@ -146,6 +160,16 @@ $werbung=$db->getWerbung($_GET['Nr']);
 				<p>
 					Text:<input type="text" name="text" style="height:100px" value='<?php echo $werbung->getText();?>'>
 				</p>
+				<?php if($binfo!="Google Chrome"){?>
+					<p>G&uuml;ltig bis: <input id="bis" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="<?php echo date('d-m-Y H:i');?>" type='date' name='bis'></input></p>
+							<?php 
+							}
+							else{
+							?>
+				<p>
+					G&uuml;ltig bis: <input type="datetime-local" name="bis">
+				</p>
+				<?php }?>
 				<p>
 					Werbungsbild: <input type="file" name="fileToUpload" id="fileToUpload">
 				</p>
@@ -161,7 +185,7 @@ $werbung=$db->getWerbung($_GET['Nr']);
 
 					echo umlaute_encode("<input type='checkbox' name='".$int->getID()."'");
 					if(in_array($int,$werbung->getInteressen())) echo "checked";
-					echo ">".$int->getBezeichnung()." </input>";
+					echo umlaute_encode(">".$int->getBezeichnung()." </input>");
 
 					if ($i % 3 === 0) echo "<p>";
 				}
@@ -169,6 +193,7 @@ $werbung=$db->getWerbung($_GET['Nr']);
 				<br>
 				<br>
 				<input type="submit" value="Notification ausschicken" name="submit">
+								<input type="submit" value="Notification an E-Mail verschicken" name="Email">
 			</form>
 
 

@@ -109,6 +109,7 @@ $db=new db_con("conf/db.php",true);
 									<ul>
 										<li><a href="terminAnzeigen.php">anzeigen</a></li>
 										<li><a href="terminBearbeiten.php">bearbeiten</a></li>
+										<li><a href="statistik.php">Statistik</a></li>
 									</ul>
 								</li>
 								<li class="items">
@@ -145,7 +146,8 @@ $db=new db_con("conf/db.php",true);
           foreach($werbung->getFotos() as $foto)
           echo "<img src=\"".$foto."\" height=\"200px\"/>";
           echo "<br/>";
-          echo "<a href=\"notification.php?del=1&nummer=".$werbung->getNummer()."\">L&ouml;schen</a>";
+          echo "<a style='padding-right:15px' href=\"notification.php?del=1&nummer=".$werbung->getNummer()."\">L&ouml;schen</a>";
+          echo "<a href=\"notificationUpdate.php?Nr=".$werbung->getNummer()."\">Bearbeiten</a>";
           echo "</div>";
         }
 			}
@@ -154,6 +156,7 @@ $db=new db_con("conf/db.php",true);
 			echo $werbung->getTitel();
 			echo"<br>";
 			echo $werbung->getText();
+			echo "<a href=\"notificationUpdate.php?nummer=".$werbung->getNummer()."\">Bearbeiten</a>";
 			}
 			?>
 			</div>

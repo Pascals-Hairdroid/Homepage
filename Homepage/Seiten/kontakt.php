@@ -38,7 +38,7 @@ if(isset($_GET['web']))
 		<div id="Loginbox" class="hide">
 					<nav>
 						<ul>
-						<?php
+					<?php
 						if(!isset($_SESSION['username'])){
 							echo"<li id='login'>";
 								echo"<a id='login-trigger' href='#'>Login <span>&#x25BC;</span></a>";
@@ -49,7 +49,7 @@ if(isset($_GET['web']))
 											echo"<input id='password' type='password' name='passwort' placeholder='Passwort' required>";
 										echo"</fieldset>";
 										echo"<fieldset id='actions'>";
-											echo"<input type='submit' name ='submit' id='login' value='Log in'>";
+											echo"<input type='submit' name ='submit' id='submit' value='Log in'>";
 											echo"<label><a href='forgotPassword.php'> Forgot Password </a></label>";
 										echo"</fieldset>";
 									echo"</form>";

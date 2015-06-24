@@ -49,7 +49,7 @@ if(isset($_GET['web']))
 											echo"<input id='password' type='password' name='passwort' placeholder='Passwort' required>";
 										echo"</fieldset>";
 										echo"<fieldset id='actions'>";
-											echo"<input type='submit' name ='submit' id='login' value='Log in'>";
+											echo"<input type='submit' name ='submit' id='submit' value='Log in'>";
 											echo"<label><a href='forgotPassword.php'> Forgot Password </a></label>";
 										echo"</fieldset>";
 									echo"</form>";
@@ -80,6 +80,7 @@ if(isset($_GET['web']))
 								echo"<a href='registration.php'>Registrieren</a>";
 								echo"</li>";
 							}
+							
 							?>
 						</ul>
 					</nav>
@@ -138,14 +139,12 @@ if(isset($_GET['web']))
 				<img src="../Bilder/Homepage/studio3.jpg" style="width:32%;" />
 				
 					<br> <br>
-					<p style="text-align:center"> Im Studio Pascals Hairstyle wird Freundlichkeit und eine gem&uuml;tliche Atmosph&auml;re gro&szlig; geschrieben! </p>
-					<p style="text-align:center"> Das Wohlbefinden der Kunden ist unser Ziel. Um das zu erreichen f&auml;ngt unser Service schon beim</p>
-					<p style="text-align:center"> betreten des Studios an. Unser modernes Ambiente, immer am Puls der Zeit und die professionelle </p>
-					<p style="text-align:center"> Typberatung lassen unsere Kunden schnell den Altagsstress vergessen.</p>
+					<p style="text-align:center"> Im Studio "Pascals Hairstyle" wird Freundlichkeit und eine gem&uuml;tliche Atmosph&auml;re gro&szlig; geschrieben!
+Das Wohlbefinden der Kunden ist unser Ziel. Um das zu erreichen, f&auml;ngt unser Service schon an, wenn Sie das Studio betreten. Unser modernes Ambiente, immer am Puls der Zeit, und die professionelle Typberatung lassen unsere Kunden schnell den Alltagsstress vergessen.
+					</p>
+
 					<br>
-					<p style="text-align:center"> Unser Salon verf&uuml;gt &uuml;ber 4 Bedienungspl&auml;tze sowie 2 Waschpl&auml;tze, bietet eine moderne Ausstattung </p>
-					<p style="text-align:center">und eine klimatisierte Bel&uuml;ftung. Er befindet sich im Zentrum des 22ten Wiener Bezirkes in der </p>
-					<p style="text-align:center">Wagramer Stra&szlig;e und ist direkt mit der U1 Station Kagraner Platz zu erreichen.</p>
+					<p style="text-align:center">Unser Salon verf&uuml;gt &uuml;ber 4 Bedienungspl&auml;tze sowie 2 Waschpl&auml;tze, bietet eine moderne Ausstattung und eine klimatisierte Bel&uuml;ftung. Er befindet sich im Zentrum des 22. Wiener Bezirkes in der Wagramer Stra&szlig;e und ist direkt mit der U1 (Station Kagraner Platz) zu erreichen.</p>
 					<br>
 					<p style="text-align:center"> <img src="../Bilder/Homepage/studio4.jpg" style="width:32%;" /></p>
 					

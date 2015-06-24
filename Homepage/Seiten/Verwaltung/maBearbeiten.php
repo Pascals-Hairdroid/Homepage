@@ -127,6 +127,7 @@ if(isset($_POST['anlegen']))
 									<ul>
 										<li><a href="terminAnzeigen.php">anzeigen</a></li>
 										<li><a href="terminBearbeiten.php">bearbeiten</a></li>
+										<li><a href="statistik.php">Statistik</a></li>
 									</ul>
 								</li>
 								<li class="items">
@@ -171,9 +172,9 @@ if(isset($_POST['anlegen']))
 
 				foreach($db->getAllMitarbeiter(true) as $mitarbeiter){
 							echo umlaute_encode("<tr><td>".$mitarbeiter->getSVNr()."</td><td>".$mitarbeiter->getVorname()."</td><td>".$mitarbeiter->getNachname()."</td><td>".$mitarbeiter->getAdmin()."</td>");
-							echo "<td><a href='maUpdate.php?SVNr=".$mitarbeiter->getSVNr()."&vn=".$mitarbeiter->getVorname()."&nn=".$mitarbeiter->getNachname()."&admin=".$mitarbeiter->getAdmin()."'>Bearbeiten</a></td>";
-							echo "<td><a href='maDelete.php?&SVNr=".$mitarbeiter->getSVNr()."'>L&ouml;schen</a></td>";
-							echo "<td><a href='maBearbeiten.php?f=1SVNr=".$mitarbeiter->getSVNr()."'>Passwort zur&uuml;cksetzen</a></td>";
+							echo "<td style='width:100px;text-align:center;'><a href='maUpdate.php?SVNr=".$mitarbeiter->getSVNr()."&vn=".$mitarbeiter->getVorname()."&nn=".$mitarbeiter->getNachname()."&admin=".$mitarbeiter->getAdmin()."'> Bearbeiten </a></td>";
+							echo "<td style='width:100px;text-align:center;'><a href='maDelete.php?&SVNr=".$mitarbeiter->getSVNr()."'> L&ouml;schen&nbsp;&nbsp; </a></td>";
+							echo "<td style='width:180px;text-align:center;'><a href='maBearbeiten.php?f=1SVNr=".$mitarbeiter->getSVNr()."'> Passwort zur&uuml;cksetzen</a></td>";
 							
 							echo"</tr>";
 						}
@@ -183,9 +184,9 @@ if(isset($_POST['anlegen']))
 				echo "<td>";
 				foreach($db->getAllNoMitarbeiter() as $mitarbeiter){
 							echo umlaute_encode("<tr><td>".$mitarbeiter->getSVNr()."</td><td>".$mitarbeiter->getVorname()."</td><td>".$mitarbeiter->getNachname()."</td><td>".$mitarbeiter->getAdmin()."</td>");
-							echo "<td><a href='maUpdate.php?SVNr=".$mitarbeiter->getSVNr()."&vn=".$mitarbeiter->getVorname()."&nn=".$mitarbeiter->getNachname()."&admin=".$mitarbeiter->getAdmin()."'>Bearbeiten</a></td>";
+							echo "<td style='width:100px;text-align:center;'><a href='maUpdate.php?SVNr=".$mitarbeiter->getSVNr()."&vn=".$mitarbeiter->getVorname()."&nn=".$mitarbeiter->getNachname()."&admin=".$mitarbeiter->getAdmin()."'>Bearbeiten</a></td>";
 							echo "<td></td>";
-							echo "<td><a href='maBearbeiten.php?f=2&SVNr=".$mitarbeiter->getSVNr()."'>Mitarbeiter einstellen</a></td>";
+							echo "<td style='width:100px;text-align:center;'><a href='maBearbeiten.php?f=2&SVNr=".$mitarbeiter->getSVNr()."'>Mitarbeiter einstellen</a></td>";
 							echo"</tr>";
 						}	
 						if(isset($_GET['SVNr'])){

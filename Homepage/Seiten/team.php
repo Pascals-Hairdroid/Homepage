@@ -45,7 +45,7 @@ $db=new db_con("conf/db.php",true);?>
 											echo"<input id='password' type='password' name='passwort' placeholder='Passwort' required>";
 										echo"</fieldset>";
 										echo"<fieldset id='actions'>";
-											echo"<input type='submit' name ='submit' id='login' value='Log in'>";
+											echo"<input type='submit' name ='submit' id='submit' value='Log in'>";
 											echo"<label><a href='forgotPassword.php'> Forgot Password </a></label>";
 										echo"</fieldset>";
 									echo"</form>";
@@ -132,12 +132,12 @@ $db=new db_con("conf/db.php",true);?>
 					
 						if(in_array($ma->getSVNR().".jpg",$allebilder)){
 							echo "<div id='Profilbox'>";
-							echo "<img src='".$bildinfo['dirname']."/".$ma->getSVNR().".jpg' class='profilbild' style='width:100px;float:left;max-height:300px'>";
+							echo "<img src='".$bildinfo['dirname']."/".$ma->getSVNR().".jpg' class='profilbild' style='width:150px;float:left;max-height:300px'>";
 						
 						}
 						else {
 							echo "<div id='Profilbox'>";
-							echo "<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'style='width:100px;float:left;max-height:300px'>";
+							echo "<img src='../Bilder/Profilbilder/nopicture.jpg' class='profilbild'style='width:150px;float:left;max-height:300px'>";
 						}
 						echo umlaute_encode("<p><span class='font'>Vorname:</span> &nbsp;&nbsp;&nbsp;".$ma->getVorname()."</p>");
 						echo umlaute_encode("<p><span class='font'>Nachname: </span>".$ma->getNachname()."</p>");

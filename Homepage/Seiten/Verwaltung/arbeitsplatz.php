@@ -1,5 +1,5 @@
 <?php 
-include("../Anmeldung/authAdmin.php");
+include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
 $db=new db_con("conf/db.php",true);
 
@@ -140,6 +140,7 @@ if(isset($_GET['arbeitsplatzausstattung']))
 									<ul>
 										<li><a href="terminAnzeigen.php">anzeigen</a></li>
 										<li><a href="terminBearbeiten.php">bearbeiten</a></li>
+										<li><a href="statistik.php">Statistik</a></li>
 									</ul>
 								</li>
 								<li class="items">
@@ -233,8 +234,8 @@ if(isset($_GET['arbeitsplatzausstattung']))
 								echo umlaute_encode($aus->getName()."<br>");
 							echo "</td>";
 							
-							echo "<td><a href='aUpdate.php?Nr=".$arbeitsplatz->getNummer()."'>Bearbeiten</a></td>";
-							echo "<td><a href='aDelete.php?Nr=".$arbeitsplatz->getNummer()."'>L&ouml;schen</a></td>";
+							echo "<td style='width:100px;text-align:center;'><a href='aUpdate.php?Nr=".$arbeitsplatz->getNummer()."'>Bearbeiten</a></td>";
+							echo "<td style='width:100px;text-align:center;'><a href='aDelete.php?Nr=".$arbeitsplatz->getNummer()."'>L&ouml;schen</a></td>";
 							echo"</tr>";
 						}
 						?>

@@ -1,5 +1,7 @@
 <?php 
-include("../Anmeldung/authMitarbeiterAdmin.php");?>
+include("../Anmeldung/authMitarbeiterAdmin.php");
+include("../../include_DBA.php");
+$db=new db_con("conf/db.php",true);?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -8,43 +10,23 @@ include("../Anmeldung/authMitarbeiterAdmin.php");?>
 </head>
 <body>
 <?php
-include("../../include_DBA.php");
-$db=new db_con("conf/db.php",true);
-
-function kuUpdate($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen)
-	{
-		$db=new db_con("conf/db.php",true);
-		if($email != null){
-			$kunde=new Kunde($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen);
-			$db->kundeUpdaten($kunde);
-	
-			return true;
-		}
-		else
-			return false;
-	}
 $tempKu=$db->getKunde($_GET['Email']);
 	$vn=$tempKu->getVorname();
 	$nn=$tempKu->getNachname();
 	$telnr=$tempKu->getTelNr();
-	$freischalten=$tempKu->getFreischaltung();
-	
 	
 if(isset($_GET['submit'])){
-		$email=$_GET["Email"];
-		$vn=$_GET['vn'];
-		$nn=$_GET['nn'];
-		$telNr=$_GET['telnr'];
-		$foto=$tempKu->getFoto();
-		$interessen=$tempKu->getInteressen();	
-		$freischalten=false;
-		if(isset($_GET['rights'])){
-			if ($_GET['rights']=="on") {
-				$freischalten=true;
-			}
-		}
+		$kunde=$tempKu;
+		$kunde->setVorname($_GET['vn']);
+		$kunde->setNachname($_GET['nn']);
+		$kunde->setTelNr($_GET['telnr']);
+		if(isset($_GET['rights']))
+		$kunde->setFreischaltung(true);
+		else 
+		$kunde->setFreischaltung(false);
+			
 		
-			kuUpdate($email, $vn, $nn, $telNr, $freischalten, $foto, $interessen);
+		$db->kundeUpdaten($kunde);
 		$link="<a href='kuBearbeiten.php?f=1'>Kundenansicht</a>";
 		$erg="Kunde erfolgreich ge&auml;ndert! Hier geht es zur&uuml;ck zur Kundenansicht->".$link;
 		}		
@@ -136,6 +118,7 @@ if(isset($_GET['submit'])){
 									<ul>
 										<li><a href="terminAnzeigen.php">anzeigen</a></li>
 										<li><a href="terminBearbeiten.php">bearbeiten</a></li>
+										<li><a href="statistik.php">Statistik</a></li>
 									</ul>
 								</li>
 								<li class="items">
@@ -153,7 +136,7 @@ if(isset($_GET['submit'])){
 			<div id="textArea">
 			<table border="0">
 						<form method="get" action="">
-							<tr><td>Email:</td><td><input name="Email" type="input" class=loginField"required = "required"
+							<tr><td>Email:</td><td><input name="Email" type="input" class=loginField" readonly required = "required"
 							<?php echo "value='".$_GET['Email']."'"; ?>></p></td></tr>
 							
 							<tr><td>Vorname:</td><td><input name="vn" type="text" class="loginField"required = "required"
@@ -167,7 +150,7 @@ if(isset($_GET['submit'])){
 							
 							<tr><td>Freigeschalten:</td><td><input name="rights" type="checkbox"  class="loginField"
 							<?php 
-							if ($freischalten == 1) {
+							if ($tempKu->getFreischaltung() == 1) {
 								echo "checked";
 							}
 							?>></p></td></tr>

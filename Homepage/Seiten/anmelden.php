@@ -11,7 +11,6 @@ if(isset($_POST['submit'])){
 	$passwort = md5($_POST['passwort']);
 	$username=$_POST['username'];
 	$weiterleitung=login($username,$passwort);
-	header('Location: ../index.php');
 }
 ?>
 <!DOCTYPE html>
@@ -50,7 +49,7 @@ if(isset($_POST['submit'])){
 											echo"<input id='password' type='password' name='passwort' placeholder='Passwort' required>";
 										echo"</fieldset>";
 										echo"<fieldset id='actions'>";
-											echo"<input type='submit' name ='submit' id='login' value='Log in'>";
+											echo"<input type='submit' name ='submit' id='submit' value='Log in'>";
 											echo"<label><a href='forgotPassword.php'> Forgot Password </a></label>";
 										echo"</fieldset>";
 									echo"</form>";
