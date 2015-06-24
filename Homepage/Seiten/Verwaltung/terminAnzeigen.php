@@ -162,13 +162,13 @@ foreach($db->getAllTermin($von1, $bis1) as $termine)
 
 
 // $termin_array = $db->getAllTermin($von1, $bis1);
-$termin_array = $db->getTermineZeitstempelVonMitarbeiter($mitarbeiter, $von1, $bis1);
+$termin_array = $db->getTermineZeitstempelVonMitarbeiter($ma, $von1, $bis1);
 // 		foreach($db->getTermineVonBis($von1, $bis1) as $termine)
 	// 		{
 	// 			var_dump($termine);
 	// 		}
 
-
+var_dump($termin_array);
 
 //Tabelle in einem
 $i = 0;

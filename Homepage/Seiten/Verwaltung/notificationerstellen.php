@@ -2,7 +2,6 @@
 include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
 include("../Methoden/getBrowser.php");
-include("../Methoden/emailMe.php");
 $db=new db_con("conf/db.php",true);?>
 <!DOCTYPE html>
 <html>
@@ -37,12 +36,6 @@ $(function(){
 		
 		$werbung=new Werbung($lastelement, $_POST['titel'], $_POST['text'], new Datetime($_POST['bis']), $interessenarray);
 		$eingetragen = $db->werbungEintragen($werbung);
-	}
-	if(isset($_POST['E-Mail']))
-	{
-		foreach ($db->getAllKunde() as $kun){
-		sendEmailNotification($kun, $_POST['titel'], $_post['text'], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
-		}
 	}
 
 
@@ -168,11 +161,11 @@ $(function(){
 					Titel:<input type="text" name="titel" required="required">
 				</p>
 				<p>
-					Text:<input type="text" name="text" style="height:100px">
+					Text:<textarea rows="10" cols="20" name="text" ></textarea> <!-- style="height:100px"-->
 				</p>
 					
 				<?php if($binfo!="Google Chrome"){?>
-					<p>G&uuml;ltig bis: <input id="bis" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="<?php echo date('d-m-Y H:i');?>" type='date' name='bis'></input></p>
+					<p>Bis: &nbsp;<input id="bis" data-format="DD-MM-YYYY HH:mm" data-template="DD / MM / YYYY     HH : mm"  value="<?php echo date('d-m-Y H:i');?>" type='date' name='bis'></input></p>
 							<?php 
 							}
 							else{
@@ -185,7 +178,7 @@ $(function(){
 					Werbungsbild: <input type="file" name="fileToUpload" id="fileToUpload">
 				</p>
 				<br>
-				<p>
+
 				<?php 
 				$i=0;
 
@@ -195,15 +188,13 @@ $(function(){
 
 					echo umlaute_encode("<input type='checkbox' name='".$int->getID()."'>".$int->getBezeichnung()." </input>");
 
-					if ($i % 3 === 0) echo "</p><p>";
+					if ($i % 3 === 0) echo "<p>";
 				}
 
 				?>
-				</p>
 				<br>
 				<br>
 				<input type="submit" value="Notification ausschicken" name="submit">
-				<input type="submit" value="Notification an E-Mail verschicken" name="Email">
 			</form>
 
 
