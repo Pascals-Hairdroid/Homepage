@@ -37,6 +37,7 @@ $(function(){
 		
 		$werbung=new Werbung($lastelement, $_POST['titel'], $_POST['text'], new Datetime($_POST['bis']), $interessenarray);
 		$eingetragen = $db->werbungEintragen($werbung);
+		$erg = "Werbung wurde gespeichert!";
 	}
 	if(isset($_POST['Email']))
 	{
@@ -51,9 +52,15 @@ $(function(){
 		$werbung=new Werbung($lastelement, $_POST['titel'], $_POST['text'], new Datetime($_POST['bis']), $interessenarray);
 		$eingetragen = $db->werbungEintragen($werbung);
 		
+		//Lokales Testen
 		//foreach ($db->getAllKunde() as $kun){
-		sendEmailNotification("ket14088@spengergasse.at", $_POST['titel'], $_POST['text'], "http://www.pascals.at/v2/Bilder/Werbung/".$lastelement."_0".NK_Pfad_Werbung_Bild_ende);
+		//sendEmailNotification("ket14088@spengergasse.at", $_POST['titel'], $_POST['text'], "http://www.pascals.at/v2/Bilder/Werbung/".$lastelement."_0".NK_Pfad_Werbung_Bild_ende);
 		//}
+		
+		foreach ($db->getAllKunde() as $kun){
+		sendEmailNotification($kun->getEmail(), $_POST['titel'], $_POST['text'], "http://www.pascals.at/v2/Bilder/Werbung/".$lastelement."_0".NK_Pfad_Werbung_Bild_ende);
+		}
+		$erg = "Werbung wurde verschickt!";
 	}
 
 	
