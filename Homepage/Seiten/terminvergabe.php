@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("Anmeldung/auth.php");
 include("../include_DBA.php");
 $db=new db_con("conf/db.php",true);
