@@ -1,4 +1,6 @@
-<?php session_start();
+<?php 
+include ('Methoden/sessionTimeout.php');
+session_start();
 include("../include_DBA.php");
 $db=new db_con("conf/db.php",true);
 ?>
@@ -111,8 +113,8 @@ if(isset($_GET['web']))
       <li class="topmenu">
         <a href="Angebote.php">Angebote</a>
       </li>
-	  <li class="topmenu">
-       <a href="#"> Produkte</a>
+	  <li class="topmenu" >
+       <a href="#"  class="selected"> Produkte</a>
          <ul>
         <?php 
        	$produktkategorie=$db->getAllProduktkategorie();

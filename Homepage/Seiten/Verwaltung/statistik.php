@@ -1,4 +1,5 @@
 <?php 
+include ('../Methoden/sessionTimeout.php');
 include("../Anmeldung/authAdmin.php");
 ?>
 <!DOCTYPE html>
@@ -91,7 +92,7 @@ include("../Anmeldung/authAdmin.php");
 										<li><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
 										<li ><a href="maBearbeiten.php">Mitarbeiter bearbeiten</a></li>
 										<li ><a href="zeiten.php">Dienstzeiten</a></li>
-										<li ><a href="urlaub.php">Urlaube</a></li>
+										<li ><a href="urlaub.php">Abwesenheiten</a></li>
 									</ul>
 								</li>
 								<li class="items">
@@ -122,6 +123,7 @@ include("../Anmeldung/authAdmin.php");
 						</nav>
 				</div>
 			<div id="textArea">
+			<p>Statistik Termine</p>
 				<?php 
 				if(isset($_GET['f']))
 				{

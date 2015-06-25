@@ -1,4 +1,6 @@
-<?php session_start();
+<?php 
+include ('Methoden/sessionTimeout.php');
+session_start();
 include("../include_DBA.php");
 $db=new db_con("conf/db.php",true);
 if (isset($_SESSION['angemeldet']))

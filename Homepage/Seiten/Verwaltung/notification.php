@@ -1,4 +1,5 @@
 <?php 
+include ('../Methoden/sessionTimeout.php');
 include("../Anmeldung/authAdmin.php");
 include("../../include_DBA.php");
 $db=new db_con("conf/db.php",true);
@@ -93,7 +94,7 @@ $db=new db_con("conf/db.php",true);
 										<li><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
 										<li ><a href="maBearbeiten.php">Mitarbeiter bearbeiten</a></li>
 										<li ><a href="zeiten.php">Dienstzeiten</a></li>
-										<li ><a href="urlaub.php">Urlaube</a></li>
+										<li ><a href="urlaub.php">Abwesenheiten</a></li>
 									</ul>
 								</li>
 								<li class="items">

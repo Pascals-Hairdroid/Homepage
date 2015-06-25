@@ -1,4 +1,6 @@
-<?php session_start();
+<?php 
+include ('Methoden/sessionTimeout.php');
+session_start();
 //var_dump($_FILES);
 include("../include_DBA.php");
 $db=new db_con("conf/db.php",true);
@@ -203,7 +205,7 @@ if(isset($_GET['web']))
 							echo "<tr><td>E-Mail.:</td><td><input type='text' name='id' readonly value='".$_GET['Email']."' placeholder='".$_GET['Email']."'></td></tr>";
 							echo "<tr><td>Vorname: </td><td><input type='text' name='vn'value='".$ku->getVorname()."' placeholder='".$ku->getVorname()."'></td></tr>";
 							echo "<tr><td>Nachname: </td><td><input type='text' name='nn' value='".$ku->getNachname()."' placeholder='".$ku->getNachname()."'></td></tr>";
-							echo "<td>Nachname: </td><td><input type='text' name='tel' value='".$ku->getTelNr()."' placeholder='".$ku->getTelNr()."'></td></tr>";
+							echo "<td>Tel. Nr.: </td><td><input type='text' name='tel' value='".$ku->getTelNr()."' placeholder='".$ku->getTelNr()."'></td></tr>";
 							echo "<tr><td>Profilbild:</td><td><input type='file' name='fileToUpload' id='fileToUpload'></td></tr>";
 							
 							$i=0;

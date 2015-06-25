@@ -1,4 +1,7 @@
-<?php session_start();
+<?php 
+
+include ('Seiten/Methoden/sessionTimeout.php');
+session_start();
 include("include_DBA.php");
 $db=new db_con("conf/db.php",true);?>
 <!DOCTYPE html>
@@ -172,7 +175,7 @@ if(isset($_GET['web']))
 		<div id="hmenu">
 			<nav id="menu">
 				<ul>
-					<li><a href="index.php" class="selected">Friseurstudio</a>
+					<li><a href="#" class="selected">Friseurstudio</a>
 						<ul>
 							<li><a href="Seiten/studio.php">Das Studio</a></li>
 							<li><a href="Seiten/team.php">Unser Team</a></li>

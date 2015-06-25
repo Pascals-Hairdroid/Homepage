@@ -6,6 +6,6 @@ $haartyp=$db->getHaartyp($_GET['haartyp']);
 $dienstleistung=$db->getDienstleistung($_GET['Krzl'], $haartyp);
 $db->dienstleistungEntfernen($dienstleistung);
 
-//header('Location: dienstleistungAdd.php?f=1');
+header('Location: dienstleistungAdd.php?f=1');
 exit(0);
 ?>

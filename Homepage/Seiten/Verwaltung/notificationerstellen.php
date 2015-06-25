@@ -1,7 +1,9 @@
 <?php 
+include ('../Methoden/sessionTimeout.php');
 include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
 include("../Methoden/getBrowser.php");
+include("../Methoden/emailMe.php");
 $db=new db_con("conf/db.php",true);?>
 <!DOCTYPE html>
 <html>
@@ -36,8 +38,31 @@ $(function(){
 		
 		$werbung=new Werbung($lastelement, $_POST['titel'], $_POST['text'], new Datetime($_POST['bis']), $interessenarray);
 		$eingetragen = $db->werbungEintragen($werbung);
+		$erg = "Werbung wurde gespeichert!";
 	}
-
+	if(isset($_POST['Email']))
+	{
+		$abf = $db->query("SELECT werbung_nextval() FROM dual;");
+		//var_dump($abf, mysqli_error($db->con));
+		$lastelement=mysqli_fetch_row($abf)[0];
+		if(isset($_FILES["fileToUpload"]["name"])&&$_FILES["fileToUpload"]["name"]!=""){
+			file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Werbung_Bildupload_beginn.$lastelement.NK_Pfad_Werbung_Bild_mitte."0".NK_Pfad_Werbung_Bild_ende);
+}
+		else $file=null;
+			
+		$werbung=new Werbung($lastelement, $_POST['titel'], $_POST['text'], new Datetime($_POST['bis']), $interessenarray);
+		$eingetragen = $db->werbungEintragen($werbung);
+		
+		//Lokales Testen
+		//foreach ($db->getAllKunde() as $kun){
+		//sendEmailNotification("ket14088@spengergasse.at", $_POST['titel'], $_POST['text'], "http://www.pascals.at/v2/Bilder/Werbung/".$lastelement."_0".NK_Pfad_Werbung_Bild_ende);
+		//}
+		
+		foreach ($db->getAllKunde() as $kun){
+		sendEmailNotification($kun->getEmail(), $_POST['titel'], $_POST['text'], "http://www.pascals.at/v2/Bilder/Werbung/".$lastelement."_0".NK_Pfad_Werbung_Bild_ende);
+		}
+		$erg = "Werbung wurde verschickt!";
+	}
 
 	
 	?>
@@ -114,7 +139,7 @@ $(function(){
 										<li><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
 										<li ><a href="maBearbeiten.php">Mitarbeiter bearbeiten</a></li>
 										<li ><a href="zeiten.php">Dienstzeiten</a></li>
-										<li ><a href="urlaub.php">Urlaube</a></li>
+										<li ><a href="urlaub.php">Abwesenheiten</a></li>
 									</ul>
 								</li>
 								<li class="items">
@@ -178,33 +203,30 @@ $(function(){
 					Werbungsbild: <input type="file" name="fileToUpload" id="fileToUpload">
 				</p>
 				<br>
-
+				<p>
 				<?php 
 				$i=0;
-
+				
 				foreach ($db->getAllInteresse() as $int)
 				{
 					$i++;
 
 					echo umlaute_encode("<input type='checkbox' name='".$int->getID()."'>".$int->getBezeichnung()." </input>");
 
-					if ($i % 3 === 0) echo "<p>";
+					if ($i % 3 === 0) echo "</p><p>";
 				}
 
 				?>
 				<br>
 				<br>
-				<input type="submit" value="Notification ausschicken" name="submit">
+				<input type="submit" value="Notification speichern" name="submit">
+				<input type="submit" value="Notification und E-Mail verschicken" name="Email">
 			</form>
-
-
-
-
-
 			<?php
 			if (isset($erg))
 				echo $erg;
 			?>
+			
 		</div>
 		<div id="footer"></div>
 	</div>

@@ -1,4 +1,5 @@
 <?php 
+include ('../Methoden/sessionTimeout.php');
 include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
 $db=new db_con("conf/db.php",true);
@@ -26,17 +27,17 @@ $db=new db_con("conf/db.php",true);
 if(isset($_POST["submit2"])){
 $skillarray = array();
 $ausstattungsarray=array();
-foreach($db->getAllSkill() as $int)
+foreach($db->getAllSkill() as $skill)
 	{
-		if(isset ($_POST['s'.$int->getID()]))
-			$int = new Skill($int->getID(),$int->getBeschreibung());
-		$skillarray[]=$int;
+		if(isset ($_POST['s'.$skill->getID()])){
+			$int = new Skill($skill->getID(),$skill->getBeschreibung());
+		$skillarray[]=$skill;}
 	}
 foreach($db->getAllArbeitsplatzausstattung() as $int)
 	{
-		if(isset ($_POST['a'.$int->getID()]))
+		if(isset ($_POST['a'.$int->getID()])){
 			$int = new Arbeitsplatzausstattung($int->getID(), $int->getName());
-		$ausstattungsarray[]=$int;
+		$ausstattungsarray[]=$int;}
 	}
 	$haartyp2=$db->getHaartyp($_POST['laenge']);
 
@@ -128,7 +129,7 @@ if(isset($_GET['skill']))
 										<li><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
 										<li ><a href="maBearbeiten.php">Mitarbeiter bearbeiten</a></li>
 										<li ><a href="zeiten.php">Dienstzeiten</a></li>
-										<li ><a href="urlaub.php">Urlaube</a></li>
+										<li ><a href="urlaub.php">Abwesenheiten</a></li>
 									</ul>
 								</li>
 								<li class="items">
@@ -243,6 +244,11 @@ if(isset($_GET['skill']))
 					<?php
 						if (isset($erg))
 							echo $erg."<br />";
+						if(isset($_GET['f']))
+						{
+							if ($_GET['f']==1) echo "Dienstleistung erfolgreich gel&ouml;scht!";
+						}				
+						
 						?>
 							<table border="0">
 							
@@ -259,12 +265,6 @@ if(isset($_GET['skill']))
 						}
 						?>
 					</table>
-					<?php 
-				if(isset($_GET['f']))
-				{
-					if ($_GET['f']==1) echo "Dienstleistung erfolgreich gel&ouml;scht!";
-				}
-				?>
 			</div>
 			<div id="footer">
 </div></div>
