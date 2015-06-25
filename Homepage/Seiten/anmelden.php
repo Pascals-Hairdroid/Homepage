@@ -12,6 +12,17 @@ if(isset($_POST['submit'])){
 	$username=$_POST['username'];
 	$weiterleitung=login($username,$passwort);
 }
+
+if (isset($_SESSION['angemeldet']))
+{
+  if(isset($_SESSION['svnr']))
+    header('Location: Verwaltung/Verwaltungsmain.php');
+  else
+    header('Location: ../index.php');
+	exit(0);
+}
+
+
 ?>
 <!DOCTYPE html>
 <html>

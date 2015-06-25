@@ -29,6 +29,8 @@
 	</head>
 	<body>
 		<?php
+		
+// 		var_dump($_GET, $_POST);
 	if (isset($_SESSION['email'])){
 		$kunde=$db->getKunde($_SESSION['email']);
 		$kunde2=($kunde->getEmail());
@@ -175,6 +177,10 @@
 					unset($hackler[$key]);
 			}
 			$arraymitzeitn=$hackler[$echteHackler[0]];
+			
+			if($arraymitzeitn == null)
+				$arraymitzeitn = array();
+			
 			foreach($arraymitzeitn as $k=>$zeit){
 				$bleib=true;
 				foreach($hackler as $z)
@@ -233,6 +239,10 @@
 // 				}
 				reset($arbeitsplatzl);
 				$arraymitzeitn2=$arbeitsplatzl[key($arbeitsplatzl)];
+				
+				if($arraymitzeitn2 == null)
+					$arraymitzeitn2 = array();
+				
 				foreach($arraymitzeitn2 as $k=>$zeit){
 					$bleib=true;
 					foreach($arbeitsplatzl as $z)
@@ -274,8 +284,9 @@
 		echo "<input type='text' name='dienstleistung' value='".$dienstleistung."' hidden='true'>";
 		echo "<input type='text' name='dienstleistung2' value='".$dienstleistung2."' hidden='true'>";
 		
-
-
+// 		var_dump($hackler, $arbeitsplatzl);
+// 		var_dump("ArrayMitZeiten: ",$arraymitzeitn, "ArrayMitZeiten2: ", $arraymitzeitn2);
+		
 		echo "<table border='1' id='zeittabelle'>";
 		echo "<tr height='50px'>";
 		echo "<th> Zeit </th>";
@@ -538,7 +549,9 @@
 		echo "</div>";
 		echo "</div>";
 			
+// 		var_dump("Arbeiter: ", $alleArbeiter,"Arbeitsplätze: ", $alleArbeitsplaetze);
 		?>
+		
 		
 
 	</body> 

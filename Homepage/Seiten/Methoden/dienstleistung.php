@@ -40,7 +40,7 @@ window.onload = function () {
   echo "</td>";
   //Schneiden?
   echo "<td colspan='2'>";
-  echo "<input type='checkbox' name='schneiden' checked> Schneiden";
+  echo "<input type='checkbox' name='schneiden' value='asdf' checked> Schneiden";
   echo "</td>";
   echo "</tr>";
   
