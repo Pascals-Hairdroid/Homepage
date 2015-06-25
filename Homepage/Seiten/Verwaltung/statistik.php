@@ -122,6 +122,7 @@ include("../Anmeldung/authAdmin.php");
 						</nav>
 				</div>
 			<div id="textArea">
+			<p>Statistik Termine</p>
 				<?php 
 				if(isset($_GET['f']))
 				{
