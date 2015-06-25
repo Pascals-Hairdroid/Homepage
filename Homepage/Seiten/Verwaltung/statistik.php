@@ -1,6 +1,8 @@
 <?php 
+include_once 'statistikTermine_const.php';
 include ('../Methoden/sessionTimeout.php');
 include("../Anmeldung/authAdmin.php");
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,6 +21,7 @@ include("../Anmeldung/authAdmin.php");
 		});
 		</script>
 </head>
+<?php include 'statistikTermine.php'; ?>
 <body>
 <div id="container">
 <div id="streifen"></div>
@@ -124,12 +127,27 @@ include("../Anmeldung/authAdmin.php");
 				</div>
 			<div id="textArea">
 			<p>Statistik Termine</p>
-				<?php 
-				if(isset($_GET['f']))
-				{
-					if ($_GET['f']==1) echo "Sie haben keine Berechtigung auf den Zugriff dieser Seite!";
-				}
+				<?php
+					$admin = isset($_SESSION[L_ADMIN])?$_SESSION[L_ADMIN]:false; 
+					if(isset($_GET['f'])||!isset($_SESSION['svnr']))
+					{
+						if ($_GET['f']==1) echo "Sie haben keine Berechtigung auf den Zugriff dieser Seite!";
+					}else{
+						echo "\n<form method=\"GET\" action=\"statistik.php\"><table border=\"0\"><tr><td>Von: </td><td><input type=\"text\" name=\"".VON."\" value=\"".$von->format(FORMAT_DAY)."\"></td></tr><tr><td>Bis: </td><td><input type=\"text\" name=\"".BIS."\" value=\"".$bis->format(FORMAT_DAY)."\"></td></tr>".($admin?"<tr><td>Mitarbeiter: </td><td><input type=\"text\" name=\"".SVNR."\" value=\"".ALL_MA."\"></td></tr>":"")."<tr><td></td><td><input type=\"submit\" value=\"Generieren\"></table></form>\n";
+					}
+					if(isset($output))
+						echo "<br/>\n<br/>\n<p>".$output."</p>\n";
+					//var_dump($von, $bis);
+					//echo "<br/>\n";
+					//var_dump($auslastung,$var_dump_gewohnheiten , $gewohnheiten, $lines);
+						
 				?>
+				<br/>
+				<br/>
+				<div id="chart_kundengewohnheiten"></div>
+				<br/>
+				<br/>
+				<div id="chart_auslastung"></div>
 			</div>
 			<div id="footer">
 </div></div>
