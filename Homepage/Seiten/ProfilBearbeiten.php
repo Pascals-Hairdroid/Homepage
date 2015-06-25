@@ -1,4 +1,6 @@
-<?php session_start();
+<?php 
+include ('Methoden/sessionTimeout.php');
+session_start();
 //var_dump($_FILES);
 include("../include_DBA.php");
 $db=new db_con("conf/db.php",true);
