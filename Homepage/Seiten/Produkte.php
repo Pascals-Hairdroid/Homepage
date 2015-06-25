@@ -111,8 +111,8 @@ if(isset($_GET['web']))
       <li class="topmenu">
         <a href="Angebote.php">Angebote</a>
       </li>
-	  <li class="topmenu">
-       <a href="#"> Produkte</a>
+	  <li class="topmenu" >
+       <a href="#"  class="selected"> Produkte</a>
          <ul>
         <?php 
        	$produktkategorie=$db->getAllProduktkategorie();
