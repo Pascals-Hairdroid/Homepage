@@ -4,14 +4,16 @@ include_once '../../include_DBA.php';
 include_once 'statistikTermine_const.php';
 session_start();
 $db = new DB_Con(DB_DEFAULT_CONF_FILE, true);
-var_dump($_SESSION);
+//var_dump($_SESSION);
 try{
 	$ma=$db->getMitarbeiter($_SESSION[SVNR]);
-	if($ma != null)
-		if($ma->getAdmin())
+	if($ma != null){
+		$admin = $ma->getAdmin();
+		if($admin)
 			$svnr=isset($_GET[SVNR])?$_GET[SVNR]:ALL_MA;
 		else
 			$svnr = $ma->getSvnr();
+	}
 	else
 		throw new DB_Exception(401, "Kein Mitarbeiter zu Svnr ".$_SESSION[SVNR]." gefunden!", DB_ERR_VIEW_BAD_LOGIN);
 }catch(DB_Exception $e){
@@ -19,10 +21,10 @@ try{
 }
 //$svnr="1713270187";
 if(isset($svnr)){
-	if(isset($_GET[VON])){
+	if(isset($_GET[VON])&&$_GET[VON]!=""){
 		try{
 			$von = new DateTime($_GET[VON]);
-			if(isset($_GET[BIS]))
+			if(isset($_GET[BIS])&&$_GET[BIS]!="")
 				$bis = new DateTime($_GET[BIS]);
 			else{
 				$bis = clone $von;
@@ -33,7 +35,7 @@ if(isset($svnr)){
 		}
 	}
 	else{
-		if(isset($_GET[BIS])){
+		if(isset($_GET[BIS])&&$_GET[BIS]!=""){
 			try{
 				$bis = new DateTime($_GET[BIS]);
 				$von = clone $bis;
@@ -116,11 +118,11 @@ if(isset($svnr)){
 		}
 		$var_dump_gewohnheiten = $gewohnheiten;
 		$gewohnheiten = $gewohnheiten_anz;
-		echo "\n\n\n\n";
-		var_dump($auslastung);
-		echo "\n\n\n\n";
-		var_dump($gewohnheiten);
-		echo "\n\n\n\n";
+// 		echo "\n\n\n\n";
+// 		var_dump($auslastung);
+// 		echo "\n\n\n\n";
+// 		var_dump($gewohnheiten);
+// 		echo "\n\n\n\n";
 	}
 	echo $output;
 }

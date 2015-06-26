@@ -2,7 +2,8 @@
 include_once 'statistikTermine_const.php';
 include ('../Methoden/sessionTimeout.php');
 include("../Anmeldung/authAdmin.php");
-
+include("../Methoden/getBrowser.php");
+// var_dump($_GET, $_SESSION, $_POST);
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,6 +21,17 @@ include("../Anmeldung/authAdmin.php");
 				})
 		});
 		</script>
+		<script src="../../javascript/jquery.min.js"></script> 
+    <script src="../../javascript/moment.js"></script> 
+    <script src="../../javascript/combodate.js"></script> 
+<script type="text/javascript">
+$(function(){
+    $('#von').combodate();  
+});
+$(function(){
+    $('#bis').combodate();  
+});
+</script>
 </head>
 <?php include 'statistikTermine.php'; ?>
 <body>
@@ -128,13 +140,29 @@ include("../Anmeldung/authAdmin.php");
 			<div id="textArea">
 			<p>Statistik Termine</p>
 				<?php
-					$admin = isset($_SESSION[L_ADMIN])?$_SESSION[L_ADMIN]:false; 
-					if(isset($_GET['f'])||!isset($_SESSION['svnr']))
-					{
-						if ($_GET['f']==1) echo "Sie haben keine Berechtigung auf den Zugriff dieser Seite!";
-					}else{
-						echo "\n<form method=\"GET\" action=\"statistik.php\"><table border=\"0\"><tr><td>Von: </td><td><input type=\"text\" name=\"".VON."\" value=\"".$von->format(FORMAT_DAY)."\"></td></tr><tr><td>Bis: </td><td><input type=\"text\" name=\"".BIS."\" value=\"".$bis->format(FORMAT_DAY)."\"></td></tr>".($admin?"<tr><td>Mitarbeiter: </td><td><input type=\"text\" name=\"".SVNR."\" value=\"".ALL_MA."\"></td></tr>":"")."<tr><td></td><td><input type=\"submit\" value=\"Generieren\"></table></form>\n";
+				//var_dump($binfo);
+					if((isset($_GET['f'])&& $_GET['f']==1)||!isset($_SESSION['svnr']))
+						echo "Sie haben keine Berechtigung auf den Zugriff dieser Seite!";
+					else{	
+						echo "\n<form method=\"GET\" action=\"statistik.php\">\n<table border=\"0\">\n<tr><td>Von: </td><td><input ".($binfo!=B_OPERA&&$binfo!=B_CHROME?" id=\"von\"":"")." data-format=\"".FORMAT_DATE."\" data-template=\"".FORMAT_DATE."\" type=\"date\" name=\"".VON."\" value=\"".$von->format($binfo==B_OPERA||$binfo==B_CHROME?FORMAT_DATE_OPERA_CHROME:FORMAT_DAY)."\"></td></tr>\n<tr><td>Bis: </td><td><input ".($binfo!=B_OPERA&&$binfo!=B_CHROME?" id=\"bis\"":"")." data-format=\"".FORMAT_DATE."\" data-template=\"".FORMAT_DATE."\" type=\"date\" name=\"".BIS."\" value=\"".$bis->format($binfo==B_OPERA||$binfo==B_CHROME?FORMAT_DATE_OPERA_CHROME:FORMAT_DAY)."\"></td></tr>\n";
+						//echo "\n<form method=\"GET\" action=\"statistik.php\">\n<table border=\"0\">\n<tr><td>Von: </td><td><input ".$dateinputvon." name=\"".VON."\" value=\"".date('d-m-Y H:i')."\"></td></tr>\n<tr><td>Bis: </td><td><input ".$dateinputbis." name=\"".BIS."\" value=\"".date('d-m-Y H:i')."\"></td></tr>\n";
+								//var_dump($svnr);				
+						if($admin){
+							echo "<tr><td>Mitarbeiter: </td><td>\n<select name=\"".SVNR."\">\n<option value=\"".ALL_MA."\"".($svnr==ALL_MA?" selected >":">").SEL_ALL_MA."</option>\n";
+							try{
+								$Mitarbeiterarray=$db->getAllMitarbeiter();
+								foreach ($Mitarbeiterarray as $mitarbeiter){
+										
+									echo umlaute_encode("<option value='".$mitarbeiter->getSVNR()."'".($svnr==$mitarbeiter->getSvnr()?" selected":"").">".$mitarbeiter->getVorname()." ".$mitarbeiter->getNachname()."</option>\n");
+								}
+							}catch(DB_Exception $e){
+								$output="Fehler: ".$e->getViewmsg();
+							}
+							echo "</select>\n</td></tr>";
+						}
+						echo"<tr><td></td><td><input type=\"submit\" value=\"Generieren\"></td></tr>\n</table>\n</form>\n"; 
 					}
+					
 					if(isset($output))
 						echo "<br/>\n<br/>\n<p>".$output."</p>\n";
 					//var_dump($von, $bis);
