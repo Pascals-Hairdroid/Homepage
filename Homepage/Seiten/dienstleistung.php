@@ -130,28 +130,11 @@ if(isset($_GET['web']))
       </li>
     </ul>
   </div><?php }?>
-			<div id="wrapper">
+	
 				<div id="textArea">
-					<h2>Professioneller Haarschnitt</h2>
-					<h2>Typgerechte Beratung</h2>
-					<h2>Haarpflege f&uuml;r jeden Kopf </h2>
-					<ul style="list-style-type: disc;">
-					<li>Normal, unbehandelt</li>
-					<li>Fein</li>
-					<li>Br&uuml;chig, vorzeitiger Haarausfall</li>
-					<li>Schuppen</li>
-					<li>Sensible Kopfhaut</li>
-					<li>Trocken</li>
-					<li>Locken</li>
-					<li>Gl&auml;ttung</li>
-					<li>Farbbehandeltes Haar</li>
-					<li>Strukturgesch&auml;digtes Haar</li>
-					<li>M&auml;nner</li>
-</ul>			
+					<img class="titelbild" src="../Bilder/Homepage/dienstleistung.jpg">
 				</div>
-				<div id="werbungsbanner">
-				
-				</div>
+
 			</div>
 			<div id="footer" align = "center"  class="hide">
 				<?php

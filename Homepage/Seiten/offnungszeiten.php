@@ -131,7 +131,7 @@ $db=new db_con("conf/db.php",true);?>
   </div>
 			<div id="wrapper">
 				<div id="textArea">
-					<img class="titelbild"src="../Bilder/Homepage/zeiten.jpg">
+					<img class="titelbild" src="../Bilder/Homepage/zeiten.jpg">
 				</div>
 				<div id="werbungsbanner">
 				
