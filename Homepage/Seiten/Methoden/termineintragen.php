@@ -100,12 +100,12 @@ while ($z1 < count($hackler) && !$done)
 			if (isset ($fotoname))
 			{
 				$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, utf8_encode($dienstleistung2), $haarlaenge))[0];
-				$a = $a!="1"?mysqli_fetch_row($db->terminEintragen($date2, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge))[0]:$a;
+				$a = $a=="1"?mysqli_fetch_row($db->terminEintragen($date2, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge))[0]:$a;
 			}
 			else 
 			{
-					$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, Null, utf8_encode($dienstleistung2), $haarlaenge))[0];
-					$a = $a!="1"?mysqli_fetch_row($db->terminEintragen($date2, $mitarbeiter, $arbeitsplatz, $kunde, NULL, $dienstleistung, $haarlaenge))[0]:$a;
+				$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, Null, utf8_encode($dienstleistung2), $haarlaenge))[0];
+				$a = $a=="1"?mysqli_fetch_row($db->terminEintragen($date2, $mitarbeiter, $arbeitsplatz, $kunde, NULL, $dienstleistung, $haarlaenge))[0]:$a;
  			}
 		}
 		else 
