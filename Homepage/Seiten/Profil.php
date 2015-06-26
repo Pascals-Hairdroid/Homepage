@@ -133,7 +133,7 @@ if(isset($_GET['web']))
 			</ul>
 		</div>
 		<?php }?>
-		<div id="wrapper">
+
 			<div id="textArea">
 
 				<?php 
@@ -143,6 +143,7 @@ if(isset($_GET['web']))
 					$ma=$db->getMitarbeiter($_GET['SVNr']);
 					$bildinfo = pathinfo($ordner."/".$ma->getSVNR().".jpg");
 					
+					//Webview:
 						if(in_array($ma->getSVNR().".jpg",$allebilder)){
 								echo "<div id='Profilbox'>";
 								echo "<img src='".$bildinfo['dirname']."/".$ma->getSVNR().".jpg' class='profilbild'>";
@@ -156,8 +157,11 @@ if(isset($_GET['web']))
 								echo umlaute_encode("<p><span class='font'>Motto:</span>".$ma->getMotto()."</p>");
 								//echo "<a class='font' href='ProfilBearbeiten.php?SVNr=".$ma->getSvnr()."'>Profil bearbeiten</a>";
 								//echo "<a class='font' href='passwortAendern.php'>Passwort &auml;ndern</a>";
-}
+						}
+
+					//Homepage:
 					else{
+					//Mitarbeiter:
 						if($_SESSION['admin']==true){
 							$ma=$db->getMitarbeiter($_SESSION['svnr']);
 							$bildinfo = pathinfo($ordner."/".$ma->getSVNR().".jpg");
@@ -178,6 +182,7 @@ if(isset($_GET['web']))
 							echo "<a class='font' href='ProfilBearbeiten.php?SVNr=".$ma->getSvnr()."'>Profil bearbeiten</a>";
 							echo "<a class='font' href='passwortAendern.php'>Passwort &auml;ndern</a>";
 						}
+					//Kunde:
 						if($_SESSION['admin']==false){
 							$ku=$db->getKunde($_SESSION['email']);
 							$bildinfo = pathinfo($ku->getFoto());
@@ -195,14 +200,26 @@ if(isset($_GET['web']))
 							echo umlaute_encode("<p><span class='font'>Nachname:</span>".$ku->getNachname()."</p>");
 							echo "<a class='font' href='ProfilBearbeiten.php?Email=".$ku->getEmail()."'>Profil bearbeiten</a>";
 							echo "<a class='font' href='passwortAendern.php'>Passwort &auml;ndern</a>";
-						
+							
+							echo "<br><br><br><br>";
+						//Terminansicht:
+							echo "Termin";
+							var_dump($db->getTermineZeitstempelVonKunde($ku,new Datetime(date('2015-06-27 14:30:00'))));
+							
+							
+							foreach($db->getTermineZeitstempelVonKunde($ku,new Datetime(date(DB_FORMAT_DATETIME))) as $termine){
+							echo $termine;
+							}
+							
+							
+							
+							
 						}
 					}
 				
 					?>
 			</div>
-			<div id="werbungsbanner"></div>
-		</div>
+
 		<div id="footer" align="center" class="hide">
 			<?php
 			include("HTML/footer.html");
