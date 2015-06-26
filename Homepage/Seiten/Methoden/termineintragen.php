@@ -18,11 +18,11 @@ $alleArbeitsplaetze = $_POST["arbeitsplatz"];
 // var_dump($dienstleistung);
 // var_dump($dienstleistung2);
 
-var_dump("Haare: ", $haarlaenge);
-echo "\n\n\n\n\n";
-var_dump("DL1: ", $dienstleistung);
-echo "\n\n\n\n\n";
-var_dump("DL2: ", $dienstleistung2);
+// var_dump("Haare: ", $haarlaenge);
+// echo "\n\n\n\n\n";
+// var_dump("DL1: ", $dienstleistung);
+// echo "\n\n\n\n\n";
+// var_dump("DL2: ", $dienstleistung2);
 
 
 echo "<br> <br>";
