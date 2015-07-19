@@ -27,7 +27,7 @@ window.onload = function () {
   echo "Service: ";
   echo "</td>";
   echo "<td>";
-  echo"<select name='dienstleistung' size='1' style='display:inline-block; vertical-align:top; overflow:hidden; border:solid grey 1px;'>";
+  echo"<select name='dienstleistung' size='1' style='display:inline-block; vertical-align:top; overflow:hidden; border:solid grey 1px;' required>";
   $kuerzelArray = array();
   echo "<option style='width:17ex;'value=''> Keine Auswahl </option>";
   foreach ($db->getAllDienstleistung() as $dienstleistung)
@@ -50,7 +50,7 @@ window.onload = function () {
   echo "Haartyp: ";
   echo "</td>";
   echo "<td colspan='2'>";
-  echo"<select name='haarlaenge' size='1'>";
+  echo"<select name='haarlaenge' size='1' required>";
   echo "<option style='width:17ex;'value=''> Keine Auswahl </option>";
   foreach ($db->getAllHaartyp() as $haartyp)
   	echo umlaute_encode("<option style='width:17ex;'value='".$haartyp->getKuerzel()."'>".$haartyp->getBezeichnung()." </option>");

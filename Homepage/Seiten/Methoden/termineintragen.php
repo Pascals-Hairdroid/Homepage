@@ -28,18 +28,6 @@ $alleArbeitsplaetze = $_POST["arbeitsplatz"];
 echo "<br> <br>";
 
 
-
-// if (isset($dienstleistung2))
-// {
-// 	if($dienstleistung2 != "" && $haarlaenge = "")
-// 	{
-// 		$dlcoloration = umlaute_encode($db->getDienstleistung($dienstleistung2, new Haartyp($haarlaenge, null))->getName());
-// 	}
-// 	else
-// 		$dlcoloration = "Keine Auswahl";
-// }
-
-
 if (isset($_FILES["wunschfoto"])&& $_FILES["wunschfoto"]["tmp_name"] != "")
 {
 	$foto = $_FILES["wunschfoto"]["tmp_name"];
@@ -63,6 +51,7 @@ $hackler = array();
 
 $plätze = explode(", ", $alleArbeitsplaetze);
 $hackler = explode(", ", $alleArbeiter);
+var_dump($alleArbeiter);
 
 //var_dump($alleArbeitsplaetze, $alleArbeiter);
 
@@ -85,6 +74,7 @@ $done=false;
 while ($z1 < count($hackler) && !$done)
 {
 	$mitarbeiter = $hackler[$z1];
+// 	var_dump( $hackler[$z1]);
 // 	echo "<h1> ".var_dump($mitarbeiter)." </h1>";
 	$target = NK_Pfad_Frisur_Bildupload_beginn.$mitarbeiter.NK_Pfad_Frisur_Bild_mitte.$date->format('U').NK_Pfad_Frisur_Bild_ende;
 	$foto = NK_Pfad_Frisur_Bild_beginn.$mitarbeiter.NK_Pfad_Frisur_Bild_mitte.$date->format('U').NK_Pfad_Frisur_Bild_ende;
@@ -92,7 +82,7 @@ while ($z1 < count($hackler) && !$done)
 	while ($z2 < count($plätze) && !$done)
 	{
 		$arbeitsplatz = $plätze[$z2];
-// 		var_dump($arbeitsplatz);
+//  		var_dump($arbeitsplatz);
 		
 		if ($dienstleistung != "" && $dienstleistung2 != "")
 		{
@@ -101,6 +91,7 @@ while ($z1 < count($hackler) && !$done)
 			{
 				$a = mysqli_fetch_row($db->terminEintragen($date, $mitarbeiter, $arbeitsplatz, $kunde, $foto, utf8_encode($dienstleistung2), $haarlaenge))[0];
 				$a = $a=="1"?mysqli_fetch_row($db->terminEintragen($date2, $mitarbeiter, $arbeitsplatz, $kunde, $foto, $dienstleistung, $haarlaenge))[0]:$a;
+
 			}
 			else 
 			{
@@ -129,7 +120,8 @@ while ($z1 < count($hackler) && !$done)
 		$z2++;
 		if($a=="1")
 			$done=true;
-// 		var_dump($arbeitsplatz, $mitarbeiter);
+// 		var_dump($arbeitsplatz);
+// 		var_dump($mitarbeiter);
 	}
 	$z2 = 0;
 	$z1++;
