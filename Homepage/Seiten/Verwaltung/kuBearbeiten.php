@@ -1,4 +1,5 @@
-<?php 
+<?php
+const KUNDE_BEARBEITEN_PAGING_EPP = 20; // HIER DEN WERT FÜR PAGING EINGEBEN!
 include ('../Methoden/sessionTimeout.php');
 include("../Anmeldung/authAdmin.php");?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -109,21 +110,41 @@ include("../Anmeldung/authAdmin.php");?>
 						</nav>
 				</div>
 			<div id="textArea">
+			<br/>
+			<br/>
 				<table border="0">
 					<?php
 						include("../../include_DBA.php");
 						$db=new db_con("conf/db.php",true);
 
-						echo "<tr><td>E-Mail Adresse</td><td>Vorname</td><td>Nachname</td><td>Tel.Nr.</td><td>Freigeschaltet</td><td>";
-						
-						foreach($db->getAllKunde() as $kunde){
-							echo umlaute_encode("<tr><td>".$kunde->getEmail()."</td><td>".$kunde->getVorname()."</td><td>".$kunde->getNachname()."</td><td>".$kunde->getTelNr()."</td><td>".$kunde->getFreischaltung()."</td><td><a href='kuUpdate.php?Email=".$kunde->getEmail()."'>Bearbeiten</a>");
-				
-						}	
+						echo "<tr><td>E-Mail Adresse</td><td>Vorname</td><td>Nachname</td><td>Tel.Nr.</td><td>Freigeschaltet</td></tr>";
+						$kunden = $db->getAllKunde();
+						$kuCount = count($kunden); 
+						$pages = ceil($kuCount / KUNDE_BEARBEITEN_PAGING_EPP);
+						if(isset($_GET["page"]))
+							$page=$_GET["page"];
+						else
+							$page=1;
+						$startI = ($page-1)*KUNDE_BEARBEITEN_PAGING_EPP;
+						for($i=$startI;($i<$startI+KUNDE_BEARBEITEN_PAGING_EPP)&&($i<$kuCount);$i++){
+							$kunde=$kunden[$i];
+							echo umlaute_encode("<tr><td>".$kunde->getEmail()."</td><td>".$kunde->getVorname()."</td><td>".$kunde->getNachname()."</td><td>".$kunde->getTelNr()."</td><td>".($kunde->getFreischaltung()?"Ja":"Nein")."</td><td><a href='kuUpdate.php?Email=".$kunde->getEmail()."'>Bearbeiten</a></td></tr>")."\n";
+						}
 					?>
 					</table>
 					<br>
-					<?php 
+					<?php
+						echo "<p>\n";
+						if($page!=1)
+							echo "<a href=\"?page=".($page-1)."\">Zur&uuml;ckbl&auml;ttern</a>&nbsp;&nbsp;&nbsp;";
+						for($i=1;$i<=$pages;$i++){
+							if($i!=$page)echo "<a href=\"?page=".$i."\">".$i."</a>&nbsp;&nbsp;&nbsp;";
+							else 
+								echo "<span id=\"currentpage\">".$i."</span>&nbsp;&nbsp;&nbsp;";
+						}
+						if($page<$pages)
+							echo "<a href=\"?page=".($page+1)."\">Vorw&auml;rtsbl&auml;ttern</a>";
+						echo "</p>\n"; 
 					if($_GET['f']==1)echo "Kunde erfolgreich ver&auml;ndert!";
 					?>
 			</div>

@@ -67,7 +67,7 @@
 		{
 			foreach($dienstleistungen as $ds)
 				array_push($dienstleistungenKuerzel, $ds->getKuerzel());
-			// 			var_dump($dienstleistungenKuerzel);
+// 						var_dump($dienstleistungenKuerzel);
 		}
 		
 		
@@ -189,6 +189,7 @@
 				if(!$bleib)
 					unset($arraymitzeitn[$k]);
 			}
+			
 
 // 			var_dump($hackler);
 // 			echo "</p>";
@@ -261,6 +262,15 @@
 			}
 		}
 // 		var_dump($echteHackler,$arbeitsplatz);
+
+		if($echteHackler == null)
+		{
+			$dienstleistungenKuerzel = array();
+			$dienstleistungenKuerzel[]=$dienstleistung;
+			$echteHackler = $db->getMitarbeiterMitSkills($dienstleistungenKuerzel);
+		}
+		
+		
 		$alleArbeiter = implode(", ", $echteHackler);
 		$alleArbeitsplaetze = implode(", ", $arbeitsplatz);
 		
