@@ -30,6 +30,11 @@ $lastelement = mysqli_fetch_row($abf)[0]+1;
 <?php 
 include("../Anmeldung/login.php");
 if(isset($_POST["submit2"])){
+
+	file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Produkt_Bildupload_beginn.$lastelement.NK_Pfad_Produkt_Bild_ende,true);
+
+
+
 	$produktkat=$db->getProduktkategorie($_POST['kategorie']);
  	$produkt=new Produkt($lastelement, $_POST['name'],$_POST['hersteller'], $_POST['beschreibung'], $_POST['preis'], $_POST['bestand'], $produktkat);	
  
