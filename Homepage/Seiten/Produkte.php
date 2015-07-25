@@ -149,7 +149,12 @@ if(isset($_GET['web']))
 								echo "<div id='produktbox'>";
 								echo "<img src='".$bildinfo['dirname']."/".$prod->getID().".jpg' style='width:100px;float:left;max-height:300px'>";
 // 								echo $prod->getID()."<br>";
-								echo umlaute_encode("<br><p> Hersteller:".$prod->getHersteller()."<br> Produktname: ".$prod->getName()."<br> Beschreibung ".$prod->getBeschreibung()."</p>");
+								echo umlaute_encode("<br><p> Hersteller:".$prod->getHersteller()."<br> Produktname: ".$prod->getName()."<br> Beschreibung: ".$prod->getBeschreibung()."</p>");
+								if (isset($_SESSION["mAdmin"])){
+								if ($_SESSION['mAdmin']==true){
+								echo "<a href='prodDelete.php?id=".$prod->getID()."&kat=".$_GET['Kat']."'>Produkt entfernen</a>";
+								}
+								}
 								echo "</div>";
 								echo "<br>";
 	

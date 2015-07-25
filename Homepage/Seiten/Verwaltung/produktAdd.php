@@ -3,6 +3,11 @@ include ('../Methoden/sessionTimeout.php');
 include("../Anmeldung/authMitarbeiterAdmin.php");
 include("../../include_DBA.php");
 $db=new db_con("conf/db.php",true);
+$produkte=$db->getAllProdukt();
+
+$abf= $db->query("SELECT MAX( ID ) FROM produkte");
+$lastelement = mysqli_fetch_row($abf)[0]+1;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,8 +31,9 @@ $db=new db_con("conf/db.php",true);
 include("../Anmeldung/login.php");
 if(isset($_POST["submit2"])){
 	$produktkat=$db->getProduktkategorie($_POST['kategorie']);
- 	$produkt=new Produkt($_POST['id'], $_POST['name'],$_POST['hersteller'], $_POST['beschreibung'], $_POST['preis'], $_POST['bestand'], $produktkat);	
- 	$db->produktEintragen($produkt);
+ 	$produkt=new Produkt($lastelement, $_POST['name'],$_POST['hersteller'], $_POST['beschreibung'], $_POST['preis'], $_POST['bestand'], $produktkat);	
+ 
+  	$db->produktEintragen($produkt);
 }
 ?>
 <div id="container">
@@ -133,23 +139,18 @@ if(isset($_POST["submit2"])){
 				</div>
 			<div id="textArea">
 				<table border="0">
-						<form method="post" action="">
-							<tr><td>ID</td><td><input type="text" name="id" readonly <?php 
-							$produkte=$db->getAllProdukt();
-							$lastelement =count($produkte)+1;
-							echo $lastelement;
-							echo"value='$lastelement' placeholder='$lastelement'";
-							?>/></td></tr>
+						<form method="post" action="" enctype='multipart/form-data'>
 							<tr><td>Name</td><td><input type="text" name="name" required="required"/></td></tr>
 							<tr><td>Hersteller</td><td><input type="text" name="hersteller" required="required"/></td></tr>
 							<tr><td>Beschreibung</td><td><input type="text>" name="beschreibung" required="required"/></td></tr>
 							<tr><td>Preis</td><td><input type="text>" name="preis" required="required"/></td></tr>
 							<tr><td>Bestand</td><td><input type="text>" name="bestand" required="required"/></td></tr>
+							<tr><td>Bild</td><td><input type="file" name="fileToUpload" id='fileToUpload' required="required"/></td></tr>
 							<tr><td>Produktkategorie</td>
 							<td>
 							<?php 
-								echo"<select name='kategorie' size='1'>";
-	 							echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
+								echo"<select name='kategorie' size='1' required>";
+// 	 							echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
   								foreach ($db->getAllProduktkategorie() as $kat)
   									echo umlaute_encode("<option style='width:17ex;'value='".$kat->getKuerzel()."'>".$kat->getBezeichnung()." </option>");					
 							?>
