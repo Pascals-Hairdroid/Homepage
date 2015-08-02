@@ -31,11 +31,23 @@
 		<?php
 		
 // 		var_dump($_GET, $_POST);
-	if (isset($_SESSION['email'])){
+	if (isset($_SESSION['email']))
+	{
 		$kunde=$db->getKunde($_SESSION['email']);
-		$kunde2=($kunde->getEmail());
-		
+		$kunde2=($kunde->getEmail());	
+		$eingeloggtermitarbeiter = false;
 	}
+	else 
+	{
+		$kunde=isset($_GET["kunde"])?$_GET["kunde"]:"";
+		
+		list ($vorname, $nachname) = split(' ', $_GET["kunde"]);
+		$kundenemail = $db->getEmailPerName($vorname, $nachname);
+		$kunde2 = implode($kundenemail);
+// 		var_dump($kunde2);
+		$eingeloggtermitarbeiter = true;
+	}
+	
 	if (isset($_SESSION['svnr'])){
 		$mitarbeiter=$db->getMitarbeiter($_SESSION['svnr']);
 // 		var_dump($mitarbeiter);
@@ -518,8 +530,16 @@
 		echo "<div>";
 		echo "<a href='#close' title='Close' class='close'>X</a>";
 		echo "<form action='termineintragen.php' method='post' enctype='multipart/form-data' style='text-align:center;' name='form' onsubmit='return chkFormular()'>";
-		echo "<input type='Text' name='kunde' value='$kunde2' hidden>";
 		echo "<table border='0' style='text-align:left;'>";
+		if ($eingeloggtermitarbeiter === false)
+			echo "<input type='Text' name='kunde' value='$kunde2' hidden>";
+		else 
+		{
+			echo "<tr>";
+			echo "<td> Kunde: </td>";
+			echo "<td> <input type='Text' name='kunde' value='$kunde2'> </td>";
+			echo "</tr>";
+		}
 		echo "<tr>";
 		echo "<td> Termin: </td>";
 		echo "<td> <input type='DateTime' name='date' value='' readonly> </td>";
@@ -559,7 +579,7 @@
 		echo "</div>";
 		echo "</div>";
 			
-// 		var_dump("Arbeiter: ", $alleArbeiter,"Arbeitsplätze: ", $alleArbeitsplaetze);
+		var_dump("kunde: ",$kunde, "kunde2: ",$kunde2);
 		?>
 		
 		
