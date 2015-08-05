@@ -41,13 +41,12 @@ if(isset($_GET['web']))
 			$username=$_POST['username'];
 			$weiterleitung=login($username,$passwort);
 		}
-		
 	?>
 	<div id="container">
-<div id="streifen"></div>
-		<div id="main">
-		<div id="Loginbox" class="hide">
-					
+<div class ="hide" id="streifen"></div><div id="main">
+			<div id="Loginbox" class="hide">
+					<nav>
+						<ul>
 						<?php
 						if(!isset($_SESSION['username'])){
 							echo"<li id='login'>";
@@ -60,18 +59,20 @@ if(isset($_GET['web']))
 										echo"</fieldset>";
 										echo"<fieldset id='actions'>";
 											echo"<input type='submit' name ='submit' id='submit' value='Log in'>";
-											echo"<label><a href='../forgotPassword.php'> Forgot Password </a></label>";
+											echo"<label><a href='#'> Forgot Password </a></label>";
 										echo"</fieldset>";
 									echo"</form>";
 								}
 								else{
 									echo"<li id='login'>";
 									echo"<a href='../Anmeldung/endSession.php'>Logout</span></a>";
-									echo"<div id='login-content'>";	
+									echo"<div id='login-content'>";
+										
 								}
+									
 									?>
 								</div>                     
-							
+							</li>
 							<?php
 							if(isset($_SESSION['username'])){
 							echo"<li "; 
@@ -81,9 +82,10 @@ if(isset($_GET['web']))
 							echo"id='element'";	
 							echo"><a href='../Profil.php'>Profil</a></li>";
 							if($_SESSION['admin']==true){
-							echo"<li id='signup'><a href=' Verwaltungsmain.php'>Adminbereich</a></li>";
+							echo"<li id='signup'><a href='../../index.php'>Homepage</a></li>";
 							}
 													
+							
 							}
 							else{
 								echo"<li id='signup'>";
@@ -91,51 +93,56 @@ if(isset($_GET['web']))
 								echo"</li>";
 							}
 							?>
-					
-			</div>
+							
+						</ul>
+					</nav>
+			</div>		
 			<div id="head">
 				<?php
-					if(isset($_GET['web']))include ("../HTML/headerNoLink.html");
-			else include ("../HTML/header.html");
+					if(isset($_GET['web']))include ("../HTML/Verwaltungheader.html");
+			else include ("../HTML/Verwaltungheader.html");
 				?>
 			</div>
-			<div id="menu" class="hide">
-    <ul>
-      <li class="topmenu">
-        <a href="../../index.php">Friseurstudio</a>
-        <ul>
-          <li class="submenu"><a href="../studio.php">Das Studio</a></li>
-          <li class="submenu"><a href="../team.php">Unser Team</a></li>
-          <li class="submenu"><a href="../dienstleistung.php">Dienstleistungen</a></li>
-          <li class="submenu"><a href="../offnungszeiten.php">&Ouml;ffnungszeiten</a></li>
-          <li class="submenu"><a href="../kontakt.php">Kontakt</a></li>
-        </ul>
-      </li>
-      <li class="topmenu">
-        <a href="../terminvergabe.php" class="selected">Termine</a>        
-      </li>
-      <li class="topmenu">
-        <a href="../Angebote.php">Angebote</a>
-      </li>
-	 <li class="topmenu">
-       <a href="#"> Produkte</a>
-         <ul>
-        <?php 
-       	$produktkategorie=$db->getAllProduktkategorie();
-       	
-       	
-        	foreach ($produktkategorie as $prod){
-		
-          echo umlaute_encode(" <li class='submenu'><a href='../Produkte.php?Kat=".$prod->getKuerzel()."'>".$prod->getBezeichnung()."</a></li>");
-         }
-         ?>
-        </ul>
-      </li>
-	  <li class="topmenu">
-        <a href="Galerie.php">Galerie</a>
-      </li>
-    </ul>
-  </div>
+			<div id="hmenu">		
+					<nav id="menu" class="hide">
+							<ul>
+								<li  class="items">
+									<a href=""  class="selected">Personenverwaltung</a>
+									<ul>
+										<li><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
+										<li ><a href="maBearbeiten.php">Mitarbeiter bearbeiten</a></li>
+										<li ><a href="zeiten.php">Dienstzeiten</a></li>
+										<li ><a href="urlaub.php">Abwesenheiten</a></li>
+									</ul>
+								</li>
+								<li class="items">
+									<a href="">Studioverwaltung</a>
+									<ul>
+										<li><a href="produktAdd.php">Produkte hinzuf&uuml;gen</a></li>
+										<li><a href="dienstleistungAdd.php">Dienstleistungen bearbeiten</a></li>
+										<li><a href="arbeitsplatz.php">Arbeitspl&auml;tze bearbeiten</a></li>
+									</ul>
+								</li>
+								<li class="items">
+									<a href="">Terminverwaltung</a>
+									<ul>
+										<li><a href="terminAnzeigen.php">anzeigen</a></li>
+										<li><a href="kuTerminvergabe.php">hinzuf&uuml;gen</a></li>
+										<li><a href="kuTerminverwaltung.php">bearbeiten</a></li>
+										<li><a href="statistik.php">Statistik</a></li>
+									</ul>
+								</li>
+								<li class="items">
+									<a href="">Benachrichtigungen</a>
+									<ul>
+										<li><a href="notificationerstellen.php">erstellen</a></li>
+										<li><a href="notification.php">bearbeiten</a></li>
+									</ul>
+								</li>
+								<li class="spacer"></li>
+							</ul>
+						</nav>
+				</div>
 			<div id="wrapper">
 				<div id="textArea">
 				<br>

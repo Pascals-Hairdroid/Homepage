@@ -132,7 +132,8 @@ else $erg="Bitte f&uuml;llen Sie alle Felder aus!";
 									<a href="">Terminverwaltung</a>
 									<ul>
 										<li><a href="terminAnzeigen.php">anzeigen</a></li>
-										<li><a href="terminBearbeiten.php">bearbeiten</a></li>
+										<li><a href="kuTerminvergabe.php">hinzuf&uuml;gen</a></li>
+										<li><a href="kuTerminverwaltung.php">bearbeiten</a></li>
 										<li><a href="statistik.php">Statistik</a></li>
 									</ul>
 								</li>

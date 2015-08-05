@@ -1,50 +1,52 @@
-<?php 
+<?php
 include ('../Methoden/sessionTimeout.php');
-include("../Anmeldung/authMitarbeiterAdmin.php");
+session_start();
+include("../Anmeldung/auth.php");
 include("../../include_DBA.php");
 $db=new db_con("conf/db.php",true);
-$produkte=$db->getAllProdukt();
-
-$abf= $db->query("SELECT MAX( ID ) FROM produkte");
-$lastelement = mysqli_fetch_row($abf)[0]+1;
-
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-<link rel="stylesheet" type="text/css" href="../../css/css.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<head>
+      <title>PASCALS HAIRSTYLE</title>
+	<link rel="stylesheet" type="text/css" href="../../css/css.css">
+	<?php 
+if(isset($_GET['web']))
+	echo "<link rel='stylesheet' type='text/css' href='../../css/hide.css'>";
+?>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 		<script>
 			$(document).ready(function(){
-			$('#login-trigger').click(function() {
-				$(this).next('#login-content').slideToggle();
-				$(this).toggleClass('active');                    
-				
-				if ($(this).hasClass('active')) $(this).find('span').html('&#x25B2;')
-					else $(this).find('span').html('&#x25BC;')
-				})
-		});
+    $('#login-trigger').click(function() {
+        $(this).next('#login-content').slideToggle();
+        $(this).toggleClass('active');                    
+        
+        if ($(this).hasClass('active')) $(this).find('span').html('&#x25B2;')
+            else $(this).find('span').html('&#x25BC;')
+        })
+});
 		</script>
-</head>
-<body>
-<?php 
-include("../Anmeldung/login.php");
-if(isset($_POST["submit2"])){
+		
+<!--		
+		<meta name="MobileOptimized" content="350">
+		
 
-	file_upload($_FILES["fileToUpload"]["name"], $_FILES["fileToUpload"]["tmp_name"], NK_Pfad_Produkt_Bildupload_beginn.$lastelement.NK_Pfad_Produkt_Bild_ende,true);
-
-
-
-	$produktkat=$db->getProduktkategorie($_POST['kategorie']);
- 	$produkt=new Produkt($lastelement, $_POST['name'],$_POST['hersteller'], $_POST['beschreibung'], $_POST['preis'], $_POST['bestand'], $produktkat);	
- 
-  	$db->produktEintragen($produkt);
-}
-?>
+		<meta name="viewport" content="width=device-width, initial-scale=0.75, maximum-scale=5.0, minimum-scale=0.25, user-scalable=yes">
+-->		
+	</head>
+	<body>
+	<?php
+		include("../Anmeldung/login.php");
+		if(isset($_POST['submit'])){
+			$passwort = md5($_POST['passwort']);
+			$username=$_POST['username'];
+			$weiterleitung=login($username,$passwort);
+		}
+		
+	?>
 <div id="container">
-<div id="streifen"></div>
-<div id="main">
-<div id="Loginbox" class="hide">
+<div class ="hide" id="streifen"></div><div id="main">
+			<div id="Loginbox" class="hide">
 					<nav>
 						<ul>
 						<?php
@@ -96,18 +98,17 @@ if(isset($_POST["submit2"])){
 							
 						</ul>
 					</nav>
-			</div>							
+			</div>		
 			<div id="head">
-			<?php 
-				include ("../HTML/Verwaltungheader.html"); 
+				<?php
+					include ("../HTML/Verwaltungheader.html");
 				?>
-		
 			</div>
 			<div id="hmenu">		
 					<nav id="menu" class="hide">
 							<ul>
 								<li  class="items">
-									<a href="">Personenverwaltung</a>
+									<a href=""  class="selected">Personenverwaltung</a>
 									<ul>
 										<li><a href="kuBearbeiten.php">Kunde bearbeiten</a></li>
 										<li ><a href="maBearbeiten.php">Mitarbeiter bearbeiten</a></li>
@@ -116,7 +117,7 @@ if(isset($_POST["submit2"])){
 									</ul>
 								</li>
 								<li class="items">
-									<a href=""  class="selected">Studioverwaltung</a>
+									<a href="">Studioverwaltung</a>
 									<ul>
 										<li><a href="produktAdd.php">Produkte hinzuf&uuml;gen</a></li>
 										<li><a href="dienstleistungAdd.php">Dienstleistungen bearbeiten</a></li>
@@ -143,32 +144,24 @@ if(isset($_POST["submit2"])){
 							</ul>
 						</nav>
 				</div>
-			<div id="textArea">
-				<table border="0">
-						<form method="post" action="" enctype='multipart/form-data'>
-							<tr><td>Name</td><td><input type="text" name="name" required="required"/></td></tr>
-							<tr><td>Hersteller</td><td><input type="text" name="hersteller" required="required"/></td></tr>
-							<tr><td>Beschreibung</td><td><input type="text>" name="beschreibung" required="required"/></td></tr>
-							<tr><td>Preis</td><td><input type="text>" name="preis" required="required"/></td></tr>
-							<tr><td>Bestand</td><td><input type="text>" name="bestand" required="required"/></td></tr>
-							<tr><td>Bild</td><td><input type="file" name="fileToUpload" id='fileToUpload' required="required"/></td></tr>
-							<tr><td>Produktkategorie</td>
-							<td>
-							<?php 
-								echo"<select name='kategorie' size='1' required>";
-// 	 							echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
-  								foreach ($db->getAllProduktkategorie() as $kat)
-  									echo umlaute_encode("<option style='width:17ex;'value='".$kat->getKuerzel()."'>".$kat->getBezeichnung()." </option>");					
-							?>
-							</select></td></tr>
-							</tr>
-							<tr><td><input type="submit" value ="absenden" name="submit2"></td>
-							
-						</form>
-					</table>
+			<div id="wrapper">
+				<div id="textArea">
+				<br>
+					<?php
+					include("terminAuswahl.php")
+					?>
+					<br>
+					<iframe name="iframe" src="terminTabelle.php" style="width:100%;min-height:900px;height:1200px;padding:0px;margin:auto;" />
+				</div>
+				<div id="werbungsbanner">
+				
+				</div>
 			</div>
-			<div id="footer">
-</div></div>
-</div>			
-</body>
+			<div id="footer" align = "center">
+				<?php
+					include("../HTML/footer.html");
+				?>
+			</div>
+		</div>
+	</body>
 </html>

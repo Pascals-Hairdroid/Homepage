@@ -107,7 +107,8 @@ include("../Anmeldung/authAdmin.php");
 									<a href="">Terminverwaltung</a>
 									<ul>
 										<li><a href="terminAnzeigen.php">anzeigen</a></li>
-										<li><a href="terminBearbeiten.php">bearbeiten</a></li>
+										<li><a href="kuTerminvergabe.php">hinzuf&uuml;gen</a></li>
+										<li><a href="kuTerminverwaltung.php">bearbeiten</a></li>
 										<li><a href="statistik.php">Statistik</a></li>
 									</ul>
 								</li>

@@ -40,12 +40,14 @@
 	else 
 	{
 		$kunde=isset($_GET["kunde"])?$_GET["kunde"]:"";
-		
 		list ($vorname, $nachname) = split(' ', $_GET["kunde"]);
 		$kundenemail = $db->getEmailPerName($vorname, $nachname);
-		$kunde2 = implode($kundenemail);
+		var_dump($kundenemail);
+		if ($kundenemail != "NULL");
+			$kunde2 = implode($kundenemail);
 // 		var_dump($kunde2);
 		$eingeloggtermitarbeiter = true;
+		
 	}
 	
 	if (isset($_SESSION['svnr'])){

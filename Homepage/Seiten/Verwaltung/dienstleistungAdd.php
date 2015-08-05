@@ -40,7 +40,6 @@ foreach($db->getAllArbeitsplatzausstattung() as $int)
 		$ausstattungsarray[]=$int;}
 	}
 	$haartyp2=$db->getHaartyp($_POST['laenge']);
-
 	$dienstleistung = new Dienstleistung($_POST['kuerzl'],$haartyp2 , $_POST['name'], $_POST['einheiten'], $_POST['pause'], $skillarray, $ausstattungsarray, $_POST['group']);
 	$db->dienstleistungEintragen($dienstleistung);
 	$erg="Dienstleistung eingetragen!";
@@ -144,7 +143,8 @@ if(isset($_GET['skill']))
 									<a href="">Terminverwaltung</a>
 									<ul>
 										<li><a href="terminAnzeigen.php">anzeigen</a></li>
-										<li><a href="terminBearbeiten.php">bearbeiten</a></li>
+										<li><a href="kuTerminvergabe.php">hinzuf&uuml;gen</a></li>
+										<li><a href="kuTerminverwaltung.php">bearbeiten</a></li>
 										<li><a href="statistik.php">Statistik</a></li>
 									</ul>
 								</li>
@@ -171,7 +171,7 @@ if(isset($_GET['skill']))
 							<td>
 							<?php 
 								echo"<select name='laenge' size='1'>";
-	 							echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
+	 							// echo "<option style='width:17ex;'value='Null'> Keine Auswahl </option>";
   								foreach ($db->getAllHaartyp() as $haartyp)
   									echo "<option style='width:17ex;'value='".$haartyp->getKuerzel()."'>".$haartyp->getBezeichnung()." </option>";					
 							?>
