@@ -1,6 +1,6 @@
 <?php
-include_once(dirname(__FILE__)."\"/login.php");
-include_once(dirname(__FILE__)."\"../../PHD_DBA/conf/dba_const.php");
+include_once(dirname(__FILE__)."/login.php");
+include_once(dirname(__FILE__)."/../../PHD_DBA/conf/dba_const.php");
 $db = new DB_Con(DB_DEFAULT_CONF_FILE, true);
 if(isset($_GET[DBA_SESSION_ID])){
 	session_start($_GET[DBA_SESSION_ID]);

@@ -42,7 +42,7 @@
 		$kunde=isset($_GET["kunde"])?$_GET["kunde"]:"";
 		list ($vorname, $nachname) = split(' ', $_GET["kunde"]);
 		$kundenemail = $db->getEmailPerName($vorname, $nachname);
-		var_dump($kundenemail);
+// 		var_dump($kundenemail);
 		if ($kundenemail != "NULL");
 			$kunde2 = implode($kundenemail);
 // 		var_dump($kunde2);
@@ -581,7 +581,7 @@
 		echo "</div>";
 		echo "</div>";
 			
-		var_dump("kunde: ",$kunde, "kunde2: ",$kunde2);
+// 		var_dump("kunde: ",$kunde, "kunde2: ",$kunde2);
 		?>
 		
 		
