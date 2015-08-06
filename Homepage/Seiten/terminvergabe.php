@@ -35,7 +35,7 @@ if(isset($_GET['web']))
 	</head>
 	<body>
 	<?php
-		include("Anmeldung/login.php");
+		include("Anmeldung/relogin.php");
 		if(isset($_POST['submit'])){
 			$passwort = md5($_POST['passwort']);
 			$username=$_POST['username'];
