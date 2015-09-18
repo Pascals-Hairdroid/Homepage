@@ -1,6 +1,14 @@
 <?php
 include ('Methoden/sessionTimeout.php');
 session_start();
+if (isset($_SESSION['freigeschaltet']))
+{
+	if ($_SESSION['freigeschaltet']==false)
+	{
+		header('Location: ../index.php');
+		exit(0);
+	}
+}
 include("Anmeldung/auth.php");
 include("../include_DBA.php");
 $db=new db_con("conf/db.php",true);

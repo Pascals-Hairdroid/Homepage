@@ -51,7 +51,7 @@ $hackler = array();
 
 $plätze = explode(", ", $alleArbeitsplaetze);
 $hackler = explode(", ", $alleArbeiter);
-var_dump($alleArbeiter);
+// var_dump($alleArbeiter);
 
 //var_dump($alleArbeitsplaetze, $alleArbeiter);
 

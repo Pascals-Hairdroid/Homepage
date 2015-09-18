@@ -1,6 +1,6 @@
 <?php
 include ('../Methoden/sessionTimeout.php');
-include ('../Methoden/authAdmin.php');?>
+include ('../Anmeldung/authAdmin.php');?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 		"http://www.w3.org/TR/html4/loose.dtd">
 		<html>
@@ -124,15 +124,14 @@ $gesamt;
 include_once("../../include_DBA.php");
 $db=new db_con("conf/db.php",true);
 
-if(isset($_SESSION["svnr"])&& is_numeric($_SESSION["svnr"]))
-{
-	$ma=$db->getMitarbeiter($_SESSION["svnr"]);
-}
-else
-	echo "nope";
+	if (isset($_SESSION['svnr'])){
+		$mitarbeiter=$db->getMitarbeiter($_SESSION['svnr']);
+		$mitarbeiterSvnr=$mitarbeiter->getSvnr();
+		}
 // var_dump($_SESSION, "svnr");
-$mitarbeiter = $ma->getSvnr();
-var_dump($mitarbeiter);
+// $mitarbeiter = $ma->getSvnr();
+// var_dump($mitarbeiterSvnr);
+// echo "<br>";
 
 // Datumsvariablen Definieren
 
@@ -165,13 +164,13 @@ foreach($db->getAllTermin($von1, $bis1) as $termine)
 
 
 // $termin_array = $db->getAllTermin($von1, $bis1);
-$termin_array = $db->getTermineZeitstempelVonMitarbeiter($ma, $von1, $bis1);
+$termin_array = $db->getTermineZeitstempelVonMitarbeiter($mitarbeiter, $von1, $bis1);
 // 		foreach($db->getTermineVonBis($von1, $bis1) as $termine)
 	// 		{
 	// 			var_dump($termine);
 	// 		}
 
-var_dump($termin_array);
+// var_dump($termin_array);
 
 //Tabelle in einem
 $i = 0;

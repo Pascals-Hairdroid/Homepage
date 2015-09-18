@@ -43,16 +43,24 @@
 		list ($vorname, $nachname) = split(' ', $_GET["kunde"]);
 		$kundenemail = $db->getEmailPerName($vorname, $nachname);
 // 		var_dump($kundenemail);
-		if ($kundenemail != "NULL");
+		if ($kundenemail != "NULL" && isset($_GET["kunde"]))
 			$kunde2 = implode($kundenemail);
-// 		var_dump($kunde2);
+// 		var_dump($kunde2, $kundenemail);
 		$eingeloggtermitarbeiter = true;
+		$kundennr = $db->getNummerPerName($vorname, $nachname);
+		if ($kundennr != "NULL" && isset($_GET["kunde"]))
+		{
+// 			var_dump($kundennr);
+			$nummer = implode($kundennr);
+			echo "Kunden Tel-Nr: ".$nummer."";
+		}
 		
 	}
 	
 	if (isset($_SESSION['svnr'])){
 		$mitarbeiter=$db->getMitarbeiter($_SESSION['svnr']);
-// 		var_dump($mitarbeiter);
+		$mitarbeiterSvnr=$mitarbeiter->getSvnr();
+// 		var_dump($mitarbeiterSvnr);
 	}
 	
 		date_default_timezone_set('Europe/Vienna');

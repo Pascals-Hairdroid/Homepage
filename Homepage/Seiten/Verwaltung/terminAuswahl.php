@@ -22,9 +22,9 @@ window.onload = function () {
 	</script>   
 </head>
 <body>
-<form action="../Methoden/zeittabelle.php" method="get" id="dienstleistungFrom" target="iframe">
+<form action="terminTabelle.php" method="get" id="dienstleistungFrom" target="iframe">
  <br/>
- <br/>
+ 
  
  <?php
 
@@ -42,7 +42,7 @@ window.onload = function () {
   echo "Kunde: ";
   echo "</td>";
   echo "<td colspan='2'>";
-  echo "<input type='text' id='autocomplete' name='kunde' required>";
+  echo "<input type='text' id='autocomplete' name='kunde' >";
   echo "</td> </tr>";
   
   echo "<tr>";
@@ -50,7 +50,7 @@ window.onload = function () {
   echo "Mitarbeiter: ";
   echo "</td>";
   echo "<td colspan='2'>";
-  echo"<select name='haarlaenge' size='1' required>";
+  echo"<select name='mitarbeiter' size='1' >";
   echo "<option style='width:17ex;'value=''> Keine Auswahl </option>";
   foreach ($db->getAllMitarbeiter() as $mitarbeiter)
   	echo umlaute_encode("<option style='width:17ex;'value='".$mitarbeiter->getSvnr()."'>".$mitarbeiter->getVorname()." ".$mitarbeiter->getNachname()." </option>");
@@ -79,6 +79,9 @@ window.onload = function () {
   	echo date("o");
   	echo ">";
   }
+  
+  echo "<br><br>";
+  echo "<input type='submit' value='update'>";
   ?>
  </form>
  </body>
